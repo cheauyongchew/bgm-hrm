@@ -83,6 +83,12 @@
 			<artifactId>utilities</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>${project.groupid}</groupId>
+			<artifactId>employeeprofileservice</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 
 		<!-- JSF dependencies -->
 		<dependency>

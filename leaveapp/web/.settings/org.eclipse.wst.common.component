@@ -10,6 +10,9 @@
         <dependent-module archiveName="utilities-1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/utilities/utilities">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="employeeprofileservice-1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/employeeprofileservice/employeeprofileservice">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <dependent-module archiveName="masterdataservice-1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/masterdataservice/masterdataservice">
             <dependency-type>uses</dependency-type>
         </dependent-module>

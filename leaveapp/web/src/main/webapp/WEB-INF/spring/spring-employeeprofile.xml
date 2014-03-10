@@ -27,22 +27,14 @@
 	
 	<context:component-scan base-package="com.bean.leaveapp" />
 	
-	<bean id="leaveType" class="com.beans.leaveapp.leavetype.model.LeaveType" />
+	<bean id="address" class="com.beans.leaveapp.address.model.Address" />
 
-	<bean id="leaveTypeService" class="com.beans.leaveapp.leavetype.service.LeaveTypeServiceImpl" >
-	</bean>
-	  <bean id="employeeGrade" class="com.beans.leaveapp.employeegrade.model.EmployeeGrade" /> 
+	  <bean id="employee" class="com.beans.leaveapp.employee.model.Employee" /> 
+	  
+	  <bean id="users" class="com.beans.common.security.users.model.Users" />
 	
-	 <bean id="employeeGradeService" class="com.beans.leaveapp.employeegrade.service.EmployeeGradeServiceImpl" >
+	 <bean id="employeeService" class="com.beans.leaveapp.employee.service.EmployeeServiceImpl" >
 	 </bean>   
-	<bean id="employeeType" class="com.beans.leaveapp.employeetype.model.EmployeeType" /> 
 	
-	 <bean id="employeeTypeService" class="com.beans.leaveapp.employeetype.service.EmployeeTypeServiceImpl" >
-	 </bean>
-	 
-	 <bean id="department" class="com.beans.leaveapp.department.model.Department" /> 
-	
-	 <bean id="departmentService" class="com.beans.leaveapp.department.service.DepartmentServiceImpl" >
-	 </bean>    
 	
 </beans>
