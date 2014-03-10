@@ -1,13 +1,10 @@
 package com.beans.leaveapp.employeeGrade.service;
 
-import java.util.ArrayList;
+
 import java.util.List;
-
 import javax.annotation.Resource;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.beans.leaveapp.employeeGrade.model.EmployeeGrade;
 import com.beans.leaveapp.employeeGrade.repository.EmployeeGradeRepository;
 

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
 import com.beans.leaveapp.EmployeeGrade.model.EmployeeGradeDataModel;
@@ -108,6 +109,7 @@ public class EmployeeGradeManagementBean implements Serializable{
 			System.out.println("New name:" + selectedEmployeeGrade.getName());
 			System.out.println("ID: " + selectedEmployeeGrade.getId());
 			getEmployeeGradeService().update(selectedEmployeeGrade);
+		// RequestContext.getCurrentInstance().
 		} catch(Exception e) {
 			FacesMessage msg = new FacesMessage("Error", "Leave Type With id: " + selectedEmployeeGrade.getId() + " not found!");  
 			  
@@ -135,7 +137,9 @@ public class EmployeeGradeManagementBean implements Serializable{
 		setInsertDelete(true);
 	}
 	
-	
+	public void doResetFrom() throws EmployeeGradeNotFound {
+		
+	}
 	
 	
 }
