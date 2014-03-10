@@ -11,21 +11,40 @@
 
 <ui:define name="title">Leave Type Maintenance</ui:define>
 
+
+<!-- <h:form id="leaveTypeSearch"> -->
+
+ 
+<!-- </h:form> -->
+
+
+
 <ui:define name="content">
 		<h:form id="leaveTypeTableForm">
 
+ 
+	 
 	 	
-        <p:dataTable id="leaveTypeTable" var="leaveType0" value="#{leaveTypeMgmtBean.leaveTypeDataModel}" rowKey="#{leaveType0.id}"
-                 selection="#{leaveTypeMgmtBean.selectedLeaveType}" selectionMode="single" >
+        <p:dataTable id="leaveTypeTable" var="leaveType0" value="#{leaveTypeMgmtBean.leaveTypeDataModel}" widgetVar="leaveTypeSearch" rowKey="#{leaveType0.id}"
+                 selection="#{leaveTypeMgmtBean.selectedLeaveType}" selectionMode="single" filteredValue="#{leaveTypeMgmtBean.searchLeaveType}"  emptyMessage="No data found with given criteria" >
+        
           <p:ajax event="rowSelect" listener="#{leaveTypeMgmtBean.onRowSelect}" update=":leaveTypeDetailForm:display, :growl" oncomplete="PF('leaveTypeDialog').show()" />  
           
                     
-          <p:column id="nameHeader">
-            <f:facet name="header"> Name </f:facet>
+	 	
+        <f:facet name="header">  
+            <h:outputText  value="Search by name :"></h:outputText>
+          
+                       <h:inputText id="globalFilter"  onkeyup="leaveTypeSearch.filter()" />
+                         
+        </f:facet>   
+        
+        
+          <p:column id="nameHeader"  headerText="Name" >
             <h:outputText value="#{leaveType0.name}" />
           </p:column>
-          <p:column id="descHeader">
-            <f:facet name="header"> Description </f:facet>
+          <p:column id="descHeader" headerText="Description">
+           <!--  <f:facet name="header"> Description </f:facet> -->
             <h:outputText value="#{leaveType0.description}" />
           </p:column>
         
@@ -39,7 +58,7 @@
   </ui:define>  
   
   <ui:define name="dialog">
-      <p:dialog header="Leave Type Detail" widgetVar="leaveTypeDialog" resizable="false" id="leaveTypeDlg" >
+      <p:dialog header="Leave Type Detail" widgetVar="leaveTypeDialog" resizable="false" id="leaveTypeDlg" modal="true" >
                <h:form id="leaveTypeDetailForm">
                 <p:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
  
@@ -59,7 +78,7 @@
              </h:form>
           </p:dialog>
           
-      <p:dialog header="Create New Leave Type" widgetVar="newLeaveTypeDialog" resizable="false" id="newLeaveTypeDlg" >
+      <p:dialog header="Create New Leave Type" widgetVar="newLeaveTypeDialog" resizable="false" id="newLeaveTypeDlg" modal="true">
               <h:form id="newLeaveTypeForm">
                 <p:panelGrid id="displayNewLeaveType" columns="2" cellpadding="4" style="margin:0 auto;">
             <h:outputText value="Name :"></h:outputText>

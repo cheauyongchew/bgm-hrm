@@ -15,11 +15,12 @@ public class LeaveTypeDataModel extends ListDataModel<LeaveType> implements Sele
         super(data);
     }
     
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public LeaveType getRowData(String rowKey) {
         //In a real app, a more efficient way like a query by rowKey should be implemented to deal with huge data
         
-        List<LeaveType> leaveTypeList = (List<LeaveType>)getWrappedData();
+        List<LeaveType> leaveTypeList = (List<LeaveType>)getWrappedData();// To get object representing the data wrapped by ListDataModel  
         Integer rowKeyInt = Integer.parseInt(rowKey);
         for(LeaveType leaveType : leaveTypeList) {
             if(leaveType.getId() == rowKeyInt) {

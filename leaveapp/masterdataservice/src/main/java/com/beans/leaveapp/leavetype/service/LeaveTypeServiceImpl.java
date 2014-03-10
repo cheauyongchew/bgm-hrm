@@ -66,5 +66,16 @@ public class LeaveTypeServiceImpl implements LeaveTypeService {
 		
 		return leaveType;
 	}
+
+	@Override
+	public LeaveType rowDetails() {
+		String name1 = "PAVAN";
+		LeaveType l = leaveTypeRepository.findByName(name1);
+	//LeaveType l = new LeaveType();
+		System.out.println(l.getDescription());
+		return l;
+	}
+	
+
 	
 }

@@ -6,6 +6,23 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:pe="http://primefaces.org/ui/extensions" >
 	
+	
+<h:head>
+	
+<style>
+.ui-dialog.ui-dlgCSS-content 
+{
+     background-image: none;
+     background-color: red;
+}
+         
+</style>
+<script type="text/javascript">
+    
+</script>
+</h:head>
+	
+	 
 	<h:body>
 <ui:composition template="/templates/mainlayout.xhtml">
 
@@ -14,17 +31,17 @@
 <ui:define name="content">
 		<h:form id="employeeGradeTabelForm">
 
-		
-        <p:dataTable id="employeeGradeTabel" var="employeeGrade0" value="#{employeeGradeMgmtBean.employeeGradeDataModel}" rowKey="#{employeeGrade0.id}"
+		<p:commandButton value="Employee Search" oncomplete="PF('searchEmployeeGradeDialog').show()" icon="ui-icon-star" title="Search employee" />
+        <p:dataTable id="employeeGradeTabel" widgetVar="employeeGradeTabel" var="employeeGrade0" value="#{employeeGradeMgmtBean.employeeGradeDataModel}" rowKey="#{employeeGrade0.id}"
                  selection="#{employeeGradeMgmtBean.selectedEmployeeGrade}" selectionMode="single" >
           <p:ajax event="rowSelect" listener="#{employeeGradeMgmtBean.onRowSelect}" update=":employeeGradeDetailForm:display, :growl" oncomplete="PF('leaveTypeDialog').show()" />  
-          
+       <!--    $('body').css('background-color','green'); -->
                     
-          <p:column id="nameHeader">
+          <p:column id="nameHeader" sortBy="name">
             <f:facet name="header"> Name </f:facet>
             <h:outputText value="#{employeeGrade0.name}" />
           </p:column>
-          <p:column id="descHeader">
+          <p:column id="descHeader"  sortBy="description" >
             <f:facet name="header"> Description </f:facet>
             <h:outputText value="#{employeeGrade0.description}" />
           </p:column>
@@ -32,15 +49,18 @@
         
         </p:dataTable>
         
-        <p:commandButton value="New Employee Grade" oncomplete="PF('newLeaveTypeDialog').show()" icon="ui-icon-star" title="Creates new user"/>
+        <p:commandButton value="New Employee Grade" oncomplete="PF('newLeaveTypeDialog').show()"
+         icon="ui-icon-star" title="Creates new user"/>
+         
       </h:form>      
-      
+   <!--    $('.dlgCSS').css('background-color','red');  $('body').css('background-color','green');-->
       <p:growl id="growl" showDetail="true" life="1000"/> 
   </ui:define>  
   
   <ui:define name="dialog">
-      <p:dialog header="Employee Grade Detail" widgetVar="leaveTypeDialog" resizable="false" id="leaveTypeDlg" >
+      <p:dialog header="Employee Grade Detail" styleClass="dlgCSS" widgetVar="leaveTypeDialog" resizable="false" id="leaveTypeDlg" modal ="true">
                <h:form id="employeeGradeDetailForm">
+    
                 <p:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
  
             <h:outputText value="Name :"></h:outputText>
@@ -50,28 +70,33 @@
                         <h:inputText value="#{employeeGradeMgmtBean.selectedEmployeeGrade.description}"/>
  
                     <f:facet name="footer">
-                            <p:commandButton value="Update" update=":employeeGradeTabelForm:employeeGradeTabel"  oncomplete="PF('leaveTypeDialog').hide()" actionListener="#{employeeGradeMgmtBean.doUpdateEmployeeGrade}"/>
+                            <p:commandButton value="Update" update=":employeeGradeTabelForm:employeeGradeTabel"  oncomplete="PF('leaveTypeDialog').hide()" actionListener="#{employeeGradeMgmtBean.doUpdateEmployeeGrade}" validateClient="true"/>
                             <p:commandButton value="Delete" onclick="PF('cd').show()" oncomplete="PF('leaveTypeDialog').hide()"/>
                             
-                            
+                           <!--  $('body').css('background-color','gray');  $('body').css('background-color','gray'); -->
                     </f:facet>
                 </p:panelGrid>
              </h:form>
           </p:dialog>
           
-      <p:dialog header="Create New Employee Grade" widgetVar="newLeaveTypeDialog" resizable="false" id="newLeaveTypeDlg" >
+          
+          
+          
+      <p:dialog header="Create New Employee Grade" styleClass="dlgCSS" widgetVar="newLeaveTypeDialog" resizable="false" id="newLeaveTypeDlg"  modal ="true">
               <h:form id="newLeaveTypeForm">
                 <p:panelGrid id="displayNewLeaveType" columns="2" cellpadding="4" style="margin:0 auto;">
             <h:outputText value="Name :"></h:outputText>
-                        <p:inputText value="#{employeeGradeMgmtBean.newEmployeeGrade.name}" required="true" requiredMessage="Please Enter Name!"/>
+                        <p:inputText value="#{employeeGradeMgmtBean.newEmployeeGrade.name}" required="true" requiredMessage="Please Enter Name!"> 
+                         <f:validateLength minimum="6" maximum="15"/></p:inputText>
  
             <h:outputText value="Description :"></h:outputText>
-                        <p:inputText value="#{employeeGradeMgmtBean.newEmployeeGrade.description}"/>
+                        <p:inputText value="#{employeeGradeMgmtBean.newEmployeeGrade.description}">  <f:validateLength minimum="6" maximum="15"/></p:inputText>
  
            
                     <f:facet name="footer">
                             <p:commandButton value="Submit" update=":employeeGradeTabelForm:employeeGradeTabel"  oncomplete="PF('newLeaveTypeDialog').hide()" actionListener="#{employeeGradeMgmtBean.doCreateEmployeeGrade}"/>
-                            <p:commandButton type="reset" value="Reset"></p:commandButton>
+                            <p:commandButton  update=":employeeGradeTabelForm:employeeGradeTabel" value="Reset" oncomplete=""></p:commandButton>
+                           <!--  $('body').css('background-color','gray');   $('body').css('background-color','gray') -->
                     </f:facet>
                 </p:panelGrid>
               </h:form>
@@ -84,7 +109,8 @@
 			<p:commandButton value="No" onclick="PF('cd').hide();PF('leaveTypeDialog').show();" type="button" />
 			</h:form>
 			</p:confirmDialog>
-
+			
+			
 </ui:define>
 
 
@@ -92,6 +118,8 @@
 	
 </ui:composition>
 </h:body>
+
+
 </html>
 	
 	

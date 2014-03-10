@@ -12,5 +12,6 @@ public interface LeaveTypeRepository extends CrudRepository<LeaveType, Integer>{
 	 @Query("select l from LeaveType l where isDeleted = ?")
 	 List<LeaveType> findByisDeleted(int x);
 	
-	
+	 @Query("select l from LeaveType l where Name = ?")
+	 LeaveType findByName(String name);
 }
