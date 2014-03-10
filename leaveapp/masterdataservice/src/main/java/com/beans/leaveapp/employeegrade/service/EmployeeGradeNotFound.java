@@ -1,4 +1,4 @@
-package com.beans.leaveapp.employeeGrade.service;
+package com.beans.leaveapp.employeegrade.service;
 
 public class EmployeeGradeNotFound extends Throwable{
 

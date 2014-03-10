@@ -9,10 +9,10 @@ import javax.faces.context.FacesContext;
 import org.primefaces.event.SelectEvent;
 
 import com.beans.leaveapp.EmployeeGrade.model.EmployeeGradeDataModel;
-import com.beans.leaveapp.employeeGrade.model.EmployeeGrade;
-import com.beans.leaveapp.employeeGrade.repository.EmployeeGradeRepository;
-import com.beans.leaveapp.employeeGrade.service.EmployeeGradeNotFound;
-import com.beans.leaveapp.employeeGrade.service.EmployeeGradeService;
+import com.beans.leaveapp.employeegrade.model.EmployeeGrade;
+import com.beans.leaveapp.employeegrade.repository.EmployeeGradeRepository;
+import com.beans.leaveapp.employeegrade.service.EmployeeGradeNotFound;
+import com.beans.leaveapp.employeegrade.service.EmployeeGradeService;
 import com.beans.leaveapp.leavetype.model.LeaveType;
 import com.beans.leaveapp.leavetype.model.LeaveTypeDataModel;
 import com.beans.leaveapp.leavetype.service.LeaveTypeNotFound;

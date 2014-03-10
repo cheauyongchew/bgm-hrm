@@ -1,8 +1,8 @@
-package com.beans.leaveapp.employeeGrade.service;
+package com.beans.leaveapp.employeegrade.service;
 
 import java.util.List;
 
-import com.beans.leaveapp.employeeGrade.model.EmployeeGrade;
+import com.beans.leaveapp.employeegrade.model.EmployeeGrade;
 
 public interface EmployeeGradeService {
 	public EmployeeGrade create(EmployeeGrade employeeGrade) throws EmployeeGradeNotFound;

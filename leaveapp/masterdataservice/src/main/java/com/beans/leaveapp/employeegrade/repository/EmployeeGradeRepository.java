@@ -1,11 +1,11 @@
-package com.beans.leaveapp.employeeGrade.repository;
+package com.beans.leaveapp.employeegrade.repository;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import com.beans.leaveapp.employeeGrade.model.EmployeeGrade;
+import com.beans.leaveapp.employeegrade.model.EmployeeGrade;
 
 
 public interface EmployeeGradeRepository extends CrudRepository<EmployeeGrade, Integer> {
@@ -13,7 +13,7 @@ public interface EmployeeGradeRepository extends CrudRepository<EmployeeGrade, I
 	 @Query("select e from EmployeeGrade e where isDeleted = ?")
 	 List<EmployeeGrade> findByisDeleted(int x);
 	
-	@Query("select e from EmployeeGrade e")
+	 @Query("select e from EmployeeGrade e")
 	 List<EmployeeGrade> findAllIncludingDeleted();
 
 	

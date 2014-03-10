@@ -1,4 +1,4 @@
-package com.beans.leaveapp.employeeGrade.model;
+package com.beans.leaveapp.employeegrade.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

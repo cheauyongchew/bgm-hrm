@@ -1,4 +1,4 @@
-package com.beans.leaveapp.employeeGrade.service;
+package com.beans.leaveapp.employeegrade.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +8,8 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.beans.leaveapp.employeeGrade.model.EmployeeGrade;
-import com.beans.leaveapp.employeeGrade.repository.EmployeeGradeRepository;
+import com.beans.leaveapp.employeegrade.model.EmployeeGrade;
+import com.beans.leaveapp.employeegrade.repository.EmployeeGradeRepository;
 
 @Service
 public class EmployeeGradeServiceImpl implements EmployeeGradeService {

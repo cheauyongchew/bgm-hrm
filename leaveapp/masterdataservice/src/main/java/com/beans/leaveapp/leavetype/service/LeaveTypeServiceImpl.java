@@ -27,7 +27,7 @@ public class LeaveTypeServiceImpl implements LeaveTypeService {
 	@Override
 	@Transactional(rollbackFor=LeaveTypeNotFound.class)
 	public LeaveType delete(int id) throws LeaveTypeNotFound {
-	  LeaveType leaveType = leaveTypeRepository.findOne(id);
+		LeaveType leaveType = leaveTypeRepository.findOne(id);
 		
 		if(leaveType == null)
 			throw new LeaveTypeNotFound();
@@ -38,9 +38,7 @@ public class LeaveTypeServiceImpl implements LeaveTypeService {
 
 	@Override
 	public List<LeaveType> findAll() {
-		//List<LeaveType> resultList = (List<LeaveType>) leaveTypeRepository.findAll();
-		List<LeaveType> resultList = (List<LeaveType>) leaveTypeRepository.findByisDeleted(1);
-		System.out.println("Size: " + resultList.size());
+		List<LeaveType> resultList = (List<LeaveType>) leaveTypeRepository.findByisDeleted(0);
 		return resultList;
 	}
 

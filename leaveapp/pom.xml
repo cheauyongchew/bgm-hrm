@@ -9,6 +9,7 @@
   	<module>utilities</module>
   	<module>web</module>
   	<module>masterdataservice</module>
+  	<module>employeeprofileservice</module>
   </modules>
   <properties>
   	<spring.framework.version>4.0.0.RELEASE</spring.framework.version>
