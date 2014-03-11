@@ -238,6 +238,7 @@ public class Employee {
 	
 	@OneToMany(fetch=FetchType.LAZY, targetEntity=Address.class)
 	@JoinColumn(name="employeeid")
+	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
 	public List<Address> getAddresses() {
 		return addresses;
 	}

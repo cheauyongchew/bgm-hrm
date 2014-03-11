@@ -44,6 +44,6 @@ id="WebApp_ID" version="2.5">
     <dispatcher>FORWARD</dispatcher>
   </filter-mapping>
   <welcome-file-list>
-    <welcome-file>index.xhtml</welcome-file>
+    <welcome-file>/protected/index.jsf</welcome-file>
   </welcome-file-list>
 </web-app>

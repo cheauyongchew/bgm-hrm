@@ -38,7 +38,7 @@ public class LeaveTypeServiceImpl implements LeaveTypeService {
 
 	@Override
 	public List<LeaveType> findAll() {
-		List<LeaveType> resultList = (List<LeaveType>) leaveTypeRepository.findByisDeleted(0);
+		List<LeaveType> resultList = leaveTypeRepository.findByisDeleted(1);
 		return resultList;
 	}
 

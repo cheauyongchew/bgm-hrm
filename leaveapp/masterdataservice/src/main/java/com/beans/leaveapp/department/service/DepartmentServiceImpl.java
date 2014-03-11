@@ -40,7 +40,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
 	@Override
 	public List<Department> findAll() {
-		List<Department> resultList = departmentRepository.findByisDeleted(0);
+		List<Department> resultList = departmentRepository.findByisDeleted(1);
 		
 		
 		return resultList;

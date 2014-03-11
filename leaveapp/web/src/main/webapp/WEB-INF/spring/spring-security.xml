@@ -18,11 +18,11 @@
  
 		   users-by-username-query="
 		      select username,password, enabled 
-		      from users where username=?" 
+		      from Users where username=?" 
  
 		   authorities-by-username-query="
-		      select u.username, ur.authority from users u, userroles ur 
-		      where u.id = ur.userid and u.username =?  " 
+		      select u.username, ur.authority from Users u, UserRoles ur 
+		      where u.id = ur.userId and u.username =?  " 
  
 		/>
 	   </authentication-provider>
