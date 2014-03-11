@@ -14,11 +14,7 @@ import com.beans.leaveapp.employee.repository.EmployeeRepository;
 public class EmployeeServiceImpl implements EmployeeService {
 
 	
-	@Resource
-	EmployeeRepository employeeRepository;
 	
-	@Resource
-	AddressRepository addressRepository;
 	
 	@Override
 	public Employee create(Employee employee) {

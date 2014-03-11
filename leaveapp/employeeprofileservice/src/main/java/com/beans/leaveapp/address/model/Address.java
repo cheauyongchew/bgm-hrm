@@ -1,18 +1,24 @@
 package com.beans.leaveapp.address.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 
+import com.beans.leaveapp.employee.model.Employee;
+
 
 @Entity
-@Table(name="address")
+@Table(name="Address")
 public class Address {
 	private int id;
+	private Employee employee;
 	private String addessType;
 	private String line1;
 	private String line2;
@@ -31,6 +37,14 @@ public class Address {
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	@ManyToOne(cascade={CascadeType.ALL}, targetEntity=Employee.class)
+	public Employee getEmployee() {
+		return employee;
+	}
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
 	
 	@Column(name="addresstype", nullable=false)

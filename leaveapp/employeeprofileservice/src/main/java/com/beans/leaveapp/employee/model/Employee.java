@@ -1,7 +1,7 @@
 package com.beans.leaveapp.employee.model;
 
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,7 +25,7 @@ import com.beans.leaveapp.employeegrade.model.EmployeeGrade;
 import com.beans.leaveapp.employeetype.model.EmployeeType;
 
 @Entity
-@Table(name="employee")
+@Table(name="Employee")
 public class Employee {
 
 	private int id;
@@ -50,7 +50,7 @@ public class Employee {
 	private Date resignationDate;
 	private boolean isDeleted;
 	private boolean isResigned;
-	private Set<Address> addresses;
+	private List<Address> addresses;
 	
 	@Id
 	@GeneratedValue
@@ -235,11 +235,11 @@ public class Employee {
 		this.isResigned = isResigned;
 	}
 	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="address")
-	public Set<Address> getAddresses() {
+	@OneToMany(fetch=FetchType.LAZY, targetEntity=Address.class)
+	public List<Address> getAddresses() {
 		return addresses;
 	}
-	public void setAddresses(Set<Address> addresses) {
+	public void setAddresses(List<Address> addresses) {
 		this.addresses = addresses;
 	}
 	

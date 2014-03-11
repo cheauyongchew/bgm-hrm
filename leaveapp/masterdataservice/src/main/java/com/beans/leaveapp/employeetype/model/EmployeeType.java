@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Type;
 
 @Entity
-@Table(name="employeetype")
+@Table(name="EmployeeType")
 public class EmployeeType {
 	private int id;
 	private String name;

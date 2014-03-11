@@ -10,7 +10,7 @@ import org.hibernate.annotations.Type;
 
 
 @Entity
-@Table(name="leavetype")
+@Table(name="LeaveType")
 public class LeaveType {
 	private int id;
 	private String name;
