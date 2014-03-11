@@ -30,11 +30,50 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
  
   <managed-bean>
  	<managed-bean-name>employeeGradeMgmtBean</managed-bean-name>
- 	<managed-bean-class>com.beans.leaveapp.EmployeeGrade.bean.EmployeeGradeManagementBean</managed-bean-class>
+ 	<managed-bean-class>com.beans.leaveapp.employeegrade.bean.EmployeeGradeManagementBean</managed-bean-class>
  	<managed-bean-scope>view</managed-bean-scope>
  	<managed-property>
  		<property-name>employeeGradeService</property-name>
  		<value>#{employeeGradeService}</value>
+ 	</managed-property>
+ </managed-bean> 
+ 
+ <managed-bean>
+ 	<managed-bean-name>employeeGradeListBean</managed-bean-name>
+ 	<managed-bean-class>com.beans.leaveapp.masterdata.bean.EmployeeGradeListBean</managed-bean-class>
+ 	<managed-bean-scope>session</managed-bean-scope>
+ 	<managed-property>
+ 		<property-name>employeeGradeService</property-name>
+ 		<value>#{employeeGradeService}</value>
+ 	</managed-property>
+ </managed-bean>
+ 
+ <managed-bean>
+ 	<managed-bean-name>employeeTypeListBean</managed-bean-name>
+ 	<managed-bean-class>com.beans.leaveapp.masterdata.bean.EmployeeTypeListBean</managed-bean-class>
+ 	<managed-bean-scope>session</managed-bean-scope>
+ 	<managed-property>
+ 		<property-name>employeeTypeService</property-name>
+ 		<value>#{employeeTypeService}</value>
+ 	</managed-property>
+ </managed-bean>  
+ 
+ <managed-bean>
+ 	<managed-bean-name>departmentListBean</managed-bean-name>
+ 	<managed-bean-class>com.beans.leaveapp.masterdata.bean.DepartmentListBean</managed-bean-class>
+ 	<managed-bean-scope>session</managed-bean-scope>
+ 	<managed-property>
+ 		<property-name>departmentService</property-name>
+ 		<value>#{departmentService}</value>
+ 	</managed-property>
+ </managed-bean> 
+ <managed-bean>
+ 	<managed-bean-name>employeeProfileMgmtBean</managed-bean-name>
+ 	<managed-bean-class>com.beans.leaveapp.employeeprofile.bean.EmployeeProfileManagementBean</managed-bean-class>
+ 	<managed-bean-scope>view</managed-bean-scope>
+ 	<managed-property>
+ 		<property-name>employeeService</property-name>
+ 		<value>#{employeeService}</value>
  	</managed-property>
  </managed-bean> 
  <managed-bean>

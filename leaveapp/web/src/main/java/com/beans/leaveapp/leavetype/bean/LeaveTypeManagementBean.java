@@ -88,6 +88,7 @@ public class LeaveTypeManagementBean implements Serializable{
 	}
 	
 	public void doCreateLeaveType() {
+		newLeaveType.setDeleted(false);
 		getLeaveTypeService().create(newLeaveType);
 		setInsertDelete(true);
 	}
@@ -123,7 +124,6 @@ public class LeaveTypeManagementBean implements Serializable{
     }  
 	
 	public void doDeleteLeaveType() {
-		this.getSelectedRowDetails();
 		try {
 			getLeaveTypeService().delete(selectedLeaveType.getId());
 		} catch(LeaveTypeNotFound e) {
@@ -143,12 +143,7 @@ public class LeaveTypeManagementBean implements Serializable{
 		return insertDelete;
 	}
 	
-	
-	public List<LeaveType> getSelectedRowDetails(){
-		getLeaveTypeService().rowDetails();
-		return leaveTypeList;
-		 
-	}
+
 	
 	
 } 

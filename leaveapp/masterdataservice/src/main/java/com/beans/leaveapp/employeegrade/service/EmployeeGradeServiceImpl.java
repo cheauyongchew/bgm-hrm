@@ -27,25 +27,25 @@ public class EmployeeGradeServiceImpl implements EmployeeGradeService {
 	
 	@Override
 	@Transactional
-	public EmployeeGrade deleted(int id) {
+	public EmployeeGrade delete(int id) throws EmployeeGradeNotFound{
 		
 		EmployeeGrade employeeGrade = employeeGradeRepository.findOne(id);
-		if(employeeGrade != null) {
-			 employeeGrade.setDeleted(false);
+		if(employeeGrade != null) 
+			throw new EmployeeGradeNotFound();
 			
-			System.out.println(employeeGrade.isDeleted());
 			
-			employeeGradeRepository.save(employeeGrade);
+		employeeGrade.setDeleted(true);
+			
 		
-			 return employeeGrade;
-		}
-		return null;
+		employeeGradeRepository.save(employeeGrade);
+		
+		return employeeGrade;
+		
 	}
 
 	@Override
-	@Transactional
 	public List<EmployeeGrade> findAll()  {
-		 List<EmployeeGrade> ref = employeeGradeRepository.findByisDeleted(1);
+		 List<EmployeeGrade> ref = employeeGradeRepository.findByisDeleted(0);
 		 System.out.println("Size: " +ref.size());
 		 return ref;
 		

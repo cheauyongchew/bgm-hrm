@@ -51,7 +51,7 @@
         
         </p:dataTable>
         
-        <p:commandButton value="New Leave Type" oncomplete="PF('newLeaveTypeDialog').show()" icon="ui-icon-star" title="Creates new user"/>
+        <p:commandButton value="New Leave Type" oncomplete="PF('newLeaveTypeDialog').show()" icon="ui-icon-star" title="Creates new leave type"/>
       </h:form>      
       
       <p:growl id="growl" showDetail="true" life="1000"/> 
@@ -96,7 +96,7 @@
               </h:form>
           </p:dialog>
           
-          <p:confirmDialog message="Are you sure?" header="Deleting employee grade" 
+          <p:confirmDialog message="Are you sure?" header="Deleting leave type" 
           	severity="alert" widgetVar="cd">	
 			<h:form>
 			<p:commandButton value="Yes" actionListener="#{leaveTypeMgmtBean.doDeleteLeaveType}" update=":leaveTypeTableForm:leaveTypeTable" oncomplete="PF('cd').hide();"/>

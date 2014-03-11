@@ -1,4 +1,4 @@
-package com.beans.leaveapp.EmployeeGrade.model;
+package com.beans.leaveapp.employeegrade.model;
 
 import java.util.List;
 

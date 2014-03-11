@@ -31,14 +31,14 @@ public class LeaveTypeServiceImpl implements LeaveTypeService {
 		
 		if(leaveType == null)
 			throw new LeaveTypeNotFound();
-		leaveType.setDeleted(false);
+		leaveType.setDeleted(true);
 		leaveTypeRepository.save(leaveType);
 		return leaveType;
 	}
 
 	@Override
 	public List<LeaveType> findAll() {
-		List<LeaveType> resultList = leaveTypeRepository.findByisDeleted(1);
+		List<LeaveType> resultList = leaveTypeRepository.findByisDeleted(0);
 		return resultList;
 	}
 
@@ -65,15 +65,6 @@ public class LeaveTypeServiceImpl implements LeaveTypeService {
 			throw new LeaveTypeNotFound();
 		
 		return leaveType;
-	}
-
-	@Override
-	public LeaveType rowDetails() {
-		String name1 = "PAVAN";
-		LeaveType l = leaveTypeRepository.findByName(name1);
-	//LeaveType l = new LeaveType();
-		System.out.println(l.getDescription());
-		return l;
 	}
 	
 

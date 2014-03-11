@@ -44,7 +44,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public List<Employee> findAll() {
-		List<Employee> resultList = employeeRepository.findByisDeleted(1);
+		List<Employee> resultList = employeeRepository.findByisDeleted(0);
 		return resultList;
 	}
 	

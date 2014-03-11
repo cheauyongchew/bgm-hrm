@@ -38,7 +38,7 @@ public class EmployeeTypeServiceImpl implements EmployeeTypeService {
 
 	@Override
 	public List<EmployeeType> findAll() {
-		List<EmployeeType> resultList = employeeTypeRepository.findByisDeleted(1);
+		List<EmployeeType> resultList = employeeTypeRepository.findByisDeleted(0);
 		return resultList;
 	}
 
