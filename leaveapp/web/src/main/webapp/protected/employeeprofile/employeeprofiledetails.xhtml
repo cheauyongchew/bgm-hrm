@@ -147,7 +147,7 @@
            			
            			
                     <f:facet name="footer">
-                            <p:commandButton value="Submit" update=":employeeTableForm:employeeTable"  oncomplete="PF('newEmployeeDialog').hide()" actionListener="#{employeeProfileMgmtBean.doCreateEmployee}"/>
+                            <p:commandButton value="Submit" actionListener="#{employeeProfileMgmtBean.doCreateEmployee}"/>
                             <p:commandButton type="reset" value="Reset"></p:commandButton>
                     </f:facet>
                 </p:panelGrid>

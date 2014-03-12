@@ -90,6 +90,8 @@ public class EmployeeProfileManagementBean implements Serializable{
 	}
 	
 	public void doCreateEmployee() {
+		newEmployee.setDeleted(false);
+		newEmployee.setResigned(false);
 		getEmployeeService().create(newEmployee);
 		setInsertDelete(true);
 	}

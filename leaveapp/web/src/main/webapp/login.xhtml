@@ -11,6 +11,8 @@
 </h:head>
 
 <h:body>
+
+
     <div id="loginHeader">
 	   <p:graphicImage name="logo.png" library="images"/>
        <h1>HRM APPLICATION</h1> 
@@ -38,50 +40,6 @@
                 </f:facet>              
             </p:panelGrid>              
         </h:form> 	
-    </div>
-</h:body>
-</html>
-background-color:#b0c4de;
-}
-</style>
-</h:head>
-
-<h:body>
-
-
-	<div id="header">
-		<div class="wrapper">
-		<h:panelGrid columns="2" cellpadding="0">
-	  <h:link outcome="/protected/index">
-	  	<p:graphicImage name="logo.png" library="images"></p:graphicImage>
-	  </h:link>
-	  <h1>Leave Application</h1>
-	</h:panelGrid>
-			
-		</div>
-		
-		
-	</div>
-    <div id="container">
-    	<h:form id="loginForm" prependId="false">
-    	
-        	<p:growl id="growl" showDetail="true" life="3000" /> 
-            <p:panelGrid columns="2"> 
-            <f:facet name="header">Login</f:facet> 
-                <h:outputLabel for="j_username" value="Username: " />  
-                <h:inputText id="j_username" required="true" requiredMessage="Please enter username"/>  
-                <h:outputLabel for="j_password" value="Password: " />  
-                <h:inputSecret id="j_password" required="true" requiredMessage="Please enter password"/>  
-				 
-				
-				<h:outputLabel for="_spring_security_remember_me" value="Remember me: " />
-    			<h:selectBooleanCheckbox id="_spring_security_remember_me" />
-    			
-    			<f:facet name="footer"><h:commandButton id="loginButton" value="Login" action="#{authenticationBean.doLogin}" /></f:facet>
-    			 
-            </p:panelGrid>  
-        </h:form>
-    	
     </div>
 </h:body>
 </html>
