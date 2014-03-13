@@ -20,7 +20,7 @@ import com.beans.leaveapp.employee.model.Employee;
 public class Address {
 	private int id;
 	private Employee employee;
-	private String addessType;
+	private String addressType;
 	private String line1;
 	private String line2;
 	private String line3;
@@ -40,7 +40,7 @@ public class Address {
 		this.id = id;
 	}
 	
-	@ManyToOne(cascade={CascadeType.ALL}, targetEntity=Employee.class)
+	@ManyToOne(targetEntity=Employee.class)
 	@JoinColumn(name="employeeid")
 	public Employee getEmployee() {
 		return employee;
@@ -50,11 +50,11 @@ public class Address {
 	}
 	
 	@Column(name="addresstype", nullable=false)
-	public String getAddessType() {
-		return addessType;
+	public String getAddressType() {
+		return addressType;
 	}
-	public void setAddessType(String addessType) {
-		this.addessType = addessType;
+	public void setAddressType(String addessType) {
+		this.addressType = addessType;
 	}
 	
 	@Column(name="line1", nullable=true)

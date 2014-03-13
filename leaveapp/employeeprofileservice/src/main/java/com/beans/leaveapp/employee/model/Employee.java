@@ -1,5 +1,6 @@
 package com.beans.leaveapp.employee.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class Employee {
 	private Date resignationDate;
 	private boolean isDeleted;
 	private boolean isResigned;
-	private List<Address> addresses;
+	private List<Address> addresses = new ArrayList<Address>();
 	
 	@Id
 	@GeneratedValue
@@ -238,7 +239,6 @@ public class Employee {
 	
 	@OneToMany(fetch=FetchType.LAZY, targetEntity=Address.class)
 	@JoinColumn(name="employeeid")
-	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
 	public List<Address> getAddresses() {
 		return addresses;
 	}

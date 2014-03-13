@@ -51,4 +51,19 @@ public class Department {
 		this.isDeleted = isDeleted;
 	}
 	
+	public boolean equals(Object other)
+	{
+	    return other instanceof Department && id == ((Department) other).getId();
+	}
+
+	public int hashCode()
+	{
+	    return this.getClass().hashCode();
+	}
+
+	public String toString()
+	{
+	    return "Department[" + getId() + "," + getName() + "]";
+	}
+	
 }

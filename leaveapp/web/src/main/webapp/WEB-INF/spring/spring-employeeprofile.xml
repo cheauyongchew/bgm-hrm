@@ -17,6 +17,17 @@
 	  <bean id="users" class="com.beans.common.security.users.model.Users" />
 	
 	 <bean id="employeeService" class="com.beans.leaveapp.employee.service.EmployeeServiceImpl" >
+	 	<property name="departmentService" >
+			<ref bean="departmentService"/>
+		</property>
+		
+		<property name="employeeGradeService" >
+			<ref bean="employeeGradeService"/>
+		</property>
+		
+		<property name="employeeTypeService" >
+			<ref bean="employeeTypeService"/>
+		</property>
 	 </bean>   
 	
 	

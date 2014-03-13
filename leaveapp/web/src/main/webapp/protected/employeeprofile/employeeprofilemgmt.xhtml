@@ -52,7 +52,7 @@
         
         </p:dataTable>
         
-        <p:commandButton value="New Employee" oncomplete="PF('newEmployeeDialog').show()" icon="ui-icon-star" title="Creates new employee"/>
+        <p:commandButton value="New Employee" actionListener="#{employeeProfileMgmtBean.setEmployeeCreation(true)}" oncomplete="PF('newEmployeeDialog').show()" icon="ui-icon-star" title="Creates new employee"/>
       </h:form>      
       
       <p:growl id="growl" showDetail="true" life="1000"/> 
