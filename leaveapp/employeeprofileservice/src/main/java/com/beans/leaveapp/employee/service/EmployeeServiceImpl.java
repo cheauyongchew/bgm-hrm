@@ -1,6 +1,7 @@
 package com.beans.leaveapp.employee.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -115,7 +116,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public Employee createEmployee(Employee employee, int employeeGradeId,
-			int employeeTypeId, int departmentId, Users users) {
+			int employeeTypeId, int departmentId, Users users, HashMap<Integer, Address> newAddressMap) {
 		try {
 			EmployeeGrade employeeGrade = employeeGradeService.findById(employeeGradeId);
 			EmployeeType employeeType = employeeTypeService.findById(employeeTypeId);
@@ -127,14 +128,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 			employee.setDeleted(false);
 			employee.setResigned(false);
 			
-			List<Address> addressList = employee.getAddresses();
-			
-			employee.setAddresses(null);
 			
 			Employee newEmployee = create(employee);
 			
-			if(addressList.size() > 0) {
-				Iterator<Address> addressIterator = addressList.iterator();
+			if(newAddressMap.size() > 0) {
+				Iterator<Address> addressIterator = newAddressMap.values().iterator();
 				while(addressIterator.hasNext()) {
 					Address currentAddress = addressIterator.next();
 					currentAddress.setId(0);

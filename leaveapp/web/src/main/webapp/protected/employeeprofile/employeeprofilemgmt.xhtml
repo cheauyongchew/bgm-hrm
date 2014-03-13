@@ -28,7 +28,7 @@
         <p:dataTable id="employeeTable" var="employee0" value="#{employeeProfileMgmtBean.employeeDataModel}" widgetVar="employeeSearch" rowKey="#{employee0.id}"
                  selection="#{employeeProfileMgmtBean.selectedEmployee}" selectionMode="single" filteredValue="#{employeeProfileMgmtBean.searchEmployee}"  emptyMessage="No data found with given criteria" >
         
-          <p:ajax event="rowSelect" listener="#{employeeProfileMgmtBean.onRowSelect}" update=":employeeDetailForm:display, :growl" oncomplete="PF('employeeDialog').show()" />  
+          <p:ajax event="rowSelect" listener="#{employeeProfileMgmtBean.onRowSelect}" oncomplete="PF('employeeDialog').show()" />  
           
                     
 	 	
@@ -60,19 +60,7 @@
   
   <ui:define name="dialog">
       <p:dialog header="Employee Detail" widgetVar="employeeDialog" resizable="false" id="employeeDlg" modal="true" >
-               <h:form id="employeeDetailForm">
-                <p:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
- 
-            
- 
-                    <f:facet name="footer">
-                            <p:commandButton value="Update" update=":employeeTableForm:employeeTable"  oncomplete="PF('employeeDialog').hide()" actionListener="#{employeeProfileMgmtBean.doUpdateEmployee}"/>
-                            <p:commandButton value="Delete" onclick="PF('cd').show()" oncomplete="PF('employeeDialog').hide()"/>
-                            
-                            
-                    </f:facet>
-                </p:panelGrid>
-             </h:form>
+               <ui:include src="employeeprofileupdatedetails.xhtml" /> 
           </p:dialog>
           
       <p:dialog header="Create New Employee" widgetVar="newEmployeeDialog" resizable="false" id="newEmployeeDlg" modal="true">
@@ -86,6 +74,8 @@
 			<p:commandButton value="No" onclick="PF('cd').hide();PF('employeeDialog').show();" type="button" />
 			</h:form>
 			</p:confirmDialog>
+			
+			
 
 </ui:define>
 

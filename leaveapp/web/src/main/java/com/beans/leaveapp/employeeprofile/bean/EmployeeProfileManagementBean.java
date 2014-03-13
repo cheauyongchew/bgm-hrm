@@ -1,6 +1,9 @@
 package com.beans.leaveapp.employeeprofile.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -29,6 +32,7 @@ public class EmployeeProfileManagementBean implements Serializable{
 	private boolean insertDeleteAddress = false;
 	private List<Employee> searchEmployee;
 	private AddressDataModel newAddressDataModel;
+	private AddressDataModel addressDataModel;
 	private Address selectedAddress = new Address();
 	private String page = "details";
 	private int selectedDepartment;
@@ -39,6 +43,8 @@ public class EmployeeProfileManagementBean implements Serializable{
 	private String addressOperation = "Create";
 	private String selectedAddressType = "Permanent";
 	private boolean isEmployeeCreation = false;
+	
+	private HashMap<Integer, Address> newAddressMap = new HashMap<Integer, Address>();
 	
 	
 	public boolean isEmployeeCreation() {
@@ -123,10 +129,25 @@ public class EmployeeProfileManagementBean implements Serializable{
 	
 	public AddressDataModel getNewAddressDataModel() {
 		if(newAddressDataModel == null || insertDeleteAddress == true) {
-			newAddressDataModel = new AddressDataModel(newEmployee.getAddresses());
+			newAddressDataModel = new AddressDataModel(new ArrayList<Address>(newAddressMap.values()));
+			insertDeleteAddress = false;
 		}
 		
 		return newAddressDataModel;
+	}
+	public void setAddressDataModel(AddressDataModel addressDataModel) {
+		this.addressDataModel = addressDataModel;
+	}
+	
+	public AddressDataModel getAddressDataModel() {
+		if(addressDataModel == null || insertDeleteAddress == true) {
+			List<Address> existingAddressList = selectedEmployee.getAddresses();
+			existingAddressList.addAll(newAddressMap.values());
+			addressDataModel = new AddressDataModel(existingAddressList);
+			insertDeleteAddress = false;
+		}
+		
+		return addressDataModel;
 	}
 	public void setNewAddressDataModel(AddressDataModel newAddressDataModel) {
 		this.newAddressDataModel = newAddressDataModel;
@@ -143,7 +164,7 @@ public class EmployeeProfileManagementBean implements Serializable{
 	public void doCreateEmployee() {
 		newEmployee.setDeleted(false);
 		newEmployee.setResigned(false);
-		getEmployeeService().createEmployee(newEmployee, selectedEmployeeGrade, selectedEmployeeType, selectedDepartment, users);
+		getEmployeeService().createEmployee(newEmployee, selectedEmployeeGrade, selectedEmployeeType, selectedDepartment, users, newAddressMap);
 		setInsertDelete(true);
 	}
 	
@@ -152,6 +173,9 @@ public class EmployeeProfileManagementBean implements Serializable{
 	}
 	public void setSelectedEmployee(Employee selectedEmployee) {
 		this.selectedEmployee = selectedEmployee;
+		this.selectedEmployeeType = this.selectedEmployee.getEmployeeType().getId();
+		this.selectedEmployeeGrade = this.selectedEmployee.getEmployeeGrade().getId();
+		this.selectedDepartment = this.selectedEmployee.getDepartment().getId();
 	}
 	
 	public Address getSelectedAddress() {
@@ -170,7 +194,7 @@ public class EmployeeProfileManagementBean implements Serializable{
 			System.out.println("ID: " + selectedEmployee.getId());
 			getEmployeeService().update(selectedEmployee);
 		} catch(EmployeeNotFound e) {
-			FacesMessage msg = new FacesMessage("Error", "Leave Type With id: " + selectedEmployee.getId() + " not found!");  
+			FacesMessage msg = new FacesMessage("Error", "Employee With id: " + selectedEmployee.getId() + " not found!");  
 			  
 	        FacesContext.getCurrentInstance().addMessage(null, msg);  
 		}
@@ -179,14 +203,13 @@ public class EmployeeProfileManagementBean implements Serializable{
 	public void onRowSelect(SelectEvent event) {  
 		setSelectedEmployee((Employee) event.getObject());
 		setEmployeeCreation(false);
-        FacesMessage msg = new FacesMessage("Leave Type Selected", selectedEmployee.getName());  
         
-        FacesContext.getCurrentInstance().addMessage(null, msg);  
     } 
 	
 	public void onAddressRowSelect(SelectEvent event) {  
 		setAddressOperation(true, "Update");
-		setSelectedAddress((Address) event.getObject());		 
+		setSelectedAddress((Address) event.getObject());
+		setSelectedAddressType(selectedAddress.getAddressType());
     } 
 	
 	public void doDeleteEmployee() {
@@ -235,21 +258,51 @@ public class EmployeeProfileManagementBean implements Serializable{
 	}
 	
 	public void addAddressToNewEmployee() {
-		int index = newEmployee.getAddresses().size();
+		int index = newAddressMap.size();
 		selectedAddress.setId(index);
 		selectedAddress.setAddressType(selectedAddressType);
 		selectedAddress.setDeleted(false);
 		Address addressToBeAdded = selectedAddress;
-		newEmployee.getAddresses().add(addressToBeAdded);
+		newAddressMap.put(index, addressToBeAdded);
 		
 		setAddressOperation(false, "Create");
 		setInsertDeleteAddress(true);
 	}
 	
+	public void updateAddressToNewEmployee() {
+		newAddressMap.put(selectedAddress.getId(), selectedAddress);
+		
+		selectedAddress = new Address();
+		setAddressOperation(false, "Create");
+		setInsertDeleteAddress(true);
+	}
+	
+	public void deleteAddressToNewEmployee() {
+		newAddressMap.remove(selectedAddress.getId());
+		
+		selectedAddress = new Address();
+		
+		setAddressOperation(false, "Create");
+		setInsertDeleteAddress(true);
+	}
+	
+	public void addAddressToEmployee() {
+		
+	}
+	
+	public void updateAddressToEmployee() {
+		
+	}
+	
+	public void deleteAddressToEmployee() {
+		
+	}
 	
 	public void setInsertDeleteAddress(boolean insertDeleteAddress) {
 		this.insertDeleteAddress = insertDeleteAddress;
 	}
+	
+	
 	
 } 
 
