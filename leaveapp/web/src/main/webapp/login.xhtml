@@ -27,7 +27,7 @@
                 </f:facet> 
                 
                 <h:outputLabel for="j_username" value="Username: " styleClass="flabel"/>  
-                <h:inputText id="j_username" required="true" requiredMessage="Please enter username"/>
+                <p:focus for="j_username"> <h:inputText id="j_username" required="true" requiredMessage="Please enter username"/> </p:focus>
                                
                 <h:outputLabel for="j_password" value="Password: " styleClass="flabel"/>  
                 <h:inputSecret id="j_password" required="true" requiredMessage="Please enter password"/>
