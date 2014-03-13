@@ -28,7 +28,7 @@
         <p:dataTable id="employeeTable" var="employee0" value="#{employeeProfileMgmtBean.employeeDataModel}" widgetVar="employeeSearch" rowKey="#{employee0.id}"
                  selection="#{employeeProfileMgmtBean.selectedEmployee}" selectionMode="single" filteredValue="#{employeeProfileMgmtBean.searchEmployee}"  emptyMessage="No data found with given criteria" >
         
-          <p:ajax event="rowSelect" listener="#{employeeProfileMgmtBean.onRowSelect}" oncomplete="PF('employeeDialog').show()" />  
+          <p:ajax event="rowSelect" listener="#{employeeProfileMgmtBean.onRowSelect}" update=":employeeForm" oncomplete="PF('employeeDialog').show()" />  
           
                     
 	 	

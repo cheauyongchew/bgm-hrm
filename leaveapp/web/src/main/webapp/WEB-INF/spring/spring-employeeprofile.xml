@@ -29,6 +29,7 @@
 			<ref bean="employeeTypeService"/>
 		</property>
 	 </bean>   
-	
+	<bean id="addressService" class="com.beans.leaveapp.address.service.AddressServiceImpl" >
+	</bean>
 	
 </beans>

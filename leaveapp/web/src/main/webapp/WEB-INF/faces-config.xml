@@ -75,6 +75,10 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
  		<property-name>employeeService</property-name>
  		<value>#{employeeService}</value>
  	</managed-property>
+ 	<managed-property>
+ 		<property-name>addressService</property-name>
+ 		<value>#{addressService}</value>
+ 	</managed-property>
  </managed-bean> 
  <managed-bean>
  	<managed-bean-name>authenticationBean</managed-bean-name>

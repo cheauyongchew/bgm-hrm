@@ -10,10 +10,12 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
+import org.hibernate.Hibernate;
 import org.primefaces.event.SelectEvent;
 
 import com.beans.common.security.users.model.Users;
 import com.beans.leaveapp.address.model.Address;
+import com.beans.leaveapp.address.service.AddressService;
 import com.beans.leaveapp.employee.model.Employee;
 import com.beans.leaveapp.employee.service.EmployeeNotFound;
 import com.beans.leaveapp.employee.service.EmployeeService;
@@ -23,7 +25,8 @@ import com.beans.leaveapp.employeeprofile.model.EmployeeProfileDataModel;
 
 public class EmployeeProfileManagementBean implements Serializable{
 	private static final long serialVersionUID = 1L;
-	private EmployeeService employeeService= getEmployeeService();
+	private EmployeeService employeeService;
+	private AddressService addressService;
 	private List<Employee> employeeList;
 	private EmployeeProfileDataModel employeeProfileDataModel;
 	private Employee newEmployee = new Employee();
@@ -35,6 +38,7 @@ public class EmployeeProfileManagementBean implements Serializable{
 	private AddressDataModel addressDataModel;
 	private Address selectedAddress = new Address();
 	private String page = "details";
+	private String updatePage = "updateDetails";
 	private int selectedDepartment;
 	private int selectedEmployeeType;
 	private int selectedEmployeeGrade;
@@ -86,6 +90,13 @@ public class EmployeeProfileManagementBean implements Serializable{
 		this.page = page;
 	}
 	
+	public String getUpdatePage() {
+		return updatePage;
+	}
+	public void setUpdatePage(String updatePage) {
+		this.updatePage = updatePage;
+	}
+	
 	public List<Employee> getSearchEmployee() {
 		
 		return searchEmployee;
@@ -101,6 +112,13 @@ public class EmployeeProfileManagementBean implements Serializable{
 	
 	public void setEmployeeService(EmployeeService employeeService) {
 		this.employeeService = employeeService;
+	}
+	
+	public AddressService getAddressService() {
+		return addressService;
+	}
+	public void setAddressService(AddressService addressService) {
+		this.addressService = addressService;
 	}
 	
 	public List<Employee> getEmployeeList() {
@@ -141,7 +159,10 @@ public class EmployeeProfileManagementBean implements Serializable{
 	
 	public AddressDataModel getAddressDataModel() {
 		if(addressDataModel == null || insertDeleteAddress == true) {
-			List<Address> existingAddressList = selectedEmployee.getAddresses();
+			List<Address> existingAddressList = addressService.findByEmployeeId(this.selectedEmployee.getId());
+			if(existingAddressList == null || existingAddressList.size() == 0) {
+				existingAddressList = new ArrayList<Address>();
+			}
 			existingAddressList.addAll(newAddressMap.values());
 			addressDataModel = new AddressDataModel(existingAddressList);
 			insertDeleteAddress = false;
@@ -176,6 +197,8 @@ public class EmployeeProfileManagementBean implements Serializable{
 		this.selectedEmployeeType = this.selectedEmployee.getEmployeeType().getId();
 		this.selectedEmployeeGrade = this.selectedEmployee.getEmployeeGrade().getId();
 		this.selectedDepartment = this.selectedEmployee.getDepartment().getId();
+		this.addressOperation = "updateDetails";
+		
 	}
 	
 	public Address getSelectedAddress() {

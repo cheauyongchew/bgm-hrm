@@ -237,13 +237,4 @@ public class Employee {
 		this.isResigned = isResigned;
 	}
 	
-	@OneToMany(fetch=FetchType.LAZY, targetEntity=Address.class)
-	@JoinColumn(name="employeeid")
-	public List<Address> getAddresses() {
-		return addresses;
-	}
-	public void setAddresses(List<Address> addresses) {
-		this.addresses = addresses;
-	}
-	
 }

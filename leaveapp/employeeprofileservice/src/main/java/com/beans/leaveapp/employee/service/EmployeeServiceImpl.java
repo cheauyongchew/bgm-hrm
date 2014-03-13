@@ -100,7 +100,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 		employeeToBeUpdated.setResignationDate(employee.getResignationDate());
 		employeeToBeUpdated.setDeleted(employee.isDeleted());
 		employeeToBeUpdated.setResigned(employee.isResigned());
-		employeeToBeUpdated.setAddresses(employee.getAddresses());
 		return employeeRepository.save(employeeToBeUpdated);
 	}
 

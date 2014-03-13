@@ -17,7 +17,7 @@
 			<p:messages autoUpdate="true" />
 			<p:panelGrid id="EmployeeDetail" columns="2" cellpadding="4"
 				style="margin:0 auto;"
-				rendered="#{employeeProfileMgmtBean.page == 'details'}">
+				rendered="#{employeeProfileMgmtBean.updatePage == 'updateDetails'}">
 				<f:facet name="header"><h3>Basic Details</h3></f:facet>
 				<p:panelGrid id="EmployeeDetailLeft" columns="2" cellpadding="4"
 					style="margin:0 auto;">
@@ -148,7 +148,7 @@
 
 				<f:facet name="footer">
 					<p:commandButton value="Next" update=":displayEmployee"
-						action="#{employeeProfileMgmtBean.setPage('address')}"
+						action="#{employeeProfileMgmtBean.setUpdatePage('updateAddress')}"
 						validateClient="true" />
 					<p:commandButton type="reset" value="Reset"></p:commandButton>
 				</f:facet>
@@ -157,7 +157,7 @@
 
 			<p:panelGrid id="EmployeeAddress" columns="1" cellpadding="4"
 				style="margin:0 auto;"
-				rendered="#{employeeProfileMgmtBean.page == 'address'}">
+				rendered="#{employeeProfileMgmtBean.updatePage == 'updateAddress'}">
 				
 				<f:facet name="header"><h3>Addresses</h3></f:facet>		
 				
@@ -254,9 +254,9 @@
 					
 				<f:facet name="footer">
 					<p:commandButton value="Back" update=":displayEmployee"
-						action="#{employeeProfileMgmtBean.setPage('details')}" />
+						action="#{employeeProfileMgmtBean.setUpdatePage('updateDetails')}" />
 					<p:commandButton value="Next" update=":displayEmployee"
-						action="#{employeeProfileMgmtBean.setPage('login')}" />
+						action="#{employeeProfileMgmtBean.setUpdatePage('updateLogin')}" />
 
 				</f:facet>
 				
@@ -265,7 +265,7 @@
 			
 			<p:panelGrid id="EmployeeLogin" columns="1" cellpadding="4"
 				style="margin:0 auto;"
-				rendered="#{employeeProfileMgmtBean.page == 'login'}">
+				rendered="#{employeeProfileMgmtBean.updatePage == 'updateLogin'}">
 				
 				<f:facet name="header"><h3>Login Details</h3></f:facet>
 				
@@ -280,7 +280,7 @@
 				</p:panelGrid>
 				<f:facet name="footer">
 					<p:commandButton value="Back" update=":displayEmployee"
-						action="#{employeeProfileMgmtBean.setPage('address')}" immediate="true" />
+						action="#{employeeProfileMgmtBean.setUpdatePage('updateAddress')}" immediate="true" />
 					<p:commandButton type="reset" value="Reset"></p:commandButton>
 					<p:commandButton value="Create" update=":employeeTableForm:employeeTable" actionListener="#{employeeProfileMgmtBean.doUpdateEmployee()}" validateClient="true" process="@this" oncomplete="PF('employeeDialog').hide()"/>
 					
