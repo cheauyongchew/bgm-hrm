@@ -66,14 +66,16 @@ th {
 	font-weight: normal;
 }
 
-table tr:nth-child(even) {
+tr.ui-widget-content.ui-datatable-even.ui-datatable-selectable {
     background-color: #6e8d9c;
     color: #fff;
+    font-size: 12px;
 }
 
-table tr:nth-child(odd) {
+tr.ui-widget-content.ui-datatable-odd.ui-datatable-selectable {
     background-color: #fff;
     color:  #315d72;
+    font-size: 12px;
 }
 
 .ui-button-text {
@@ -116,4 +118,29 @@ li.ui-state-default.ui-corner-top.ui-state-hover > a {
 li.ui-state-default.ui-tabs-selected.ui-state-active.ui-corner-top > a {
 	color: #f06409 !important;
     font-weight: bold;
+}
+
+div.ui-dialog-content.ui-widget-content> table.ui-panelgrid.ui-widget > tbody > tr.ui-widget-content > td {
+	color: #315d72 !important;
+	font-weight: bold;
+}
+
+div.ui-selectonemenu.ui-widget.ui-state-default.ui-corner-all.ui-helper-clearfix {
+    text-transform: capitalize;
+}
+
+li.ui-selectonemenu-item.ui-selectonemenu-list-item.ui-corner-all {
+	text-transform: capitalize;
+}
+
+li.ui-selectonemenu-item.ui-selectonemenu-list-item.ui-corner-all.ui-state-hover {
+	color: #315d72 !important;
+	text-transform: capitalize;
+	font-weight: bold;
+}
+
+li.ui-selectonemenu-item.ui-selectonemenu-list-item.ui-corner-all.ui-state-highlight {
+    background: none !important;
+    background-color: #315d72 !important;
+    text-transform: capitalize;
 }
