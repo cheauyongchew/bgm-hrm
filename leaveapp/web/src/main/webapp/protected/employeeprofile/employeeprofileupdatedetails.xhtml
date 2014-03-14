@@ -10,20 +10,25 @@
 
 
 
-
+<h:form id="employeeForm">
 	<p:panelGrid id="displayEmployee" layout="block" columns="1"
 		cellpadding="4" style="margin:0 auto;">
-	<h:form id="employeeForm">	
+		
+			
+			
+			<p:tabView id="employeeUpdateTabView" activeIndex="0">
 			<p:messages autoUpdate="true" />
+			<p:tab id="EmployeeDetailTab" title="Basic Details">
+			
 			<p:panelGrid id="EmployeeDetail" columns="2" cellpadding="4"
-				style="margin:0 auto;"
-				rendered="#{employeeProfileMgmtBean.updatePage == 'updateDetails'}">
+				style="margin:0 auto;">
 				<f:facet name="header"><h3>Basic Details</h3></f:facet>
 				<p:panelGrid id="EmployeeDetailLeft" columns="2" cellpadding="4"
 					style="margin:0 auto;">
 					<h:outputText value="Name" />
 					<h:inputText value="#{employeeProfileMgmtBean.selectedEmployee.name}"
-						required="true" requiredMessage="Please Enter Name" />
+						required="true" requiredMessage="Please Enter Name" >
+					</h:inputText>
 
 					<h:outputText value="Employee Number" />
 					<h:inputText
@@ -124,7 +129,7 @@
 
 					<h:outputText value="Email Address(Personal)" />
 					<h:inputText
-						value="#{employeeProfileMgmtBean.selectedEmployee.personalEmailAddress}" />
+						valEmployeeAddressue="#{employeeProfileMgmtBean.selectedEmployee.personalEmailAddress}" />
 
 					<h:outputText value="Phone Number(Work)" />
 					<h:inputText
@@ -146,18 +151,14 @@
 				</p:panelGrid>
 
 
-				<f:facet name="footer">
-					<p:commandButton value="Next" update=":displayEmployee"
-						action="#{employeeProfileMgmtBean.setUpdatePage('updateAddress')}"
-						validateClient="true" />
-					<p:commandButton type="reset" value="Reset"></p:commandButton>
-				</f:facet>
+				
 			</p:panelGrid>
+			</p:tab>
 			
+			<p:tab id="EmployeeAddressTab" title="Addresses">
 
 			<p:panelGrid id="EmployeeAddress" columns="1" cellpadding="4"
-				style="margin:0 auto;"
-				rendered="#{employeeProfileMgmtBean.updatePage == 'updateAddress'}">
+				style="margin:0 auto;">
 				
 				<f:facet name="header"><h3>Addresses</h3></f:facet>		
 				
@@ -165,7 +166,7 @@
            						<p:dataTable id="addressTable" var="address0" value="#{employeeProfileMgmtBean.addressDataModel}" rowKey="#{address0.id}"
 							                 selection="#{employeeProfileMgmtBean.selectedAddress}" selectionMode="single" emptyMessage="No data found with given criteria" >
 							        
-							          <p:ajax event="rowSelect" listener="#{employeeProfileMgmtBean.onAddressRowSelect}" update=":employeeForm:EmployeeAddress" />  
+							          <p:ajax event="rowSelect" listener="#{employeeProfileMgmtBean.onAddressRowSelect}" update=":employeeForm:employeeUpdateTabView:EmployeeAddress" />  
 							          
 							           					        
 							        
@@ -187,10 +188,9 @@
 							          </p:column>
 							        </p:dataTable>
 							        
-							        <p:commandButton value="Add Address" update="EmployeeAddress" title="Add Address" actionListener="#{employeeProfileMgmtBean.setAddressOperation(true, 'Create')}" rendered="#{not employeeProfileMgmtBean.isRenderAddress()}"/>
+							        <p:commandButton value="Add Address" update=":employeeForm:employeeUpdateTabView:EmployeeAddress" title="Add Address" actionListener="#{employeeProfileMgmtBean.setAddressOperation(true, 'Create')}" rendered="#{not employeeProfileMgmtBean.isRenderAddress()}"/>
 							      
-							   
-							   <h:form>
+								<h:form>
 							   <p:outputPanel id="AddressDetail" rendered="#{employeeProfileMgmtBean.isRenderAddress()}">
 									
 									<h3>#{employeeProfileMgmtBean.addressOperation} Address</h3>
@@ -235,62 +235,77 @@
 										value="#{employeeProfileMgmtBean.selectedAddress.country}" required="true" requiredMessage="Please enter Country"/>
 										
 									<f:facet name="footer">
-										<p:commandButton value="Cancel" update=":employeeForm:EmployeeAddress"
-											actionListener="#{employeeProfileMgmtBean.setAddressOperation(false, 'Create')}" immediate="true"/>
+										<p:commandButton value="Cancel" update=":employeeForm:employeeUpdateTabView:EmployeeAddress"
+											actionListener="#{employeeProfileMgmtBean.setAddressOperation(false, 'Create')}" process="@form" immediate="true"/>
 										<p:commandButton type="reset" value="Reset" rendered="#{employeeProfileMgmtBean.addressOperation == 'Create'}"></p:commandButton>
-										<p:commandButton value="Save" update=":employeeForm:EmployeeAddress"
-											actionListener="#{employeeProfileMgmtBean.addAddressToEmployee()}" validateClient="true" process="@form" rendered="#{employeeProfileMgmtBean.addressOperation == 'Create'}"/>
-										 <p:commandButton value="Delete" update=":employeeForm:EmployeeAddress"
-											actionListener="#{employeeProfileMgmtBean.deleteAddressToEmployee()}" validateClient="true" process="@form" rendered="#{employeeProfileMgmtBean.addressOperation == 'Update'}"/>
+										<p:commandButton value="Save" update=":employeeForm:employeeUpdateTabView:EmployeeAddress"
+											actionListener="#{employeeProfileMgmtBean.addAddressToEmployee()}" process="@form" validateClient="true" rendered="#{employeeProfileMgmtBean.addressOperation == 'Create'}"/>
+										 <p:commandButton value="Delete" update=":employeeForm:employeeUpdateTabView:EmployeeAddress"
+											actionListener="#{employeeProfileMgmtBean.deleteAddressToEmployee()}" process="@form" validateClient="true" rendered="#{employeeProfileMgmtBean.addressOperation == 'Update'}"/>
 											
-										<p:commandButton value="Update" update=":employeeForm:EmployeeAddress"
-											actionListener="#{employeeProfileMgmtBean.updateAddressToEmployee()}" validateClient="true" process="@form" rendered="#{employeeProfileMgmtBean.addressOperation == 'Update'}"/>
+										<p:commandButton value="Update" update=":employeeForm:employeeUpdateTabView:EmployeeAddress"
+											actionListener="#{employeeProfileMgmtBean.updateAddressToEmployee()}" process="@form" validateClient="true" rendered="#{employeeProfileMgmtBean.addressOperation == 'Update'}"/>
 									</f:facet>	
 									</p:panelGrid>	
 									
 								
 							   </p:outputPanel>		
-					</h:form>		        
-					
-				<f:facet name="footer">
-					<p:commandButton value="Back" update=":displayEmployee"
-						action="#{employeeProfileMgmtBean.setUpdatePage('updateDetails')}" />
-					<p:commandButton value="Next" update=":displayEmployee"
-						action="#{employeeProfileMgmtBean.setUpdatePage('updateLogin')}" />
-
-				</f:facet>
+							</h:form>
+				
 				
 				
 			</p:panelGrid>
+			</p:tab>
+			
+			<p:tab id="EmployeeLoginTab" title="Login Details">
 			
 			<p:panelGrid id="EmployeeLogin" columns="1" cellpadding="4"
-				style="margin:0 auto;"
-				rendered="#{employeeProfileMgmtBean.updatePage == 'updateLogin'}">
+				style="margin:0 auto;">
 				
 				<f:facet name="header"><h3>Login Details</h3></f:facet>
 				
 				<p:panelGrid id="EmployeeLoginColumn" columns="2" cellpadding="4" style="margin:0 auto;">
 				<h:outputText value="Username" />
 					<h:inputText
-						value="#{employeeProfileMgmtBean.selectedEmployee.users.username}" required="true" requiredMessage="Please enter Username" />
+						value="#{employeeProfileMgmtBean.users.username}" />
 				<h:outputText value="Password" />
 				<p:password id="pwd1" value="#{employeeProfileMgmtBean.users.password}" match="pwd2"/>
 				<h:outputText value="Confirmed Password" />
 				<p:password id="pwd2" value="#{employeeProfileMgmtBean.users.password}"/>
 				</p:panelGrid>
-				<f:facet name="footer">
-					<p:commandButton value="Back" update=":displayEmployee"
-						action="#{employeeProfileMgmtBean.setUpdatePage('updateAddress')}" immediate="true" />
-					<p:commandButton type="reset" value="Reset"></p:commandButton>
-					<p:commandButton value="Create" update=":employeeTableForm:employeeTable" actionListener="#{employeeProfileMgmtBean.doUpdateEmployee()}" validateClient="true" process="@this" oncomplete="PF('employeeDialog').hide()"/>
-					
-				</f:facet>
+				
 				
 			</p:panelGrid>
-	</h:form>
+			</p:tab>
+			
+			<p:tab id="EmployeeAdminTab" title="Admin">
+			
+			<p:panelGrid id="EmployeeAdmin" columns="1" cellpadding="4"
+				style="margin:0 auto;">
+				
+				<f:facet name="header"><h3>Admin</h3></f:facet>
+				
+				<p:panelGrid id="EmployeeAdminColumn" columns="1" cellpadding="4" style="margin:0 auto;">
+				<h:outputText value="Do you want to delete this employee?"></h:outputText>
+				<p:commandButton id="deleteButton" update=":deleteCD" oncomplete="PF('cd').show()" title="Delete Employee" value="Delete"/>
+				</p:panelGrid>
+				
+				
+			</p:panelGrid>
+			</p:tab>
+			</p:tabView>
+			
+			
+	
+	
+			<f:facet name="footer">
+					<p:commandButton value="Cancel"
+						oncomplete="PF('employeeDialog').hide()" />
+					<p:commandButton value="Update" update=":employeeTableForm:employeeTable" actionListener="#{employeeProfileMgmtBean.doUpdateEmployee()}" validateClient="true" oncomplete="PF('employeeDialog').hide()"/>
+			</f:facet>
 	</p:panelGrid>
 
-	
+	</h:form>
 
 </h:body>
 </html>

@@ -153,6 +153,56 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return null;
 	}
 
+	@Override
+	public Employee updateEmployee(Employee employee, int employeeGradeId,
+			int employeeTypeId, int departmentId, Users users, List<Address> existingAddressList, HashMap<Integer, Address> newAddressMap) {
+		try {
+			EmployeeGrade employeeGrade = employeeGradeService.findById(employeeGradeId);
+			EmployeeType employeeType = employeeTypeService.findById(employeeTypeId);
+			Department department = departmentService.findById(departmentId);
+			
+			employee.setEmployeeGrade(employeeGrade);
+			employee.setEmployeeType(employeeType);
+			employee.setDepartment(department);
+			employee.setDeleted(false);
+			employee.setResigned(false);
+			
+			
+			Employee newEmployee = update(employee);
+			
+			if(newAddressMap.size() > 0) {
+				Iterator<Address> addressIterator = newAddressMap.values().iterator();
+				while(addressIterator.hasNext()) {
+					Address currentAddress = addressIterator.next();
+					currentAddress.setId(0);
+					currentAddress.setEmployee(newEmployee);
+					addressRepository.save(currentAddress);
+				}
+				
+			}
+			
+			if(existingAddressList.size() > 0) {
+				Iterator<Address> existingAddressIterator = existingAddressList.iterator();
+				while(existingAddressIterator.hasNext()) {
+					Address currentAddress = existingAddressIterator.next();
+					addressRepository.save(currentAddress);
+				}
+			}
+			
+			
+			
+		} catch(EmployeeGradeNotFound e) {
+			e.printStackTrace();
+		} catch(EmployeeTypeNotFound e) {
+			e.printStackTrace();
+		} catch(DepartmentNotFound e) {
+			e.printStackTrace();
+		} catch(EmployeeNotFound e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public DepartmentService getDepartmentService() {
 		return departmentService;
 	}
