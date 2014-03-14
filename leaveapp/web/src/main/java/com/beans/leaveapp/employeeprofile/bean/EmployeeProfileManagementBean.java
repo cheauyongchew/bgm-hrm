@@ -218,6 +218,7 @@ public class EmployeeProfileManagementBean implements Serializable{
 		setInsertDeleteAddress(true);
 		setEmployeeName(this.selectedEmployee.getName());
 		
+		
 	}
 	
 	public Address getSelectedAddress() {
@@ -232,7 +233,8 @@ public class EmployeeProfileManagementBean implements Serializable{
 	
 	public void doUpdateEmployee() {
 		getEmployeeService().updateEmployee(selectedEmployee, selectedEmployeeGrade, selectedEmployeeType, selectedDepartment, users, existingAddressList, newAddressMap);
-			
+		newAddressMap = new HashMap<Integer, Address>();
+		existingAddressList = null;
 	}
 	
 	public void onRowSelect(SelectEvent event) {  

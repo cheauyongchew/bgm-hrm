@@ -33,9 +33,10 @@
 
 	<bean id="leaveTypeService" class="com.beans.leaveapp.leavetype.service.LeaveTypeServiceImpl">
 	</bean>
-	  <bean id="employeeGrade" class="com.beans.leaveapp.employeeGrade.model.EmployeeGrade" /> 
+	 
+	 <bean id="employeeGrade" class="com.beans.leaveapp.employeegrade.model.EmployeeGrade" /> 
 	
-	 <bean id="employeeGradeService" class="com.beans.leaveapp.employeeGrade.service.EmployeeGradeServiceImpl" >
+	 <bean id="employeeGradeService" class="com.beans.leaveapp.employeegrade.service.EmployeeGradeServiceImpl" >
 	 </bean>  
 	
 	

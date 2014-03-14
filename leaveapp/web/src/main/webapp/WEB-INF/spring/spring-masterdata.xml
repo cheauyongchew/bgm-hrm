@@ -31,15 +31,22 @@
 
 	<bean id="leaveTypeService" class="com.beans.leaveapp.leavetype.service.LeaveTypeServiceImpl" >
 	</bean>
+	
 	  <bean id="employeeGrade" class="com.beans.leaveapp.employeegrade.model.EmployeeGrade" /> 
 	
 	 <bean id="employeeGradeService" class="com.beans.leaveapp.employeegrade.service.EmployeeGradeServiceImpl" >
 	 </bean>   
+	 
 	<bean id="employeeType" class="com.beans.leaveapp.employeetype.model.EmployeeType" /> 
 	
 	 <bean id="employeeTypeService" class="com.beans.leaveapp.employeetype.service.EmployeeTypeServiceImpl" >
 	 </bean>
 	 
+	 <bean id="systemAuditTrail" class="com.beans.leaveapp.common.audit.model.SystemAuditTrail"/>
+	
+	<bean id="systemAuditTrailService" class="com.beans.leaveapp.common.audit.service.SystemAuditTrailRecordServiceImpl">
+	</bean>
+	
 	 <bean id="department" class="com.beans.leaveapp.department.model.Department" /> 
 	
 	 <bean id="departmentService" class="com.beans.leaveapp.department.service.DepartmentServiceImpl" >
