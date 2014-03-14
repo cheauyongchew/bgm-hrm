@@ -45,4 +45,12 @@
 	 <bean id="departmentService" class="com.beans.leaveapp.department.service.DepartmentServiceImpl" >
 	 </bean>    
 	
+	 <bean id="userToRole" class="com.beans.leaveapp.common.security.usertorole.model.UserToRole"/>
+	 <bean id="userToRoleService" class="com.beans.leaveapp.common.security.usertorole.service.UserToRoleServiceImpl">	 
+	 </bean>
+	
+	 <bean id="role" class="com.beans.leaveapp.common.security.role.model.Role"/>
+	 <bean id="roleService" class="com.beans.leaveapp.common.security.role.service.RoleServiceImpl">
+	 </bean>
+	
 </beans>
