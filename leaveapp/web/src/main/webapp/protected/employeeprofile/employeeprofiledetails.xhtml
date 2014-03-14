@@ -272,7 +272,7 @@
 				<p:panelGrid id="NewEmployeeLoginColumn" columns="2" cellpadding="4" style="margin:0 auto;">
 				<h:outputText value="Username" />
 					<h:inputText
-						value="#{employeeProfileMgmtBean.newEmployee.users.username}" required="true" requiredMessage="Please enter Username" />
+						value="#{employeeProfileMgmtBean.users.username}" required="true" requiredMessage="Please enter Username" />
 				<h:outputText value="Password" />
 				<p:password id="pwd1" value="#{employeeProfileMgmtBean.users.password}" match="pwd2" required="true" requiredMessage="Please enter Password"/>
 				<h:outputText value="Confirmed Password" />

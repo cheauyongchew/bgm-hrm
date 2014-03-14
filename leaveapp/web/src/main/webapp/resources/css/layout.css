@@ -1,146 +1,90 @@
 /* Generic pane rules */
-
-body, .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button { 
-	background-color: #fefdfa; 
-	font-family: Futura, "Trebuchet MS", Arial, sans-serif;
-    font-size: 14px;
-    margin: auto;
+body { 
+	margin: 0; background-color:#CCCCCC; 
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
 }
 
-img {
-	background: white;
+.row,.row2, .col { overflow: hidden; position: absolute; }
+.row { left: 0; right: 0; }
+.col { top: 0; bottom: 0; }
+.scroll-x { overflow-x: auto; }
+.scroll-y { overflow-y: auto; }
+
+.menubar{ background-color:#b0c4de;}
+.header { padding:0px 0px; background-image:url("#{resource['images:header/banner_bg.gif']}"); background-repeat:repeat-x-y; }
+.footer { background-color:rgb(245,245,245); }
+
+.header.row { height: 80px; top: 0; }
+.menubar.row { top: 80px; bottom: 30px;}
+.body.row { top: 115px; bottom: 30px; height: 600px}
+.container { height: 100%; }
+.footer {
+ clear: both;
+ position: relative;
+ z-index: 10;
+ height: 3em;
+ margin-top: -3em;
 }
 
-#container {
-	 min-height: 500px;
+.content { padding-bottom: 3em; }
+.contentWrapper.row { top: 0px; bottom: 0px; }
+
+.rightHeaderImages { padding:0px 10px; }
+.rightHeaderImages.col { top: 0px; right: 0; }
+.rightFooterImages { padding:5px 10px; }
+.rightFooterImages.col { top: 0px; right: 0; }
+.leftFooterImages { padding:5px 10px; }
+.leftFooterImages.col { top: 0px; left: 0; }
+.rightTopMenu { padding:0px 5px; }
+.rightTopMenu.col { top: 50px; right: 0; }
+.leftMenu{ padding:0px; width: 100%; }
+.footerContent{ vertical-align: middle; padding:10px;}
+
+.inputboxSearch {
+	/*TODO check search.png with rozaidi*/
+	background:url("#{resource['images:search.png']}") no-repeat 2% !important;	
+	padding-left:20px !important;
 }
 
-#footer {
-   position: relative;
-   bottom: 0; 
-   height: 20px;
-   width: 100%;
-   background: #f06409;
-   color: #fff;
-   text-align: center;
-}
-
-#header_row{
-	padding: 0.5em;
-}
-
-.ui-menubar{
-    background: #315d72 !important;
-}
-
-.ui-menuitem-text {
-    margin-left: 5px;
-    margin-right: 5px;
-    font-weight: bold;
-    color: #fff;
-    font-family: Futura, "Trebuchet MS", Arial, sans-serif;
-}
-
-a.ui-menuitem-link.ui-corner-all.ui-state-hover {
-    background: #f06409 !important;
-    border-radius: 5px;
-}
-
-.ui-widget-content.ui-menu-list.ui-corner-all.ui-helper-clearfix.ui-menu-child.ui-shadow {
-	background: #315d72;
-}
-
-div.ui-datatable-header.ui-widget-header.ui-corner-top {
-	color: #315d72;
-	background: #fff;
-    text-transform: capitalize;
-	text-align: left;
-	font-family: Futura, "Trebuchet MS", Arial, sans-serif;
-	padding: 0.5em;
-}
-
-th {
-	background: #f06409 !important;
-	color: #fff !important;
-	font-family: Futura, "Trebuchet MS", Arial, sans-serif;
-	font-weight: normal;
-}
-
-tr.ui-widget-content.ui-datatable-even.ui-datatable-selectable {
-    background-color: #6e8d9c;
-    color: #fff;
-    font-size: 12px;
-}
-
-tr.ui-widget-content.ui-datatable-odd.ui-datatable-selectable {
-    background-color: #fff;
-    color:  #315d72;
-    font-size: 12px;
-}
-
-.ui-button-text {
-	font-weight: bold;
-	color: #f06409;
-}
-
-button {
-	margin: 0.5em;
-}
-
-.ui-dialog {
-	background: #fefdfa !important;
-	font-family: Futura, "Trebuchet MS", Arial, sans-serif;
-} 
-
-.ui-dialog-titlebar {
-	background: #f06409 !important;
-    color: #fff !important;
-    font-weight: normal;
-}
-
-li.ui-state-default.ui-tabs-selected.ui-state-active.ui-corner-top  {
-	background-color: #fff !important;
-}
-
-li.ui-state-default.ui-corner-top > a {
-	color: #f06409 !important;
-}
-
-li.ui-state-default.ui-corner-top.ui-state-hover {
-    background-color: #f06409 !important;
-}
-
-
-li.ui-state-default.ui-corner-top.ui-state-hover > a {
-    color: #fff !important;
-}
-
-li.ui-state-default.ui-tabs-selected.ui-state-active.ui-corner-top > a {
-	color: #f06409 !important;
+.subject{
     font-weight: bold;
 }
 
-div.ui-dialog-content.ui-widget-content> table.ui-panelgrid.ui-widget > tbody > tr.ui-widget-content > td {
-	color: #315d72 !important;
-	font-weight: bold;
+.megaMenuStyle{
+	direction:rtl; overflow-y: auto; overflow-x:hidden; height: 400px;
 }
 
-div.ui-selectonemenu.ui-widget.ui-state-default.ui-corner-all.ui-helper-clearfix {
-    text-transform: capitalize;
+.clearGrid tr,.clearGrid td{
+    border-style: hidden !important;
 }
 
-li.ui-selectonemenu-item.ui-selectonemenu-list-item.ui-corner-all {
-	text-transform: capitalize;
+.comRegGrid tr,.comRegGrid td{
+    border-style: hidden !important;
+    background-color:#CCCCCC !important;
 }
 
-li.ui-selectonemenu-item.ui-selectonemenu-list-item.ui-corner-all.ui-state-hover {
-	color: #315d72 !important;
-	text-transform: capitalize;
-	font-weight: bold;
+.comReg{
+    background-color:#CCCCCC !important;
 }
 
-li.ui-selectonemenu-item.ui-selectonemenu-list-item.ui-corner-all.ui-state-highlight {
-    background: none !important;
-    background-color: #315d72 !important;
-    text-transform: capitalize;
+.tblstyle td {
+    vertical-align: top;
+}
+.regtblstyle td {
+	width: 10%;
+}
+.edittbl table {
+	border-color: transparent;
+}
+
+/*Datatable style*/
+.ui-datatable .ui-datatable-header,
+.ui-datatable .ui-datatable-footer {
+	text-align:right !important;
+	padding:4px 10px !important;
+}
+
+.ui-datatable .ui-datatable-odd {
+	background-color:#E5E8E9; 
 }

@@ -1,6 +1,5 @@
 package com.beans.leaveapp.employee.model;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,7 +20,6 @@ import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Type;
 
 import com.beans.common.security.users.model.Users;
-import com.beans.leaveapp.address.model.Address;
 import com.beans.leaveapp.department.model.Department;
 import com.beans.leaveapp.employeegrade.model.EmployeeGrade;
 import com.beans.leaveapp.employeetype.model.EmployeeType;
@@ -52,7 +50,6 @@ public class Employee {
 	private Date resignationDate;
 	private boolean isDeleted;
 	private boolean isResigned;
-	private List<Address> addresses = new ArrayList<Address>();
 	
 	@Id
 	@GeneratedValue
@@ -236,5 +233,6 @@ public class Employee {
 	public void setResigned(boolean isResigned) {
 		this.isResigned = isResigned;
 	}
+	
 	
 }
