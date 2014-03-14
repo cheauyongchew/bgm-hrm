@@ -30,7 +30,7 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
  
   <managed-bean>
  	<managed-bean-name>employeeGradeMgmtBean</managed-bean-name>
- 	<managed-bean-class>com.beans.leaveapp.employeegrade.bean.EmployeeGradeManagementBean</managed-bean-class>
+ 	<managed-bean-class>com.beans.leaveapp.EmployeeGrade.bean.EmployeeGradeManagementBean</managed-bean-class>
  	<managed-bean-scope>view</managed-bean-scope>
  	<managed-property>
  		<property-name>employeeGradeService</property-name>
@@ -75,11 +75,17 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
  		<property-name>employeeService</property-name>
  		<value>#{employeeService}</value>
  	</managed-property>
+ </managed-bean> 
+ <managed-bean>
+ 	<managed-bean-name>systemAuditTrailMgmtBean</managed-bean-name>
+ 	<managed-bean-class>com.beans.leaveapp.audit.trail.bean.SystemAuditTrailManagementBean</managed-bean-class>
+ 	<managed-bean-scope>view</managed-bean-scope>
  	<managed-property>
- 		<property-name>addressService</property-name>
- 		<value>#{addressService}</value>
+ 		<property-name>systemAuditTrailService</property-name>
+ 		<value>#{systemAuditTrailService}</value>
  	</managed-property>
  </managed-bean> 
+ 
  <managed-bean>
  	<managed-bean-name>authenticationBean</managed-bean-name>
  	<managed-bean-class>com.beans.leaveapp.web.bean.AuthenticationBean</managed-bean-class>

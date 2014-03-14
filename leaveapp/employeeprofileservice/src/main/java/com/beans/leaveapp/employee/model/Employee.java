@@ -236,5 +236,11 @@ public class Employee {
 	public void setResigned(boolean isResigned) {
 		this.isResigned = isResigned;
 	}
+	public List<Address> getAddresses() {
+		return addresses;
+	}
+	public void setAddresses(List<Address> addresses) {
+		this.addresses = addresses;
+	}
 	
 }
