@@ -8,6 +8,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 
+
 @Entity
 @Table(name="EmployeeGrade")
 public class EmployeeGrade {
@@ -52,4 +53,18 @@ public class EmployeeGrade {
 			}
 
 
+		public boolean equals(Object other)
+		{
+		    return other instanceof EmployeeGrade && id == ((EmployeeGrade) other).getId();
+		}
+
+		public int hashCode()
+		{
+		    return this.getClass().hashCode();
+		}
+
+		public String toString()
+		{
+		    return "EmployeeGrade[" + getId() + "," + getName() + "]";
+		}
 }

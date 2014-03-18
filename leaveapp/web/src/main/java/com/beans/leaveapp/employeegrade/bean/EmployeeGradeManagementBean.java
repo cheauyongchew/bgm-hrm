@@ -2,22 +2,13 @@ package com.beans.leaveapp.employeegrade.bean;
 
 import java.io.Serializable;
 import java.util.List;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-
-import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
-
-import com.beans.leaveapp.employeegrade.model.EmployeeGrade;
 import com.beans.leaveapp.employeegrade.model.EmployeeGradeDataModel;
-import com.beans.leaveapp.employeegrade.repository.EmployeeGradeRepository;
+import com.beans.leaveapp.employeegrade.model.EmployeeGrade;
 import com.beans.leaveapp.employeegrade.service.EmployeeGradeNotFound;
 import com.beans.leaveapp.employeegrade.service.EmployeeGradeService;
-import com.beans.leaveapp.leavetype.model.LeaveType;
-import com.beans.leaveapp.leavetype.model.LeaveTypeDataModel;
-import com.beans.leaveapp.leavetype.service.LeaveTypeNotFound;
-import com.beans.leaveapp.leavetype.service.LeaveTypeService;
 
 public class EmployeeGradeManagementBean implements Serializable{
 
@@ -34,9 +25,6 @@ public class EmployeeGradeManagementBean implements Serializable{
 	private EmployeeGrade selectedEmployeeGrade = new EmployeeGrade();
 	private boolean insertDeleted = false;
 
-	
-	
-	
 	public EmployeeGradeService getEmployeeGradeService() {
 		return employeeGradeService;
 	}
@@ -126,14 +114,8 @@ public class EmployeeGradeManagementBean implements Serializable{
     }  
 	
 	
-	public void doDeleteEmployeeGrade() {
-		try {
-			getEmployeeGradeService().delete(selectedEmployeeGrade.getId());
-		} catch(EmployeeGradeNotFound e) {
-			FacesMessage msg = new FacesMessage("Error", "Leave Type With id: " + selectedEmployeeGrade.getId() + " not found!");  
-			  
-	        FacesContext.getCurrentInstance().addMessage(null, msg);  
-		}
+	public void doDeleteEmployeeGrade() throws Exception, EmployeeGradeNotFound {
+		getEmployeeGradeService().delete(selectedEmployeeGrade.getId());
 		
 		setInsertDelete(true);
 	}

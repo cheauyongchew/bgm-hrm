@@ -10,38 +10,40 @@ body {
 }
 
 h1 {
-	background-color: #315d72;
-	border-radius: 20px;
+    background-color: #315d72;
+    border-radius: 20px;
     border:2px solid #f06409;
 }
 
+img {
+    background: white;
+}
 
 #loginHeader {
-	font-size: 16px;
-	color: #fff;
-	 width: 300px;
+    font-size: 16px;
+    color: #fff;
+    width: 300px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 10%;
 }
 
 #loginContainer {
-	 margin-left: auto;
+    margin-left: auto;
     margin-right: auto;
-	width: 640px;
+    width: 640px;
 }
 
 #loginForm {
-	 margin-left: auto;
+    margin-left: auto;
     margin-right: auto;
 }
 
 #panel {
-	background-color: #f06409;
-	border-radius: 15px;
-	margin-left: auto;
-    margin-right: auto;
-    
+    background-color: #f06409;
+    border-radius: 15px;
+    margin-left: auto;
+    margin-right: auto;  
 }
 
 .ui-panelgrid tr, .ui-panelgrid td {
@@ -49,27 +51,27 @@ h1 {
 }
 
 .ui-widget-header {
-	color: #fff;
+    color: #fff;
     font-weight: bold;
     text-align: center;
     background-color: transparent;
 }
 
 .flabel {
-	color: #315d72;
-	font-weight:bold;
+    color: #315d72;
+    font-weight: bold;
+    text-align: left;
 }
-
 
 
 .ui-growl {
-	position: fixed;
-	top: 45%;
-	left: 63%;
+    position: fixed;
+    top: 45%;
+    left: 63%;
 }
 
 .ui-growl-item-container {
-	background-image: none;
-	background-color: #e27129;
-	
+    background-image: none;
+    background-color: #e27129;  
 }
+

@@ -20,7 +20,6 @@ import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Type;
 
 import com.beans.common.security.users.model.Users;
-import com.beans.leaveapp.address.model.Address;
 import com.beans.leaveapp.department.model.Department;
 import com.beans.leaveapp.employeegrade.model.EmployeeGrade;
 import com.beans.leaveapp.employeetype.model.EmployeeType;
@@ -51,7 +50,6 @@ public class Employee {
 	private Date resignationDate;
 	private boolean isDeleted;
 	private boolean isResigned;
-	private List<Address> addresses;
 	
 	@Id
 	@GeneratedValue
@@ -236,14 +234,5 @@ public class Employee {
 		this.isResigned = isResigned;
 	}
 	
-	@OneToMany(fetch=FetchType.LAZY, targetEntity=Address.class)
-	@JoinColumn(name="employeeid")
-	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
-	public List<Address> getAddresses() {
-		return addresses;
-	}
-	public void setAddresses(List<Address> addresses) {
-		this.addresses = addresses;
-	}
 	
 }

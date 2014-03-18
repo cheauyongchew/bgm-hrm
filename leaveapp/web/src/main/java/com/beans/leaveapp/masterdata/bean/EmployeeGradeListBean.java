@@ -13,7 +13,7 @@ public class EmployeeGradeListBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	
-	public List<EmployeeGrade> getEmployeeGradeList() {
+	public List<EmployeeGrade> getEmployeeGradeList() throws Throwable {
 		if(employeeGradeList == null) {
 			
 			employeeGradeList = employeeGradeService.findAll();

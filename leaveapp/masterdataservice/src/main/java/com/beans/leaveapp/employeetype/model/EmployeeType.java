@@ -8,6 +8,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 
+
 @Entity
 @Table(name="EmployeeType")
 public class EmployeeType {
@@ -49,6 +50,21 @@ public class EmployeeType {
 	}
 	public void setDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
+	}
+	
+	public boolean equals(Object other)
+	{
+	    return other instanceof EmployeeType && id == ((EmployeeType) other).getId();
+	}
+
+	public int hashCode()
+	{
+	    return this.getClass().hashCode();
+	}
+
+	public String toString()
+	{
+	    return "EmployeeType[" + getId() + "," + getName() + "]";
 	}
 	
 }

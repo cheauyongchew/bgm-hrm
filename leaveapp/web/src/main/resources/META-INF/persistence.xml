@@ -11,6 +11,7 @@
         <class>com.beans.leaveapp.address.model.Address</class>
         <class>com.beans.leaveapp.employee.model.Employee</class>
         <class>com.beans.common.security.users.model.Users</class>
+        <class>com.beans.leaveapp.common.audit.model.SystemAuditTrail</class>        
         <class>com.beans.leaveapp.common.security.usertorole.model.UserToRole</class>
         <class>com.beans.leaveapp.common.security.role.model.Role</class>
         <properties>

@@ -75,13 +75,28 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
  		<property-name>employeeService</property-name>
  		<value>#{employeeService}</value>
  	</managed-property>
+ 	<managed-property>
+ 		<property-name>addressService</property-name>
+ 		<value>#{addressService}</value>
+ 	</managed-property>
  </managed-bean> 
+ <managed-bean>
+ 	<managed-bean-name>systemAuditTrailMgmtBean</managed-bean-name>
+ 	<managed-bean-class>com.beans.leaveapp.audit.trail.bean.SystemAuditTrailManagementBean</managed-bean-class>
+ 	<managed-bean-scope>view</managed-bean-scope>
+ 	<managed-property>
+ 		<property-name>systemAuditTrailService</property-name>
+ 		<value>#{systemAuditTrailService}</value>
+ 	</managed-property>
+ </managed-bean> 
+ 
  <managed-bean>
  	<managed-bean-name>authenticationBean</managed-bean-name>
  	<managed-bean-class>com.beans.leaveapp.web.bean.AuthenticationBean</managed-bean-class>
  	<managed-bean-scope>request</managed-bean-scope>
  </managed-bean>
- <managed-bean>
+ 
+  <managed-bean>
  <managed-bean-name>userToRoleMgmtBean</managed-bean-name>
  <managed-bean-class>com.beans.leaveapp.usertorole.bean.UserToRoleManagementBean</managed-bean-class>
  <managed-bean-scope>view</managed-bean-scope>
@@ -98,5 +113,7 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
   <property-name>roleService</property-name>
   <value>#{roleService}</value>
  </managed-property>
- </managed-bean> 
+ </managed-bean>
+
+
 </faces-config>
