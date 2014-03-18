@@ -188,7 +188,7 @@
 							          </p:column>
 							        </p:dataTable>
 							        
-							        <p:commandButton value="Add Address" update=":employeeForm:employeeUpdateTabView:EmployeeAddress" title="Add Address" actionListener="#{employeeProfileMgmtBean.setAddressOperation(true, 'Create')}" rendered="#{not employeeProfileMgmtBean.isRenderAddress()}"/>
+							        <p:commandButton value="Add Address" update=":employeeForm:employeeUpdateTabView:EmployeeAddress" title="Add Address" actionListener="#{employeeProfileMgmtBean.setAddressOperation(true, 'Create')}" rendered="#{employeeProfileMgmtBean.isRenderAddress() == false}"/>
 							      
 								<h:form>
 							   <p:outputPanel id="AddressDetail" rendered="#{employeeProfileMgmtBean.isRenderAddress()}">

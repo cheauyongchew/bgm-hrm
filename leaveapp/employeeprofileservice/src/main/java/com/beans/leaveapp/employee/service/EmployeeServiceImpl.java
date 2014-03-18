@@ -1,6 +1,5 @@
 package com.beans.leaveapp.employee.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -12,7 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.beans.common.security.users.model.Users;
 import com.beans.leaveapp.address.model.Address;
-import com.beans.leaveapp.address.repository.AddressRepository;
+import com.beans.leaveapp.address.service.AddressNotFound;
+import com.beans.leaveapp.address.service.AddressService;
 import com.beans.leaveapp.department.model.Department;
 import com.beans.leaveapp.department.service.DepartmentNotFound;
 import com.beans.leaveapp.department.service.DepartmentService;
@@ -32,9 +32,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Resource
 	EmployeeRepository employeeRepository;
 	
-	@Resource
-	AddressRepository addressRepository;
-	
+	AddressService addressService;
 	DepartmentService departmentService;
 	EmployeeGradeService employeeGradeService;
 	EmployeeTypeService employeeTypeService;
@@ -114,6 +112,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
+	@Transactional(rollbackFor={EmployeeGradeNotFound.class, DepartmentNotFound.class, EmployeeTypeNotFound.class})
 	public Employee createEmployee(Employee employee, int employeeGradeId,
 			int employeeTypeId, int departmentId, Users users, HashMap<Integer, Address> newAddressMap) {
 		try {
@@ -136,7 +135,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 					Address currentAddress = addressIterator.next();
 					currentAddress.setId(0);
 					currentAddress.setEmployee(newEmployee);
-					addressRepository.save(currentAddress);
+					addressService.create(currentAddress);
 				}
 				
 			}
@@ -154,6 +153,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
+	@Transactional(rollbackFor={EmployeeGradeNotFound.class, DepartmentNotFound.class, EmployeeTypeNotFound.class, AddressNotFound.class})
 	public Employee updateEmployee(Employee employee, int employeeGradeId,
 			int employeeTypeId, int departmentId, Users users, List<Address> existingAddressList, HashMap<Integer, Address> newAddressMap) {
 		try {
@@ -176,7 +176,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 					Address currentAddress = addressIterator.next();
 					currentAddress.setId(0);
 					currentAddress.setEmployee(newEmployee);
-					addressRepository.save(currentAddress);
+					addressService.create(currentAddress);
 				}
 				
 			}
@@ -185,7 +185,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 				Iterator<Address> existingAddressIterator = existingAddressList.iterator();
 				while(existingAddressIterator.hasNext()) {
 					Address currentAddress = existingAddressIterator.next();
-					addressRepository.save(currentAddress);
+					addressService.update(currentAddress);
 				}
 			}
 			
@@ -198,6 +198,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 		} catch(DepartmentNotFound e) {
 			e.printStackTrace();
 		} catch(EmployeeNotFound e) {
+			e.printStackTrace();
+		} catch(AddressNotFound e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -227,7 +229,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 		this.employeeTypeService = employeeTypeService;
 	}
 	
-	
+	public AddressService getAddressService() {
+		return addressService;
+	}
+	public void setAddressService(AddressService addressService) {
+		this.addressService = addressService;
+	}
 	
 	
 
