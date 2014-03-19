@@ -220,7 +220,7 @@ INSERT INTO LeaveType(name, description, employeeTypeId, entitlement, isAccounta
 
 INSERT INTO Users(id, username, password, enabled) VALUES ('1', 'test1', 'test1', '1');
 
-INSERT INTO Role(id, role, isDeleted) VALUES ('1', 'ROLE_USER', '1');
+INSERT INTO Role(id, role, isDeleted) VALUES ('1', 'ROLE_USER', 0);
 
 INSERT INTO UserToRole(userId, userRoleId) VALUES ('1', '1');
  
