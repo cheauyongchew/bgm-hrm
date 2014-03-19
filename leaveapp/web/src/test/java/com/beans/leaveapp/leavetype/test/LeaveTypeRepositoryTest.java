@@ -17,7 +17,7 @@ public class LeaveTypeRepositoryTest {
     @Autowired
     LeaveTypeRepository leaveTypeRepository;
 
-    @Test
+    
     public void test() {
         LeaveType leaveType = new LeaveType();
         leaveType.setName("Test123");
