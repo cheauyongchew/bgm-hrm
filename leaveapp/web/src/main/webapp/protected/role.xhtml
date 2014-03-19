@@ -34,7 +34,9 @@
           <p:column id="roleHeader"  headerText="Role" >
             <h:outputText value="#{role0.role}" />
           </p:column>        
-        
+        <p:column id="descHeader" headerText="Description">           
+            <h:outputText value="#{role0.description}" />
+          </p:column>
         
         </p:dataTable>
         
@@ -52,7 +54,8 @@
             <h:outputText value="Role :"></h:outputText>
                         <h:inputText value="#{roleMgmtBean.selectedRole.role}" required="true" requiredMessage="Please Enter Role!"/>
  
-            
+            <h:outputText value="Description"></h:outputText>
+            			<h:inputText value="#{roleMgmtBean.selectedRole.description}" required="true" requiredMessage="please Enter Description"/>
                     <f:facet name="footer">
                             <p:commandButton value="Update" update=":roleTableForm:roleTable"  oncomplete="PF('roleDialog').hide()" actionListener="#{roleMgmtBean.doUpdateRole}"/>
                             <p:commandButton value="Delete" onclick="PF('cd').show()" oncomplete="PF('roleDialog').hide()"/>                        
@@ -67,8 +70,10 @@
                 <p:panelGrid id="displayNewRole" columns="2" cellpadding="4" style="margin:0 auto;">
             <h:outputText value="Role :"></h:outputText>
                         <p:inputText value="#{roleMgmtBean.newRole.role}" required="true" requiredMessage="Please Enter Role!"/>
- 
- 
+                        
+             <h:outputText value="Description"></h:outputText>           
+			 			<p:inputText value="#{roleMgmtBean.newRole.description}" required="true" requiredMessage="please Enter Description"/>
+                    
            
                     <f:facet name="footer">
                             <p:commandButton value="Submit" update=":roleTableForm:roleTable"  oncomplete="PF('newRoleDialog').hide()" actionListener="#{roleMgmtBean.doCreateRole}"/>

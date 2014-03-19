@@ -23,6 +23,7 @@ public class Role {
 	 private String role;
 	 private boolean isDeleted= false;
 	 private List<Users> userList;
+	 private String description;
 	 
 	@Id
 	@GeneratedValue
@@ -54,11 +55,19 @@ public class Role {
 
 	public void setDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
+	} 
+	 
+	@Column(name="description", nullable=true)
+	public String getDescription() {
+		return description;
 	}
 
- 
-	 
-	
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "userRoles")
 	public List<Users> getUserList() {
 		return userList;
@@ -68,5 +77,6 @@ public class Role {
 	public void setUserList(List<Users> userList) {
 		this.userList = userList;
 	}	
+	
 	
 }
