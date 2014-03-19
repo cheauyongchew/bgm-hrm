@@ -30,6 +30,10 @@
 		<property name="employeeTypeService" >
 			<ref bean="employeeTypeService"/>
 		</property>
+		
+		<property name="addressService" >
+			<ref bean="addressService"/>
+		</property>
 	 </bean>   
 	
 	
