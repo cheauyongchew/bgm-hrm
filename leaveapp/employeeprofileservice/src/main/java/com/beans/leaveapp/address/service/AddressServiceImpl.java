@@ -62,7 +62,7 @@ public class AddressServiceImpl implements AddressService {
 
 	@Override
 	public List<Address> findByEmployeeId(int employeeId) {
-		List<Address> addressList = addressRepository.findByEmployeeId(employeeId);
+		List<Address> addressList = addressRepository.findByEmployeeId(employeeId, 0);
 		return addressList;
 	}
 

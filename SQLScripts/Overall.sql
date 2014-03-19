@@ -53,12 +53,10 @@ CREATE TABLE IF NOT EXISTS Role (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS UserToRole (
-  `userId` int(10) NOT NULL,
-  `userRoleId` int(10) NOT NULL,
-  PRIMARY KEY (`userId`,`userRoleId`),
-  KEY `FK_userRoleId` (`userRoleId`),
-  CONSTRAINT `FK_userId` FOREIGN KEY (`userId`) REFERENCES `users` (`id`),
-  CONSTRAINT `FK_userRoleId` FOREIGN KEY (`userRoleId`) REFERENCES `role` (`id`)
+  userId int(10) NOT NULL,
+  userRoleId int(10) NOT NULL,
+  FOREIGN KEY (userId) REFERENCES Users(id),
+  FOREIGN KEY (userRoleId) REFERENCES Role(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS LeaveType (
