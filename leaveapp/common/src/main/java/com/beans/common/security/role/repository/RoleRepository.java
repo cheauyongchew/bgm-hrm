@@ -1,11 +1,11 @@
-package com.beans.leaveapp.common.security.role.repository;
+package com.beans.common.security.role.repository;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import com.beans.leaveapp.common.security.role.model.Role;
+import com.beans.common.security.role.model.Role;
 
 public interface RoleRepository extends CrudRepository<Role, Integer>{
 
@@ -14,6 +14,6 @@ public interface RoleRepository extends CrudRepository<Role, Integer>{
 	 List<Role> findByisDeleted(int x);
 	
 	@Query("select r from Role r")
-	 List<Role> findAllIncludingDeleted();
+	 List<Role> findById(int id);
 	
 }

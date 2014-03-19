@@ -19,7 +19,7 @@
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
    
-    <jpa:repositories base-package="com.beans.leaveapp"></jpa:repositories>
+    <jpa:repositories base-package="com.beans"></jpa:repositories>
     
 	
 	
@@ -50,14 +50,10 @@
 	 <bean id="department" class="com.beans.leaveapp.department.model.Department" /> 
 	
 	 <bean id="departmentService" class="com.beans.leaveapp.department.service.DepartmentServiceImpl" >
-	 </bean>   
-	  
-	 <bean id="userToRole" class="com.beans.leaveapp.common.security.usertorole.model.UserToRole"/>
-	 <bean id="userToRoleService" class="com.beans.leaveapp.common.security.usertorole.service.UserToRoleServiceImpl">	 
-	 </bean>
+	 </bean>	 
 	
-	 <bean id="role" class="com.beans.leaveapp.common.security.role.model.Role"/>
-	 <bean id="roleService" class="com.beans.leaveapp.common.security.role.service.RoleServiceImpl">
+	 <bean id="role" class="com.beans.common.security.role.model.Role"/>
+	 <bean id="roleService" class="com.beans.common.security.role.service.RoleServiceImpl">
 	 </bean>
 	
 

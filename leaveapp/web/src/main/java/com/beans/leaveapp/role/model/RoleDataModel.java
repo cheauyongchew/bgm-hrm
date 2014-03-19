@@ -6,7 +6,7 @@ import javax.faces.model.ListDataModel;
 
 import org.primefaces.model.SelectableDataModel;
 
-import com.beans.leaveapp.common.security.role.model.Role;
+import com.beans.common.security.role.model.Role;
 
 public class RoleDataModel extends ListDataModel<Role> implements SelectableDataModel<Role>{
 	

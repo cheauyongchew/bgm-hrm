@@ -22,11 +22,9 @@
 		      from Users where username=?" 
  
 		   authorities-by-username-query="
-		       select u.username, utr.userRole from Users u, UserToRole utr 
-		      where u.id = utr.userId and u.username =?  and utr.userRole = ROLE_USER" 
- 
+		       select u.username, r.role from Users u JOIN UserToRole utr ON u.id = utr.userId 
+		       JOIN Role r ON r.id = utr.userRoleId where u.username=?"  
 		/>
 	   </authentication-provider>
-	</authentication-manager>
- 
+	</authentication-manager> 
 </beans:beans>

@@ -44,19 +44,20 @@ CREATE TABLE IF NOT EXISTS Users (
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS UserToRole (
-  userId int(10) NOT NULL,
-  userRole varchar(45) NOT NULL,
-  isDeleted char(1) DEFAULT NULL,
-  PRIMARY KEY (userId),
-  FOREIGN KEY (userId) REFERENCES Users (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 CREATE TABLE IF NOT EXISTS Role (
-  id int(10) NOT NULL AUTO_INCREMENT,
-  role varchar(45) NOT NULL,
-  isDeleted tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (id)
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `role` varchar(45) NOT NULL,
+  `isDeleted` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS UserToRole (
+  `userId` int(10) NOT NULL,
+  `userRoleId` int(10) NOT NULL,
+  PRIMARY KEY (`userId`,`userRoleId`),
+  KEY `FK_userRoleId` (`userRoleId`),
+  CONSTRAINT `FK_userId` FOREIGN KEY (`userId`) REFERENCES `users` (`id`),
+  CONSTRAINT `FK_userRoleId` FOREIGN KEY (`userRoleId`) REFERENCES `role` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS LeaveType (
@@ -217,7 +218,9 @@ INSERT INTO LeaveType(name, description, employeeTypeId, entitlement, isAccounta
 INSERT INTO LeaveType(name, description, employeeTypeId, entitlement, isAccountable, isDeleted) VALUES ('Maternity', 'Maternity leave', (SELECT id from EmployeeType WHERE name = 'PERM'), 60.0, 0, 0);
 INSERT INTO LeaveType(name, description, employeeTypeId, entitlement, isAccountable, isDeleted) VALUES ('Paternity', 'Paternity leave', (SELECT id from EmployeeType WHERE name = 'PERM'), 3.0, 0, 0);
 
+INSERT INTO Users(id, username, password, enabled) VALUES ('1', 'test1', 'test1', '1');
 
+INSERT INTO Role(id, role, isDeleted) VALUES ('1', 'ROLE_USER', '1');
 
-
+INSERT INTO UserToRole(userId, userRoleId) VALUES ('1', '1');
  

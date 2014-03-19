@@ -1,4 +1,4 @@
-package com.beans.leaveapp.common.security.role.service;
+package com.beans.common.security.role.service;
 
 import java.util.List;
 
@@ -7,8 +7,8 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.beans.leaveapp.common.security.role.model.Role;
-import com.beans.leaveapp.common.security.role.repository.RoleRepository;
+import com.beans.common.security.role.model.Role;
+import com.beans.common.security.role.repository.RoleRepository;
 
 @Service
 public class RoleServiceImpl implements RoleService{

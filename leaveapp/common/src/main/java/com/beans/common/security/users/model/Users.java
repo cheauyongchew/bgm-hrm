@@ -1,12 +1,21 @@
 package com.beans.common.security.users.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
+
+import com.beans.common.security.role.model.Role;
 
 @Entity
 @Table(name="Users")
@@ -15,6 +24,7 @@ public class Users {
 	private String username;
 	private String password;
 	private boolean enabled;
+	private List<Role> userRoles;
 	
 	@Id
 	@GeneratedValue
@@ -49,6 +59,18 @@ public class Users {
 	}
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "usertorole" , joinColumns = { @JoinColumn(name = "userId", referencedColumnName = "id" )},
+	inverseJoinColumns=
+			{@JoinColumn (name = "userRoleId", referencedColumnName = "id" ) } )
+
+	public List<Role> getUserRoles() {
+		return userRoles;
+	}
+	public void setUserRoles(List<Role> userRoles) {
+		this.userRoles = userRoles;
 	}
 	
 	

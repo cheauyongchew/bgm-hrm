@@ -94,17 +94,8 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
  	<managed-bean-name>authenticationBean</managed-bean-name>
  	<managed-bean-class>com.beans.leaveapp.web.bean.AuthenticationBean</managed-bean-class>
  	<managed-bean-scope>request</managed-bean-scope>
- </managed-bean>
- 
-  <managed-bean>
- <managed-bean-name>userToRoleMgmtBean</managed-bean-name>
- <managed-bean-class>com.beans.leaveapp.usertorole.bean.UserToRoleManagementBean</managed-bean-class>
- <managed-bean-scope>view</managed-bean-scope>
- <managed-property>
- 		<property-name>userToRoleService</property-name>
- 		<value>#{userToRoleService}</value>
- </managed-property>
- </managed-bean>
+ </managed-bean> 
+
  <managed-bean>
  <managed-bean-name>roleMgmtBean</managed-bean-name>
  <managed-bean-class>com.beans.leaveapp.role.bean.RoleManagement</managed-bean-class>

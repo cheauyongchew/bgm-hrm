@@ -8,9 +8,9 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.event.SelectEvent;
 
-import com.beans.leaveapp.common.security.role.model.Role;
-import com.beans.leaveapp.common.security.role.service.RoleNotFound;
-import com.beans.leaveapp.common.security.role.service.RoleService;
+import com.beans.common.security.role.model.Role;
+import com.beans.common.security.role.service.RoleNotFound;
+import com.beans.common.security.role.service.RoleService;
 import com.beans.leaveapp.role.model.RoleDataModel;
 
 public class RoleManagement implements Serializable{

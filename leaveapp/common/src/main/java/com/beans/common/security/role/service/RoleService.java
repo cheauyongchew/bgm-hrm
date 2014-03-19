@@ -1,8 +1,8 @@
-package com.beans.leaveapp.common.security.role.service;
+package com.beans.common.security.role.service;
 
 import java.util.List;
 
-import com.beans.leaveapp.common.security.role.model.Role;
+import com.beans.common.security.role.model.Role;
 
 public interface RoleService {
 	
