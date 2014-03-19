@@ -58,6 +58,15 @@ public class EmployeeProfileManagementBean implements Serializable{
 		this.isEmployeeCreation = isEmployeeCreation;
 	}
 	
+	public void initEmployeeCreation() {
+		setEmployeeCreation(true);
+		setSelectedEmployee(new Employee());
+		setSelectedDepartment(-1);
+		setSelectedEmployeeGrade(-1);
+		setSelectedEmployeeType(-1);
+		newAddressMap = new HashMap<Integer, Address>();
+	}
+	
 	public String getEmployeeName() {
 		return employeeName;
 	}
@@ -158,8 +167,8 @@ public class EmployeeProfileManagementBean implements Serializable{
 	}
 	
 	public AddressDataModel getAddressDataModel() {
-		if(addressDataModel == null || insertDeleteAddress == true ) {
-			if(existingAddressList == null || existingAddressList.size() == 0) {
+		if(addressDataModel == null || (insertDeleteAddress == true && isEmployeeCreation == false) ) {
+			if(selectedEmployee != null && (existingAddressList == null || existingAddressList.size() == 0)) {
 				existingAddressList = addressService.findByEmployeeId(this.selectedEmployee.getId());
 			}
 			if(existingAddressList == null || existingAddressList.size() == 0) {
@@ -217,6 +226,7 @@ public class EmployeeProfileManagementBean implements Serializable{
 		existingAddressList = null;
 		setInsertDeleteAddress(true);
 		setEmployeeName(this.selectedEmployee.getName());
+		newAddressMap = new HashMap<Integer, Address>();
 		
 		
 	}

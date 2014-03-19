@@ -11,6 +11,6 @@ public interface AddressRepository extends CrudRepository<Address, Integer>{
 	@Query("select e from Address e where isDeleted = ?")
 	List<Address> findByisDeleted(int isDeleted);
 	
-	@Query("select e from Address e where employeeId = ?")
-	List<Address> findByEmployeeId(int employeeId);
+	@Query("select e from Address e where employeeId = ? and isDeleted = ?")
+	List<Address> findByEmployeeId(int employeeId, int deleted);
 }
