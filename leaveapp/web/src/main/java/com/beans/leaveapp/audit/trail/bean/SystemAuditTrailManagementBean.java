@@ -11,9 +11,9 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.event.SelectEvent;
 
+import com.beans.common.audit.model.SystemAuditTrail;
+import com.beans.common.audit.service.SystemAuditTrailRecordService;
 import com.beans.leaveapp.audit.trail.model.SystemAuditTrailDataModel;
-import com.beans.leaveapp.common.audit.model.SystemAuditTrail;
-import com.beans.leaveapp.common.audit.service.SystemAuditTrailRecordService;
 
 public class SystemAuditTrailManagementBean implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -147,8 +147,8 @@ public class SystemAuditTrailManagementBean implements Serializable {
 
 			System.out.println("ID: " + selectedSystemAuditTrail.getDate());
 			System.out.println("ID: " + selectedSystemAuditTrail.getId());
-			System.out.println("ActorUserId: "
-					+ selectedSystemAuditTrail.getActorUserId());
+			System.out.println("ActorUsername: "
+					+ selectedSystemAuditTrail.getActorUsername());
 			System.out.println("Description: "
 					+ selectedSystemAuditTrail.getDescription());
 

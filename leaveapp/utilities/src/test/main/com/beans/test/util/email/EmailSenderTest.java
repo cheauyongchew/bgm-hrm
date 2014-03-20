@@ -17,12 +17,6 @@ import com.beans.util.email.EmailSender;
 
 public class EmailSenderTest {
 	
-	private EmailSender emailSender = null;
-	
-	@Before
-	public void init() {
-		emailSender = new EmailSender();
-	}
 	
 	@Test
 	public void testSendEmailSuccessful() throws EmailException{
@@ -30,7 +24,7 @@ public class EmailSenderTest {
 		email.setSubject("Testing Simple Email");
 		email.setMsg("Testing from unit test for simple text email");
 		email.addTo("pradeepchinta432@gmail.com");
-		emailSender.sendEmail(email);
+		EmailSender.sendEmail(email);
 	}
 	
 	@Test(expected=EmailException.class)
@@ -39,7 +33,7 @@ public class EmailSenderTest {
 		email.setSubject("Testing");
 		email.setMsg("Testing from unit test");
 		email.addTo("pradeepchinta432gmail.com");
-		emailSender.sendEmail(email);
+		EmailSender.sendEmail(email);
 		
 	}
 	
@@ -67,7 +61,7 @@ public class EmailSenderTest {
 		
 		email.setHtmlMsg(bodyStringBuffer.toString());
 		
-		emailSender.sendEmail(email);
+		EmailSender.sendEmail(email);
 	}
 	
 	@Test
@@ -84,6 +78,6 @@ public class EmailSenderTest {
 		
 		email.attach(dataSourceClassPathResolver.resolve("email/attachment.pdf"), "attachment.pdf", "For Unit Testing");
 		
-		emailSender.sendEmail(email);
+		EmailSender.sendEmail(email);
 	}
 }
