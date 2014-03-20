@@ -1,8 +1,8 @@
-body, .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button { 
-    background-color: #fefdfa; 
+body, .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
+    margin: 0.5em; 
+    background-color: #fefdfa;
+    font-size: 12px; 
     font-family: Futura, "Trebuchet MS", Arial, sans-serif;
-    font-size: 12px;
-    margin: auto;
 }
 
 img {
@@ -13,7 +13,6 @@ button {
     margin: 0.5em;
 }
 
-
 /* To set footer to stick at end of page */
 #container {
      min-height: 500px;
@@ -21,10 +20,10 @@ button {
 
 #footer {
    position: relative;
-   bottom: 0; 
+   bottom: 0;
+   width: 100%; 
    height: 20px;
-   width: 100%;
-   background: #f06409;
+   background: #00B379;
    color: #fff;
    text-align: center;
 }
@@ -36,59 +35,59 @@ button {
 
 /* Setting for menubar color */
 .ui-menubar{
-    background: #315d72 !important;
+    background: #396c84 !important;
 }
 
 /* Setting for menu text */
 .ui-menuitem-text {
-    margin-left: 5px;
     margin-right: 5px;
-    font-weight: bold;
+    margin-left: 5px;
     color: #fff;
+    font-weight: bold;
     font-family: Futura, "Trebuchet MS", Arial, sans-serif;
 }
 
 /* Setting for hovering state on menu item */
 a.ui-menuitem-link.ui-corner-all.ui-state-hover {
-    background: #f06409 !important;
     border-radius: 5px;
+    background: #00B379 !important;
 }
 
 /* Setting for submenu background */
 .ui-widget-content.ui-menu-list.ui-corner-all.ui-helper-clearfix.ui-menu-child.ui-shadow {
-    background: #315d72;
+    background: #396c84;
 }
 
 /* Setting for datatable header */
 div.ui-datatable-header.ui-widget-header.ui-corner-top {
-    color: #315d72;
-    background: #fff;
-    text-transform: capitalize;
-    text-align: left;
-    font-family: Futura, "Trebuchet MS", Arial, sans-serif;
     padding: 0.5em;
+    background: #fff;
+    color: #000;
+    text-align: left;
+    text-transform: capitalize;
+    font-family: Futura, "Trebuchet MS", Arial, sans-serif;
 }
 
 /* Setting for all table header */
 th {
-    background: #f06409 !important;
+    background: #FF9912 !important;
     color: #fff !important;
+    font-weight: bold;
     font-family: Futura, "Trebuchet MS", Arial, sans-serif;
-    font-weight: normal;
 }
 
 /* Setting for even table row */
 tr.ui-widget-content.ui-datatable-even.ui-datatable-selectable {
-    background-color: #6e8d9c;
-    color: #fff;
+    background-color: #fff;
+    color: #000;
     font-size: 12px;
     font-family: Futura, "Trebuchet MS", Arial, sans-serif;
 }
 
 /* Setting for odd table row */
 tr.ui-widget-content.ui-datatable-odd.ui-datatable-selectable {
-    background-color: #fff;
-    color:  #315d72;
+    background-color: #ededed;
+    color:  #000;
     font-size: 12px;
     font-family: Futura, "Trebuchet MS", Arial, sans-serif;
 }
@@ -105,23 +104,24 @@ tr.ui-widget-content.ui-datatable-odd.ui-datatable-selectable.ui-state-hover {
 
 /* Setting for even table row highlight state */
 tr.ui-widget-content.ui-datatable-even.ui-datatable-selectable.ui-state-highlight {
+    color: #fff !important;
     font-weight: bold;
 }
 
 /* Setting for odd table row highlight state */
 tr.ui-widget-content.ui-datatable-odd.ui-datatable-selectable.ui-state-highlight {
-    font-weight: bold;
     color: #fff !important;
+    font-weight: bold;
  }
 
 /* Setting for button */
 .ui-button-text {
-    font-weight: bold;
-    color: #fff;
-    font-family: Futura, "Trebuchet MS", Arial, sans-serif;
-    background-color: #317246;
     border: none;
+    background-color: #32cd32;
+    color: #fff;
     text-shadow: none;
+    font-weight: bold;
+    font-family: Futura, "Trebuchet MS", Arial, sans-serif;
 }
 
 /* Setting for dialog box */
@@ -132,30 +132,42 @@ tr.ui-widget-content.ui-datatable-odd.ui-datatable-selectable.ui-state-highlight
 
 /* Setting for dialog titlebar */
 .ui-dialog-titlebar {
-    background: #f06409 !important;
+    background: #FF9912 !important;
     color: #fff !important;
     font-weight: normal;
 }
 
+/* Settings to hide table border */
+.ui-panelgrid tr, .ui-panelgrid td {
+    border: 0 !important;
+    background: none !important;
+}
+
 /* Setting for widget header */
 tr.ui-widget-header > td {
-    background: #315d72 !important;
-    color: white !important;
-    font-family: Futura, "Trebuchet MS", Arial, sans-serif;
-    font-size: 15px;
+    background: #fff !important;
+    color: #396c84 !important;
     text-transform: uppercase;
+    font-size: 15px;
+    font-family: Futura, "Trebuchet MS", Arial, sans-serif;   
+    width: 699px !important;
+}
+
+/* Setting for thead border */
+thead.ui-panelgrid-header {
+    border: 1px solid #396c84 !important;
 }
 
 /* Setting for field label in widget */
 tr.ui-widget-content {
-    color: #315d72;
+    color: #000;
     font-family: Futura, "Trebuchet MS", Arial, sans-serif;
 }
 
 /* Setting selectonemenu field in form */
 div.ui-selectonemenu.ui-widget.ui-state-default.ui-corner-all.ui-helper-clearfix {
+    width:140px !important;
     text-transform: capitalize;
-    width: 100% !important
 }
 
 /* Setting to capitalize list item for selectonemenu */
@@ -165,7 +177,7 @@ li.ui-selectonemenu-item.ui-selectonemenu-list-item.ui-corner-all {
 
 /* Setting for hover state for selectonemenu */
 li.ui-selectonemenu-item.ui-selectonemenu-list-item.ui-corner-all.ui-state-hover {
-    color: #315d72 !important;
+    color: #396c84 !important;
     text-transform: capitalize;
     font-weight: bold;
 }
@@ -173,7 +185,7 @@ li.ui-selectonemenu-item.ui-selectonemenu-list-item.ui-corner-all.ui-state-hover
 /* Setting for highlight state for selectonemenu */
 li.ui-selectonemenu-item.ui-selectonemenu-list-item.ui-corner-all.ui-state-highlight {
     background: none !important;
-    background-color: #315d72 !important;
+    background-color: #396c84 !important;
     text-transform: capitalize;
 }
 
@@ -184,29 +196,38 @@ li.ui-selectonemenu-item.ui-selectonemenu-list-item.ui-corner-all.ui-state-highl
 
 /* Setting for error message text */
 .ui-messages-error-summary {
-    font-family: Futura, "Trebuchet MS", Arial, sans-serif;
     text-transform: capitalize;
+    font-family: Futura, "Trebuchet MS", Arial, sans-serif;
 }
 
 
-/* Previously setting for dialog tab */
-/* li.ui-state-default.ui-tabs-selected.ui-state-active.ui-corner-top  { */
-/*     background-color: #fff !important; */
-/* } */
+/* Setting for active dialog tab */
+li.ui-state-default.ui-tabs-selected.ui-state-active.ui-corner-top  {
+    background-color: #fff !important;
+}
 
-/* li.ui-state-default.ui-corner-top > a { */
-/*     color: #f06409 !important; */
-/* } */
+/* Setting for active dialog tab text */
+li.ui-state-default.ui-tabs-selected.ui-state-active.ui-corner-top > a {
+    color: #00B379 !important;
+    font-weight: bold;
+}
 
-/* li.ui-state-default.ui-corner-top.ui-state-hover { */
-/*     background-color: #f06409 !important; */
-/* } */
 
-/* li.ui-state-default.ui-corner-top.ui-state-hover > a { */
-/*     color: #fff !important; */
-/* } */
+/* Setting for dialog tab text */
+li.ui-state-default.ui-corner-top > a {
+    color: #00B379 !important;
+}
 
-/* li.ui-state-default.ui-tabs-selected.ui-state-active.ui-corner-top > a { */
-/*     color: #f06409 !important; */
-/*     font-weight: bold; */
-/* } */
+/* Setting for hover dialog tab */
+li.ui-state-default.ui-corner-top.ui-state-hover {
+    background-color: #00B379 !important;
+}
+
+/* Setting for hover dialog tab text */
+li.ui-state-default.ui-corner-top.ui-state-hover > a {
+    color: #fff !important;
+}
+
+.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-shadow.ui-draggable.ui-overlay-visible {
+ width: 720px !important;
+}
