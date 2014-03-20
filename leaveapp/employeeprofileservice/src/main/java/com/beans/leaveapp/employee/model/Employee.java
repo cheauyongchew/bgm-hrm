@@ -167,6 +167,7 @@ public class Employee {
 	
 	@OneToOne
 	@Cascade({CascadeType.DELETE})
+	@JoinColumn(name="userId")
 	public Users getUsers() {
 		return users;
 	}
@@ -175,6 +176,7 @@ public class Employee {
 	}
 	
 	@OneToOne
+	@JoinColumn(name="employeeGradeId")
 	public EmployeeGrade getEmployeeGrade() {
 		return employeeGrade;
 	}
@@ -183,6 +185,7 @@ public class Employee {
 	}
 	
 	@OneToOne
+	@JoinColumn(name="departmentId")
 	public Department getDepartment() {
 		return department;
 	}
@@ -191,6 +194,7 @@ public class Employee {
 	}
 	
 	@OneToOne
+	@JoinColumn(name="employeeTypeId")
 	public EmployeeType getEmployeeType() {
 		return employeeType;
 	}

@@ -134,7 +134,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 			employee.setDeleted(false);
 			employee.setResigned(false);
 			
-			Users newUsers = usersService.registerUser(users);
+			if(users != null) {
+				Users newUsers = usersService.registerUser(users);
+			}
 			
 			Employee newEmployee = create(employee);
 			

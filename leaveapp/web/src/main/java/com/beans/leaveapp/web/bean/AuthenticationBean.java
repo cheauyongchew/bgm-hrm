@@ -61,7 +61,7 @@ public class AuthenticationBean implements Serializable{
 			employee = getEmployeeService().findByUsername(getUsername());
 			setUsers(employee.getUsers());
 		} catch(EmployeeNotFound e) {
-			e.printStackTrace();
+			System.out.println("Employee not found for " + getUsername());
 			initUsers();
 		}
 	}
