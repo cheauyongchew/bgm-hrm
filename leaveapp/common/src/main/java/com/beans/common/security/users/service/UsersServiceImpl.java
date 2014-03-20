@@ -70,6 +70,19 @@ public class UsersServiceImpl implements UsersService {
 		return null;
 	}
 	
+	
+	
+	@Override
+	public Users findByUsername(String username) throws UsersNotFound {
+		Users users = usersRepository.findByUsername(username);
+		
+		if(users == null) {
+			throw new UsersNotFound();
+		}
+		
+		return users;
+	}
+
 	public RoleService getRoleService() {
 		return roleService;
 	}

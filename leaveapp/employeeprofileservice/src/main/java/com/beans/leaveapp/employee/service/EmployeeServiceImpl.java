@@ -223,6 +223,20 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return null;
 	}
 	
+	
+	
+	
+	@Override
+	public Employee findByUsername(String username) throws EmployeeNotFound {
+		Employee employee = employeeRepository.findByUsername(username);
+		
+		if(employee == null) {
+			throw new EmployeeNotFound();
+		}
+		
+		return employee;
+	}
+
 	public DepartmentService getDepartmentService() {
 		return departmentService;
 	}

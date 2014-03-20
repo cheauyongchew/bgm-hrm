@@ -17,4 +17,5 @@ public interface EmployeeService {
 	
 	public Employee createEmployee(Employee employee, int employeeGradeId, int employeeTypeId, int departmentId, Users users, HashMap<Integer, Address> newAddressMap);
 	public Employee updateEmployee(Employee employee, int employeeGradeId, int employeeTypeId, int departmentId, Users users, List<Address> existingAddressList, HashMap<Integer, Address> newAddressMap);
+	public Employee findByUsername(String username) throws EmployeeNotFound;
 }
