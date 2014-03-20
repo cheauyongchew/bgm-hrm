@@ -13,8 +13,15 @@
 	<bean id="address" class="com.beans.leaveapp.address.model.Address" />
 
 	  <bean id="employee" class="com.beans.leaveapp.employee.model.Employee" /> 
-	  
+	  <bean id="role" class="com.beans.common.security.role.model.Role"/>
+	 <bean id="roleService" class="com.beans.common.security.role.service.RoleServiceImpl">
+	 </bean>
 	  <bean id="users" class="com.beans.common.security.users.model.Users" />
+	<bean id="usersService" class="com.beans.common.security.users.service.UsersServiceImpl">
+		<property name="roleService" >
+			<ref bean="roleService"/>
+		</property>
+	</bean>
 	
 	<bean id="addressService" class="com.beans.leaveapp.address.service.AddressServiceImpl"/>
 	
@@ -33,6 +40,10 @@
 		
 		<property name="addressService" >
 			<ref bean="addressService"/>
+		</property>
+		
+		<property name="usersService" >
+			<ref bean="usersService"/>
 		</property>
 	 </bean>   
 	

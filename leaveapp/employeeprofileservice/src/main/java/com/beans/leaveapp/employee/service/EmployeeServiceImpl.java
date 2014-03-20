@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.beans.common.security.users.model.Users;
+import com.beans.common.security.users.service.UsersService;
 import com.beans.leaveapp.address.model.Address;
 import com.beans.leaveapp.address.service.AddressNotFound;
 import com.beans.leaveapp.address.service.AddressService;
@@ -39,6 +40,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	DepartmentService departmentService;
 	EmployeeGradeService employeeGradeService;
 	EmployeeTypeService employeeTypeService;
+	UsersService usersService;
 	
 	
 	@Override
@@ -64,7 +66,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public List<Employee> findAll() {
-		ApplLogger.getLogger().info("Testing123");
+		
 		List<Employee> resultList = employeeRepository.findByisDeleted(0);
 		return resultList;
 	}
@@ -132,6 +134,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 			employee.setDeleted(false);
 			employee.setResigned(false);
 			
+			Users newUsers = usersService.registerUser(users);
 			
 			Employee newEmployee = create(employee);
 			
@@ -251,6 +254,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 		this.addressService = addressService;
 	}
 	
-	
+	public UsersService getUsersService() {
+		return usersService;
+	}
+	public void setUsersService(UsersService usersService) {
+		this.usersService = usersService;
+	}
 
 }

@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.beans.common.security.role.service.RoleService;
 import com.beans.common.security.users.model.Users;
 import com.beans.common.security.users.repository.UsersRepository;
 
@@ -17,6 +18,7 @@ public class UsersServiceImpl implements UsersService {
 	@Resource
 	private UsersRepository usersRepository;
 	
+	RoleService roleService;
 	
 	@Override
 	@Transactional
@@ -61,6 +63,20 @@ public class UsersServiceImpl implements UsersService {
 		
 		return users;
 	}
+
+	@Override
+	public Users registerUser(Users users) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public RoleService getRoleService() {
+		return roleService;
+	}
+	public void setRoleService(RoleService roleService) {
+		this.roleService = roleService;
+	}
+	
 
 	 
 }

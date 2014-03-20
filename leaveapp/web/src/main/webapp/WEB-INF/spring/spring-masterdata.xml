@@ -52,9 +52,7 @@
 	 <bean id="departmentService" class="com.beans.leaveapp.department.service.DepartmentServiceImpl" >
 	 </bean>	 
 	
-	 <bean id="role" class="com.beans.common.security.role.model.Role"/>
-	 <bean id="roleService" class="com.beans.common.security.role.service.RoleServiceImpl">
-	 </bean>
+	 
 	
 
 </beans>
