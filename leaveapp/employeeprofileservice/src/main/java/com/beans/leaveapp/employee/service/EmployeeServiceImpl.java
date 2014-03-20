@@ -196,11 +196,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 				
 			}
 			
-			if(existingAddressList.size() > 0) {
-				Iterator<Address> existingAddressIterator = existingAddressList.iterator();
-				while(existingAddressIterator.hasNext()) {
-					Address currentAddress = existingAddressIterator.next();
-					addressService.update(currentAddress);
+			if(existingAddressList != null) {
+				if(existingAddressList.size() > 0) {
+					Iterator<Address> existingAddressIterator = existingAddressList.iterator();
+					while(existingAddressIterator.hasNext()) {
+						Address currentAddress = existingAddressIterator.next();
+						addressService.update(currentAddress);
+					}
 				}
 			}
 			

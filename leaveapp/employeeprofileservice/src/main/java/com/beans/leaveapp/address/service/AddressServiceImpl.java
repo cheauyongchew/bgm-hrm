@@ -41,6 +41,7 @@ public class AddressServiceImpl implements AddressService {
 	public Address update(Address address) throws AddressNotFound {
 		Address addressToBeUpdated = new Address();
 		
+		addressToBeUpdated.setId(address.getId());
 		addressToBeUpdated.setAddressType(address.getAddressType());
 		addressToBeUpdated.setCity(address.getCity());
 		addressToBeUpdated.setCountry(address.getCountry());
