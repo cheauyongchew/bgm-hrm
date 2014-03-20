@@ -45,10 +45,11 @@ CREATE TABLE IF NOT EXISTS Users (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS Role (
-  id int(10) NOT NULL AUTO_INCREMENT,
-  role varchar(45) NOT NULL,
-  isDeleted tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (id)
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `role` varchar(45) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `isDeleted` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS UserToRole (
@@ -218,7 +219,7 @@ INSERT INTO LeaveType(name, description, employeeTypeId, entitlement, isAccounta
 
 INSERT INTO Users(id, username, password, enabled) VALUES ('1', 'test1', 'test1', '1');
 
-INSERT INTO Role(id, role, isDeleted) VALUES ('1', 'ROLE_USER', 0);
+INSERT INTO Role(id, role, description, isDeleted) VALUES ('1', 'ROLE_USER', 'Normal User', 0);
 
 INSERT INTO UserToRole(userId, userRoleId) VALUES ('1', '1');
  

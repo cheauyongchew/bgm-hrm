@@ -52,6 +52,7 @@ public class RoleServiceImpl implements RoleService{
 			throw new RoleNotFound();
 		roleToBeUpdated.setId(role.getId());
 		roleToBeUpdated.setRole(role.getRole());
+		roleToBeUpdated.setDescription(role.getDescription());
 		roleRepository.save(roleToBeUpdated);
 		return roleToBeUpdated;
 	}

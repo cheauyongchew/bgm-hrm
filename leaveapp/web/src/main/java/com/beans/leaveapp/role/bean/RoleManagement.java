@@ -89,6 +89,7 @@ public class RoleManagement implements Serializable{
 		try {
 			System.out.println("New Role:" + selectedRole.getRole());
 			System.out.println("Id:" + selectedRole.getId());
+			System.out.println("Description:" + selectedRole.getDescription());
 			getRoleService().update(selectedRole);
 			
 		} catch (RoleNotFound e) {
