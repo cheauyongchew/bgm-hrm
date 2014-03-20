@@ -6,8 +6,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,11 +26,12 @@ import com.beans.leaveapp.employeegrade.service.EmployeeGradeService;
 import com.beans.leaveapp.employeetype.model.EmployeeType;
 import com.beans.leaveapp.employeetype.service.EmployeeTypeNotFound;
 import com.beans.leaveapp.employeetype.service.EmployeeTypeService;
+import com.beans.util.log.ApplLogger;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-	private static Log log = LogFactory.getLog(EmployeeServiceImpl.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeServiceImpl.class);
 	@Resource
 	EmployeeRepository employeeRepository;
 	
@@ -63,6 +64,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public List<Employee> findAll() {
+		ApplLogger.getLogger().info("Testing123");
 		List<Employee> resultList = employeeRepository.findByisDeleted(0);
 		return resultList;
 	}
@@ -119,7 +121,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Transactional(rollbackFor={EmployeeGradeNotFound.class, DepartmentNotFound.class, EmployeeTypeNotFound.class})
 	public Employee createEmployee(Employee employee, int employeeGradeId,
 			int employeeTypeId, int departmentId, Users users, HashMap<Integer, Address> newAddressMap) {
-		log.info("Creating employee: " + employee.getName());
 		try {
 			EmployeeGrade employeeGrade = employeeGradeService.findById(employeeGradeId);
 			EmployeeType employeeType = employeeTypeService.findById(employeeTypeId);
@@ -148,18 +149,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 			
 			
 		} catch(EmployeeGradeNotFound e) {
-			log.error("Employee Grade not found: " + employeeGradeId);
-			log.trace(e);
-			//e.printStackTrace();
+			System.out.println("Employee Grade not found: " + employeeGradeId);
+			e.printStackTrace();
 		} catch(EmployeeTypeNotFound e) {
-			log.error("Employee Type not found: " + employeeTypeId);
-			log.trace(e);
-			//e.printStackTrace();
+			System.out.println("Employee Type not found: " + employeeTypeId);
+			e.printStackTrace();
 		} catch(DepartmentNotFound e) {
 			
-			log.error("Department not found: " + departmentId);
-			log.trace(e);
-			//e.printStackTrace();
+			System.out.println("Department not found: " + departmentId);
+			e.printStackTrace();
 		}
 		return null;
 	}
@@ -168,7 +166,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Transactional(rollbackFor={EmployeeGradeNotFound.class, DepartmentNotFound.class, EmployeeTypeNotFound.class, AddressNotFound.class})
 	public Employee updateEmployee(Employee employee, int employeeGradeId,
 			int employeeTypeId, int departmentId, Users users, List<Address> existingAddressList, HashMap<Integer, Address> newAddressMap) {
-		log.info("Updating employee: " + employee.getId());
 		try {
 			EmployeeGrade employeeGrade = employeeGradeService.findById(employeeGradeId);
 			EmployeeType employeeType = employeeTypeService.findById(employeeTypeId);
@@ -205,25 +202,20 @@ public class EmployeeServiceImpl implements EmployeeService {
 			
 			
 		} catch(EmployeeGradeNotFound e) {
-			log.error("Employee Grade not found: " + employeeGradeId);
-			log.trace(e);
-			//e.printStackTrace();
+			System.out.println("Employee Grade not found: " + employeeGradeId);
+			e.printStackTrace();
 		} catch(EmployeeTypeNotFound e) {
-			log.error("Employee Type not found: " + employeeTypeId);
-			log.trace(e);
-			//e.printStackTrace();
+			System.out.println("Employee Type not found: " + employeeTypeId);
+			e.printStackTrace();
 		} catch(DepartmentNotFound e) {
-			log.error("Department not found: " + departmentId);
-			log.trace(e);
-			//e.printStackTrace();
+			System.out.println("Department not found: " + departmentId);
+			e.printStackTrace();
 		} catch(EmployeeNotFound e) {
-			log.error("Employee not found: " + employee.getId());
-			log.trace(e);
-			//e.printStackTrace();
+			System.out.println("Employee not found: " + employee.getId());
+			e.printStackTrace();
 		} catch(AddressNotFound e) {
-			log.error("Address not found.");
-			log.trace(e);
-			//e.printStackTrace();
+			System.out.println("Address not found.");
+			e.printStackTrace();
 		}
 		return null;
 	}
