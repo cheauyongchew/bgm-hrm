@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS SystemAuditTrail (
     description VARCHAR(50),
     actorUserId INT(10),
     actorUsername VARCHAR(50),
-    isDeleted CHAR(1),
+    isDeleted TINYINT(1),
     PRIMARY KEY (id)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -106,8 +106,8 @@ CREATE TABLE IF NOT EXISTS Employee (
     employeeTypeId INT(10),
     joinDate DATE,
     resignationDate DATE,
-    isDeleted CHAR(1),
-    isResigned CHAR(1),
+    isDeleted TINYINT(1),
+    isResigned TINYINT(1),
     PRIMARY KEY (id),
     FOREIGN KEY (userId) 
   		REFERENCES Users(id),
@@ -130,7 +130,7 @@ CREATE TABLE IF NOT EXISTS Address (
     state VARCHAR(40),
     country VARCHAR(40),
     postcode VARCHAR(10),
-    isDeleted CHAR(1),
+    isDeleted TINYINT(1),
     PRIMARY KEY (id),
     FOREIGN KEY (employeeId)
     	REFERENCES Employee(id)
@@ -145,7 +145,7 @@ CREATE TABLE IF NOT EXISTS YearlyEntitlement (
     leaveTypeId INT(10) NOT NULL,
     entitlement DOUBLE(4,2),
     leaveBalance DOUBLE(4,2),
-    isDeleted CHAR(1),
+    isDeleted TINYINT(1),
     PRIMARY KEY (id),
     FOREIGN KEY (leaveTypeId)
     	REFERENCES LeaveType(id),
@@ -165,9 +165,9 @@ CREATE TABLE IF NOT EXISTS LeaveTransaction (
     reason VARCHAR(100),
     leaveTypeId INT(10),
     employeeId INT(10),
-    isApproved CHAR(1),
-    isCancelled CHAR(1),
-    isDeleted CHAR(1),
+    isApproved TINYINT(1),
+    isCancelled TINYINT(1),
+    isDeleted TINYINT(1),
     PRIMARY KEY (id),
     FOREIGN KEY (leaveTypeId)
     	REFERENCES LeaveType(id),
@@ -181,12 +181,30 @@ CREATE TABLE IF NOT EXISTS LeaveAttachment (
     leaveTransactionId INT(10),
     description VARCHAR(50),
     fileLocation VARCHAR(150),
-    isDeleted CHAR(1),
+    isDeleted TINYINT(1),
     PRIMARY KEY (id),
     FOREIGN KEY (leaveTransactionId)
     	REFERENCES LeaveTransaction(id)
     	ON DELETE CASCADE
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS RoleAccess (
+  id int(10) NOT NULL,
+  name VARCHAR(20) NOT NULL,
+  description VARCHAR(150),
+  enabled TINYINT(1),
+  roleId int(10) NOT NULL,
+  FOREIGN KEY (roleId) REFERENCES Role(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS UserAccess (
+  id int(10) NOT NULL,
+  name VARCHAR(20) NOT NULL,
+  description VARCHAR(150),
+  enabled TINYINT(1),
+  userId int(10) NOT NULL,
+  FOREIGN KEY (userId) REFERENCES Users(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 GRANT ALL PRIVILEGES ON beans.* TO 'beans'@'localhost';
 GRANT ALL PRIVILEGES ON beans.* TO 'beans'@'127.0.0.1';
