@@ -15,7 +15,8 @@ button {
 
 /* To set footer to stick at end of page */
 #container {
-     min-height: 500px;
+	min-height: 100%;
+    position: relative;
 }
 
 #footer {
@@ -23,7 +24,7 @@ button {
    bottom: 0;
    width: 100%; 
    height: 20px;
-   background: #00B379;
+   background: #396c84;
    color: #fff;
    text-align: center;
 }
@@ -50,7 +51,7 @@ button {
 /* Setting for hovering state on menu item */
 a.ui-menuitem-link.ui-corner-all.ui-state-hover {
     border-radius: 5px;
-    background: #00B379 !important;
+    background: #f88d00 !important;
 }
 
 /* Setting for submenu background */
@@ -72,8 +73,9 @@ div.ui-datatable-header.ui-widget-header.ui-corner-top {
 th {
     background: #FF9912 !important;
     color: #fff !important;
-    font-weight: bold;
+    font-weight: none !important;
     font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+    font-size: 12px !important;
 }
 
 /* Setting for even table row */
@@ -87,7 +89,7 @@ tr.ui-widget-content.ui-datatable-even.ui-datatable-selectable {
 /* Setting for odd table row */
 tr.ui-widget-content.ui-datatable-odd.ui-datatable-selectable {
     background-color: #ededed;
-    color:  #000;
+    color: #000;
     font-size: 12px;
     font-family: Futura, "Trebuchet MS", Arial, sans-serif;
 }
@@ -95,11 +97,29 @@ tr.ui-widget-content.ui-datatable-odd.ui-datatable-selectable {
 /* Setting for even table row hover state */
 tr.ui-widget-content.ui-datatable-even.ui-datatable-selectable.ui-state-hover {
     font-weight: bold;
+    background-color: #a9a9a9;
+    color: #fff;
 }
 
 /* Setting for odd table row hover state */
 tr.ui-widget-content.ui-datatable-odd.ui-datatable-selectable.ui-state-hover {
     font-weight: bold;
+    background-color: #a9a9a9;
+    color: #fff;
+}
+
+/* Setting for even table row highlight state */
+.ui-widget-content.ui-datatable-even.ui-datatable-selectable.ui-state-highlight > td {
+	background: #fff;
+    color: #000;
+    font-weight: normal;
+}
+
+/* Setting for odd table row highlight state */
+.ui-widget-content.ui-datatable-odd.ui-datatable-selectable.ui-state-highlight > td {
+    background-color: #ededed;
+    color: #000;
+    font-weight: normal;
 }
 
 /* Setting for even table row highlight state */
@@ -149,8 +169,7 @@ tr.ui-widget-header > td {
     color: #396c84 !important;
     text-transform: uppercase;
     font-size: 15px;
-    font-family: Futura, "Trebuchet MS", Arial, sans-serif;   
-    width: 699px !important;
+    font-family: Futura, "Trebuchet MS", Arial, sans-serif;  
 }
 
 /* Setting for thead border */
@@ -196,31 +215,31 @@ li.ui-selectonemenu-item.ui-selectonemenu-list-item.ui-corner-all.ui-state-highl
 
 /* Setting for error message text */
 .ui-messages-error-summary {
-    text-transform: capitalize;
-    font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+   text-transform: capitalize;
+   font-family: Futura, "Trebuchet MS", Arial, sans-serif;
 }
 
 
-/* Setting for active dialog tab */
-li.ui-state-default.ui-tabs-selected.ui-state-active.ui-corner-top  {
-    background-color: #fff !important;
+/* Setting for active dialog tab text hover*/
+li.ui-state-default.ui-tabs-selected.ui-state-active.ui-corner-top.ui-state-hover > a  {
+    color: #fff !important;
 }
 
 /* Setting for active dialog tab text */
 li.ui-state-default.ui-tabs-selected.ui-state-active.ui-corner-top > a {
-    color: #00B379 !important;
+    color: #f88d00 !important;
     font-weight: bold;
 }
 
 
 /* Setting for dialog tab text */
 li.ui-state-default.ui-corner-top > a {
-    color: #00B379 !important;
+    color: #f88d00 !important;
 }
 
 /* Setting for hover dialog tab */
 li.ui-state-default.ui-corner-top.ui-state-hover {
-    background-color: #00B379 !important;
+    background-color: #f88d00 !important;
 }
 
 /* Setting for hover dialog tab text */
@@ -228,6 +247,3 @@ li.ui-state-default.ui-corner-top.ui-state-hover > a {
     color: #fff !important;
 }
 
-.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-shadow.ui-draggable.ui-overlay-visible {
- width: 720px !important;
-}
