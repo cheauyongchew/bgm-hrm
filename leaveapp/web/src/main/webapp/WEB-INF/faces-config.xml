@@ -130,6 +130,14 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
   <value>#{roleService}</value>
  </managed-property>
  </managed-bean>
-
+<managed-bean>
+<managed-bean-name>userToRoleMgmtBean</managed-bean-name>
+<managed-bean-class>com.beans.leaveapp.usertorole.bean.UserToRoleManagement</managed-bean-class>
+<managed-bean-scope>view</managed-bean-scope>
+<managed-property>
+<property-name>usersService</property-name>
+<value>#{usersService}</value>
+</managed-property>
+</managed-bean>
 
 </faces-config>

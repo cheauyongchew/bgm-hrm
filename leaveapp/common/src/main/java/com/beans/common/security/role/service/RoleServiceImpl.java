@@ -3,6 +3,7 @@ package com.beans.common.security.role.service;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.management.relation.RoleInfoNotFoundException;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +14,7 @@ import com.beans.common.security.role.repository.RoleRepository;
 @Service
 public class RoleServiceImpl implements RoleService{
 
+	public static String role="ROLE_USER";
 	
 	@Resource
 	private RoleRepository roleRepository;
@@ -58,6 +60,12 @@ public class RoleServiceImpl implements RoleService{
 	}
 
 	@Override
+	public Role findByRole(String role) {
+		Role foundRole = roleRepository.findByRole(role);			
+		return foundRole;
+	}
+	
+	@Override
 	@Transactional
 	public Role findById(int id) throws RoleNotFound {
 	    Role role = roleRepository.findOne(id);
@@ -65,6 +73,7 @@ public class RoleServiceImpl implements RoleService{
 	       if(role == null)
 	    	   throw new RoleNotFound();	     
 		return role;
-	}
+	}	
 
+	
 }

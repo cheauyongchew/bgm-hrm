@@ -47,18 +47,15 @@
 	<bean id="systemAuditTrailService" class="com.beans.common.audit.service.SystemAuditTrailRecordServiceImpl">
 	</bean>
 	
-	<bean id="auditTrail" class="com.beans.common.audit.service.AuditTrail" >
-		<property name="systemAuditTrailRecordService" >
-			<ref bean="systemAuditTrailService"/>
-		</property>
-	 </bean>
-	
 	 <bean id="department" class="com.beans.leaveapp.department.model.Department" /> 
 	
 	 <bean id="departmentService" class="com.beans.leaveapp.department.service.DepartmentServiceImpl" >
 	 </bean>	 
 	
-	 
-	
+	<bean id="users" class="com.beans.common.security.users.role.model.Users"/>
+    <bean  id="usersService" class="com.beans.common.security.users.service.UsersServiceImpl"> 
+    
+    </bean>	 
+
 
 </beans>

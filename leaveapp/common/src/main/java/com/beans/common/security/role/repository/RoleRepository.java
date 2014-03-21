@@ -13,7 +13,7 @@ public interface RoleRepository extends CrudRepository<Role, Integer>{
 	 @Query("select r from Role r where isDeleted = ?")
 	 List<Role> findByisDeleted(int x);
 	
-	@Query("select r from Role r")
-	 List<Role> findById(int id);
-	
+	@Query("select r from Role r where role=? and isDeleted=0")
+	Role findByRole(String role);
+		
 }
