@@ -1,6 +1,7 @@
 package com.beans.common.security.role.model;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,7 +23,6 @@ public class Role {
 	 private int id;
 	 private String role;
 	 private boolean isDeleted= false;
-	 private List<Users> userList;
 	 private String description;
 	 
 	@Id
@@ -66,17 +66,5 @@ public class Role {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "userRoles")
-	public List<Users> getUserList() {
-		return userList;
-	}
-
-
-	public void setUserList(List<Users> userList) {
-		this.userList = userList;
-	}	
-	
 	
 }

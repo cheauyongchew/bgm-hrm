@@ -1,6 +1,8 @@
 package com.beans.common.security.users.model;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -24,7 +26,7 @@ public class Users {
 	private String username;
 	private String password;
 	private boolean enabled;
-	private List<Role> userRoles;
+	private Set<Role> userRoles = new HashSet<Role>();
 	
 	@Id
 	@GeneratedValue
@@ -61,17 +63,18 @@ public class Users {
 		this.enabled = enabled;
 	}
 
+
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "usertorole" , joinColumns = { @JoinColumn(name = "userId", referencedColumnName = "id" )},
+	@JoinTable(name = "UserToRole" , joinColumns = { @JoinColumn(name = "userId", referencedColumnName = "id" )},
 	inverseJoinColumns=
 			{@JoinColumn (name = "userRoleId", referencedColumnName = "id" ) } )
 
-	public List<Role> getUserRoles() {
+	public Set<Role> getUserRoles() {
 		return userRoles;
 	}
-	public void setUserRoles(List<Role> userRoles) {
-		this.userRoles = userRoles;
-	}
 	
+	public void setUserRoles(Set<Role> userRoles) {
+		this.userRoles = userRoles;
+	}	
 	
 }

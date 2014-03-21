@@ -1,12 +1,17 @@
 package com.beans.common.security.users.service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.beans.common.security.role.model.Role;
+import com.beans.common.security.role.service.RoleNotFound;
 import com.beans.common.security.role.service.RoleService;
 import com.beans.common.security.users.model.Users;
 import com.beans.common.security.users.repository.UsersRepository;
@@ -14,6 +19,7 @@ import com.beans.common.security.users.repository.UsersRepository;
 
 @Service
 public class UsersServiceImpl implements UsersService {
+	
 
 	@Resource
 	private UsersRepository usersRepository;
@@ -55,6 +61,17 @@ public class UsersServiceImpl implements UsersService {
 	}
 
 	@Override	
+	public Users registerUser(Users users) {
+		
+		Role userRole = roleService.findByRole("ROLE_USER");
+		Set<Role> roleSet = new HashSet<Role>();
+		roleSet.add(userRole);
+		users.setUserRoles(roleSet);		
+		
+		return usersRepository.save(users);
+	}
+	
+	@Override	
 	public Users findById(int id) throws UsersNotFound {
 		Users users = usersRepository.findOne(id);
 		
@@ -62,12 +79,6 @@ public class UsersServiceImpl implements UsersService {
 			throw new UsersNotFound();
 		
 		return users;
-	}
-
-	@Override
-	public Users registerUser(Users users) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 	public RoleService getRoleService() {

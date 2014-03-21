@@ -52,7 +52,10 @@
 	 <bean id="departmentService" class="com.beans.leaveapp.department.service.DepartmentServiceImpl" >
 	 </bean>	 
 	
-	 
+	<bean id="users" class="com.beans.common.security.users.role.model.Users"/>
+    <bean  id="usersService" class="com.beans.common.security.users.service.UsersServiceImpl"> 
+    
+    </bean>	 
 	
 
 </beans>
