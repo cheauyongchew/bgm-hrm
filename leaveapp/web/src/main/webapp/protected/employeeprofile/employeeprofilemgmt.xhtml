@@ -12,18 +12,13 @@
 <ui:define name="title">Employee List</ui:define>
 
 
-<!-- <h:form id="leaveTypeSearch"> -->
-
- 
-<!-- </h:form> -->
-
 
 
 <ui:define name="content">
 		<h:form id="employeeTableForm">
 	 	
         <p:dataTable id="employeeTable" var="employee0" value="#{employeeProfileMgmtBean.employeeDataModel}" widgetVar="employeeSearch" rowKey="#{employee0.id}"
-                 selection="#{employeeProfileMgmtBean.selectedEmployee}" selectionMode="single" filteredValue="#{employeeProfileMgmtBean.searchEmployee}"  emptyMessage="No data found with given criteria" >
+                 selection="#{employeeProfileMgmtBean.selectedEmployee}" selectionMode="single"  emptyMessage="No data found with given criteria" >
         
 
           <p:ajax event="rowSelect" listener="#{employeeProfileMgmtBean.onRowSelect}" update=":employeeForm:displayEmployee" oncomplete="PF('employeeDialog').show()" />  
@@ -41,19 +36,20 @@
           </p:column>
         
         </p:dataTable>
+        </h:form> 
+		
+		<h:form>
+        <p:commandButton value="New Employee" update=":newEmployeeDlg" action="#{employeeProfileMgmtBean.initEmployeeCreation()}" oncomplete="PF('newEmployeeDialog').show()" title="Creates new employee"/>
         
+        </h:form>
 
-        <p:commandButton value="New Employee" actionListener="#{employeeProfileMgmtBean.initEmployeeCreation()}" oncomplete="PF('newEmployeeDialog').show()" icon="ui-icon-star" title="Creates new employee"/>
-        
-        
-
-      </h:form>      
+           
       
       <p:growl id="growl" showDetail="true" life="1000"/> 
   </ui:define>  
   
   <ui:define name="dialog">
-      <p:dialog header="Employee Detail" widgetVar="employeeDialog" resizable="false" id="employeeDlg" modal="true" >
+       <p:dialog header="Employee Detail" widgetVar="employeeDialog" resizable="false" id="employeeDlg" modal="true" >
           <ui:include src="employeeprofileupdatedetails.xhtml" />       
           </p:dialog>
           
@@ -65,11 +61,11 @@
 	<p:confirmDialog id="deleteCD" message="Are you sure you want to delete #{employeeProfileMgmtBean.employeeName}?" header="Deleting employee" 
           	severity="alert" widgetVar="cd">	
 			<h:form>
-			<p:commandButton value="Yes" actionListener="#{employeeProfileMgmtBean.doDeleteEmployee}" update=":employeeTableForm:employeeTable" oncomplete="PF('cd').hide();PF('employeeDialog').hide();"/>
+			<p:commandButton value="Yes" actionListener="#{employeeProfileMgmtBean.doDeleteEmployee()}" update=":employeeTableForm:employeeTable" oncomplete="PF('cd').hide();PF('employeeDialog').hide();"/>
 			<p:commandButton value="No" onclick="PF('cd').hide();" type="button" />
 			</h:form>
 
-			</p:confirmDialog>		
+			</p:confirmDialog>	
 
 
 </ui:define>

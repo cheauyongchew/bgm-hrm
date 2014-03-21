@@ -191,7 +191,7 @@
 							        <p:commandButton value="Add Address" update=":employeeForm:employeeUpdateTabView:EmployeeAddress" title="Add Address" actionListener="#{employeeProfileMgmtBean.setAddressOperation(true, 'Create')}" rendered="#{employeeProfileMgmtBean.isRenderAddress() == false}"/>
 							      
 								<h:form>
-							   <p:outputPanel id="AddressDetail" rendered="#{employeeProfileMgmtBean.isRenderAddress()}">
+							   <p:scrollPanel id="AddressDetail" style="width:500px;height:300px" rendered="#{employeeProfileMgmtBean.isRenderAddress()}">
 									
 									<h3>#{employeeProfileMgmtBean.addressOperation} Address</h3>
 									
@@ -249,7 +249,7 @@
 									</p:panelGrid>	
 									
 								
-							   </p:outputPanel>		
+							   </p:scrollPanel>		
 							</h:form>
 				
 				

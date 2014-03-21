@@ -16,7 +16,7 @@
 
 <ui:define name="content">
 		<h:form id="myProfileForm">
-	<p:panelGrid id="displayMyProfile" layout="block" columns="1"
+	<p:panelGrid id="displayMyProfile" columns="1"
 		cellpadding="4" style="margin:0 auto;">
 		
 			
@@ -194,7 +194,7 @@
 							        <p:commandButton value="Add Address" update=":myProfileForm:myProfileTabView:MyProfileAddress" title="Add Address" actionListener="#{myProfileMgmtBean.renderCreateAddress}" rendered="#{myProfileMgmtBean.renderAddress == false}"/>
 							      
 							<h:form>
-							   <p:outputPanel id="AddressDetail" rendered="#{myProfileMgmtBean.renderAddress == true}">
+							   <p:scrollPanel id="AddressDetail" style="width:500px;height:300px" rendered="#{myProfileMgmtBean.renderAddress == true}">
 									
 									<h3>#{myProfileMgmtBean.addressOperation} Address</h3>
 									
@@ -252,7 +252,7 @@
 									</p:panelGrid>	
 									
 								
-							   </p:outputPanel>		
+							   </p:scrollPanel>		
 							</h:form>
 				
 				

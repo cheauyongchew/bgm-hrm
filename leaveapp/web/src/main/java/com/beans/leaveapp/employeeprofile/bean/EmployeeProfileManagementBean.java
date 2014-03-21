@@ -60,11 +60,12 @@ public class EmployeeProfileManagementBean implements Serializable{
 	
 	public void initEmployeeCreation() {
 		setEmployeeCreation(true);
-		setSelectedEmployee(new Employee());
+		selectedEmployee = new Employee();
 		setSelectedDepartment(-1);
 		setSelectedEmployeeGrade(-1);
 		setSelectedEmployeeType(-1);
 		newAddressMap = new HashMap<Integer, Address>();
+		setAddressOperation(false, "Create");
 	}
 	
 	public String getEmployeeName() {
@@ -364,7 +365,6 @@ public class EmployeeProfileManagementBean implements Serializable{
 	public void setInsertDeleteAddress(boolean insertDeleteAddress) {
 		this.insertDeleteAddress = insertDeleteAddress;
 	}
-	
 	
 	
 } 
