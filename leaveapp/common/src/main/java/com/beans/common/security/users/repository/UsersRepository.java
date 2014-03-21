@@ -11,7 +11,7 @@ import com.beans.common.security.users.model.Users;
 public interface UsersRepository extends CrudRepository<Users, Integer>{
 
 	@Query("select u from Users u where enabled = ?")
-	 List<Users> findByisEnabled(int x);
+	 List<Users> findByIsEnabled(boolean isEnabled);
 	
 	@Query("select u from Users u where id = ?")
 	List<Users> findById(int id);

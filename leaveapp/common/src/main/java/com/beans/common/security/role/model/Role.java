@@ -66,5 +66,25 @@ public class Role {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		Role inputRole = (Role) obj;
+		if(getId() == inputRole.getId()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+
+	@Override
+	public int hashCode() {
+		return id;
+	}
+	
+	
+	
 	
 }

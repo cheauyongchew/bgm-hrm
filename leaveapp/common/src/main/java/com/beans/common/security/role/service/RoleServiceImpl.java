@@ -1,6 +1,7 @@
 package com.beans.common.security.role.service;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.management.relation.RoleInfoNotFoundException;
@@ -41,8 +42,14 @@ public class RoleServiceImpl implements RoleService{
 
 	@Override
 	public List<Role> findAll() {
-		List<Role> resultList = roleRepository.findByisDeleted(0);
+		List<Role> resultList = roleRepository.findByIsDeleted(0);
 		return resultList;
+	}
+	
+	@Override
+	public Set<Role> findAllInSet() {
+		Set<Role> resultSet = roleRepository.findAllInSet();
+		return resultSet;
 	}
 
 	@Override

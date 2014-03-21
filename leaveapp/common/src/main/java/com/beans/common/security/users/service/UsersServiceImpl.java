@@ -42,7 +42,7 @@ public class UsersServiceImpl implements UsersService {
 
 	@Override
 	public List<Users> findAll() {
-			List<Users> usersList = usersRepository.findByisEnabled(1);
+			List<Users> usersList = usersRepository.findByIsEnabled(true);
 		return usersList;
 	}
 
@@ -56,6 +56,9 @@ public class UsersServiceImpl implements UsersService {
 		usersToBeUpdated.setUsername(users.getUsername());
 		usersToBeUpdated.setPassword(users.getPassword());
 		usersToBeUpdated.setEnabled(users.isEnabled());
+		Set<Role> roleSet = new HashSet<Role>();
+		roleSet.addAll(users.getUserRoles());
+		usersToBeUpdated.setUserRoles(roleSet);
 		usersRepository.save(usersToBeUpdated);		
 		return usersToBeUpdated;
 	}
