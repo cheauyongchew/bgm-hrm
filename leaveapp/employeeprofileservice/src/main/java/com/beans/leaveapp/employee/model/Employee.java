@@ -149,7 +149,7 @@ public class Employee {
 		this.officePhone = officePhone;
 	}
 	
-	@Column(name="personalphonee", nullable=true)
+	@Column(name="personalphone", nullable=true)
 	public String getPersonalPhone() {
 		return personalPhone;
 	}

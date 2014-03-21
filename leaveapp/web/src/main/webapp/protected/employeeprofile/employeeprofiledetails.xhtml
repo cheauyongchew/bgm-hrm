@@ -270,6 +270,7 @@
 				<f:facet name="header"><h3>Login Details</h3></f:facet>
 				
 				<p:panelGrid id="NewEmployeeLoginColumn" columns="2" cellpadding="4" style="margin:0 auto;">
+				
 				<h:outputText value="Username" />
 					<h:inputText
 						value="#{employeeProfileMgmtBean.users.username}" required="true" requiredMessage="Please enter Username" />
@@ -277,12 +278,14 @@
 				<p:password id="pwd1" value="#{employeeProfileMgmtBean.users.password}" match="pwd2" required="true" requiredMessage="Please enter Password"/>
 				<h:outputText value="Confirmed Password" />
 				<p:password id="pwd2" value="#{employeeProfileMgmtBean.users.password}" required="true" requiredMessage="Plese confirm Password"/>
+				
 				</p:panelGrid>
+				
 				<f:facet name="footer">
 					<p:commandButton value="Back" update=":displayNewEmployee"
 						action="#{employeeProfileMgmtBean.setPage('address')}" immediate="true" />
 					<p:commandButton type="reset" value="Reset"></p:commandButton>
-					<p:commandButton value="Create" update=":employeeTableForm:employeeTable" actionListener="#{employeeProfileMgmtBean.doCreateEmployee()}" validateClient="true" process="@this" oncomplete="PF('newEmployeeDialog').hide()"/>
+					<p:commandButton value="Create" update=":employeeTableForm:employeeTable" actionListener="#{employeeProfileMgmtBean.doCreateEmployee()}" validateClient="true" oncomplete="PF('newEmployeeDialog').hide()"/>
 					
 				</f:facet>
 				

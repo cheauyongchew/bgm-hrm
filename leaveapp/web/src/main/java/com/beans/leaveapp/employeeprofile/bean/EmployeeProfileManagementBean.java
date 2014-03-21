@@ -204,11 +204,14 @@ public class EmployeeProfileManagementBean implements Serializable{
 	}
 	
 	public void doCreateEmployee() {
-		newEmployee.setDeleted(false);
-		newEmployee.setResigned(false);
-		getEmployeeService().createEmployee(newEmployee, selectedEmployeeGrade, selectedEmployeeType, selectedDepartment, users, newAddressMap);
 		setInsertDelete(true);
 		setPage("details");	
+		newEmployee.setDeleted(false);
+		newEmployee.setResigned(false);
+		users.setEnabled(true);
+		
+		getEmployeeService().createEmployee(newEmployee, selectedEmployeeGrade, selectedEmployeeType, selectedDepartment, users, newAddressMap);
+		
 	}
 	
 	public Employee getSelectedEmployee() {

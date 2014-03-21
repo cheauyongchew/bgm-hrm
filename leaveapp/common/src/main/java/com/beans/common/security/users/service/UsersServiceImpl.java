@@ -63,12 +63,13 @@ public class UsersServiceImpl implements UsersService {
 	@Override	
 	public Users registerUser(Users users) {
 		
+		Users createdUsers = usersRepository.save(users);
 		Role userRole = roleService.findByRole("ROLE_USER");
 		Set<Role> roleSet = new HashSet<Role>();
 		roleSet.add(userRole);
-		users.setUserRoles(roleSet);		
+		createdUsers.setUserRoles(roleSet);		
 		
-		return usersRepository.save(users);
+		return usersRepository.save(createdUsers);
 	}
 	
 	@Override	
