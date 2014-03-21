@@ -134,7 +134,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 			employee.setDeleted(false);
 			employee.setResigned(false);
 			
-			Users newUsers = usersService.registerUser(users);
+			if(users != null) {
+				Users newUsers = usersService.registerUser(users);
+			}
 			
 			Employee newEmployee = create(employee);
 			
@@ -194,11 +196,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 				
 			}
 			
-			if(existingAddressList.size() > 0) {
-				Iterator<Address> existingAddressIterator = existingAddressList.iterator();
-				while(existingAddressIterator.hasNext()) {
-					Address currentAddress = existingAddressIterator.next();
-					addressService.update(currentAddress);
+			if(existingAddressList != null) {
+				if(existingAddressList.size() > 0) {
+					Iterator<Address> existingAddressIterator = existingAddressList.iterator();
+					while(existingAddressIterator.hasNext()) {
+						Address currentAddress = existingAddressIterator.next();
+						addressService.update(currentAddress);
+					}
 				}
 			}
 			
@@ -223,6 +227,20 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return null;
 	}
 	
+	
+	
+	
+	@Override
+	public Employee findByUsername(String username) throws EmployeeNotFound {
+		Employee employee = employeeRepository.findByUsername(username);
+		
+		if(employee == null) {
+			throw new EmployeeNotFound();
+		}
+		
+		return employee;
+	}
+
 	public DepartmentService getDepartmentService() {
 		return departmentService;
 	}

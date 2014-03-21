@@ -1,4 +1,4 @@
-package com.beans.leaveapp.common.audit.service;
+package com.beans.common.audit.service;
 
 import java.text.SimpleDateFormat;
 import java.sql.Date;
@@ -9,8 +9,8 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.beans.leaveapp.audit.repository.SystemAuditTrailRecordRepository;
-import com.beans.leaveapp.common.audit.model.SystemAuditTrail;
+import com.beans.common.audit.model.SystemAuditTrail;
+import com.beans.common.audit.repository.SystemAuditTrailRecordRepository;
 
 @Service
 public class SystemAuditTrailRecordServiceImpl implements SystemAuditTrailRecordService {
@@ -41,11 +41,9 @@ public class SystemAuditTrailRecordServiceImpl implements SystemAuditTrailRecord
 			return ss;
 	}
 
-	@SuppressWarnings( "deprecation")
 	@Override
 	public List<SystemAuditTrail> findAll() {
-		// List<SystemAuditTrail> l =  (List<SystemAuditTrail>) systemAuditTrailRecordRepository.findAll();
-		List<SystemAuditTrail> l =  systemAuditTrailRecordRepository.findByisDeleted(1);
+		List<SystemAuditTrail> l =  systemAuditTrailRecordRepository.findByisDeleted(0);
 		
 		
 		return l;

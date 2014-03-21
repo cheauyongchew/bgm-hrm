@@ -81,6 +81,23 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
  	</managed-property>
  </managed-bean> 
  <managed-bean>
+ 	<managed-bean-name>myProfileMgmtBean</managed-bean-name>
+ 	<managed-bean-class>com.beans.leaveapp.employeeprofile.bean.MyProfileManagementBean</managed-bean-class>
+ 	<managed-bean-scope>view</managed-bean-scope>
+ 	<managed-property>
+ 		<property-name>employeeService</property-name>
+ 		<value>#{employeeService}</value>
+ 	</managed-property>
+ 	<managed-property>
+ 		<property-name>addressService</property-name>
+ 		<value>#{addressService}</value>
+ 	</managed-property>
+ 	<managed-property>
+ 		<property-name>employee</property-name>
+ 		<value>#{authenticationBean.getEmployee()}</value>
+ 	</managed-property>
+ </managed-bean>
+ <managed-bean>
  	<managed-bean-name>systemAuditTrailMgmtBean</managed-bean-name>
  	<managed-bean-class>com.beans.leaveapp.audit.trail.bean.SystemAuditTrailManagementBean</managed-bean-class>
  	<managed-bean-scope>view</managed-bean-scope>
@@ -93,7 +110,15 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
  <managed-bean>
  	<managed-bean-name>authenticationBean</managed-bean-name>
  	<managed-bean-class>com.beans.leaveapp.web.bean.AuthenticationBean</managed-bean-class>
- 	<managed-bean-scope>request</managed-bean-scope>
+ 	<managed-bean-scope>session</managed-bean-scope>
+ 	<managed-property>
+	  <property-name>employeeService</property-name>
+	  <value>#{employeeService}</value>
+	 </managed-property>
+	 <managed-property>
+	  <property-name>usersService</property-name>
+	  <value>#{usersService}</value>
+	 </managed-property>
  </managed-bean> 
 
  <managed-bean>

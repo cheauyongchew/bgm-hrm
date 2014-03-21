@@ -12,5 +12,6 @@ public interface UsersService {
 	 public Users update(Users users) throws UsersNotFound;
 	 public Users findById(int id) throws UsersNotFound;
 	 public Users registerUser(Users users);
+	 public Users findByUsername(String username) throws UsersNotFound;
 	
 }

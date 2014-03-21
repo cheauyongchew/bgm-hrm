@@ -1,4 +1,4 @@
-package com.beans.leaveapp.audit.repository;
+package com.beans.common.audit.repository;
 
 import java.sql.Date;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import com.beans.leaveapp.common.audit.model.SystemAuditTrail;
+import com.beans.common.audit.model.SystemAuditTrail;
 
 public interface SystemAuditTrailRecordRepository extends CrudRepository<SystemAuditTrail, Integer>{
 
@@ -17,7 +17,7 @@ public interface SystemAuditTrailRecordRepository extends CrudRepository<SystemA
 	/* @Query("select l from SystemAuditTrail l where date = ?")
 	  List<SystemAuditTrail> findByDate(Date x);*/
 	
-	 @Query("select l from SystemAuditTrail l where actiondate between ? and  ?")	 
+	 @Query("select l from SystemAuditTrail l where isDeleted = 0 and actiondate between ? and  ?")	 
 	 List<SystemAuditTrail> findByDate(Date x,Date y);
 
 	

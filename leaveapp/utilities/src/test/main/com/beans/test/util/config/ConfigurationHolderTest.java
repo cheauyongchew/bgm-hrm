@@ -9,24 +9,20 @@ import com.beans.util.config.ConfigurationHolder;
 
 public class ConfigurationHolderTest {
 	
-	ConfigurationHolder configurationHolder = null;
-	@Before
-	public void init() throws ConfigurationException{
-		configurationHolder = new ConfigurationHolder();
-	}
+	
 	
 	@Test
 	public void testGetString() {
-		Assert.assertNotNull("Testing for mail.smtp.host", configurationHolder.getString("mail.smtp.host"));
+		Assert.assertNotNull("Testing for mail.smtp.host", ConfigurationHolder.getString("mail.smtp.host"));
 	}
 	
 	@Test
 	public void testGetInt() {
-		Assert.assertNotNull("Testing for mail.smtp.port", configurationHolder.getInt("mail.smtp.socketFactory.port"));
+		Assert.assertNotNull("Testing for mail.smtp.port", ConfigurationHolder.getInt("mail.smtp.socketFactory.port"));
 	}
 	
 	@Test
 	public void testGetBoolean() {
-		Assert.assertNotNull("Testing for mail.smtp.ssl", configurationHolder.getBoolean("mail.smtp.auth"));
+		Assert.assertNotNull("Testing for mail.smtp.ssl", ConfigurationHolder.getBoolean("mail.smtp.auth"));
 	}
 }

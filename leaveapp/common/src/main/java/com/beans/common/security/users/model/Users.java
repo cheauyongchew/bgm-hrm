@@ -68,7 +68,6 @@ public class Users {
 	@JoinTable(name = "UserToRole" , joinColumns = { @JoinColumn(name = "userId", referencedColumnName = "id" )},
 	inverseJoinColumns=
 			{@JoinColumn (name = "userRoleId", referencedColumnName = "id" ) } )
-
 	public Set<Role> getUserRoles() {
 		return userRoles;
 	}

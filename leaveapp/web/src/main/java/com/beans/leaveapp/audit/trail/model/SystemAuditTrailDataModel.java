@@ -6,7 +6,7 @@ import javax.faces.model.ListDataModel;
 
 import org.primefaces.model.SelectableDataModel;
 
-import com.beans.leaveapp.common.audit.model.SystemAuditTrail;
+import com.beans.common.audit.model.SystemAuditTrail;
 
 public class SystemAuditTrailDataModel extends ListDataModel<SystemAuditTrail>  implements SelectableDataModel<SystemAuditTrail>{
 

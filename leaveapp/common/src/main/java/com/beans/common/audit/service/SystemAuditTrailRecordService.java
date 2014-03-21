@@ -1,9 +1,9 @@
-package com.beans.leaveapp.common.audit.service;
+package com.beans.common.audit.service;
 
 import java.sql.Date;
 import java.util.List;
 
-import com.beans.leaveapp.common.audit.model.SystemAuditTrail;
+import com.beans.common.audit.model.SystemAuditTrail;
 
 public interface SystemAuditTrailRecordService {
 

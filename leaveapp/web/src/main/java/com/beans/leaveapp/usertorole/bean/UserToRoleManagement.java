@@ -27,16 +27,8 @@ public class UserToRoleManagement implements Serializable{
 	private Users selectedUsers = new Users();
 	private boolean insertDelete = false;
 	private List<Users> searchUsers;
-	private DualListModel<Role> roles;
-	
-	
-	public void updateRoles() {
-		
-		Users users = new Users();
-		users.getUserRoles();
-		System.out.println("UserToRoleManagement::UpdateRoles:Userroles" +users.getUserRoles().size());		
-	}
-	
+	private DualListModel<Role> roles;	
+
 	
 	public UsersService getUsersService() {
 		return usersService;

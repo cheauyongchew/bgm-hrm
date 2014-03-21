@@ -75,8 +75,11 @@ CREATE TABLE IF NOT EXISTS LeaveType (
 CREATE TABLE IF NOT EXISTS SystemAuditTrail (
     id INT(10) NOT NULL AUTO_INCREMENT,
     actionDate DATE,
+    level VARCHAR(10),
+    activity VARCHAR(15),
     description VARCHAR(50),
     actorUserId INT(10),
+    actorUsername VARCHAR(50),
     isDeleted CHAR(1),
     PRIMARY KEY (id)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8;
