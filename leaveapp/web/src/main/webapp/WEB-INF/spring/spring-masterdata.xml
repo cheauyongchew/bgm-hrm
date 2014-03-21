@@ -42,9 +42,9 @@
 	 <bean id="employeeTypeService" class="com.beans.leaveapp.employeetype.service.EmployeeTypeServiceImpl" >
 	 </bean>
 	 
-	 <bean id="systemAuditTrail" class="com.beans.leaveapp.common.audit.model.SystemAuditTrail"/>
+	 <bean id="systemAuditTrail" class="com.beans.common.audit.model.SystemAuditTrail"/>
 	
-	<bean id="systemAuditTrailService" class="com.beans.leaveapp.common.audit.service.SystemAuditTrailRecordServiceImpl">
+	<bean id="systemAuditTrailService" class="com.beans.common.audit.service.SystemAuditTrailRecordServiceImpl">
 	</bean>
 	
 	 <bean id="department" class="com.beans.leaveapp.department.model.Department" /> 
