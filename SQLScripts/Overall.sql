@@ -192,18 +192,30 @@ CREATE TABLE IF NOT EXISTS RoleAccess (
   id int(10) NOT NULL,
   name VARCHAR(20) NOT NULL,
   description VARCHAR(150),
-  enabled TINYINT(1),
-  roleId int(10) NOT NULL,
   FOREIGN KEY (roleId) REFERENCES Role(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS RoleToRoleAccess (
+  roleId int(10) NOT NULL,
+  roleAccessId int(10) NOT NULL,
+  enabled TINYINT(1),
+  FOREIGN KEY (roleId) REFERENCES Role(id),
+  FOREIGN KEY (roleAccessId) REFERENCES RoleAccess(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS UserAccess (
   id int(10) NOT NULL,
   name VARCHAR(20) NOT NULL,
   description VARCHAR(150),
-  enabled TINYINT(1),
-  userId int(10) NOT NULL,
   FOREIGN KEY (userId) REFERENCES Users(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS UserToUserAccess (
+  userId int(10) NOT NULL,
+  userAccessId int(10) NOT NULL,
+  enabled TINYINT(1),
+  FOREIGN KEY (userId) REFERENCES Users(id),
+  FOREIGN KEY (userAccessId) REFERENCES UserAccess(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 GRANT ALL PRIVILEGES ON beans.* TO 'beans'@'localhost';
