@@ -1,8 +1,8 @@
 body, .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
     margin: 0.5em; 
     background-color: #fefdfa;
-    font-size: 12px; 
-    font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+    font-size: 13px; 
+    font-family: 'Maven Pro', sans-serif;
 }
 
 img {
@@ -37,15 +37,16 @@ button {
 /* Setting for menubar color */
 .ui-menubar{
     background: #396c84 !important;
+    margin-top: 0.5em;
 }
 
 /* Setting for menu text */
 .ui-menuitem-text {
-    margin-right: 5px;
-    margin-left: 5px;
+    margin-right: 0.5em;
+    margin-left: 0.5em;
     color: #fff;
     font-weight: bold;
-    font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+    font-family: 'Maven Pro', sans-serif;
 }
 
 /* Setting for hovering state on menu item */
@@ -57,25 +58,33 @@ a.ui-menuitem-link.ui-corner-all.ui-state-hover {
 /* Setting for submenu background */
 .ui-widget-content.ui-menu-list.ui-corner-all.ui-helper-clearfix.ui-menu-child.ui-shadow {
     background: #396c84;
+    width: auto;
 }
 
 /* Setting for datatable header */
 div.ui-datatable-header.ui-widget-header.ui-corner-top {
-    padding: 0.5em;
-    background: #fff;
     color: #000;
     text-align: left;
     text-transform: capitalize;
-    font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+    font-family: 'Maven Pro', sans-serif;
+    padding: 10px;
+    background: #faf5e5;
+    border-radius: 5px;
+    border: 1px solid #f1e4ba;
+    margin-bottom: 10px;
 }
 
 /* Setting for all table header */
 th {
     background: #FF9912 !important;
     color: #fff !important;
-    font-weight: none !important;
-    font-family: Futura, "Trebuchet MS", Arial, sans-serif;
-    font-size: 12px !important;
+    font-weight: bold;
+    font-family: 'Maven Pro', sans-serif;
+    font-size: 13.5px !important;
+}
+
+tr.ui-widget-content.ui-datatable-selectable {
+	text-align: center;
 }
 
 /* Setting for even table row */
@@ -83,7 +92,7 @@ tr.ui-widget-content.ui-datatable-even.ui-datatable-selectable {
     background-color: #fff;
     color: #000;
     font-size: 12px;
-    font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+    font-family: 'Maven Pro', sans-serif;
 }
 
 /* Setting for odd table row */
@@ -91,7 +100,7 @@ tr.ui-widget-content.ui-datatable-odd.ui-datatable-selectable {
     background-color: #ededed;
     color: #000;
     font-size: 12px;
-    font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+    font-family: 'Maven Pro', sans-serif;
 }
 
 /* Setting for even table row hover state */
@@ -141,13 +150,13 @@ tr.ui-widget-content.ui-datatable-odd.ui-datatable-selectable.ui-state-highlight
     color: #fff;
     text-shadow: none;
     font-weight: bold;
-    font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+    font-family: 'Maven Pro', sans-serif;
 }
 
 /* Setting for dialog box */
 .ui-dialog {
     background: #fefdfa !important;
-    font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+    font-family: 'Maven Pro', sans-serif;
 } 
 
 /* Setting for dialog titlebar */
@@ -165,33 +174,32 @@ tr.ui-widget-content.ui-datatable-odd.ui-datatable-selectable.ui-state-highlight
 
 /* Setting for widget header */
 tr.ui-widget-header > td {
-    background: #fff !important;
+    background: none !important;
     color: #396c84 !important;
     text-transform: uppercase;
     font-size: 15px;
-    font-family: Futura, "Trebuchet MS", Arial, sans-serif;  
-}
-
-/* Setting for thead border */
-thead.ui-panelgrid-header {
-    border: 1px solid #396c84 !important;
+    font-family: 'Maven Pro', sans-serif;  
 }
 
 /* Setting for field label in widget */
 tr.ui-widget-content {
     color: #000;
-    font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+    font-family: 'Maven Pro', sans-serif;
+    text-align: right;
 }
 
 /* Setting selectonemenu field in form */
 div.ui-selectonemenu.ui-widget.ui-state-default.ui-corner-all.ui-helper-clearfix {
     width:140px !important;
     text-transform: capitalize;
+    font-family: 'Maven Pro', sans-serif;
+    text-align: left;
 }
 
 /* Setting to capitalize list item for selectonemenu */
 li.ui-selectonemenu-item.ui-selectonemenu-list-item.ui-corner-all {
     text-transform: capitalize;
+    font-family: 'Maven Pro', sans-serif;
 }
 
 /* Setting for hover state for selectonemenu */
@@ -210,13 +218,13 @@ li.ui-selectonemenu-item.ui-selectonemenu-list-item.ui-corner-all.ui-state-highl
 
 /* Setting for creating space between buttons */
 .ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only {
-    margin: 2px;
+    margin: 3px;
 }
 
 /* Setting for error message text */
 .ui-messages-error-summary {
    text-transform: capitalize;
-   font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+   font-family: 'Maven Pro', sans-serif;
 }
 
 
@@ -229,12 +237,15 @@ li.ui-state-default.ui-tabs-selected.ui-state-active.ui-corner-top.ui-state-hove
 li.ui-state-default.ui-tabs-selected.ui-state-active.ui-corner-top > a {
     color: #f88d00 !important;
     font-weight: bold;
+    font-family: 'Maven Pro', sans-serif;
+    background:
 }
 
 
 /* Setting for dialog tab text */
 li.ui-state-default.ui-corner-top > a {
     color: #f88d00 !important;
+    font-family: 'Maven Pro', sans-serif;
 }
 
 /* Setting for hover dialog tab */
@@ -247,3 +258,20 @@ li.ui-state-default.ui-corner-top.ui-state-hover > a {
     color: #fff !important;
 }
 
+/* Setting for datepicker */
+.ui-datepicker.ui-widget.ui-widget-content.ui-helper-clearfix.ui-corner-all {
+	font-family: 'Maven Pro', sans-serif;
+}
+
+/* Setting for fields */
+input, .ui-inputfield.ui-widget.ui-state-default.ui-corner-all.hasDatepicker, .ui-inputfield.ui-inputtext.ui-widget.ui-state-default.ui-corner-all {
+	border-radius: 5px;
+}
+
+/* Setting for content datatable */
+.ui-datatable-tablewrapper {
+	padding: 15px;
+	background: #faf5e5;
+	border-radius: 5px;
+	border: 1px solid #f1e4ba;
+}
