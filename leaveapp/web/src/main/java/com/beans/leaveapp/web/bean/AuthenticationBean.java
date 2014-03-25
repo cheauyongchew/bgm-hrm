@@ -81,16 +81,25 @@ public class AuthenticationBean implements Serializable{
 		
 	}
 	
-	public Boolean hasAccess(String key) {
-		if(key != null) {
-			if(accessRightsMap.containsKey(key)) {
-				return accessRightsMap.get(key);
-			} else {
-				return false;
+	public Boolean hasAccess(String[] keys) {
+		Boolean result = false;
+		for(int i=0; i<keys.length;i++) {
+			String key = keys[i];
+			if(key != null) {
+				if(accessRightsMap.containsKey(key)) {
+					Boolean rightActivation = accessRightsMap.get(key);
+					
+					if(rightActivation == false) {
+						return false;
+					} else {
+						result = rightActivation;
+					}
+				}
 			}
 		}
 		
-		return false;
+		
+		return result;
 	}
 	
 	public EmployeeService getEmployeeService() {
