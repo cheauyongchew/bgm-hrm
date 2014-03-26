@@ -45,6 +45,10 @@
 		<property name="usersService" >
 			<ref bean="usersService"/>
 		</property>
+		
+		<property name="auditTrail">
+			<ref bean="auditTrail"/>
+		</property>
 	 </bean>   
 	
 	
