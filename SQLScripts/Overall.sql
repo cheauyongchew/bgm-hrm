@@ -254,4 +254,6 @@ INSERT INTO UserToRole(userId, userRoleId) VALUES ('1', '1');
 INSERT INTO AccessRights(id, accessRights, description, isDeleted) VALUES ('1', 'Edit Employee', 'Can Edit Employee', 0);
 
 INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('1', '1');
+
+INSERT INTO Employee(name, employeenumber, position, employeeGradeId, employeeTypeId, departmentId, userId, isDeleted, isResigned) values('Lim', '12', 'Software Engineer', 1, 1, 1, 1, 0, 0); 
  

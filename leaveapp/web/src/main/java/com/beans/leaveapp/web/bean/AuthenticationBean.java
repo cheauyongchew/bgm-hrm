@@ -14,6 +14,9 @@ import javax.servlet.ServletResponse;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import com.beans.common.audit.service.AuditTrail;
+import com.beans.common.audit.service.SystemAuditTrailActivity;
+import com.beans.common.audit.service.SystemAuditTrailLevel;
 import com.beans.common.security.users.model.Users;
 import com.beans.common.security.users.service.UsersNotFound;
 import com.beans.common.security.users.service.UsersService;
@@ -30,16 +33,22 @@ public class AuthenticationBean implements Serializable{
 	private String username;
 	private Users users;
 	private HashMap<String, Boolean> accessRightsMap = new HashMap<String, Boolean>();
+	private AuditTrail auditTrail;
 	
 	public String doLogin() throws IOException, ServletException {
 		ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
 		RequestDispatcher requestDispatcher = ((ServletRequest) context.getRequest()).getRequestDispatcher("/j_spring_security_check");
 		requestDispatcher.forward((ServletRequest) context.getRequest(), (ServletResponse) context.getResponse());
 		Authentication auth=SecurityContextHolder.getContext().getAuthentication();
+		auditTrail = new AuditTrail();
 		if(auth != null) {
 			setUsername(auth.getName());
 			initEmployee();
 			populateAccessRightsMap();
+			
+			auditTrail.log(SystemAuditTrailActivity.LOGIN, SystemAuditTrailLevel.INFO, getUsers().getId(), getUsername(), getUsername() + " has successfully logged in to the system.");
+		} else {
+			auditTrail.log(SystemAuditTrailActivity.LOGIN, SystemAuditTrailLevel.ERROR, getUsers().getId(), getUsername(), getUsername() + " has failed to log in to the system.");
 		}
 		FacesContext.getCurrentInstance().responseComplete();
 		
@@ -48,6 +57,8 @@ public class AuthenticationBean implements Serializable{
 	}
 	
 	public String doLogout() throws IOException, ServletException{
+		auditTrail = new AuditTrail();
+		auditTrail.log(SystemAuditTrailActivity.LOGOUT, SystemAuditTrailLevel.INFO, getUsers().getId(), getUsername(), getUsername() + " has successfully logged out from the system.");
 		SecurityContextHolder.clearContext();
 		return "/login.xhtml";
 	}
