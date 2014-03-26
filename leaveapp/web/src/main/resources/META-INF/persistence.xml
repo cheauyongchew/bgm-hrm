@@ -13,6 +13,7 @@
         <class>com.beans.common.security.users.model.Users</class>
         <class>com.beans.common.audit.model.SystemAuditTrail</class>        
         <class>com.beans.common.security.role.model.Role</class>
+        <class>com.beans.common.security.accessrights.model.AccessRights</class>  
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>

@@ -52,10 +52,13 @@
 	 <bean id="departmentService" class="com.beans.leaveapp.department.service.DepartmentServiceImpl" >
 	 </bean>	 
 	
-	<bean id="users" class="com.beans.common.security.users.role.model.Users"/>
-    <bean  id="usersService" class="com.beans.common.security.users.service.UsersServiceImpl"> 
-    
+	<bean id="users" class="com.beans.common.security.users.model.Users"/>
+    <bean  id="usersService" class="com.beans.common.security.users.service.UsersServiceImpl">    
     </bean>	 
+    
+    <bean id="accessRights" class="com.beans.common.security.accessrights.model.AccessRights"/>
+    <bean id="accessRightsService" class="com.beans.common.security.accessrights.service.AccessRightsServiceImpl">
+    </bean>   
 
 
 </beans>

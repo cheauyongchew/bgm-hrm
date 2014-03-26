@@ -151,5 +151,27 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 			<value>#{roleService}</value>
 		</managed-property>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>accessRightsMgmtBean</managed-bean-name>
+		<managed-bean-class>com.beans.leaveapp.accessrights.bean.AccessRightsManagement</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+		<managed-property>
+			<property-name>accessRightsService</property-name>
+			<value>#{accessRightsService}</value>
+		</managed-property>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>roleToAccessRightsMgmtBean</managed-bean-name>
+		<managed-bean-class>com.beans.leaveapp.roletoaccessrights.bean.RoleToAccessRightsManagement</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+		<managed-property>
+			<property-name>roleService</property-name>
+			<value>#{roleService}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>accessRightsService</property-name>
+			<value>#{accessRightsService}</value>
+		</managed-property>
+	</managed-bean>
 
 </faces-config>
