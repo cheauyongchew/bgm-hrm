@@ -40,7 +40,6 @@ public class AuthenticationBean implements Serializable{
 		RequestDispatcher requestDispatcher = ((ServletRequest) context.getRequest()).getRequestDispatcher("/j_spring_security_check");
 		requestDispatcher.forward((ServletRequest) context.getRequest(), (ServletResponse) context.getResponse());
 		Authentication auth=SecurityContextHolder.getContext().getAuthentication();
-		auditTrail = new AuditTrail();
 		if(auth != null) {
 			setUsername(auth.getName());
 			initEmployee();
@@ -57,7 +56,6 @@ public class AuthenticationBean implements Serializable{
 	}
 	
 	public String doLogout() throws IOException, ServletException{
-		auditTrail = new AuditTrail();
 		auditTrail.log(SystemAuditTrailActivity.LOGOUT, SystemAuditTrailLevel.INFO, getUsers().getId(), getUsername(), getUsername() + " has successfully logged out from the system.");
 		SecurityContextHolder.clearContext();
 		return "/login.xhtml";
@@ -128,5 +126,12 @@ public class AuthenticationBean implements Serializable{
 	}
 	public void setUsers(Users users) {
 		this.users = users;
+	}
+	
+	public AuditTrail getAuditTrail() {
+		return auditTrail;
+	}
+	public void setAuditTrail(AuditTrail auditTrail) {
+		this.auditTrail = auditTrail;
 	}
 }
