@@ -49,6 +49,9 @@
 	</bean>
 	
 	<bean id="auditTrail" class="com.beans.common.audit.service.AuditTrail">
+		<property name="systemAuditTrailRecordService" >
+			<ref bean="systemAuditTrailService"/>
+		</property>
 	</bean>
 	
 	 <bean id="department" class="com.beans.leaveapp.department.model.Department" /> 
