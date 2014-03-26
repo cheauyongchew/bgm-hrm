@@ -20,4 +20,6 @@ public interface EmployeeService {
 	public Employee findByUsername(String username) throws EmployeeNotFound;
 	
 	public List<Employee> findEmployeeByNameOrEmployeeNumberOrBoth(String name, String employeeNumber);
+	public Employee findByEmployee(String employeeName);
 }
+

@@ -135,3 +135,4 @@ public class AuthenticationBean implements Serializable{
 		this.auditTrail = auditTrail;
 	}
 }
+

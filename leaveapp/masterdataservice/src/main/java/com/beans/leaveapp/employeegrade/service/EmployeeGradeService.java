@@ -13,3 +13,4 @@ public interface EmployeeGradeService {
 	// public List<EmployeeGrade> findAll();
 
 }
+

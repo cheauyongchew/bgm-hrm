@@ -299,4 +299,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 		this.usersService = usersService;
 	}
 
+	@Override
+	public Employee findByEmployee(String employeeName) {
+		Employee employeeObj = employeeRepository.findByName(employeeName);
+		return employeeObj;
+	}
+
 }

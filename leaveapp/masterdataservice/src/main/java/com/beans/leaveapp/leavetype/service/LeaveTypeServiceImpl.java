@@ -70,3 +70,4 @@ public class LeaveTypeServiceImpl implements LeaveTypeService {
 
 	
 }
+

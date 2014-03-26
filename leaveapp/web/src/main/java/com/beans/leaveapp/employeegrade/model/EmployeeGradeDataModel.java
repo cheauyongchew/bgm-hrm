@@ -6,9 +6,6 @@ import javax.faces.model.ListDataModel;
 
 import org.primefaces.model.SelectableDataModel;
 
-import com.beans.leaveapp.employeegrade.model.EmployeeGrade;
-import com.beans.leaveapp.leavetype.model.LeaveType;
-
 public class EmployeeGradeDataModel extends ListDataModel<EmployeeGrade> implements SelectableDataModel<EmployeeGrade> {
 
 	
@@ -46,3 +43,4 @@ public class EmployeeGradeDataModel extends ListDataModel<EmployeeGrade> impleme
 	
     
 }
+

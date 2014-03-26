@@ -27,4 +27,14 @@ public interface EmployeeRepository extends CrudRepository<Employee, Integer>{
 	
 	@Query("select e from Employee e left join e.users u where u.username = :username and isDeleted = 0")
 	Employee findByUsername(@Param("username") String username);
+	
+	@Query("select e from Employee e join e.users u where u.id = :id")
+	Employee findByUserId(@Param("id") int x);
+
+	@Query("select e.name from Employee e")
+	List<String> findByNames();
+	
+	@Query("select e from Employee e where e.name = ?")
+	Employee findByName(String userName);
 }
+
