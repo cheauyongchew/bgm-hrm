@@ -12,6 +12,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.beans.common.audit.service.AuditTrail;
+import com.beans.common.audit.service.SystemAuditTrailActivity;
+import com.beans.common.audit.service.SystemAuditTrailLevel;
 import com.beans.common.security.users.model.Users;
 import com.beans.common.security.users.service.UsersService;
 import com.beans.leaveapp.address.model.Address;
@@ -42,14 +45,17 @@ public class EmployeeServiceImpl implements EmployeeService {
 	EmployeeGradeService employeeGradeService;
 	EmployeeTypeService employeeTypeService;
 	UsersService usersService;
-	
+	AuditTrail auditTrail;
 	
 	@Override
 	@Transactional
 	public Employee create(Employee employee) {
 		Employee employeeToBeUpdated = employee;
 		
-		return employeeRepository.save(employeeToBeUpdated);
+		Employee createdEmployee = employeeRepository.save(employeeToBeUpdated);
+		
+		
+		return createdEmployee;
 	}
 
 	@Override
@@ -297,6 +303,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 	public void setUsersService(UsersService usersService) {
 		this.usersService = usersService;
+	}
+	
+	public AuditTrail getAuditTrail() {
+		return auditTrail;
+	}
+	public void setAuditTrail(AuditTrail auditTrail) {
+		this.auditTrail = auditTrail;
 	}
 
 	@Override
