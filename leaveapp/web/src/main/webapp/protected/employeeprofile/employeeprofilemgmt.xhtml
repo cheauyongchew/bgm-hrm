@@ -39,8 +39,8 @@
         </p:dataTable>
         </h:form> 
 		
-		<h:form>
-        <p:commandButton value="New Employee" update=":newEmployeeDlg" action="#{employeeProfileMgmtBean.initEmployeeCreation()}" oncomplete="PF('newEmployeeDialog').show()" title="Creates new employee"/>
+		<h:form id="newEmployeeBtnForm">
+        <p:commandButton value="New Employee" update=":displayNewEmployee" actionListener="#{employeeProfileMgmtBean.initEmployeeCreation()}" oncomplete="PF('newEmployeeDialog').show()" title="Creates new employee"/>
         
         </h:form>
 
@@ -54,8 +54,8 @@
           <ui:include src="employeeprofileupdatedetails.xhtml" />       
           </p:dialog>
           
-      <p:dialog header="Create New Employee" widgetVar="newEmployeeDialog" resizable="false" id="newEmployeeDlg" modal="true">
-          <ui:include src="employeeprofiledetails.xhtml" />    
+      <p:dialog header="Create New Employee" widgetVar="newEmployeeDialog" resizable="false" id="newEmployeeDlg" closable="false" modal="true">
+          <ui:include src="employeeprofiledetails.xhtml" />          
           </p:dialog>
           
           

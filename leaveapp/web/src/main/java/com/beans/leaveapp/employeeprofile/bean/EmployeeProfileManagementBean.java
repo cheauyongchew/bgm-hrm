@@ -60,12 +60,13 @@ public class EmployeeProfileManagementBean implements Serializable{
 	
 	public void initEmployeeCreation() {
 		setEmployeeCreation(true);
-		selectedEmployee = new Employee();
+		newEmployee = new Employee();
 		setSelectedDepartment(-1);
 		setSelectedEmployeeGrade(-1);
 		setSelectedEmployeeType(-1);
 		newAddressMap = new HashMap<Integer, Address>();
 		setAddressOperation(false, "Create");
+		setPage("details");
 	}
 	
 	public String getEmployeeName() {
