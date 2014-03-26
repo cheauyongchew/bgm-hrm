@@ -19,3 +19,4 @@ public interface UsersRepository extends CrudRepository<Users, Integer>{
 	@Query("select u from Users u where username=?")
 	Users findByUsername(String username);
 }
+

@@ -24,6 +24,7 @@ public class EmployeeGradeManagementBean implements Serializable{
 	private EmployeeGrade newEmployeeGrade = new EmployeeGrade();
 	private EmployeeGrade selectedEmployeeGrade = new EmployeeGrade();
 	private boolean insertDeleted = false;
+	private String searchName;
 
 	public EmployeeGradeService getEmployeeGradeService() {
 		return employeeGradeService;
@@ -72,7 +73,9 @@ public class EmployeeGradeManagementBean implements Serializable{
 	
 	public EmployeeGradeDataModel getEmployeeGradeDataModel() {
 		if(employeeGradeDataModel == null || insertDeleted == true) {
+			System.out.println(getEmployeeGradeList().size());
 			employeeGradeDataModel = new EmployeeGradeDataModel(getEmployeeGradeList());
+			
 		}
 		
 		return employeeGradeDataModel;
@@ -123,6 +126,19 @@ public class EmployeeGradeManagementBean implements Serializable{
 	public void doResetFrom() throws EmployeeGradeNotFound {
 		
 	}
+
+	public void search(){
+		
+	}
+	
+	public String getSearchName() {
+		return searchName;
+	}
+
+	public void setSearchName(String searchName) {
+		this.searchName = searchName;
+	}
 	
 	
 }
+

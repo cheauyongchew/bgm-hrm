@@ -90,6 +90,11 @@
 			<version>${project.version}</version>
 		</dependency>
 
+         <dependency>
+			<groupId>${project.groupid}</groupId>
+			<artifactId>leaveapplication</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 		<!-- JSF dependencies -->
 		<dependency>
 			<groupId>com.sun.faces</groupId>

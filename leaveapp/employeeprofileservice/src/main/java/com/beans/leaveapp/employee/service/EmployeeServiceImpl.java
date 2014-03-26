@@ -312,4 +312,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 		this.auditTrail = auditTrail;
 	}
 
+	@Override
+	public Employee findByEmployee(String employeeName) {
+		Employee employeeObj = employeeRepository.findByName(employeeName);
+		return employeeObj;
+	}
+
 }

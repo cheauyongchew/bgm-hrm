@@ -16,3 +16,4 @@ public interface RoleService {
 	public Role findByRole(String role);
 	public Set<Role> findAllInSet();
 }
+
