@@ -105,9 +105,5 @@ public class Role {
 	@Override
 	public int hashCode() {
 		return id;
-	}
-	
-	
-	
-	
+	}	
 }

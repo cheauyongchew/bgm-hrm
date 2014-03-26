@@ -21,3 +21,4 @@ public interface EmployeeGradeRepository extends CrudRepository<EmployeeGrade, I
 	
 
 }
+

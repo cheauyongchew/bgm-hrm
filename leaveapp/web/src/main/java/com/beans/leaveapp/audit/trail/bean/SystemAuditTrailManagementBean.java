@@ -1,7 +1,6 @@
 package com.beans.leaveapp.audit.trail.bean;
 
 import java.io.Serializable;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -48,12 +47,13 @@ public class SystemAuditTrailManagementBean implements Serializable {
 		this.date2 = date2;
 	}
 
-	public void register() throws Exception {
+	public void search() throws Exception {
 
+		if(date1 != null && date2 != null){
 		java.sql.Date date = new java.sql.Date(date1.getTime());
 		java.sql.Date dates = new java.sql.Date(date2.getTime());
 
-		List<SystemAuditTrail> l = getSystemAuditTrailService()
+		List<SystemAuditTrail> systemAuditTrailList = getSystemAuditTrailService()
 				.findSelectedDates(date, dates);
 
 		setSystemAuditTrailList(getSystemAuditTrailService().findSelectedDates(
@@ -61,7 +61,7 @@ public class SystemAuditTrailManagementBean implements Serializable {
 		System.out.println(getSystemAuditTrailList().size());
 		forDates = true;
 		this.getSystemAuditTrailDataModel();
-
+		}
 	}
 
 	public SystemAuditTrailRecordService getSystemAuditTrailService() {
@@ -174,7 +174,7 @@ public class SystemAuditTrailManagementBean implements Serializable {
 		try {
 			getSystemAuditTrailService().delete(
 					selectedSystemAuditTrail.getId());
-			this.register();
+			this.search();
 		} catch (Exception e) {
 			FacesMessage msg = new FacesMessage("Error", "Leave Type With id: "
 					+ selectedSystemAuditTrail.getId() + " not found!");
