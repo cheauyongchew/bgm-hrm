@@ -8,6 +8,10 @@ import java.util.List;
 
 import org.primefaces.event.SelectEvent;
 
+import com.beans.common.audit.service.AuditTrail;
+import com.beans.common.audit.service.SystemAuditTrailActivity;
+import com.beans.common.audit.service.SystemAuditTrailLevel;
+import com.beans.common.security.users.model.Users;
 import com.beans.leaveapp.address.model.Address;
 import com.beans.leaveapp.address.service.AddressService;
 import com.beans.leaveapp.employee.model.Employee;
@@ -30,6 +34,8 @@ public class MyProfileManagementBean implements Serializable{
 	private HashMap<Integer, Address> newAddressMap = new HashMap<Integer, Address>();
 	private List<Address> existingAddressList = new ArrayList<Address>();
 	private boolean insertDeleteAddress = false;
+	private Users actorUsers;
+	private AuditTrail auditTrail;
 	
 	public EmployeeService getEmployeeService() {
 		return employeeService;
@@ -188,6 +194,22 @@ public class MyProfileManagementBean implements Serializable{
 		getEmployeeService().updateEmployee(employee, selectedEmployeeGrade, selectedEmployeeType, selectedDepartment, null, existingAddressList, newAddressMap);
 		newAddressMap = new HashMap<Integer, Address>();
 		existingAddressList = null;
+		
+		auditTrail.log(SystemAuditTrailActivity.UPDATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has updated his/her own profile");
 	}
 	
+	public Users getActorUsers() {
+		return actorUsers;
+	}
+	public void setActorUsers(Users actorUsers) {
+		this.actorUsers = actorUsers;
+	}
+	
+	
+	public AuditTrail getAuditTrail() {
+		return auditTrail;
+	}
+	public void setAuditTrail(AuditTrail auditTrail) {
+		this.auditTrail = auditTrail;
+	}
 }
