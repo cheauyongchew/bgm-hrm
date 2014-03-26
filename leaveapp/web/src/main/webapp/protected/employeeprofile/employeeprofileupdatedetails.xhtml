@@ -10,10 +10,10 @@
 
 
 
-<h:form id="employeeForm">
+
 	<p:panelGrid id="displayEmployee" layout="block" columns="1"
 		cellpadding="4" style="margin:0 auto;">
-		
+	<h:form id="employeeForm">	
 			
 			
 			<p:tabView id="employeeUpdateTabView" activeIndex="0">
@@ -150,7 +150,11 @@
 						id="employeeResignationDateCal" />
 				</p:panelGrid>
 
-
+			<f:facet name="footer">
+					<p:commandButton value="Cancel"
+						oncomplete="PF('employeeDialog').hide()" />
+					<p:commandButton value="Update" update=":employeeTableForm:employeeTable" actionListener="#{employeeProfileMgmtBean.doUpdateEmployee()}" validateClient="true" oncomplete="PF('employeeDialog').hide()"/>
+			</f:facet>
 				
 			</p:panelGrid>
 			</p:tab>
@@ -252,7 +256,11 @@
 							   </p:scrollPanel>		
 							</h:form>
 				
-				
+			<f:facet name="footer">
+					<p:commandButton value="Cancel"
+						oncomplete="PF('employeeDialog').hide()" />
+					<p:commandButton value="Update" update=":employeeTableForm:employeeTable" actionListener="#{employeeProfileMgmtBean.doUpdateEmployee()}" validateClient="true" oncomplete="PF('employeeDialog').hide()"/>
+			</f:facet>	
 				
 			</p:panelGrid>
 			</p:tab>
@@ -274,7 +282,11 @@
 				<p:password id="pwd2" value="#{employeeProfileMgmtBean.users.password}"/>
 				</p:panelGrid>
 				
-				
+			<f:facet name="footer">
+					<p:commandButton value="Cancel"
+						oncomplete="PF('employeeDialog').hide()" />
+					<p:commandButton value="Update" update=":employeeTableForm:employeeTable" actionListener="#{employeeProfileMgmtBean.doUpdateEmployee()}" validateClient="true" oncomplete="PF('employeeDialog').hide()"/>
+			</f:facet>	
 			</p:panelGrid>
 			</p:tab>
 			
@@ -298,14 +310,11 @@
 			
 	
 	
-			<f:facet name="footer">
-					<p:commandButton value="Cancel"
-						oncomplete="PF('employeeDialog').hide()" />
-					<p:commandButton value="Update" update=":employeeTableForm:employeeTable" actionListener="#{employeeProfileMgmtBean.doUpdateEmployee()}" validateClient="true" oncomplete="PF('employeeDialog').hide()"/>
-			</f:facet>
+			
+	</h:form>
 	</p:panelGrid>
 
-	</h:form>
+	
 
 </h:body>
 </html>

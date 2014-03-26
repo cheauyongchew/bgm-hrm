@@ -188,34 +188,29 @@ CREATE TABLE IF NOT EXISTS LeaveAttachment (
     	ON DELETE CASCADE
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS RoleAccess (
-  id int(10) NOT NULL,
-  name VARCHAR(20) NOT NULL,
+CREATE TABLE IF NOT EXISTS AccessRights (
+  id int(10) NOT NULL AUTO_INCREMENT,
+  accessRights VARCHAR(20) NOT NULL,
   description VARCHAR(150),
-  FOREIGN KEY (roleId) REFERENCES Role(id)
+  isDeleted TINYINT(1),
+  PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS RoleToRoleAccess (
+CREATE TABLE IF NOT EXISTS RoleToAccessRights (
   roleId int(10) NOT NULL,
-  roleAccessId int(10) NOT NULL,
-  enabled TINYINT(1),
+  accessRightsId int(10) NOT NULL,
   FOREIGN KEY (roleId) REFERENCES Role(id),
-  FOREIGN KEY (roleAccessId) REFERENCES RoleAccess(id)
+  FOREIGN KEY (accessRightsId) REFERENCES AccessRights(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS UserAccess (
-  id int(10) NOT NULL,
-  name VARCHAR(20) NOT NULL,
-  description VARCHAR(150),
-  FOREIGN KEY (userId) REFERENCES Users(id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE IF NOT EXISTS UserToUserAccess (
-  userId int(10) NOT NULL,
-  userAccessId int(10) NOT NULL,
+CREATE TABLE IF NOT EXISTS UserToAccessRights (
+  id int(10) NOT NULL AUTO_INCREMENT,
+  userId int(10) NOT NULL ,
+  accessRightsId int(10) NOT NULL,
   enabled TINYINT(1),
   FOREIGN KEY (userId) REFERENCES Users(id),
-  FOREIGN KEY (userAccessId) REFERENCES UserAccess(id)
+  FOREIGN KEY (accessRightsId) REFERENCES AccessRights(id),
+  PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 GRANT ALL PRIVILEGES ON beans.* TO 'beans'@'localhost';
@@ -255,4 +250,8 @@ INSERT INTO Users(id, username, password, enabled) VALUES ('1', 'test1', 'test1'
 INSERT INTO Role(id, role, description, isDeleted) VALUES ('1', 'ROLE_USER', 'Normal User', 0);
 
 INSERT INTO UserToRole(userId, userRoleId) VALUES ('1', '1');
+
+INSERT INTO AccessRights(id, accessRights, description, isDeleted) VALUES ('1', 'Edit Employee', 'Can Edit Employee', 0);
+
+INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('1', '1');
  

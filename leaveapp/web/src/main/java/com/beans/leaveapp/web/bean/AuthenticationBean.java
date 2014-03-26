@@ -2,6 +2,7 @@ package com.beans.leaveapp.web.bean;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.HashMap;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -28,6 +29,7 @@ public class AuthenticationBean implements Serializable{
 	private Employee employee;
 	private String username;
 	private Users users;
+	private HashMap<String, Boolean> accessRightsMap = new HashMap<String, Boolean>();
 	
 	public String doLogin() throws IOException, ServletException {
 		ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
@@ -37,6 +39,7 @@ public class AuthenticationBean implements Serializable{
 		if(auth != null) {
 			setUsername(auth.getName());
 			initEmployee();
+			populateAccessRightsMap();
 		}
 		FacesContext.getCurrentInstance().responseComplete();
 		
@@ -72,6 +75,20 @@ public class AuthenticationBean implements Serializable{
 		} catch(UsersNotFound e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private void populateAccessRightsMap() {
+		
+	}
+	
+	public Boolean hasAccess(String key) {
+		if (key != null) {
+			if (accessRightsMap.containsKey(key)) {
+				return accessRightsMap.get(key);
+
+			}
+		}		
+		return false;
 	}
 	
 	public EmployeeService getEmployeeService() {

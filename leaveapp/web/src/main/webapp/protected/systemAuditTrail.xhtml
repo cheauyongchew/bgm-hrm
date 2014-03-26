@@ -8,18 +8,6 @@
 	
 	
 <h:head>
-	
-<style>
-.ui-dialog.ui-dlgCSS-content 
-{
-     background-image: none;
-     background-color: red;
-}
-         
-</style>
-<script type="text/javascript">
-    
-</script>
 </h:head>
 	
 	 
@@ -27,9 +15,10 @@
 <ui:composition template="/templates/mainlayout.xhtml">
 
 <ui:define name="title">System Audit Trail Records</ui:define>
-
+    
 
 <!-- <b>From :</b> 
+        
 		<p:calendar value="#{systemAuditTrailMgmtBean.date1}" id="start1" shownOn="button"/>
 		   
 		<b>To :</b>   
@@ -39,14 +28,15 @@
 
   -->
 <ui:define name="content">
+        <h1>System Audit Trail Records</h1>
 		<h:form id="employeeGradeTabelForm">
 		
 		<!-- <p:dataTable id="auditTrailRecodTabel" widgetVar="trailAudit" var="trailRecord"></p:dataTable> -->
 		
-		<b>From :</b> 
+		<b>From : </b> 
 		<p:calendar value="#{systemAuditTrailMgmtBean.date1}" id="start1" shownOn="button"/>
 		   
-		<b>To :</b>   
+		<b>To : </b>   
 		<p:calendar value="#{systemAuditTrailMgmtBean.date2}" id="start2"  shownOn="button" />
 		
 		  <p:commandButton action="#{systemAuditTrailMgmtBean.register}" value="Search" update=":employeeGradeTabelForm:employeeGradeTabel" ajax="false"/>
