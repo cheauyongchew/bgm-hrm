@@ -1,5 +1,6 @@
 package com.beans.leaveapp.employee.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -239,6 +240,25 @@ public class EmployeeServiceImpl implements EmployeeService {
 		}
 		
 		return employee;
+	}
+	
+	
+
+	@Override
+	public List<Employee> findEmployeeByNameOrEmployeeNumberOrBoth(String name,
+			String employeeNumber) {
+		
+		if(name == null || name.trim().equals("")) {
+			String employeeNumberSearchTerm = "%" + employeeNumber + "%";
+			return employeeRepository.findByEmployeeNumberLike(employeeNumberSearchTerm);
+		} else if(employeeNumber == null || employeeNumber.trim().equals("")) {
+			String nameSearchTerm = "%" + name + "%";
+			return employeeRepository.findByNameLike(nameSearchTerm);
+		} else {
+			String employeeNumberSearchTerm = "%" + employeeNumber + "%";
+			String nameSearchTerm = "%" + name + "%";
+			return employeeRepository.findByNameAndEmployeeNumberLike(nameSearchTerm, employeeNumberSearchTerm);
+		}
 	}
 
 	public DepartmentService getDepartmentService() {

@@ -17,12 +17,31 @@
 <ui:define name="content">
         <h1>Employee List </h1>
 		<h:form id="employeeTableForm">
-	 	
+		
+		<p:panel header="Search" toggleable="true">
+			<p:panelGrid id="SearchEmployee" columns="2" cellpadding="4">
+				
+				<h:outputText value="Name" />
+					<h:inputText value="#{employeeProfileMgmtBean.searchName}">
+					</h:inputText>
+				
+				<h:outputText value="Employee Number" />
+					<h:inputText value="#{employeeProfileMgmtBean.searchEmployeeNumber}">
+					</h:inputText>
+					
+				<f:facet name="footer">				
+					<p:commandButton value="Search" update="employeeTable" actionListener="#{employeeProfileMgmtBean.searchEmployee()}"></p:commandButton>
+					<p:commandButton type="reset" value="Reset"></p:commandButton>
+				</f:facet>
+			</p:panelGrid>
+		</p:panel>
+		
+		  
         <p:dataTable id="employeeTable" var="employee0" value="#{employeeProfileMgmtBean.employeeDataModel}" widgetVar="employeeSearch" rowKey="#{employee0.id}"
-                 selection="#{employeeProfileMgmtBean.selectedEmployee}" selectionMode="single"  emptyMessage="No data found with given criteria" >
+                 selection="#{employeeProfileMgmtBean.selectedEmployee}" paginator="true" rows="10" scrollable="true" selectionMode="single"  emptyMessage="No data found with given criteria" >
         
 
-          <p:ajax event="rowSelect" listener="#{employeeProfileMgmtBean.onRowSelect}" update=":employeeForm:displayEmployee" oncomplete="PF('employeeDialog').show()" />  
+          <p:ajax event="rowSelect" listener="#{employeeProfileMgmtBean.onRowSelect}" update=":displayEmployee" oncomplete="PF('employeeDialog').show()" />  
                   
           <p:column id="nameHeader" sortBy="name">
           <f:facet name="header"> Name </f:facet>
@@ -32,11 +51,19 @@
           <f:facet name="header"> Employee Number </f:facet>
             <h:outputText value="#{employee0.employeeNumber}" />
           </p:column>
+          
+           <p:column id="employeeJoinDateHeader" sortBy="joinDate">
+          <f:facet name="header"> Join Date </f:facet>
+           <h:outputText value="#{employee0.joinDate}">
+           	<f:convertDateTime pattern="dd/MM/yyyy"/>
+           </h:outputText>
+          </p:column>
         <p:column id="positionHeader" headerText="Position">
             <h:outputText value="#{employee0.position}" />
           </p:column>
         
         </p:dataTable>
+        
         </h:form> 
 		
 		<h:form id="newEmployeeBtnForm">
@@ -44,13 +71,10 @@
         
         </h:form>
 
-           
-      
-      <p:growl id="growl" showDetail="true" life="1000"/> 
   </ui:define>  
   
   <ui:define name="dialog">
-       <p:dialog header="Employee Detail" widgetVar="employeeDialog" resizable="false" id="employeeDlg" modal="true" >
+       <p:dialog header="Employee Detail" widgetVar="employeeDialog" resizable="false" id="employeeDlg" modal="true">
           <ui:include src="employeeprofileupdatedetails.xhtml" />       
           </p:dialog>
           
