@@ -87,6 +87,14 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 			<property-name>addressService</property-name>
 			<value>#{addressService}</value>
 		</managed-property>
+		<managed-property>
+			<property-name>auditTrail</property-name>
+			<value>#{auditTrail}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>actorUsers</property-name>
+			<value>#{authenticationBean.getUsers()}</value>
+		</managed-property>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>myProfileMgmtBean</managed-bean-name>
