@@ -1,11 +1,7 @@
-<<<<<<< HEAD
+=\=\=\=\=\=\=
+<<<<<<<=HEAD
+>>>>>>>=branch 'sprint1' of https\://github.com/kinmengBGM/bgm-hrm.git
 eclipse.preferences.version=1
 entitygen.DEFAULT_PACKAGE=model
-org.eclipse.jpt.core.platform=generic
+org.eclipse.jpt.core.platform=generic2_0
 org.eclipse.jpt.jpa.core.discoverAnnotatedClasses=true
-=======
-eclipse.preferences.version=1
-entitygen.DEFAULT_PACKAGE=model
-org.eclipse.jpt.core.platform=generic
-org.eclipse.jpt.jpa.core.discoverAnnotatedClasses=false
->>>>>>> branch 'sprint1' of https://github.com/kinmengBGM/bgm-hrm.git
