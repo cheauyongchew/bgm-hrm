@@ -8,8 +8,10 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.event.SelectEvent;
 
+import com.beans.common.audit.service.AuditTrail;
 import com.beans.common.audit.service.SystemAuditTrailActivity;
 import com.beans.common.audit.service.SystemAuditTrailLevel;
+import com.beans.common.security.users.model.Users;
 import com.beans.leaveapp.employee.model.Employee;
 import com.beans.leaveapp.employee.service.EmployeeService;
 import com.beans.leaveapp.leavetype.model.LeaveType;
@@ -51,7 +53,16 @@ public class YearlyEntitlementManagementBean implements Serializable {
 	List<YearlyEntitlement>  listOfYearlyEntitlement;
 	List<EmployeeEntitlement> employeeEntitlementList;
 	EmployeeLeaveEntitlementDataModel employeeLeaveEntitlementDataModel;
-	private 
+	private AuditTrail auditTrail;
+	public AuditTrail getAuditTrail() {
+		return auditTrail;
+	}
+
+	public void setAuditTrail(AuditTrail auditTrail) {
+		this.auditTrail = auditTrail;
+	}
+
+	private Users actorUsers; 
 
 	public double getAvailableBalance() {
 		return availableBalance;
@@ -323,7 +334,8 @@ public class YearlyEntitlementManagementBean implements Serializable {
 			
 			int id = getEmployeeService().findByEmployee(employeeName).getId();
 			List<LeaveEntitlement> list = yearlyEntitlementService.findByEmployee(id);
-			auditTrail.log(SystemAuditTrailActivity.ACCESSED, SystemAuditTrailLevel.INFO + " has successfully searched by using " +this.getEmployeeName());
+	 	// auditTrail.log(systemAuditTrailActivity, systemAuditTrailLevel, userId, username, description);
+			auditTrail.log(SystemAuditTrailActivity.ACCESSED, SystemAuditTrailLevel.INFO, this.getActorUsers().getId(),this.getActorUsers().getUsername(),this.getActorUsers().getUsername()+ "Search the YearlyEntitlement record using employeeName :" +this.getEmployeeName());
 			
 			return list;
 			
@@ -331,6 +343,8 @@ public class YearlyEntitlementManagementBean implements Serializable {
 			
 			 int leaveTypeId = leaveTypeService.findByLeaveType(employeeName).getId();
 			 List<LeaveEntitlement> list = yearlyEntitlementService.findBySearchLeave(leaveTypeId);
+			 auditTrail.log(SystemAuditTrailActivity.ACCESSED, SystemAuditTrailLevel.INFO, this.getActorUsers().getId(),this.getActorUsers().getUsername(),this.getActorUsers().getUsername()+ "Search the YearlyEntitlement record using leavetypeId :" +this.getEmployeeName());
+				
 			 return list;
 		}else{
 			System.out.println(employeeName + " details not found");
@@ -350,6 +364,14 @@ public class YearlyEntitlementManagementBean implements Serializable {
 
 	public void setLeaveTypeService(LeaveTypeService leaveTypeService) {
 		this.leaveTypeService = leaveTypeService;
+	}
+
+	public Users getActorUsers() {
+		return actorUsers;
+	}
+
+	public void setActorUsers(Users actorUsers) {
+		this.actorUsers = actorUsers;
 	}
 	
 

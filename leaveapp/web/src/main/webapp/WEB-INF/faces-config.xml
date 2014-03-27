@@ -87,6 +87,14 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 			<property-name>addressService</property-name>
 			<value>#{addressService}</value>
 		</managed-property>
+		<managed-property>
+			<property-name>auditTrail</property-name>
+			<value>#{auditTrail}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>actorUsers</property-name>
+			<value>#{authenticationBean.getUsers()}</value>
+		</managed-property>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>myProfileMgmtBean</managed-bean-name>
@@ -114,14 +122,34 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 		</managed-property>
 	</managed-bean>
 	<managed-bean>
-		<managed-bean-name>systemAuditTrailMgmtBean</managed-bean-name>
-		<managed-bean-class>com.beans.leaveapp.audit.trail.bean.SystemAuditTrailManagementBean</managed-bean-class>
-		<managed-bean-scope>view</managed-bean-scope>
-		<managed-property>
-			<property-name>systemAuditTrailService</property-name>
-			<value>#{systemAuditTrailService}</value>
+ 	<managed-bean-name>yearlyEntitlementMgmtBean</managed-bean-name>
+ 	<managed-bean-class>com.beans.leaveapp.yearlyentitlement.bean.YearlyEntitlementManagementBean</managed-bean-class>
+ 	<managed-bean-scope>view</managed-bean-scope>
+ 	<managed-property>
+ 		<property-name>yearlyEntitlementService</property-name>
+ 		<value>#{yearlyEntitlementService}</value>
+ 	</managed-property>
+ 	<managed-property>
+ 		<property-name>employeeService</property-name>
+ 		<value>#{employeeService}</value>
+ 	</managed-property>
+ 	<managed-property>
+ 		<property-name>leaveTypeService</property-name>
+ 		<value>#{leaveTypeService}</value>
+ 	</managed-property>
+ 	<managed-property>
+			<property-name>auditTrail</property-name>
+			<value>#{auditTrail}</value>
 		</managed-property>
-	</managed-bean>
+ 	<managed-property>
+			<property-name>employee</property-name>
+			<value>#{authenticationBean.getEmployee()}</value>
+	</managed-property>
+	<managed-property>
+			<property-name>actorUsers</property-name>
+			<value>#{authenticationBean.getUsers()}</value>
+		</managed-property>
+ </managed-bean>
 
 	<managed-bean>
 		<managed-bean-name>authenticationBean</managed-bean-name>
@@ -186,30 +214,5 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 		</managed-property>
 	</managed-bean>
 	
-	<managed-bean>
- 	<managed-bean-name>yearlyEntitlementMgmtBean</managed-bean-name>
- 	<managed-bean-class>com.beans.leaveapp.yearlyentitlement.bean.YearlyEntitlementManagementBean</managed-bean-class>
- 	<managed-bean-scope>view</managed-bean-scope>
- 	<managed-property>
- 		<property-name>yearlyEntitlementService</property-name>
- 		<value>#{yearlyEntitlementService}</value>
- 	</managed-property>
- 	<managed-property>
- 		<property-name>employeeService</property-name>
- 		<value>#{employeeService}</value>
- 	</managed-property>
- 	<managed-property>
- 		<property-name>leaveTypeService</property-name>
- 		<value>#{leaveTypeService}</value>
- 	</managed-property>
- 	<managed-property>
-			<property-name>auditTrail</property-name>
-			<value>#{auditTrail}</value>
-		</managed-property>
- 	<managed-property>
-			<property-name>employee</property-name>
-			<value>#{authenticationBean.getEmployee()}</value>
-	</managed-property>
- </managed-bean>
-
+	
 </faces-config>
