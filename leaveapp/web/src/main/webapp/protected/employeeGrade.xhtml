@@ -20,9 +20,9 @@
         <h1>Employee Grade Maintenance </h1>
 		<h:form id="employeeGradeTabelForm">
 
-		<p:commandButton value="Employee Search" oncomplete="PF('searchEmployeeGradeDialog').show()" icon="ui-icon-star" title="Search employee" />
+		
         <p:dataTable id="employeeGradeTabel" widgetVar="employeeGradeTabel" var="employeeGrade0" value="#{employeeGradeMgmtBean.employeeGradeDataModel}" rowKey="#{employeeGrade0.id}"
-                 selection="#{employeeGradeMgmtBean.selectedEmployeeGrade}" selectionMode="single" >
+                 selection="#{employeeGradeMgmtBean.selectedEmployeeGrade}" selectionMode="single" paginator="true" rows="10" scrollable="true">
           <p:ajax event="rowSelect" listener="#{employeeGradeMgmtBean.onRowSelect}" update=":employeeGradeDetailForm:display, :growl" oncomplete="PF('leaveTypeDialog').show()" />  
        <!--    $('body').css('background-color','green'); -->
                     
@@ -62,7 +62,7 @@
                             <p:commandButton value="Update" update=":employeeGradeTabelForm:employeeGradeTabel"  oncomplete="PF('leaveTypeDialog').hide()" actionListener="#{employeeGradeMgmtBean.doUpdateEmployeeGrade}" validateClient="true"/>
                             <p:commandButton value="Delete" onclick="PF('cd').show()" oncomplete="PF('leaveTypeDialog').hide()"/>
                             
-                           <!--  $('body').css('background-color','gray');  $('body').css('background-color','gray'); -->
+                          
                     </f:facet>
                 </p:panelGrid>
              </h:form>
@@ -76,15 +76,15 @@
                 <p:panelGrid id="displayNewLeaveType" columns="2" cellpadding="4" style="margin:0 auto;">
             <h:outputText value="Name :"></h:outputText>
                         <p:inputText value="#{employeeGradeMgmtBean.newEmployeeGrade.name}" required="true" requiredMessage="Please Enter Name!"> 
-                         <f:validateLength minimum="6" maximum="15"/></p:inputText>
+                         </p:inputText>
  
             <h:outputText value="Description :"></h:outputText>
-                        <p:inputText value="#{employeeGradeMgmtBean.newEmployeeGrade.description}">  <f:validateLength minimum="6" maximum="15"/></p:inputText>
+                        <p:inputText value="#{employeeGradeMgmtBean.newEmployeeGrade.description}"> </p:inputText>
  
            
                     <f:facet name="footer">
-                            <p:commandButton value="Submit" update=":employeeGradeTabelForm:employeeGradeTabel"  oncomplete="PF('newLeaveTypeDialog').hide()" actionListener="#{employeeGradeMgmtBean.doCreateEmployeeGrade}"/>
-                            <p:commandButton  update=":employeeGradeTabelForm:employeeGradeTabel" value="Reset" oncomplete=""></p:commandButton>
+                            <p:commandButton value="Submit" update=":employeeGradeTabelForm:employeeGradeTabel"  oncomplete="PF('newLeaveTypeDialog').hide()" actionListener="#{employeeGradeMgmtBean.doCreateEmployeeGrade}" ajax="false" />
+                            <p:commandButton  update=":employeeGradeTabelForm:employeeGradeTabel" value="Reset" oncomplete="PF('newLeaveTypeDialog').hide()"></p:commandButton>
                            <!--  $('body').css('background-color','gray');   $('body').css('background-color','gray') -->
                     </f:facet>
                 </p:panelGrid>
@@ -92,7 +92,7 @@
           </p:dialog>
           
           <p:confirmDialog message="Are you sure?" header="Deleting EmployeeGrade" 
-          	severity="alert" widgetVar="cd">	
+          	severity="alert" widgetVar="cd" id="cc">	
 			<h:form>
 			<p:commandButton value="Yes" actionListener="#{employeeGradeMgmtBean.doDeleteEmployeeGrade}" update=":employeeGradeTabelForm:employeeGradeTabel" oncomplete="PF('cd').hide();"/>
 			<p:commandButton value="No" onclick="PF('cd').hide();PF('leaveTypeDialog').show();" type="button" />

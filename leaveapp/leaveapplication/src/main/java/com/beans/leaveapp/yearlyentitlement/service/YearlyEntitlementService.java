@@ -25,4 +25,8 @@ public interface YearlyEntitlementService {
 	
 	public List<EmployeeEntitlement> findByEmployeeId(int x);
 	
+	public List<LeaveEntitlement> findByEmployee(int x);
+	
+	public List<LeaveEntitlement> findBySearchLeave(int id);
+	
 }

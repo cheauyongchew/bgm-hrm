@@ -29,8 +29,9 @@ public class EmployeeGradeServiceImpl implements EmployeeGradeService {
 	@Transactional
 	public EmployeeGrade delete(int id) throws EmployeeGradeNotFound{
 		
+		System.out.println(id);
 		EmployeeGrade employeeGrade = employeeGradeRepository.findOne(id);
-		if(employeeGrade != null) 
+		if(employeeGrade == null) 
 			throw new EmployeeGradeNotFound();
 			
 			

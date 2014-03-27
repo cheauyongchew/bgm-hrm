@@ -26,7 +26,7 @@ public class SystemAuditTrailManagementBean implements Serializable {
 	private boolean insertDeleted = false;
 	private boolean forDates = false;
 
-	SimpleDateFormat s = new SimpleDateFormat("yyyy-mm-dd");
+	SimpleDateFormat s = new SimpleDateFormat("yyyy-mm-dd HH:MM");
 
 	public Date date1;
 	public Date date2;
@@ -61,6 +61,7 @@ public class SystemAuditTrailManagementBean implements Serializable {
 		System.out.println(getSystemAuditTrailList().size());
 		forDates = true;
 		this.getSystemAuditTrailDataModel();
+		date1.getTime();
 		}
 	}
 

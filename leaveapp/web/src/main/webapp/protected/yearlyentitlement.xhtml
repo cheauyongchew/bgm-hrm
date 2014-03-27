@@ -35,7 +35,8 @@
 					value="#{yearlyEntitlementMgmtBean.yearlyEntitlementDataModel}"
 					rowKey="#{yearlyEntitlement0.id}"
 					selection="#{yearlyEntitlementMgmtBean.selectedLeaveEntitlement}"
-					selectionMode="single">
+					selectionMode="single"
+					 paginator="true" rows="10" scrollable="true" >
 					<p:ajax event="rowSelect"
 						listener="#{yearlyEntitlementMgmtBean.onRowSelect}"
 						update=":yearlyEntitlementDetailForm:display, :growl"

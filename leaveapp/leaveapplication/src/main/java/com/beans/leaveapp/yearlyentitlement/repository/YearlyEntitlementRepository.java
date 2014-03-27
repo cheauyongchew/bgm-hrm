@@ -25,4 +25,7 @@ public interface YearlyEntitlementRepository extends CrudRepository<YearlyEntitl
 	@Query("select y from YearlyEntitlement y where y.employeeId = ?")
 	public List<YearlyEntitlement> findByEmployeeId(int x);
 	
+	@Query("select y from  YearlyEntitlement y where y.leaveTypeId = ?")
+	public List<YearlyEntitlement> findByLeaveTypeId(int x);
+	
 }

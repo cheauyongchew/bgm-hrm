@@ -15,6 +15,9 @@ public class LeaveType {
 	private int id;
 	private String name;
 	private String description;
+	private int employeeTypeId;
+	private double entitlement;
+	private boolean isAccountable = false;
 	private boolean isDeleted= false;
 	
 	@Id
@@ -42,7 +45,30 @@ public class LeaveType {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	@Column(name="employeeTypeId", nullable=true)
+	public int getEmployeeTypeId() {
+		return employeeTypeId;
+	}
+	public void setEmployeeTypeId(int employeeTypeId) {
+		this.employeeTypeId = employeeTypeId;
+	}
 	
+	@Column(name="entitlement", nullable=false)
+	public double getEntitlement() {
+		return entitlement;
+	}
+	public void setEntitlement(double entitlement) {
+		this.entitlement = entitlement;
+	}
+	
+	@Column(name="isAccountable",columnDefinition="TINYINT(1)")
+	@Type(type="org.hibernate.type.NumericBooleanType")
+	public boolean isAccountable() {
+		return isAccountable;
+	}
+	public void setAccountable(boolean isAccountable) {
+		this.isAccountable = isAccountable;
+	}
 	@Column(name="isDeleted", columnDefinition="TINYINT(1)") 
 	@Type(type="org.hibernate.type.NumericBooleanType")
 	public boolean isDeleted() {
@@ -51,6 +77,8 @@ public class LeaveType {
 	public void setDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
+	
+	
 	
 	
 	

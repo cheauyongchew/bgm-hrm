@@ -1,7 +1,6 @@
 package com.beans.leaveapp.yearlyentitlement.bean;
 
 import java.io.Serializable;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -9,10 +8,13 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.event.SelectEvent;
 
-import com.beans.common.security.users.service.UsersNotFound;
+import com.beans.common.audit.service.SystemAuditTrailActivity;
+import com.beans.common.audit.service.SystemAuditTrailLevel;
 import com.beans.leaveapp.employee.model.Employee;
-import com.beans.leaveapp.employee.service.EmployeeNotFound;
 import com.beans.leaveapp.employee.service.EmployeeService;
+import com.beans.leaveapp.leavetype.model.LeaveType;
+import com.beans.leaveapp.leavetype.service.LeaveTypeNotFound;
+import com.beans.leaveapp.leavetype.service.LeaveTypeService;
 import com.beans.leaveapp.yearlyentitlement.model.EmployeeEntitlement;
 import com.beans.leaveapp.yearlyentitlement.model.EmployeeLeaveEntitlementDataModel;
 import com.beans.leaveapp.yearlyentitlement.model.LeaveEntitlement;
@@ -43,11 +45,13 @@ public class YearlyEntitlementManagementBean implements Serializable {
 	double availableBalance;
 	private Employee employee;
 	private EmployeeService employeeService;
+	private LeaveTypeService leaveTypeService;
 	private String employeeName;
 	private String userName;
 	List<YearlyEntitlement>  listOfYearlyEntitlement;
 	List<EmployeeEntitlement> employeeEntitlementList;
 	EmployeeLeaveEntitlementDataModel employeeLeaveEntitlementDataModel;
+	private 
 
 	public double getAvailableBalance() {
 		return availableBalance;
@@ -129,6 +133,9 @@ public class YearlyEntitlementManagementBean implements Serializable {
 
 			yearlyEntitlementDataModel = new YearlyEntitleDataModel(
 					getYearlyEntitlementList());
+		}if(employeeName != null){
+			yearlyEntitlementDataModel = new YearlyEntitleDataModel(
+					this.search());
 		}
 		return yearlyEntitlementDataModel;
 	}
@@ -308,9 +315,41 @@ public class YearlyEntitlementManagementBean implements Serializable {
 		this.userName = userName;
 	}
 	
-	public void search(){
-		int id = getEmployeeService().findByEmployee(employeeName).getId();
-		// List<YearlyEntitlement> list = yearlyEntitlementService.findByEmployeeId(id);
+	public List<LeaveEntitlement> search() {
+		try{
+		System.out.println(this.getEmployeeName());
+		
+		if(getEmployeeService().findByEmployee(employeeName) != null){
+			
+			int id = getEmployeeService().findByEmployee(employeeName).getId();
+			List<LeaveEntitlement> list = yearlyEntitlementService.findByEmployee(id);
+			auditTrail.log(SystemAuditTrailActivity.ACCESSED, SystemAuditTrailLevel.INFO + " has successfully searched by using " +this.getEmployeeName());
+			
+			return list;
+			
+		}if(leaveTypeService.findByLeaveType(employeeName) != null){
+			
+			 int leaveTypeId = leaveTypeService.findByLeaveType(employeeName).getId();
+			 List<LeaveEntitlement> list = yearlyEntitlementService.findBySearchLeave(leaveTypeId);
+			 return list;
+		}else{
+			System.out.println(employeeName + " details not found");
+		}
+	 
+		
+		} catch (LeaveTypeNotFound e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public LeaveTypeService getLeaveTypeService() {
+		return leaveTypeService;
+	}
+
+	public void setLeaveTypeService(LeaveTypeService leaveTypeService) {
+		this.leaveTypeService = leaveTypeService;
 	}
 	
 
