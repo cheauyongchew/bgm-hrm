@@ -107,6 +107,7 @@ th {
 
 /* Setting for all datatable content */
 tr.ui-widget-content.ui-datatable-selectable, .ui-datatable-data {
+    font-family: 'Maven Pro', sans-serif;
     font-size: 12px;
     text-align: center !important;
 }
@@ -234,7 +235,6 @@ table.ui-panelgrid.ui-widget > tbody > tr.ui-widget-content > td {
 
 /* Setting for normal tab */
 .ui-state-default > a {
-	border-radius: 10px !important;
 	color: #f88d00 !important;
 }
 
