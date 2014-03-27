@@ -32,10 +32,10 @@
 		<h:form id="systemAuditTrailForm">
 		
 		<b>From :</b> 
-		<p:calendar value="#{systemAuditTrailMgmtBean.date1}" pattern="MM/dd/yyyy HH:mm" id="start1" shownOn="button"/>
+		<p:calendar value="#{systemAuditTrailMgmtBean.date1}"  id="start1" shownOn="button"/>
 		   
 		<b>To :</b>   
-		<p:calendar value="#{systemAuditTrailMgmtBean.date2}" pattern="MM/dd/yyyy HH:mm" id="start2"  shownOn="button" />
+		<p:calendar value="#{systemAuditTrailMgmtBean.date2}" id="start2"  shownOn="button" />
 		
 		  <p:commandButton action="#{systemAuditTrailMgmtBean.search}" value="Search" update=":systemAuditTrailForm:systemAuditTrailTable" ajax="false"/>
 		     

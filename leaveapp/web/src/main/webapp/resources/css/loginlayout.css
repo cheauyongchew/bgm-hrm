@@ -1,3 +1,4 @@
+
 body,div,td {
     font-family: 'Maven Pro', sans-serif;
     font-size: 14px;
@@ -17,6 +18,21 @@ h1 {
 
 img {
     background: white;
+}
+
+#container {
+    min-height: 100%;
+    position: relative;
+}
+
+#footer {
+   background: #396c84;
+   bottom: 0;
+   color: #fff;
+   height: 20px;
+   position: absolute;
+   text-align: center;
+   width: 100%; 
 }
 
 #loginHeader {
@@ -76,5 +92,8 @@ img {
 
 input {
 	border-radius: 5px;
+	padding: 1px 0.5em;
+	
+
 }
->>>>>>> branch 'sprint1' of https://github.com/kinmengBGM/bgm-hrm.git
+
