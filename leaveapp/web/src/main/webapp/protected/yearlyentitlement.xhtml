@@ -7,24 +7,16 @@
 	xmlns:pe="http://primefaces.org/ui/extensions">
 
 <h:head>
-	<style>
-.ui-dialog.ui-dlgCSS-content {
-	background-image: none;
-	background-color: red;
-}
-</style>
-	<script type="text/javascript">
-    
-</script>
 </h:head>
 
 
 <h:body>
 	<ui:composition template="/templates/mainlayout.xhtml">
 
-		<ui:define name="title">Yearly Entitlement Maintance</ui:define>
+		<ui:define name="title">Yearly Entitlement Maintenance</ui:define>
 
 		<ui:define name="content">
+        <h1>Yearly Entitlement Maintenance</h1>
 		<h:form id="yearlyEntitlementTable">
 
 <h:inputText value="#{yearlyEntitlementMgmtBean.employeeName}" />
