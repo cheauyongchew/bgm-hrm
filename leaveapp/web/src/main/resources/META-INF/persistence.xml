@@ -19,8 +19,10 @@
 		<class>com.beans.common.audit.model.SystemAuditTrail</class>
 		<class>com.beans.common.security.role.model.Role</class>
 		<class>com.beans.common.security.accessrights.model.AccessRights</class>
-
+		
 		<!-- jBPM6 specific -->
+		<mapping-file>META-INF/JBPMorm.xml</mapping-file>
+    	<mapping-file>META-INF/Taskorm.xml</mapping-file>
 		<class>org.jbpm.persistence.processinstance.ProcessInstanceInfo</class>
 	    <class>org.drools.persistence.info.SessionInfo</class>
 	    <class>org.drools.persistence.info.WorkItemInfo</class>
@@ -51,6 +53,7 @@
 	    <class>org.jbpm.services.task.impl.model.ReassignmentImpl</class>
 	    
 	    <class>org.jbpm.services.task.impl.model.TaskImpl</class>
+	    <class>org.jbpm.services.task.audit.TaskEventImpl</class>
 	    <class>org.jbpm.services.task.impl.model.TaskDataImpl</class>
 	    <class>org.jbpm.services.task.impl.model.UserImpl</class>
 	    

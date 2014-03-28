@@ -10,7 +10,7 @@
 	</parent>
 	<artifactId>web</artifactId>
 	<packaging>war</packaging>
-	<name>web Maven Webapp</name>
+	<name>Web Application for HRM</name>
 	<url>http://maven.apache.org</url>
 	<dependencyManagement>
 		<dependencies>
@@ -111,6 +111,12 @@
          <dependency>
 			<groupId>${project.groupid}</groupId>
 			<artifactId>leaveapplication</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>${project.groupid}</groupId>
+			<artifactId>applyleaveflow</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<!-- JSF dependencies -->

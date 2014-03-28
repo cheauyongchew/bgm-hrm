@@ -80,12 +80,12 @@ public class JBPM6Runtime {
 		return processInstance.getId();
 	}
 	
-	public void submitTask(String username, TaskSummary taskSummary, HashMap<String, Object> parameterMap) {
-		RuntimeEngine runtimeEngine = manager.getRuntimeEngine(ProcessInstanceIdContext.get(taskSummary.getProcessInstanceId()));
+	public void submitTask(String username, long taskId, HashMap<String, Object> parameterMap) {
+		RuntimeEngine runtimeEngine = manager.getRuntimeEngine(EmptyContext.get());
 		
 		TaskService taskService = runtimeEngine.getTaskService();
 		
-		taskService.start(taskSummary.getId(), username);
-		taskService.complete(taskSummary.getId(), username, parameterMap);
+		taskService.start(taskId, username);
+		taskService.complete(taskId, username, parameterMap);
 	}
 }

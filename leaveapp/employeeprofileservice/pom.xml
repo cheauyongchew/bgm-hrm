@@ -13,6 +13,9 @@
 		<project.groupid>com.beans</project.groupid>
 		<project.version>1.0-SNAPSHOT</project.version>
 	</properties>
+	
+	<name>EmployeeProfileService Project</name>
+  	<description>Employee profile service module.</description>
 	<dependencies>
 		
 		<dependency>
