@@ -31,7 +31,7 @@ public class EmployeeTypeServiceImpl implements EmployeeTypeService {
 		
 		if(employeeType == null)
 			throw new EmployeeTypeNotFound();
-		employeeType.setDeleted(false);
+		employeeType.setDeleted(true);
 		employeeTypeRepository.save(employeeType);
 		return employeeType;
 	}
