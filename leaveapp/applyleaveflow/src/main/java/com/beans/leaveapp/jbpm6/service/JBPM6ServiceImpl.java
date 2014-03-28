@@ -21,23 +21,26 @@ public class JBPM6ServiceImpl implements JBPM6Service{
 		return jbpm6Runtime.getTaskAssignedForUser(username);
 	}
 	
-	
-	
 	@Override
 	public long startProcess(String processName) {
 		JBPM6Runtime jbpm6Runtime = JBPM6Runtime.getRuntime(entityManagerFactory, abstractPlatformTransactionManager);
 		return jbpm6Runtime.startProcess(processName);
 		
 	}
-
 	
-
 	@Override
 	public void approveTask(String actorId, long taskId,
 			HashMap<String, Object> parameterMap) {
 		JBPM6Runtime jbpm6Runtime = JBPM6Runtime.getRuntime(entityManagerFactory, abstractPlatformTransactionManager);
 		jbpm6Runtime.submitTask(actorId, taskId, parameterMap);
 		
+	}
+
+	@Override
+	public List<TaskSummary> getTaskAssignedForUserForProcess(String username,
+			String processName) {
+		JBPM6Runtime jbpm6Runtime = JBPM6Runtime.getRuntime(entityManagerFactory, abstractPlatformTransactionManager);
+		return jbpm6Runtime.getTaskAssignedForUserForProcess(username, processName);
 	}
 
 

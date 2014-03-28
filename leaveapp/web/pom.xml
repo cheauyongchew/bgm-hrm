@@ -254,17 +254,6 @@
       <artifactId>jbpm-runtime-manager</artifactId>
       <version>${jbpm.version}</version>
     </dependency>
-    <!-- can compile, but cannot deploy without these seam dependencies -->
-    <dependency>
-      <groupId>org.jboss.seam.persistence</groupId>
-      <artifactId>seam-persistence</artifactId>
-      <version>3.1.0.Final</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.seam.transaction</groupId>
-      <artifactId>seam-transaction</artifactId>
-      <version>3.1.0.Final</version>
-    </dependency>
     
             
 	</dependencies>
