@@ -14,6 +14,7 @@ public interface RoleService {
 	public Role update(Role role) throws RoleNotFound;
 	public Role findById(int id) throws RoleNotFound;
 	public Role findByRole(String role);
+	public List<Role> findRoleByRoleName(String role);
 	public Set<Role> findAllInSet();
 }
 

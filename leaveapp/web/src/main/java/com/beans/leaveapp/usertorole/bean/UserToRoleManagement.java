@@ -15,6 +15,9 @@ import org.primefaces.event.SelectEvent;
 import org.primefaces.event.TransferEvent;
 import org.primefaces.model.DualListModel;
 
+import com.beans.common.audit.service.AuditTrail;
+import com.beans.common.audit.service.SystemAuditTrailActivity;
+import com.beans.common.audit.service.SystemAuditTrailLevel;
 import com.beans.common.security.role.model.Role;
 import com.beans.common.security.role.service.RoleService;
 import com.beans.common.security.users.model.Users;
@@ -35,6 +38,11 @@ public class UserToRoleManagement implements Serializable{
 	private Set<Role> assignedRoleSet = new HashSet<Role>();
 	private Set<Role> unassignedRoleSet = new HashSet<Role>();
 	private DualListModel<Role> dualRoleList = new DualListModel<Role>();
+	
+	private String searchUsername = "";
+	
+	private Users actorUsers;
+	private AuditTrail auditTrail; 
 	
 	@PostConstruct
 	public void init() {
@@ -119,6 +127,10 @@ public class UserToRoleManagement implements Serializable{
 			selectedRoleSet.addAll(selectedRoleList);
 			selectedUsers.setUserRoles(selectedRoleSet);
 			getUsersService().update(selectedUsers);
+			
+			auditTrail.log(SystemAuditTrailActivity.UPDATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has Assigned the roles for " +selectedUsers.getUsername());
+			
+			
 		}catch(UsersNotFound e){
 			
 			FacesMessage msg = new FacesMessage("Error" , "User Role With userId" + selectedUsers.getId() + "not found");
@@ -149,5 +161,46 @@ public class UserToRoleManagement implements Serializable{
 	public void setRoleService(RoleService roleService) {
 		this.roleService = roleService;
 	}
+	
+	
+	public String getSearchUsername() {
+		return searchUsername;
+	}
+	public void setSearchUsername(String searchUsername) {
+		this.searchUsername = searchUsername;
+	}
+	
+	public void searchUser(){		
+		if(getSearchUsername() == null || getSearchUsername().trim().equals("")){
+			this.usersList = null;
+			this.userToRoleDataModel = null;			
+		}else {
+			this.usersList = usersService.findUsersByUsername(getSearchUsername());
+			this.userToRoleDataModel = null;
+		}		
+	}
+	public Set<Role> getRoleSet() {
+		return roleSet;
+	}
+	public void setRoleSet(Set<Role> roleSet) {
+		this.roleSet = roleSet;
+	}
+	public Users getActorUsers() {
+		return actorUsers;
+	}
+	public void setActorUsers(Users actorUsers) {
+		this.actorUsers = actorUsers;
+	}
+	public AuditTrail getAuditTrail() {
+		return auditTrail;
+	}
+	public void setAuditTrail(AuditTrail auditTrail) {
+		this.auditTrail = auditTrail;
+	}
+	public void setSearchUsers(List<Users> searchUsers) {
+		this.searchUsers = searchUsers;
+	}
+	
+	
 	
 }

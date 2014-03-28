@@ -85,6 +85,12 @@ public class RoleServiceImpl implements RoleService{
 	       if(role == null)
 	    	   throw new RoleNotFound();	     
 		return role;
+	}
+
+	@Override
+	public List<Role> findRoleByRoleName(String role) {
+		String roleSearchTerm = "%" + role + "%";
+		return roleRepository.findByRoleLike(roleSearchTerm);
 	}	
 
 	

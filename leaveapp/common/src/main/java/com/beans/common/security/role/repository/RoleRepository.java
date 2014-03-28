@@ -19,4 +19,7 @@ public interface RoleRepository extends CrudRepository<Role, Integer>{
 	
 	@Query("select r from Role r where isDeleted = 0")
 	 Set<Role> findAllInSet();
+	
+	@Query("select r from Role r where role like ? and isDeleted=0")
+	List<Role> findByRoleLike(String role);
 }

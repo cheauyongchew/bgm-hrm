@@ -157,6 +157,14 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 			<property-name>roleService</property-name>
 			<value>#{roleService}</value>
 		</managed-property>
+		<managed-property>
+			<property-name>auditTrail</property-name>
+			<value>#{auditTrail}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>actorUsers</property-name>
+			<value>#{authenticationBean.getUsers()}</value>
+		</managed-property>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>userToRoleMgmtBean</managed-bean-name>
@@ -170,6 +178,14 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 			<property-name>roleService</property-name>
 			<value>#{roleService}</value>
 		</managed-property>
+		<managed-property>
+			<property-name>auditTrail</property-name>
+			<value>#{auditTrail}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>actorUsers</property-name>
+			<value>#{authenticationBean.getUsers()}</value>
+		</managed-property>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>accessRightsMgmtBean</managed-bean-name>
@@ -179,6 +195,15 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 			<property-name>accessRightsService</property-name>
 			<value>#{accessRightsService}</value>
 		</managed-property>
+		<managed-property>
+			<property-name>auditTrail</property-name>
+			<value>#{auditTrail}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>actorUsers</property-name>
+			<value>#{authenticationBean.getUsers()}</value>
+		</managed-property>
+		
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>roleToAccessRightsMgmtBean</managed-bean-name>
@@ -191,6 +216,14 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 		<managed-property>
 			<property-name>accessRightsService</property-name>
 			<value>#{accessRightsService}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>auditTrail</property-name>
+			<value>#{auditTrail}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>actorUsers</property-name>
+			<value>#{authenticationBean.getUsers()}</value>
 		</managed-property>
 	</managed-bean>
 	

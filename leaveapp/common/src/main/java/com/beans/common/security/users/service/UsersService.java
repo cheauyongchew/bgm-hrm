@@ -13,6 +13,7 @@ public interface UsersService {
 	 public Users findById(int id) throws UsersNotFound;
 	 public Users registerUser(Users users);
 	 public Users findByUsername(String username) throws UsersNotFound;
+	 public List<Users> findUsersByUsername(String username);
 	
 }
 

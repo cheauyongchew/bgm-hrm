@@ -104,6 +104,12 @@ public class UsersServiceImpl implements UsersService {
 	public void setRoleService(RoleService roleService) {
 		this.roleService = roleService;
 	}
+
+	@Override
+	public List<Users> findUsersByUsername(String username) {
+			String usernameSearchTerm = "%" + username + "%";
+		return usersRepository.findByUsernameLike(usernameSearchTerm);
+	}
 	
 
 	 
