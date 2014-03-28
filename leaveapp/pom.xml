@@ -7,9 +7,12 @@
   <modules>
   	<module>common</module>
   	<module>utilities</module>
-  	<module>web</module>
   	<module>masterdataservice</module>
   	<module>employeeprofileservice</module>
+  	<module>applyleaveflow</module>
+  	<module>leaveapplication</module>
+  	<module>web</module>
+  	
   </modules>
   <properties>
   	<spring.framework.version>4.0.0.RELEASE</spring.framework.version>
