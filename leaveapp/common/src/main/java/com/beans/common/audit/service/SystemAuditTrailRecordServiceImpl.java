@@ -36,7 +36,7 @@ public class SystemAuditTrailRecordServiceImpl implements SystemAuditTrailRecord
 	public SystemAuditTrail delete(int id) throws Exception {
 		SystemAuditTrail ss = systemAuditTrailRecordRepository.findOne(id);
 		if(ss == null) throw new Exception();
-			ss.setDeleted(false);
+			ss.setDeleted(true);
 			systemAuditTrailRecordRepository.save(ss);
 			return ss;
 	}
@@ -75,18 +75,16 @@ public class SystemAuditTrailRecordServiceImpl implements SystemAuditTrailRecord
 	@Override
 	public List<SystemAuditTrail> findSelectedDates(Date x, Date y) {
 		
-	
-		//java.util.Date d1 = new java.util.Date();
-		//ja
-		
-		//Date d1 = new Date("15-03-2013");
-	// 	Date d2 = new Date("16-03-2014");
-		
-		
-		//s.format(d1);  s.parse(source);
-		//s.format(d2);
+		// final dates format yyyy-mm-dd
 		List<SystemAuditTrail> l = systemAuditTrailRecordRepository.findByDate(x, y);
 		System.out.println(l.size());
 		return l;
+		
+		/*java.util.Date d1 = new java.util.Date();
+		Date d1 = new Date("15-03-2013");
+	 	Date d2 = new Date("16-03-2014");
+		s.format(d1);  s.parse(source);
+		s.format(d2);*/
+		
 	}
 }

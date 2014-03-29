@@ -40,3 +40,4 @@ public class SystemAuditTrailDataModel extends ListDataModel<SystemAuditTrail>  
 	}
 
 }
+

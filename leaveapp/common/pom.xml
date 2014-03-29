@@ -14,6 +14,10 @@
 		<project.groupid>com.beans</project.groupid>
 		<project.version>1.0-SNAPSHOT</project.version>
 	</properties>
+	
+	<name>Common Project</name>
+  	<description>Commonly used modules.</description>
+  
 	<dependencies>
 
 		<dependency>
@@ -22,7 +26,7 @@
 			<version>${project.version}</version>
 		</dependency>
 
-		<dependency>
+       	<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-jpa</artifactId>
 			<version>${spring.data.jpa.version}</version>

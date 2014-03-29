@@ -1,5 +1,6 @@
 package com.beans.common.security.role.service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -9,6 +10,7 @@ import javax.management.relation.RoleInfoNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.beans.common.security.accessrights.model.AccessRights;
 import com.beans.common.security.role.model.Role;
 import com.beans.common.security.role.repository.RoleRepository;
 
@@ -62,6 +64,9 @@ public class RoleServiceImpl implements RoleService{
 		roleToBeUpdated.setId(role.getId());
 		roleToBeUpdated.setRole(role.getRole());
 		roleToBeUpdated.setDescription(role.getDescription());
+		Set<AccessRights> accessRightsSet = new HashSet<AccessRights>();
+		accessRightsSet.addAll(role.getAccessRights());
+		roleToBeUpdated.setAccessRights(accessRightsSet);
 		roleRepository.save(roleToBeUpdated);
 		return roleToBeUpdated;
 	}
@@ -84,3 +89,4 @@ public class RoleServiceImpl implements RoleService{
 
 	
 }
+

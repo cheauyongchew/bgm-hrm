@@ -12,6 +12,9 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.event.SelectEvent;
 
+import com.beans.common.audit.service.AuditTrail;
+import com.beans.common.audit.service.SystemAuditTrailActivity;
+import com.beans.common.audit.service.SystemAuditTrailLevel;
 import com.beans.common.security.users.model.Users;
 import com.beans.leaveapp.address.model.Address;
 import com.beans.leaveapp.address.service.AddressService;
@@ -48,7 +51,13 @@ public class EmployeeProfileManagementBean implements Serializable{
 	private List<Address> existingAddressList = new ArrayList<Address>();
 	private String employeeName = "";
 	
+	private String searchName = "";
+	private String searchEmployeeNumber = "";
+	
 	private HashMap<Integer, Address> newAddressMap = new HashMap<Integer, Address>();
+	
+	private Users actorUsers;
+	private AuditTrail auditTrail;
 	
 	
 	public boolean isEmployeeCreation() {
@@ -60,12 +69,13 @@ public class EmployeeProfileManagementBean implements Serializable{
 	
 	public void initEmployeeCreation() {
 		setEmployeeCreation(true);
-		selectedEmployee = new Employee();
+		newEmployee = new Employee();
 		setSelectedDepartment(-1);
 		setSelectedEmployeeGrade(-1);
 		setSelectedEmployeeType(-1);
 		newAddressMap = new HashMap<Integer, Address>();
 		setAddressOperation(false, "Create");
+		setPage("details");
 	}
 	
 	public String getEmployeeName() {
@@ -212,6 +222,7 @@ public class EmployeeProfileManagementBean implements Serializable{
 		
 		getEmployeeService().createEmployee(newEmployee, selectedEmployeeGrade, selectedEmployeeType, selectedDepartment, users, newAddressMap);
 		
+		auditTrail.log(SystemAuditTrailActivity.CREATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has created employee " + newEmployee.getName());
 	}
 	
 	public Employee getSelectedEmployee() {
@@ -219,17 +230,20 @@ public class EmployeeProfileManagementBean implements Serializable{
 	}
 	public void setSelectedEmployee(Employee selectedEmployee) {
 		this.selectedEmployee = selectedEmployee;
-		this.selectedEmployeeType = this.selectedEmployee.getEmployeeType().getId();
-		this.selectedEmployeeGrade = this.selectedEmployee.getEmployeeGrade().getId();
-		this.selectedDepartment = this.selectedEmployee.getDepartment().getId();
-		if(selectedEmployee.getUsers() == null) {
-			users = new Users();
-		} else {
-			users = selectedEmployee.getUsers();
+		if(this.selectedEmployee != null) {
+			this.selectedEmployeeType = this.selectedEmployee.getEmployeeType().getId();
+			this.selectedEmployeeGrade = this.selectedEmployee.getEmployeeGrade().getId();
+			this.selectedDepartment = this.selectedEmployee.getDepartment().getId();
+			if(selectedEmployee.getUsers() == null) {
+				users = new Users();
+			} else {
+				users = this.selectedEmployee.getUsers();
+			}
+			setEmployeeName(this.selectedEmployee.getName());
 		}
 		existingAddressList = null;
 		setInsertDeleteAddress(true);
-		setEmployeeName(this.selectedEmployee.getName());
+		
 		newAddressMap = new HashMap<Integer, Address>();
 		
 		
@@ -249,6 +263,8 @@ public class EmployeeProfileManagementBean implements Serializable{
 		getEmployeeService().updateEmployee(selectedEmployee, selectedEmployeeGrade, selectedEmployeeType, selectedDepartment, users, existingAddressList, newAddressMap);
 		newAddressMap = new HashMap<Integer, Address>();
 		existingAddressList = null;
+		
+		auditTrail.log(SystemAuditTrailActivity.UPDATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has updated employee " + selectedEmployee.getName() + " with id " + selectedEmployee.getId());
 	}
 	
 	public void onRowSelect(SelectEvent event) {  
@@ -266,6 +282,8 @@ public class EmployeeProfileManagementBean implements Serializable{
 	public void doDeleteEmployee() {
 		try {
 			getEmployeeService().delete(selectedEmployee.getId());
+			
+			auditTrail.log(SystemAuditTrailActivity.DELETED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has deleted employee " + selectedEmployee.getName() + " with id " + selectedEmployee.getId());
 		} catch(EmployeeNotFound e) {
 			FacesMessage msg = new FacesMessage("Error", "Leave Type With id: " + selectedEmployee.getId() + " not found!");  
 			  
@@ -273,6 +291,7 @@ public class EmployeeProfileManagementBean implements Serializable{
 		}
 		
 		setInsertDelete(true);
+		
 	}
 	
 	public void setInsertDelete(boolean insertDelete) {
@@ -370,5 +389,41 @@ public class EmployeeProfileManagementBean implements Serializable{
 	}
 	
 	
+	public String getSearchName() {
+		return searchName;
+	}
+	public void setSearchName(String searchName) {
+		this.searchName = searchName;
+	}
+	public String getSearchEmployeeNumber() {
+		return searchEmployeeNumber;
+	}
+	public void setSearchEmployeeNumber(String searchEmployeeNumber) {
+		this.searchEmployeeNumber = searchEmployeeNumber;
+	}
+	
+	public void searchEmployee() {
+		if((getSearchName() == null || getSearchName().trim().equals("")) && (getSearchEmployeeNumber() == null || getSearchEmployeeNumber().trim().equals(""))) {
+			this.employeeList = null;
+			this.employeeProfileDataModel = null;
+		} else {
+			
+			this.employeeList = getEmployeeService().findEmployeeByNameOrEmployeeNumberOrBoth(getSearchName(), getSearchEmployeeNumber());
+			this.employeeProfileDataModel = null;
+		}
+	}
+	
+	public Users getActorUsers() {
+		return actorUsers;
+	}
+	public void setActorUsers(Users actorUsers) {
+		this.actorUsers = actorUsers;
+	}
+	public AuditTrail getAuditTrail() {
+		return auditTrail;
+	}
+	public void setAuditTrail(AuditTrail auditTrail) {
+		this.auditTrail = auditTrail;
+	}
 } 
 

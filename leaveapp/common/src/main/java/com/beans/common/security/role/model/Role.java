@@ -1,18 +1,23 @@
 package com.beans.common.security.role.model;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 
+import com.beans.common.security.accessrights.model.AccessRights;
 import com.beans.common.security.users.model.Users;
 
 
@@ -24,6 +29,7 @@ public class Role {
 	 private String role;
 	 private boolean isDeleted= false;
 	 private String description;
+	 private Set<AccessRights> accessRights = new HashSet<AccessRights>();
 	 
 	@Id
 	@GeneratedValue
@@ -67,6 +73,23 @@ public class Role {
 		this.description = description;
 	}
 
+	
+	
+	
+	
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinTable(name = "RoleToAccessRights" , joinColumns = { @JoinColumn(name = "roleId", referencedColumnName = "id" )},
+	inverseJoinColumns=
+			{@JoinColumn (name = "accessRightsId", referencedColumnName = "id" ) } )
+	public Set<AccessRights> getAccessRights() {
+		return accessRights;
+	}
+
+
+	public void setAccessRights(Set<AccessRights> accessRights) {
+		this.accessRights = accessRights;
+	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -82,9 +105,5 @@ public class Role {
 	@Override
 	public int hashCode() {
 		return id;
-	}
-	
-	
-	
-	
+	}	
 }

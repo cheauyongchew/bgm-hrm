@@ -2,6 +2,7 @@ package com.beans.leaveapp.web.bean;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.HashMap;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -13,6 +14,9 @@ import javax.servlet.ServletResponse;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import com.beans.common.audit.service.AuditTrail;
+import com.beans.common.audit.service.SystemAuditTrailActivity;
+import com.beans.common.audit.service.SystemAuditTrailLevel;
 import com.beans.common.security.users.model.Users;
 import com.beans.common.security.users.service.UsersNotFound;
 import com.beans.common.security.users.service.UsersService;
@@ -28,6 +32,8 @@ public class AuthenticationBean implements Serializable{
 	private Employee employee;
 	private String username;
 	private Users users;
+	private HashMap<String, Boolean> accessRightsMap = new HashMap<String, Boolean>();
+	private AuditTrail auditTrail;
 	
 	public String doLogin() throws IOException, ServletException {
 		ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
@@ -37,6 +43,11 @@ public class AuthenticationBean implements Serializable{
 		if(auth != null) {
 			setUsername(auth.getName());
 			initEmployee();
+			populateAccessRightsMap();
+			
+			auditTrail.log(SystemAuditTrailActivity.LOGIN, SystemAuditTrailLevel.INFO, getUsers().getId(), getUsername(), getUsername() + " has successfully logged in to the system.");
+		} else {
+			auditTrail.log(SystemAuditTrailActivity.LOGIN, SystemAuditTrailLevel.ERROR, getUsers().getId(), getUsername(), getUsername() + " has failed to log in to the system.");
 		}
 		FacesContext.getCurrentInstance().responseComplete();
 		
@@ -45,6 +56,7 @@ public class AuthenticationBean implements Serializable{
 	}
 	
 	public String doLogout() throws IOException, ServletException{
+		auditTrail.log(SystemAuditTrailActivity.LOGOUT, SystemAuditTrailLevel.INFO, getUsers().getId(), getUsername(), getUsername() + " has successfully logged out from the system.");
 		SecurityContextHolder.clearContext();
 		return "/login.xhtml";
 	}
@@ -74,6 +86,20 @@ public class AuthenticationBean implements Serializable{
 		}
 	}
 	
+	private void populateAccessRightsMap() {
+		
+	}
+	
+	public Boolean hasAccess(String key) {
+		if (key != null) {
+			if (accessRightsMap.containsKey(key)) {
+				return accessRightsMap.get(key);
+
+			}
+		}		
+		return false;
+	}
+	
 	public EmployeeService getEmployeeService() {
 		return employeeService;
 	}
@@ -101,4 +127,12 @@ public class AuthenticationBean implements Serializable{
 	public void setUsers(Users users) {
 		this.users = users;
 	}
+	
+	public AuditTrail getAuditTrail() {
+		return auditTrail;
+	}
+	public void setAuditTrail(AuditTrail auditTrail) {
+		this.auditTrail = auditTrail;
+	}
 }
+

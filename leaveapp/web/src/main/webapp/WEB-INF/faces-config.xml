@@ -87,6 +87,14 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 			<property-name>addressService</property-name>
 			<value>#{addressService}</value>
 		</managed-property>
+		<managed-property>
+			<property-name>auditTrail</property-name>
+			<value>#{auditTrail}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>actorUsers</property-name>
+			<value>#{authenticationBean.getUsers()}</value>
+		</managed-property>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>myProfileMgmtBean</managed-bean-name>
@@ -103,6 +111,14 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 		<managed-property>
 			<property-name>employee</property-name>
 			<value>#{authenticationBean.getEmployee()}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>auditTrail</property-name>
+			<value>#{auditTrail}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>actorUsers</property-name>
+			<value>#{authenticationBean.getUsers()}</value>
 		</managed-property>
 	</managed-bean>
 	<managed-bean>
@@ -126,6 +142,10 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 		<managed-property>
 			<property-name>usersService</property-name>
 			<value>#{usersService}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>auditTrail</property-name>
+			<value>#{auditTrail}</value>
 		</managed-property>
 	</managed-bean>
 
@@ -152,6 +172,55 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 		</managed-property>
 	</managed-bean>
 	<managed-bean>
+	
+	<managed-bean-name>accessRightsMgmtBean</managed-bean-name>
+		<managed-bean-class>com.beans.leaveapp.accessrights.bean.AccessRightsManagement</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+		<managed-property>
+			<property-name>accessRightsService</property-name>
+			<value>#{accessRightsService}</value>
+		</managed-property>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>roleToAccessRightsMgmtBean</managed-bean-name>
+		<managed-bean-class>com.beans.leaveapp.roletoaccessrights.bean.RoleToAccessRightsManagement</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+		<managed-property>
+			<property-name>roleService</property-name>
+			<value>#{roleService}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>accessRightsService</property-name>
+			<value>#{accessRightsService}</value>
+		</managed-property>
+	</managed-bean>
+	
+	
+	<managed-bean>
+ 	
+		<managed-bean-name>yearlyEntitlementMgmtBean</managed-bean-name>
+ 	
+		<managed-bean-class>com.beans.leaveapp.yearlyentitlement.bean.YearlyEntitlementManagementBean</managed-bean-class>
+ 	
+		<managed-bean-scope>view</managed-bean-scope>
+ 	
+		<managed-property>
+ 		
+			<property-name>yearlyEntitlementService</property-name>
+ 		
+			<value>#{yearlyEntitlementService}</value>
+ 	
+		</managed-property>
+ 	
+		<managed-property>
+			
+			<property-name>employee</property-name>
+			
+			<value>#{authenticationBean.getEmployee()}</value>
+	
+		</managed-property>
+ 
+	</managed-bean>
 		<managed-bean-name>employeeTypeMgmtBean</managed-bean-name>
 		<managed-bean-class>com.beans.leaveapp.employeetype.bean.EmployeeTypeManagementBean</managed-bean-class>
 		<managed-bean-scope>view</managed-bean-scope>
@@ -169,5 +238,6 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 			<value>#{departmentService}</value>
 		</managed-property>
 	</managed-bean>
+
 
 </faces-config>

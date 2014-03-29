@@ -4,30 +4,55 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:pe="http://primefaces.org/ui/extensions" >
-	
-	<h:head>
-		<style>
-BODY{
-margin-right : 0px;
-margin-left : 0px;
-margin-top : 0px;
-margin-bottom : 0px;
-background-color:#b0c4de;
+	xmlns:pe="http://primefaces.org/ui/extensions">
 
+<h:head>
+	<style>
+BODY {
+	margin-right: 0px;
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	background-color: #b0c4de;
 }
 </style>
-	</h:head>
-	
+</h:head>                        
+
 <h:body>
-<ui:composition template="/templates/mainlayout.xhtml">
+	<ui:composition template="/templates/mainlayout.xhtml">
 
-<ui:define name="title">Beans Leave Application</ui:define>
-
-<ui:define name="content">
+		<ui:define name="title">Beans Leave Application</ui:define>
+	<ui:define name="content">
 	<h1>Welcome! </h1>
-</ui:define>
-
-</ui:composition>
+	
+	<h:form id="employeeEntitlementForm">
+	
+	
+	 <p:dataTable id="employeeEntitlementTable" widgetVar="employeeEntitlement" var="employeeEntitlement0" value="#{yearlyEntitlementMgmtBean.employeeLeaveEntitlementDataModel}" rowKey="#{employeeEntitlement0.id}">
+   
+                           
+          <p:column id="descHeader">
+            <f:facet name="header"> Leave Type </f:facet>
+            <h:outputText value="#{employeeEntitlement0.leaveTypeName}" />
+          </p:column>
+        
+        <p:column id="entitlementHeader">
+            <f:facet name="header"> Entitlement </f:facet>
+            <h:outputText value="#{employeeEntitlement0.entitlement}" />
+          </p:column>
+          
+           <p:column id="leaveHeader">
+            <f:facet name="header"> Leave Balance</f:facet>
+            <h:outputText value="#{employeeEntitlement0.availableBalance}" />
+          </p:column>
+        </p:dataTable>
+         
+    
+         
+      </h:form>      
+      <p:growl id="growl" showDetail="true" life="1000"/> 
+  </ui:define>
+	
+</ui:composition>	
 </h:body>
 </html>
