@@ -121,6 +121,16 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 			<value>#{authenticationBean.getUsers()}</value>
 		</managed-property>
 	</managed-bean>
+	
+	<managed-bean>
+ 	<managed-bean-name>systemAuditTrailMgmtBean</managed-bean-name>
+ 	<managed-bean-class>com.beans.leaveapp.audit.trail.bean.SystemAuditTrailManagementBean</managed-bean-class>
+ 	<managed-bean-scope>view</managed-bean-scope>
+ 	<managed-property>
+ 		<property-name>systemAuditTrailService</property-name>
+ 		<value>#{systemAuditTrailService}</value>
+ 	</managed-property>
+ 	</managed-bean>
 	<managed-bean>
  	<managed-bean-name>yearlyEntitlementMgmtBean</managed-bean-name>
  	<managed-bean-class>com.beans.leaveapp.yearlyentitlement.bean.YearlyEntitlementManagementBean</managed-bean-class>

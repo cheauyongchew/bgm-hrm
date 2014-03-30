@@ -48,12 +48,14 @@ public class YearlyEntitlementManagementBean implements Serializable {
 	private Employee employee;
 	private EmployeeService employeeService;
 	private LeaveTypeService leaveTypeService;
-	private String employeeName;
+	private String employeeName = this.getEmployeeName();
+	private String leaveTypeName = this.getLeaveTypeName();
 	private String userName;
 	List<YearlyEntitlement>  listOfYearlyEntitlement;
 	List<EmployeeEntitlement> employeeEntitlementList;
 	EmployeeLeaveEntitlementDataModel employeeLeaveEntitlementDataModel;
 	private AuditTrail auditTrail;
+	
 	public AuditTrail getAuditTrail() {
 		return auditTrail;
 	}
@@ -105,17 +107,6 @@ public class YearlyEntitlementManagementBean implements Serializable {
 		this.yearlyEntitlement = yearlyEntitlement;
 	}
 
-	/*
-	 * public List<YearlyEntitlement> getYearlyEntitlementList() throws
-	 * Exception { if(yearlyEntitlementList == null || delete == true){
-	 * yearlyEntitlementList = getYearlyEntitlementService().findAll();
-	 * 
-	 * System.out.println("entitlementListSize" +yearlyEntitlementList.size());
-	 * } return yearlyEntitlementList; }
-	 */
-	
-
-
 	public List<LeaveEntitlement> getYearlyEntitlementList() throws Exception {
 		if (leaveEntitlementList == null || InsertDelete == true) {
 
@@ -144,9 +135,6 @@ public class YearlyEntitlementManagementBean implements Serializable {
 
 			yearlyEntitlementDataModel = new YearlyEntitleDataModel(
 					getYearlyEntitlementList());
-		}if(employeeName != null){
-			yearlyEntitlementDataModel = new YearlyEntitleDataModel(
-					this.search());
 		}
 		return yearlyEntitlementDataModel;
 	}
@@ -163,6 +151,13 @@ public class YearlyEntitlementManagementBean implements Serializable {
 	public void setSelectedYearlyEntitlement(
 			YearlyEntitlement selectedYearlyEntitlement) {
 		this.selectedYearlyEntitlement = selectedYearlyEntitlement;
+	}
+	public String getLeaveTypeName() {
+		return leaveTypeName;
+	}
+
+	public void setLeaveTypeName(String leaveTypeName) {
+		this.leaveTypeName = leaveTypeName;
 	}
 
 	public void doUpdateYearlyEntitlement() {
@@ -325,37 +320,17 @@ public class YearlyEntitlementManagementBean implements Serializable {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	
-	public List<LeaveEntitlement> search() {
-		try{
-		System.out.println(this.getEmployeeName());
-		
-		if(getEmployeeService().findByEmployee(employeeName) != null){
-			
-			int id = getEmployeeService().findByEmployee(employeeName).getId();
-			List<LeaveEntitlement> list = yearlyEntitlementService.findByEmployee(id);
-	 	// auditTrail.log(systemAuditTrailActivity, systemAuditTrailLevel, userId, username, description);
-			auditTrail.log(SystemAuditTrailActivity.ACCESSED, SystemAuditTrailLevel.INFO, this.getActorUsers().getId(),this.getActorUsers().getUsername(),this.getActorUsers().getUsername()+ "Search the YearlyEntitlement record using employeeName :" +this.getEmployeeName());
-			
-			return list;
-			
-		}if(leaveTypeService.findByLeaveType(employeeName) != null){
-			
-			 int leaveTypeId = leaveTypeService.findByLeaveType(employeeName).getId();
-			 List<LeaveEntitlement> list = yearlyEntitlementService.findBySearchLeave(leaveTypeId);
-			 auditTrail.log(SystemAuditTrailActivity.ACCESSED, SystemAuditTrailLevel.INFO, this.getActorUsers().getId(),this.getActorUsers().getUsername(),this.getActorUsers().getUsername()+ "Search the YearlyEntitlement record using leavetypeId :" +this.getEmployeeName());
-				
-			 return list;
-		}else{
-			System.out.println(employeeName + " details not found");
-		}
 	 
+	public void search() {
 		
-		} catch (LeaveTypeNotFound e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if((getEmployeeName() == null || getEmployeeName().trim().equals("")) && (getLeaveTypeName() == null || getLeaveTypeName().trim().equals(""))) {
+			this.leaveEntitlementList = null;
+		    this.yearlyEntitlementDataModel = null;
+		} else {
+			
+		   leaveEntitlementList = this.getYearlyEntitlementService().findByEmployeeIdAndfindByLeaveTypeId(getEmployeeName(),getLeaveTypeName() );
+			this.yearlyEntitlementDataModel = null;
 		}
-		return null;
 	}
 
 	public LeaveTypeService getLeaveTypeService() {
@@ -373,6 +348,5 @@ public class YearlyEntitlementManagementBean implements Serializable {
 	public void setActorUsers(Users actorUsers) {
 		this.actorUsers = actorUsers;
 	}
-	
 
 }
