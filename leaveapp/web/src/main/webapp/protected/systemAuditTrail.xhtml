@@ -30,15 +30,24 @@
 
 <ui:define name="content">
 		<h:form id="systemAuditTrailForm">
+		<p:panel header="Search" toggleable="true">
+			<p:panelGrid id="SearchEmployee" columns="2" cellpadding="4">
+				
+				<h:outputText value="From :" />
+					<p:calendar value="#{systemAuditTrailMgmtBean.date1}" pattern="MM/dd/yyyy HH:mm" id="start1" shownOn="button"/>
+					
+				
+				<h:outputText value="To :" />
+				<p:calendar value="#{systemAuditTrailMgmtBean.date2}" pattern="MM/dd/yyyy HH:mm" id="start2"  shownOn="button" />
+					
 		
-		<b>From :</b> 
-		<p:calendar value="#{systemAuditTrailMgmtBean.date1}" pattern="" id="start1" shownOn="button"/>
-		   
-		<b>To :</b>   
-		<p:calendar value="#{systemAuditTrailMgmtBean.date2}" pattern="" id="start2"  shownOn="button" />
+					
+				<f:facet name="footer">				
+						  <p:commandButton action="#{systemAuditTrailMgmtBean.search}" value="Search" update=":systemAuditTrailForm:systemAuditTrailTable" ajax="false"/>
+				</f:facet>
+			</p:panelGrid>
+			</p:panel>
 		
-		  <p:commandButton action="#{systemAuditTrailMgmtBean.search}" value="Search" update=":systemAuditTrailForm:systemAuditTrailTable" ajax="false"/>
-		     
 		  
         <p:dataTable id="systemAuditTrailTable" widgetVar="systemAuditTraiVar" var="systemAudit0" scrollable="true" rows="10" paginator="true" value="#{systemAuditTrailMgmtBean.systemAuditTrailDataModel}" rowKey="#{systemAudit0.id}">
             
@@ -50,7 +59,7 @@
           <p:column id="date"  sortBy="date">
             <f:facet name="header"> Date </f:facet>
             <h:outputText value="#{systemAudit0.date}" >
-          
+           <f:convertDateTime pattern="MM/dd/yyyy HH:mm" />  
             </h:outputText>
           </p:column>
           <p:column id="descHeader" sortBy="desription">

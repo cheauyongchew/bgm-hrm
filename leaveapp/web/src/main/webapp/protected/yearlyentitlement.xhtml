@@ -29,12 +29,10 @@
 				<h:outputText value="Leave Type" />
 					<h:inputText value="#{yearlyEntitlementMgmtBean.leaveTypeName}">
 					</h:inputText>
-				
-				
 					
 				<f:facet name="footer">				
 					<p:commandButton value="Search" update=":yearlyEntitlementTable:yearlyEntitlementTable" actionListener="#{yearlyEntitlementMgmtBean.search}" ajax="false"></p:commandButton>
-					<p:commandButton type="reset" value="Reset"></p:commandButton>
+					<p:commandButton type="reset" value="Reset" update=":yearlyEntitlementTable:yearlyEntitlementTable" ></p:commandButton>
 				</f:facet>
 			</p:panelGrid>
 		</p:panel> 

@@ -181,7 +181,7 @@ public class YearlyEntitlementManagementBean implements Serializable {
 					.getEntitlement());
 			getYearlyEntitlementService().update(selectedYearlyEntitlement);
 		} catch (Exception e) {
-			FacesMessage msg = new FacesMessage("Error", "Leave Type With id: "
+			FacesMessage msg = new FacesMessage("Error", "Yearly Entitle With id: "
 					+ selectedYearlyEntitlement.getId() + " not found!");
 
 			FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -214,6 +214,8 @@ public class YearlyEntitlementManagementBean implements Serializable {
 	
 		this.getYearlyEntitlementService().create(newLeaveEntitlement);
 		setInsertDelete(true);
+		 auditTrail.log(SystemAuditTrailActivity.CREATED, SystemAuditTrailLevel.INFO, this.getActorUsers().getId(),getActorUsers().getUsername(), getActorUsers().getUsername()+"has created yearly Entitlement using EmployeeName :"+newLeaveEntitlement.getEmployeeName());
+	
 	}
 
 	public void employeeList() {
@@ -322,15 +324,28 @@ public class YearlyEntitlementManagementBean implements Serializable {
 	}
 	 
 	public void search() {
-		
+		try{
 		if((getEmployeeName() == null || getEmployeeName().trim().equals("")) && (getLeaveTypeName() == null || getLeaveTypeName().trim().equals(""))) {
 			this.leaveEntitlementList = null;
 		    this.yearlyEntitlementDataModel = null;
 		} else {
-			
+		
 		   leaveEntitlementList = this.getYearlyEntitlementService().findByEmployeeIdAndfindByLeaveTypeId(getEmployeeName(),getLeaveTypeName() );
-			this.yearlyEntitlementDataModel = null;
+		   this.yearlyEntitlementDataModel = null;
+		
+		   auditTrail.log(SystemAuditTrailActivity.ACCESSED, SystemAuditTrailLevel.INFO, actorUsers.getId(),actorUsers.getUsername(), actorUsers.getUsername()+"searching Entitlement using : "+getEmployeeName()+" "+getLeaveType());
 		}
+		
+	}
+	
+	catch(Exception e){
+		e.printStackTrace(); 
+	}
+	}
+
+	private Object getUsers() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	public LeaveTypeService getLeaveTypeService() {
