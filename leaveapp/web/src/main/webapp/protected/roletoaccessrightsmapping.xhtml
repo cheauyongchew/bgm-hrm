@@ -51,8 +51,8 @@
       <p:growl id="growl" showDetail="true" life="1000"/> 
   </ui:define>  
 <ui:define name="dialog">
-      <p:dialog header="Role To AccessRights Mapper" widgetVar="roleDialog" resizable="false" id="roleDlg" modal="true" >
-          <h3>Map Roles to User #{roleToAccessRightsMgmtBean.selectedRole.role}</h3>
+      <p:dialog header="Role To Access Rights Mapping" widgetVar="roleDialog" resizable="false" id="roleDlg" modal="true" >
+          <h3>Map Access Rights to Role " #{roleToAccessRightsMgmtBean.selectedRole.role} "</h3>
           <h:form>
           <p:panelGrid id="displayNewRoleType" columns="2" cellpadding="4" style="margin:0 auto;">
           	<p:pickList id="rolePickList" value="#{roleToAccessRightsMgmtBean.dualAccessRightsList}"

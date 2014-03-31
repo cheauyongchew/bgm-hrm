@@ -166,6 +166,7 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 			<value>#{authenticationBean.getUsers()}</value>
 		</managed-property>
 	</managed-bean>
+	
 	<managed-bean>
 		<managed-bean-name>userToRoleMgmtBean</managed-bean-name>
 		<managed-bean-class>com.beans.leaveapp.usertorole.bean.UserToRoleManagement</managed-bean-class>
@@ -187,6 +188,7 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 			<value>#{authenticationBean.getUsers()}</value>
 		</managed-property>
 	</managed-bean>
+	
 	<managed-bean>
 		<managed-bean-name>accessRightsMgmtBean</managed-bean-name>
 		<managed-bean-class>com.beans.leaveapp.accessrights.bean.AccessRightsManagement</managed-bean-class>
@@ -202,9 +204,9 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 		<managed-property>
 			<property-name>actorUsers</property-name>
 			<value>#{authenticationBean.getUsers()}</value>
-		</managed-property>
-		
+		</managed-property>		
 	</managed-bean>
+	
 	<managed-bean>
 		<managed-bean-name>roleToAccessRightsMgmtBean</managed-bean-name>
 		<managed-bean-class>com.beans.leaveapp.roletoaccessrights.bean.RoleToAccessRightsManagement</managed-bean-class>
@@ -239,6 +241,16 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 			<property-name>employee</property-name>
 			<value>#{authenticationBean.getEmployee()}</value>
 	</managed-property>
+ </managed-bean>
+ 
+ <managed-bean>
+ <managed-bean-name>userToAccessRightsMgmtBean</managed-bean-name>
+ <managed-bean-class>com.beans.leaveapp.usertoaccessrights.bean.UserToAccessRightsManagement</managed-bean-class>
+ <managed-bean-scope>view</managed-bean-scope>
+ <managed-property>
+ 		<property-name>usersService</property-name>
+ 		<value>#{usersService}</value>
+ </managed-property>
  </managed-bean>
 
 </faces-config>

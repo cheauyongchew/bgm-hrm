@@ -21,6 +21,7 @@ public class UserToAccessRights {
 	private Users users;
 	private AccessRights accessRights;
 	private boolean enabled;
+	private boolean isDeleted= false;
 	
 	@Id
 	@GeneratedValue
@@ -62,6 +63,16 @@ public class UserToAccessRights {
 	
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	@Column(name="isDeleted", columnDefinition="TINYINT(1)")
+	@Type(type="org.hibernate.type.NumericBooleanType")
+	public boolean isDeleted() {
+		return isDeleted;
+	}
+
+	public void setDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
 	}	
 	
 }

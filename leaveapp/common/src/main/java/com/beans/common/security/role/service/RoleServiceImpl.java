@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Resource;
-import javax.management.relation.RoleInfoNotFoundException;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

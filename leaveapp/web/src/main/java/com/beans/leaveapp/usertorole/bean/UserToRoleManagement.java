@@ -179,6 +179,7 @@ public class UserToRoleManagement implements Serializable{
 			this.userToRoleDataModel = null;
 		}		
 	}
+	
 	public Set<Role> getRoleSet() {
 		return roleSet;
 	}
