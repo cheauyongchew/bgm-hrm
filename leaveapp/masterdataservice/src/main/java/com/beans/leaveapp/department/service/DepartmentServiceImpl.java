@@ -34,8 +34,8 @@ public class DepartmentServiceImpl implements DepartmentService {
 			throw new DepartmentNotFound();
 		
 		department.setDeleted(true);
-		
-		return departmentRepository.save(department);
+		departmentRepository.save(department);
+		return department;
 	}
 
 	@Override

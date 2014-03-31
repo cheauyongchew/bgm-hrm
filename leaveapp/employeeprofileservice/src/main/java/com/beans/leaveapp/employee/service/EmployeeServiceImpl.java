@@ -31,7 +31,7 @@ import com.beans.leaveapp.employeegrade.service.EmployeeGradeService;
 import com.beans.leaveapp.employeetype.model.EmployeeType;
 import com.beans.leaveapp.employeetype.service.EmployeeTypeNotFound;
 import com.beans.leaveapp.employeetype.service.EmployeeTypeService;
-import com.beans.util.log.ApplLogger;
+//import com.beans.util.log.ApplLogger;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {

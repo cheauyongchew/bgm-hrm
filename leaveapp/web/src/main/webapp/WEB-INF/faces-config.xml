@@ -190,7 +190,8 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 	</managed-bean>
 	
 	<managed-bean>
-		<managed-bean-name>accessRightsMgmtBean</managed-bean-name>
+	
+	<managed-bean-name>accessRightsMgmtBean</managed-bean-name>
 		<managed-bean-class>com.beans.leaveapp.accessrights.bean.AccessRightsManagement</managed-bean-class>
 		<managed-bean-scope>view</managed-bean-scope>
 		<managed-property>
@@ -229,28 +230,38 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 		</managed-property>
 	</managed-bean>
 	
+	
+	<managed-bean> 	
+		<managed-bean-name>yearlyEntitlementMgmtBean</managed-bean-name> 	
+		<managed-bean-class>com.beans.leaveapp.yearlyentitlement.bean.YearlyEntitlementManagementBean</managed-bean-class> 	
+		<managed-bean-scope>view</managed-bean-scope> 	
+		<managed-property> 		
+			<property-name>yearlyEntitlementService</property-name> 		
+			<value>#{yearlyEntitlementService}</value> 	
+		</managed-property> 	
+		<managed-property>			
+			<property-name>employee</property-name>			
+			<value>#{authenticationBean.getEmployee()}</value>	
+		</managed-property> 
+	</managed-bean>	
 	<managed-bean>
- 	<managed-bean-name>yearlyEntitlementMgmtBean</managed-bean-name>
- 	<managed-bean-class>com.beans.leaveapp.yearlyentitlement.bean.YearlyEntitlementManagementBean</managed-bean-class>
- 	<managed-bean-scope>view</managed-bean-scope>
- 	<managed-property>
- 		<property-name>yearlyEntitlementService</property-name>
- 		<value>#{yearlyEntitlementService}</value>
- 	</managed-property>
- 	<managed-property>
-			<property-name>employee</property-name>
-			<value>#{authenticationBean.getEmployee()}</value>
-	</managed-property>
- </managed-bean>
- 
- <managed-bean>
- <managed-bean-name>userToAccessRightsMgmtBean</managed-bean-name>
- <managed-bean-class>com.beans.leaveapp.usertoaccessrights.bean.UserToAccessRightsManagement</managed-bean-class>
- <managed-bean-scope>view</managed-bean-scope>
- <managed-property>
- 		<property-name>usersService</property-name>
- 		<value>#{usersService}</value>
- </managed-property>
- </managed-bean>
+		<managed-bean-name>employeeTypeMgmtBean</managed-bean-name>
+		<managed-bean-class>com.beans.leaveapp.employeetype.bean.EmployeeTypeManagementBean</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+		<managed-property>
+			<property-name>employeeTypeService</property-name>
+			<value>#{employeeTypeService}</value>
+		</managed-property>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>departmentMgmtBean</managed-bean-name>
+		<managed-bean-class>com.beans.leaveapp.department.bean.DepartmentManagementBean</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+		<managed-property>
+			<property-name>departmentService</property-name>
+			<value>#{departmentService}</value>
+		</managed-property>
+	</managed-bean>
+
 
 </faces-config>

@@ -10,7 +10,7 @@
 	</parent>
 	<artifactId>web</artifactId>
 	<packaging>war</packaging>
-	<name>web Maven Webapp</name>
+	<name>Web Application for HRM</name>
 	<url>http://maven.apache.org</url>
 	<dependencyManagement>
 		<dependencies>
@@ -111,6 +111,12 @@
          <dependency>
 			<groupId>${project.groupid}</groupId>
 			<artifactId>leaveapplication</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>${project.groupid}</groupId>
+			<artifactId>applyleaveflow</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<!-- JSF dependencies -->
@@ -247,17 +253,6 @@
       <groupId>org.jbpm</groupId>
       <artifactId>jbpm-runtime-manager</artifactId>
       <version>${jbpm.version}</version>
-    </dependency>
-    <!-- can compile, but cannot deploy without these seam dependencies -->
-    <dependency>
-      <groupId>org.jboss.seam.persistence</groupId>
-      <artifactId>seam-persistence</artifactId>
-      <version>3.1.0.Final</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.seam.transaction</groupId>
-      <artifactId>seam-transaction</artifactId>
-      <version>3.1.0.Final</version>
     </dependency>
     
             
