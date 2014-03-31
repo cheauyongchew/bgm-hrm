@@ -118,7 +118,7 @@
 			<groupId>${project.groupid}</groupId>
 			<artifactId>applyleaveflow</artifactId>
 			<version>${project.version}</version>
-		</dependency>
+		</dependency> 
 		<!-- JSF dependencies -->
 		<dependency>
 			<groupId>com.sun.faces</groupId>
