@@ -39,7 +39,7 @@ public class SystemAuditTrail {
 	}
 	
 	@Column(name="actionDate", nullable=false)
-	@Temporal(TemporalType.DATE)
+	 @Temporal(TemporalType.TIMESTAMP)
 	public Date getDate() {
 		return date;
 	}
