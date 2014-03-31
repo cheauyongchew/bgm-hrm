@@ -1,3 +1,4 @@
+
 package com.beans.leaveapp.yearlyentitlement.bean;
 
 import java.io.Serializable;

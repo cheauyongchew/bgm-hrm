@@ -14,6 +14,10 @@
 		<project.version>1.0-SNAPSHOT</project.version>
 		<project.groupid>com.beans</project.groupid>
 	</properties>
+	
+	<name>Leave Application Project</name>
+  	<description>Leave application related module.</description>
+  	
 	<dependencies>
 	
 		<dependency>

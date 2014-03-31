@@ -17,6 +17,9 @@
   <properties>
   	<spring.framework.version>4.0.0.RELEASE</spring.framework.version>
   </properties>
+  
+  <name>leaveapp Project</name>
+  	<description>Parent Maven project for HRM application.</description>
   <dependencies>
   
   	<dependency>

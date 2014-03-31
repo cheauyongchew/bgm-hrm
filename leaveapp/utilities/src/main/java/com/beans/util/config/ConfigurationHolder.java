@@ -1,5 +1,9 @@
 package com.beans.util.config;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.apache.commons.configuration.CombinedConfiguration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.DefaultConfigurationBuilder;
@@ -48,4 +52,20 @@ public class ConfigurationHolder {
 			return null;
 		}
 	}
+	
+	public static List<String> getStringList(String key) {
+		try {
+			if(config == null) {
+				init();
+			}
+			
+			String[] stringArray = config.getStringArray(key);
+			
+			return new ArrayList<String>(Arrays.asList(stringArray));
+		} catch(ConfigurationException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }
+

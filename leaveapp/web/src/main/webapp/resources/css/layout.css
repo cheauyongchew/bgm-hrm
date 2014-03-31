@@ -4,7 +4,6 @@
 #f88d00 [Pure Orange]
 #32cd32 [Strong Lime Green] */
 
-
 body { 
     background-color: #fefdfa;
     font-family: 'Maven Pro', sans-serif;
@@ -375,6 +374,4 @@ a.ui-state-default.ui-state-active, a.ui-state-default.ui-state-highlight.ui-sta
     font-weight: normal;
 	
 }
-
-
 

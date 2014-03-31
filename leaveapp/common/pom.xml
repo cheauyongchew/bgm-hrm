@@ -14,6 +14,10 @@
 		<project.groupid>com.beans</project.groupid>
 		<project.version>1.0-SNAPSHOT</project.version>
 	</properties>
+	
+	<name>Common Project</name>
+  	<description>Commonly used modules.</description>
+  
 	<dependencies>
 
 		<dependency>

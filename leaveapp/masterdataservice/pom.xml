@@ -12,6 +12,10 @@
 		<hibernate.version>4.1.0.Final</hibernate.version>
 		<spring.version>4.0.0.RELEASE</spring.version>
 	</properties>
+	
+	<name>Master Data Service Project</name>
+  	<description>Master data modules.</description>
+  	
 	<dependencies>
 		
 		

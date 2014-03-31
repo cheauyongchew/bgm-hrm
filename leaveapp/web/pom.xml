@@ -1,4 +1,5 @@
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
@@ -8,7 +9,7 @@
 	</parent>
 	<artifactId>web</artifactId>
 	<packaging>war</packaging>
-	<name>web Maven Webapp</name>
+	<name>Web Application for HRM</name>
 	<url>http://maven.apache.org</url>
 	<dependencyManagement>
 		<dependencies>
@@ -109,6 +110,12 @@
          <dependency>
 			<groupId>${project.groupid}</groupId>
 			<artifactId>leaveapplication</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>${project.groupid}</groupId>
+			<artifactId>applyleaveflow</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<!-- JSF dependencies -->
@@ -246,17 +253,6 @@
       <artifactId>jbpm-runtime-manager</artifactId>
       <version>${jbpm.version}</version>
     </dependency>
-    <!-- can compile, but cannot deploy without these seam dependencies -->
-    <dependency>
-      <groupId>org.jboss.seam.persistence</groupId>
-      <artifactId>seam-persistence</artifactId>
-      <version>3.1.0.Final</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.seam.transaction</groupId>
-      <artifactId>seam-transaction</artifactId>
-      <version>3.1.0.Final</version>
-    </dependency>
     
             
 	</dependencies>
@@ -286,4 +282,3 @@
     </repository>
 	</repositories>
 </project>
-

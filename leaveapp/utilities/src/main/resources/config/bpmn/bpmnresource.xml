@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- bpmnresource.xml -->
+<config>
+    <bpmn>
+        <file>sample.bpmn</file>
+    </bpmn>
+</config>
