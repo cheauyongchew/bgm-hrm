@@ -31,6 +31,9 @@
 		<project.version>1.0-SNAPSHOT</project.version>
 		<hibernate.version>4.1.1.Final</hibernate.version>
 		<jbpm.version>6.0.1.Final</jbpm.version>
+		<jboss-as.deploy.hostname>localhost</jboss-as.deploy.hostname>  <!-- Where to deploy. -->
+		<jboss-as.deploy.port>9999</jboss-as.deploy.port>
+
 	</properties>
 	<dependencies>
 		<dependency>
@@ -45,11 +48,11 @@
 			<artifactId>spring-core</artifactId>
 			<version>${spring.version}</version>
 			<exclusions>
-	        <exclusion>
-	          <groupId>commons-logging</groupId>
-	          <artifactId>commons-logging</artifactId>
-	        </exclusion>
-	      </exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
@@ -101,19 +104,19 @@
 			<artifactId>utilities</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>${project.groupid}</groupId>
 			<artifactId>employeeprofileservice</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 
-         <dependency>
+		<dependency>
 			<groupId>${project.groupid}</groupId>
 			<artifactId>leaveapplication</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>${project.groupid}</groupId>
 			<artifactId>applyleaveflow</artifactId>
@@ -194,82 +197,92 @@
 			<artifactId>javassist</artifactId>
 			<version>3.12.1.GA</version>
 		</dependency>
-		
-		<dependency> 
-  <groupId>org.slf4j</groupId>
-  <artifactId>slf4j-log4j12</artifactId>
-  <version>1.7.6</version>
-</dependency>
-         
-         
-         <!-- jBPM6 dependencies -->
-           <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-orm</artifactId>
-            <version>${spring.version}</version>
-        </dependency> 
-        
-        <dependency>
-            <groupId>org.kie</groupId>
-            <artifactId>kie-spring</artifactId>
-            <version>${jbpm.version}</version>
-        </dependency>
-            <dependency>
-      <groupId>org.kie</groupId>
-      <artifactId>kie-api</artifactId>
-      <version>${jbpm.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jbpm</groupId>
-      <artifactId>jbpm-audit</artifactId>
-      <version>${jbpm.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jbpm</groupId>
-      <artifactId>jbpm-bpmn2</artifactId>
-      <version>${jbpm.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jbpm</groupId>
-      <artifactId>jbpm-human-task-core</artifactId>
-      <version>${jbpm.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jbpm</groupId>
-      <artifactId>jbpm-human-task-audit</artifactId>
-      <version>${jbpm.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jbpm</groupId>
-      <artifactId>jbpm-shared-services</artifactId>
-      <version>${jbpm.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jbpm</groupId>
-      <artifactId>jbpm-persistence-jpa</artifactId>
-      <version>${jbpm.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jbpm</groupId>
-      <artifactId>jbpm-runtime-manager</artifactId>
-      <version>${jbpm.version}</version>
-    </dependency>
-    <!-- can compile, but cannot deploy without these seam dependencies -->
-    <dependency>
-      <groupId>org.jboss.seam.persistence</groupId>
-      <artifactId>seam-persistence</artifactId>
-      <version>3.1.0.Final</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.seam.transaction</groupId>
-      <artifactId>seam-transaction</artifactId>
-      <version>3.1.0.Final</version>
-    </dependency>
-    
-            
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.6</version>
+		</dependency>
+
+
+		<!-- jBPM6 dependencies -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.kie</groupId>
+			<artifactId>kie-spring</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.kie</groupId>
+			<artifactId>kie-api</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-audit</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-bpmn2</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-human-task-core</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-human-task-audit</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-shared-services</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-persistence-jpa</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-runtime-manager</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+
+
 	</dependencies>
 	<build>
-		<finalName>web</finalName>
+		<finalName>hrm</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.jboss.as.plugins</groupId>
+				<artifactId>jboss-as-maven-plugin</artifactId>
+				<version>7.5.Final</version>
+				<configuration>
+
+					<hostname>${jboss-as.deploy.hostname}</hostname>
+					<port>${jboss-as.deploy.port}</port>
+
+				</configuration>
+				<executions>
+					<execution>
+						<phase>install</phase>
+						<goals>
+							<goal>deploy</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
 	</build>
 
 	<repositories>
@@ -278,19 +291,19 @@
 			<url>http://repository.primefaces.org</url>
 			<name>PrimeFaces Maven Repository</name>
 		</repository>
-		
+
 		<repository>
-      <id>jboss-public-repository-group</id>
-      <name>JBoss Public Repository Group</name>
-      <url>http://repository.jboss.org/nexus/content/groups/public/</url>
-      <releases>
-        <enabled>true</enabled>
-        <updatePolicy>never</updatePolicy>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-        <updatePolicy>daily</updatePolicy>
-      </snapshots>
-    </repository>
+			<id>jboss-public-repository-group</id>
+			<name>JBoss Public Repository Group</name>
+			<url>http://repository.jboss.org/nexus/content/groups/public/</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>daily</updatePolicy>
+			</snapshots>
+		</repository>
 	</repositories>
 </project>

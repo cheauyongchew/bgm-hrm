@@ -9,4 +9,5 @@ public interface JBPM6Service {
 	public List<TaskSummary> getTaskAssignedForUser(String username);
 	public long startProcess(String processName);
 	public void approveTask(String actorId, long taskId, HashMap<String, Object> parameterMap);
+	public List<TaskSummary> getTaskAssignedForUserForProcess(String username, String processName);
 }

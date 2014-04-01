@@ -22,7 +22,7 @@
 		
 		<!-- jBPM6 specific -->
 		<mapping-file>META-INF/JBPMorm.xml</mapping-file>
-   	<mapping-file>META-INF/Taskorm.xml</mapping-file>
+    	<mapping-file>META-INF/Taskorm.xml</mapping-file>
 		<class>org.jbpm.persistence.processinstance.ProcessInstanceInfo</class>
 	    <class>org.drools.persistence.info.SessionInfo</class>
 	    <class>org.drools.persistence.info.WorkItemInfo</class>
@@ -60,7 +60,7 @@
 	    <!--BAM for task service -->
 	    <class>org.jbpm.services.task.impl.model.BAMTaskSummaryImpl</class>
 
-
+		
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />
@@ -73,4 +73,3 @@
 	</persistence-unit>
 
 </persistence>
-
