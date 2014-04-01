@@ -15,8 +15,6 @@ import com.beans.common.audit.service.SystemAuditTrailLevel;
 import com.beans.common.security.users.model.Users;
 import com.beans.leaveapp.employee.model.Employee;
 import com.beans.leaveapp.employee.service.EmployeeService;
-import com.beans.leaveapp.leavetype.model.LeaveType;
-import com.beans.leaveapp.leavetype.service.LeaveTypeNotFound;
 import com.beans.leaveapp.leavetype.service.LeaveTypeService;
 import com.beans.leaveapp.yearlyentitlement.model.EmployeeEntitlement;
 import com.beans.leaveapp.yearlyentitlement.model.EmployeeLeaveEntitlementDataModel;
@@ -31,7 +29,6 @@ public class YearlyEntitlementManagementBean implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
 	private YearlyEntitlementService yearlyEntitlementService;
 	private YearlyEntitleDataModel yearlyEntitlementDataModel;
 	private YearlyEntitlement yearlyEntitlement = new YearlyEntitlement();
@@ -215,7 +212,7 @@ public class YearlyEntitlementManagementBean implements Serializable {
 	
 		this.getYearlyEntitlementService().create(newLeaveEntitlement);
 		setInsertDelete(true);
-		 auditTrail.log(SystemAuditTrailActivity.CREATED, SystemAuditTrailLevel.INFO, this.getActorUsers().getId(),getActorUsers().getUsername(), getActorUsers().getUsername()+"has created yearly Entitlement using EmployeeName :"+newLeaveEntitlement.getEmployeeName());
+		 auditTrail.log(SystemAuditTrailActivity.CREATED, SystemAuditTrailLevel.INFO, this.getActorUsers().getId(),getActorUsers().getUsername(), getActorUsers().getUsername()+" created yearly Entitlement: "+newLeaveEntitlement.getEmployeeName());
 	
 	}
 
@@ -334,7 +331,7 @@ public class YearlyEntitlementManagementBean implements Serializable {
 		   leaveEntitlementList = this.getYearlyEntitlementService().findByEmployeeIdAndfindByLeaveTypeId(getEmployeeName(),getLeaveTypeName() );
 		   this.yearlyEntitlementDataModel = null;
 		
-		   auditTrail.log(SystemAuditTrailActivity.ACCESSED, SystemAuditTrailLevel.INFO, actorUsers.getId(),actorUsers.getUsername(), actorUsers.getUsername()+"searching Entitlement using : "+getEmployeeName()+" "+getLeaveType());
+		   auditTrail.log(SystemAuditTrailActivity.ACCESSED, SystemAuditTrailLevel.INFO, actorUsers.getId(),actorUsers.getUsername(), actorUsers.getUsername()+" searching Entitlement of : "+getEmployeeName());
 		}
 		
 	}

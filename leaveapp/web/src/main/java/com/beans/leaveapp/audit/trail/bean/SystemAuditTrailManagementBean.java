@@ -26,7 +26,7 @@ public class SystemAuditTrailManagementBean implements Serializable {
 	private boolean insertDeleted = false;
 	private boolean forDates = false;
 
-	SimpleDateFormat s = new SimpleDateFormat("yyyy-mm-dd hh:mm");
+	SimpleDateFormat s = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
 
 	public Date date1;
 	public Date date2;
