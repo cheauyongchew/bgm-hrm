@@ -156,12 +156,12 @@ tr.ui-widget-content.ui-datatable-odd.ui-datatable-selectable.ui-state-hover {
 
 /* Setting for button */
 .ui-button-text {
-    background-color: #32cd32;
+    /* background-color: #b3b3b3; */
     font-family: 'Maven Pro', sans-serif;
     font-size: 14px;
-    color: #fff;
+    /* color: #fff; */
     font-weight: bold;
-    text-shadow: none;
+    /* text-shadow: none; */
 }
 
 /* Setting for dialog box */
@@ -383,6 +383,7 @@ tr.ui-widget-content > td {
 
 /* Setting for picklist list */
 .ui-picklist-list {
+	font-family: 'Maven Pro', sans-serif;
     text-align: center;
     font-size: 12px;
 }
@@ -391,6 +392,7 @@ tr.ui-widget-content > td {
 .ui-picklist-item.ui-state-highlight {
     background: #dfebf1;
     color: #000;
+    font-family: 'Maven Pro', sans-serif;
     font-weight: normal;
     
 }
