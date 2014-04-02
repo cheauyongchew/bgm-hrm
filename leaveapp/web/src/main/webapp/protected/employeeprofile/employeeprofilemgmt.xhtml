@@ -67,7 +67,7 @@
         </h:form> 
 		
 		<h:form id="newEmployeeBtnForm">
-        <p:commandButton value="New Employee" update=":displayNewEmployee" actionListener="#{employeeProfileMgmtBean.initEmployeeCreation()}" oncomplete="PF('newEmployeeDialog').show()" title="Creates new employee"/>
+        <p:commandButton value="New Employee" update=":displayNewEmployee" actionListener="#{employeeProfileMgmtBean.initEmployeeCreation()}" oncomplete="PF('newEmployeeDialog').show()" title="Creates new employee" rendered="#{authenticationBean.hasAccess('AddEmployee')}"/>
         
         </h:form>
 

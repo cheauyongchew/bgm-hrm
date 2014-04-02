@@ -25,7 +25,7 @@ BODY {
 	<ui:define name="content">
 	<h1>Welcome!</h1>
 	
-	<h:form id="employeeEntitlementForm">
+	<h:form id="employeeEntitlementForm" rendered="#{authenticationBean.hasAccess('ViewMyProfile')}">
 	
 	
 	 <p:dataTable id="employeeEntitlementTable" widgetVar="employeeEntitlement" var="employeeEntitlement0" value="#{yearlyEntitlementMgmtBean.employeeLeaveEntitlementDataModel}" rowKey="#{employeeEntitlement0.id}">

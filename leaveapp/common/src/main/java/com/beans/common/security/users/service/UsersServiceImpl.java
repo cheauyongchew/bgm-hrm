@@ -1,6 +1,8 @@
 package com.beans.common.security.users.service;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -11,10 +13,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.beans.common.security.accessrights.model.AccessRights;
 import com.beans.common.security.role.model.Role;
 import com.beans.common.security.role.service.RoleService;
 import com.beans.common.security.users.model.Users;
 import com.beans.common.security.users.repository.UsersRepository;
+import com.beans.common.security.usertoaccessrights.model.UserToAccessRights;
+import com.beans.common.security.usertoaccessrights.service.UserToAccessRightsService;
 
 
 @Service
@@ -24,7 +29,8 @@ public class UsersServiceImpl implements UsersService {
 	@Resource
 	private UsersRepository usersRepository;
 	
-	RoleService roleService;
+	private RoleService roleService;
+	private UserToAccessRightsService userToAccessRightsService;
 	
 	@Override
 	@Transactional
@@ -106,19 +112,64 @@ public class UsersServiceImpl implements UsersService {
 		return users;
 	}
 
+	@Override
+	public List<Users> findUsersByUsername(String username) {
+			String usernameSearchTerm = "%" + username + "%";
+		return usersRepository.findByUsernameLike(usernameSearchTerm);
+	}
+
+	@Override
+	public HashSet<String> getAccessRightsMapForUser(int userId) throws UsersNotFound {
+		HashSet<String> accessRightsSet = new HashSet<String>();
+		
+		Users user = findById(userId);
+		
+		if(user == null) {
+			throw new UsersNotFound();
+		}
+		
+		
+		Set<Role> roleSet =  user.getUserRoles();
+		
+		Iterator<Role> roleIterator = roleSet.iterator();
+		while(roleIterator.hasNext()) {
+			Role currentRole = roleIterator.next();
+			Set<AccessRights> currentRoleAccessRightSet = currentRole.getAccessRights();
+			Iterator<AccessRights> currentRoleAccessRightIterator = currentRoleAccessRightSet.iterator();
+			while(currentRoleAccessRightIterator.hasNext()) {
+				AccessRights currentAccessRights = currentRoleAccessRightIterator.next();
+				accessRightsSet.add(currentAccessRights.getAccessRights());
+			}
+		}
+		
+		List<UserToAccessRights> userToAccessRightList = userToAccessRightsService.findByUserId(userId);
+		Iterator<UserToAccessRights> userToAccessRightIterator = userToAccessRightList.iterator();
+		while(userToAccessRightIterator.hasNext()) {
+			UserToAccessRights currentUserToAccessRights = userToAccessRightIterator.next();
+			AccessRights currentAccessRights = currentUserToAccessRights.getAccessRights();
+			if(!currentUserToAccessRights.isEnabled() && accessRightsSet.contains(currentAccessRights.getAccessRights())) {
+				accessRightsSet.remove(currentAccessRights.getAccessRights());
+			} else {
+				accessRightsSet.add(currentAccessRights.getAccessRights());
+			}
+		}
+		
+		return accessRightsSet;
+	}
+
 	public RoleService getRoleService() {
 		return roleService;
 	}
 	public void setRoleService(RoleService roleService) {
 		this.roleService = roleService;
 	}
-
-	@Override
-	public List<Users> findUsersByUsername(String username) {
-			String usernameSearchTerm = "%" + username + "%";
-		return usersRepository.findByUsernameLike(usernameSearchTerm);
-	}
 	
-
+	public UserToAccessRightsService getUserToAccessRightsService() {
+		return userToAccessRightsService;
+	}
+	public void setUserToAccessRightsService(
+			UserToAccessRightsService userToAccessRightsService) {
+		this.userToAccessRightsService = userToAccessRightsService;
+	}
 	 
 }

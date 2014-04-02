@@ -11,5 +11,5 @@ public interface UserToAccessRightsService {
 	public List<UserToAccessRights> findAll();
 	public UserToAccessRights update(UserToAccessRights userToAccessRights) throws UserToAccessRightsNotFound;
 	public List<AssignedAccessRights> findAssignedAccessRights(int id);
-
+	public List<UserToAccessRights> findByUserId(int userId);
 }

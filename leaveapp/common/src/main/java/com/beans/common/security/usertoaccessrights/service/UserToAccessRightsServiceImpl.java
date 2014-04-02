@@ -52,6 +52,14 @@ public class UserToAccessRightsServiceImpl implements UserToAccessRightsService{
 	    	assignedAccessRightsList.add(new AssignedAccessRights(accessRights,enabled));
 	    }
 		return assignedAccessRightsList;
-	}		
+	}
+
+	@Override
+	public List<UserToAccessRights> findByUserId(int userId) {
+		List<UserToAccessRights> userToAccessRightsList = userToAccessRightsRepository.findByUserId(userId);
+		return userToAccessRightsList;
+	}	
+	
+	
 
 }
