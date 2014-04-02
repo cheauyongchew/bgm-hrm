@@ -80,6 +80,9 @@
     <bean id="accessRightsService" class="com.beans.common.security.accessrights.service.AccessRightsServiceImpl">
     </bean>  
 	 
+	 <bean id="userToAccessRights" class="com.beans.common.security.usertoaccessrights.model.UserToAccessRights"/>
+	 <bean id="userToAccessRightsService" class="com.beans.common.security.usertoaccessrights.service.UserToAccessRightsServiceImpl">
+	 </bean>
 
 
 </beans>

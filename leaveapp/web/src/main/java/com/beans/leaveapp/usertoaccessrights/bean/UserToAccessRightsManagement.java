@@ -11,12 +11,18 @@ import java.util.List;
 
 
 
+
+
+
 import org.primefaces.event.SelectEvent;
 
 import com.beans.common.security.accessrights.model.AccessRights;
 import com.beans.common.security.accessrights.service.AccessRightsService;
 import com.beans.common.security.users.model.Users;
 import com.beans.common.security.users.service.UsersService;
+import com.beans.common.security.usertoaccessrights.model.AssignedAccessRights;
+import com.beans.common.security.usertoaccessrights.model.UserToAccessRights;
+import com.beans.common.security.usertoaccessrights.service.UserToAccessRightsService;
 import com.beans.leaveapp.usertoaccessrights.model.UserToAccessRightsDataModel;
 import com.beans.leaveapp.usertoaccessrights.model.UserToAssignedAccessRightsDataModel;
 
@@ -25,15 +31,17 @@ public class UserToAccessRightsManagement implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private UsersService usersService;
 	private AccessRightsService accessRightsService;
+	private UserToAccessRightsService userToAccessRightsService;
 	private List<Users> usersList;
 	private UserToAccessRightsDataModel userToAccessRightsDataModel;
 	private Users selectedUsers = new Users();
 	private boolean insertDelete = false;
 	private List<Users> searchUsers;
-	private List<AccessRights> accessRightsList;
-	private List<AccessRights> assignedAccessRightsList = new ArrayList<AccessRights>();
-	private List<AccessRights> unAssignedAccessRightsLisgt = new ArrayList<AccessRights>();
+	private List<AccessRights> accessRightsList = null;	
 	private UserToAssignedAccessRightsDataModel userToAssignedAccessRightsDataModel;
+	private UserToAccessRights selectedUserToAccessRights = new UserToAccessRights();	
+	private int userId;
+	private List<AssignedAccessRights> assignedAccessRightsList;
 	
 	private String searchUsername = "";
 	
@@ -56,7 +64,7 @@ public class UserToAccessRightsManagement implements Serializable{
 	
 	
 	public List<Users> getUsersList() {
-			if(usersList == null || insertDelete == true ){
+			if(usersList == null){
 					
 					usersList = usersService.findAll();
 				}		
@@ -69,7 +77,7 @@ public class UserToAccessRightsManagement implements Serializable{
 	
 	
 	public UserToAccessRightsDataModel getUserToAccessRightsDataModel() {
-		if(userToAccessRightsDataModel == null || insertDelete == true)
+		if(userToAccessRightsDataModel == null)
 			userToAccessRightsDataModel = new UserToAccessRightsDataModel(getUsersList());		
 		return userToAccessRightsDataModel;
 	}
@@ -83,13 +91,20 @@ public class UserToAccessRightsManagement implements Serializable{
 	public Users getSelectedUsers() {
 		return selectedUsers;
 	}
-	public void setSelectedUsers(Users selectedUsers) {
+	
+	public void setSelectedUsers(Users selectedUsers) {				
 		this.selectedUsers = selectedUsers;
 	}
 	
+	
+	public void assignedAccessRights(){
+		userId = getSelectedUsers().getId();		
+	}
+	
+	
 	public void saveUserToAccessRightsMapping(){		
 		
-	}
+	}	
 	
 	public void addAccessRightsToUser(){
 		
@@ -97,7 +112,6 @@ public class UserToAccessRightsManagement implements Serializable{
 	
 	public void onRowSelect(SelectEvent event){
 		setSelectedUsers((Users) event.getObject());
-
 	}	
 	
 	public boolean isInsertDelete() {
@@ -133,8 +147,26 @@ public class UserToAccessRightsManagement implements Serializable{
 			this.userToAccessRightsDataModel = null;
 		}		
 	}
+	
+	public List<AssignedAccessRights> getAssignedAccessRightsList() {
+		 if(assignedAccessRightsList == null || insertDelete == true){
+			 
+			 assignedAccessRightsList = userToAccessRightsService.findAssignedAccessRights(userId);
+			 System.out.println("" +userId);
+		 }				
+		return assignedAccessRightsList;
+	}
 
-	public UserToAssignedAccessRightsDataModel getUserToAssignedAccessRightsDataModel() {		
+	public void setAssignedAccessRightsList(
+			List<AssignedAccessRights> assignedAccessRightsList) {
+		this.assignedAccessRightsList = assignedAccessRightsList;
+	}
+
+	public UserToAssignedAccessRightsDataModel getUserToAssignedAccessRightsDataModel() {	
+		if(userToAssignedAccessRightsDataModel == null || insertDelete == true){
+					
+			userToAssignedAccessRightsDataModel = new UserToAssignedAccessRightsDataModel(getAssignedAccessRightsList());
+		}		
 		return userToAssignedAccessRightsDataModel;
 	}
 
@@ -142,7 +174,22 @@ public class UserToAccessRightsManagement implements Serializable{
 			UserToAssignedAccessRightsDataModel userToAssignedAccessRightsDataModel) {
 		this.userToAssignedAccessRightsDataModel = userToAssignedAccessRightsDataModel;
 	}
-	
-	
+
+	public UserToAccessRightsService getUserToAccessRightsService() {
+		return userToAccessRightsService;
+	}
+
+	public void setUserToAccessRightsService(
+			UserToAccessRightsService userToAccessRightsService) {
+		this.userToAccessRightsService = userToAccessRightsService;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}	
 	
 }

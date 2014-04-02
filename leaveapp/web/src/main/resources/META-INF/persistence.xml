@@ -19,6 +19,7 @@
 		<class>com.beans.common.audit.model.SystemAuditTrail</class>
 		<class>com.beans.common.security.role.model.Role</class>
 		<class>com.beans.common.security.accessrights.model.AccessRights</class>
+		<class>com.beans.common.security.usertoaccessrights.model.UserToAccessRights</class>
 		
 		<!-- jBPM6 specific -->
 		<mapping-file>META-INF/JBPMorm.xml</mapping-file>
