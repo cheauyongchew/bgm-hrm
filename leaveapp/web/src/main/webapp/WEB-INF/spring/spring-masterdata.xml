@@ -63,7 +63,11 @@
     <bean  id="usersService" class="com.beans.common.security.users.service.UsersServiceImpl"> 
     
     </bean>	 
-
+	<bean  id="userAuthenticationService" class="com.beans.common.security.users.service.UserAuthenticationServiceImpl"> 
+    	<property name="userService" >
+			<ref bean="usersService"/>
+		</property>
+    </bean>
 
 
 	 <bean id="role" class="com.beans.common.security.role.model.Role"/>

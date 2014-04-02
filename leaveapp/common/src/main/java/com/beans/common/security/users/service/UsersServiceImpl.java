@@ -1,17 +1,17 @@
 package com.beans.common.security.users.service;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Resource;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.beans.common.security.role.model.Role;
-import com.beans.common.security.role.service.RoleNotFound;
 import com.beans.common.security.role.service.RoleService;
 import com.beans.common.security.users.model.Users;
 import com.beans.common.security.users.repository.UsersRepository;
@@ -30,6 +30,9 @@ public class UsersServiceImpl implements UsersService {
 	@Transactional
 	public Users create(Users users) {	
 		 Users usersToBeCreated = users;
+		 PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		 String hashedPassword = passwordEncoder.encode(usersToBeCreated.getPassword());
+		 usersToBeCreated.setPassword(hashedPassword);
 		return usersRepository.save(usersToBeCreated);
 	}
 
@@ -54,7 +57,10 @@ public class UsersServiceImpl implements UsersService {
 		if(usersToBeUpdated == null)
 			 throw new UsersNotFound();
 		usersToBeUpdated.setUsername(users.getUsername());
-		usersToBeUpdated.setPassword(users.getPassword());
+		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String hashedPassword = passwordEncoder.encode(users.getPassword());
+		usersToBeUpdated.setPassword(hashedPassword);
+		usersToBeUpdated.setPassword(hashedPassword);
 		usersToBeUpdated.setEnabled(users.isEnabled());
 		Set<Role> roleSet = new HashSet<Role>();
 		roleSet.addAll(users.getUserRoles());
@@ -65,7 +71,9 @@ public class UsersServiceImpl implements UsersService {
 
 	@Override	
 	public Users registerUser(Users users) {
-		
+		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String hashedPassword = passwordEncoder.encode(users.getPassword());
+		users.setPassword(hashedPassword);
 		Users createdUsers = usersRepository.save(users);
 		Role userRole = roleService.findByRole("ROLE_USER");
 		Set<Role> roleSet = new HashSet<Role>();
