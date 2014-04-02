@@ -1,5 +1,6 @@
+
 body,div,td {
-    font-family: 'Maven Pro', sans-serif;
+    font-family: 'Sintony', sans-serif;
     font-size: 14px;
     word-wrap: break-word;
 }
@@ -92,7 +93,7 @@ img {
 
 input {
     border-radius: 5px;
-    font-family: 'Maven Pro', sans-serif;
+    font-family: 'Sintony', sans-serif;
     padding: 1px 0.5em;
     
 }
