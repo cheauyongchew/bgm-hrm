@@ -40,6 +40,11 @@
 		  
         <p:dataTable id="systemAuditTrailTable" widgetVar="systemAuditTraiVar" var="systemAudit0" scrollable="true" rows="10" paginator="true" value="#{systemAuditTrailMgmtBean.systemAuditTrailDataModel}" rowKey="#{systemAudit0.id}">
             
+            <p:column id="activityHeader" sortById="activity">
+            <f:facet name="header"> Activity </f:facet>
+            <h:outputText value="#{systemAudit0.activity}" />
+          </p:column>
+        
              <p:column id="userNameHeader" sortById="actorUsername">
             <f:facet name="header"> User Name </f:facet>
             <h:outputText value="#{systemAudit0.actorUsername}" />
@@ -48,7 +53,7 @@
           <p:column id="date"  sortBy="date">
             <f:facet name="header"> Date </f:facet>
             <h:outputText value="#{systemAudit0.date}" >
-           <f:convertDateTime pattern="MM/dd/yyyy HH:mm" />  
+           <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />  
             </h:outputText>
           </p:column>
           <p:column id="descHeader" sortBy="desription">
@@ -56,15 +61,7 @@
             <h:outputText value="#{systemAudit0.description}" />
           </p:column>
         
-        <p:column id="actorHeader" sortById="actorUserId">
-            <f:facet name="header"> Actor UserId </f:facet>
-            <h:outputText value="#{systemAudit0.actorUserId}" />
-          </p:column>
-        <p:column id="activityHeader" sortById="activity">
-            <f:facet name="header"> Activity </f:facet>
-            <h:outputText value="#{systemAudit0.activity}" />
-          </p:column>
-        
+ 
         </p:dataTable>
         
       </h:form>      

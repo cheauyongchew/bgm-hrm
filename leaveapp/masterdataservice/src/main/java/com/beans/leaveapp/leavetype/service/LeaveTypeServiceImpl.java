@@ -1,5 +1,6 @@
 package com.beans.leaveapp.leavetype.service;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -7,6 +8,8 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.beans.leaveapp.employeetype.model.EmployeeType;
+import com.beans.leaveapp.employeetype.repository.EmployeeTypeRepository;
 import com.beans.leaveapp.leavetype.model.LeaveType;
 import com.beans.leaveapp.leavetype.repository.LeaveTypeRepository;
 
@@ -15,6 +18,9 @@ public class LeaveTypeServiceImpl implements LeaveTypeService {
 
 	@Resource
 	private LeaveTypeRepository leaveTypeRepository;
+	
+	@Resource
+	private EmployeeTypeRepository employeeTypeRepository;
 	
 	@Override
 	@Transactional
@@ -39,6 +45,13 @@ public class LeaveTypeServiceImpl implements LeaveTypeService {
 	@Override
 	public List<LeaveType> findAll() {
 		List<LeaveType> resultList = leaveTypeRepository.findByisDeleted(0);
+		List<LeaveType> list = new LinkedList<LeaveType>();
+		for(LeaveType leaveType: resultList){
+			EmployeeType e = employeeTypeRepository.findOne(leaveType.getEmployeeTypeId());
+			String employeeTypeName = e.getName();
+			leaveType.setEmployeeTypeName(employeeTypeName);
+		}
+		
 		return resultList;
 	}
 
@@ -53,7 +66,13 @@ public class LeaveTypeServiceImpl implements LeaveTypeService {
 		leaveTypeToBeUpdated.setName(leaveType.getName());
 		leaveTypeToBeUpdated.setDescription(leaveType.getDescription());
 		leaveTypeToBeUpdated.setDeleted(leaveType.isDeleted());
-		leaveTypeRepository.save(leaveTypeToBeUpdated);
+		if(leaveType.getEmployeeTypeName() != null){
+			EmployeeType employeeTypeObj = employeeTypeRepository.findByName(leaveType.getEmployeeTypeName());
+			int employeeTypeId = employeeTypeObj.getId();
+			leaveTypeToBeUpdated.setEmployeeTypeId(employeeTypeId);
+		}
+			leaveTypeRepository.save(leaveTypeToBeUpdated);
+		
 		return leaveTypeToBeUpdated;
 	}
 
@@ -71,6 +90,12 @@ public class LeaveTypeServiceImpl implements LeaveTypeService {
 	public LeaveType findByLeaveType(String name) throws LeaveTypeNotFound {
 		LeaveType leaveTypeList =  leaveTypeRepository.findByName(name);
 		return leaveTypeList;
+	}
+
+	@Override
+	public List<String> findByName() {
+		List<String> list = leaveTypeRepository.findNamesList();
+		return list;
 	}
 	
 

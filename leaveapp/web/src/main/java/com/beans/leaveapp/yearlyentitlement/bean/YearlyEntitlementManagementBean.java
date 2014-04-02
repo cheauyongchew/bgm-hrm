@@ -52,6 +52,7 @@ public class YearlyEntitlementManagementBean implements Serializable {
 	List<YearlyEntitlement>  listOfYearlyEntitlement;
 	List<EmployeeEntitlement> employeeEntitlementList;
 	EmployeeLeaveEntitlementDataModel employeeLeaveEntitlementDataModel;
+	
 	private AuditTrail auditTrail;
 	
 	public AuditTrail getAuditTrail() {

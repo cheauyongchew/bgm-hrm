@@ -13,6 +13,7 @@ public interface LeaveTypeService {
 	public LeaveType update(LeaveType leaveType) throws LeaveTypeNotFound;
 	public LeaveType findById(int id) throws LeaveTypeNotFound;
 	public LeaveType findByLeaveType(String name) throws LeaveTypeNotFound;
+	public List<String> findByName();
 }
 
 

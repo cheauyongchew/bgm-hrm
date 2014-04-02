@@ -123,8 +123,11 @@ public class LeaveTypeManagementBean implements Serializable{
 		public boolean isInsertDelete() {
 			return insertDelete;
 		}
-		
-			
+		/*
+		public void NamesList(){
+			leaveTypeService.fin
+		}
+		*/	
 		
 	}
  

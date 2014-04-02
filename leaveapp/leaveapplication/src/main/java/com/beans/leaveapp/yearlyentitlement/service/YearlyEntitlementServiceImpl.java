@@ -305,25 +305,34 @@ public  class YearlyEntitlementServiceImpl implements YearlyEntitlementService{
 		String leaveTypeSearchTerm = "%" + leaveType + "%";
 		String employeeNameSearchTerm = "%" + employeeName + "%";
 		boolean ee = !e,ee1 = !e1;
+		 Integer requiredid = 0,requiredid1 = 0 ;
        if(ee && ee1){
     	   System.out.println(employeeName.trim().equals("")+"  "+leaveType.trim().equals("")+" "+leaveTypeSearchTerm+" "+employeeNameSearchTerm);
     	   List<LeaveType> leaveTypeList =(List<LeaveType>) leaveTypeRepository.findByNameLike(leaveTypeSearchTerm);
     	   
     	   for(LeaveType leaveTypeObj: leaveTypeList){
+    		   
+    		   if(leaveTypeObj.getName() == leaveType){
+    			   requiredid = leaveTypeObj.getId();
+    			   System.out.println(leaveTypeObj.getName());
+    		   }
     		   Integer id = leaveTypeObj.getId();
     		   leaveTypeIds.add(id);
     	   }
     	   List<Employee> employeelist = (List<Employee>) employeeRepository.findByEmployeeNameLike(employeeNameSearchTerm);
     	   for(Employee employeeObj :employeelist){
+    		   
+    		   if(employeeObj.getName() == employeeName){
+    			   requiredid1 =employeeObj.getId();
+    			   System.out.println(employeeObj.getName());
+    		   }
     		   int name =  employeeObj.getId();
     		   employeeIds.add(name);
     		  
+    		   
     	   }
-		for(Integer i:leaveTypeIds){
-			for(Integer ii:employeeIds){
-				yearlyEntitlementlist= (List<YearlyEntitlement>)yearlyEntitleRepository.findByEmployeeIdAndLeaveTypeIdLike(i, ii);
-			}
-		}
+		System.out.println("last line");
+				yearlyEntitlementlist= (List<YearlyEntitlement>)yearlyEntitleRepository.findByEmployeeIdAndLeaveTypeIdLike(requiredid,requiredid1);
 		
 			
        }else if(ee) {

@@ -15,10 +15,12 @@ public class LeaveType {
 	private int id;
 	private String name;
 	private String description;
-	private int employeeTypeId;
 	private double entitlement;
 	private boolean isAccountable = false;
 	private boolean isDeleted= false;
+	private int employeeTypeId; 
+	private String employeeTypeName;
+	
 	
 	@Id
 	@GeneratedValue
@@ -45,13 +47,7 @@ public class LeaveType {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	@Column(name="employeeTypeId", nullable=true)
-	public int getEmployeeTypeId() {
-		return employeeTypeId;
-	}
-	public void setEmployeeTypeId(int employeeTypeId) {
-		this.employeeTypeId = employeeTypeId;
-	}
+	
 	
 	@Column(name="entitlement", nullable=false)
 	public double getEntitlement() {
@@ -76,6 +72,20 @@ public class LeaveType {
 	}
 	public void setDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
+	}
+	
+	@Column(name="employeeTypeId",nullable=true)
+	public int getEmployeeTypeId() {
+		return employeeTypeId;
+	}
+	public void setEmployeeTypeId(int employeeTypeId) {
+		this.employeeTypeId = employeeTypeId;
+	}
+	public String getEmployeeTypeName() {
+		return employeeTypeName;
+	}
+	public void setEmployeeTypeName(String employeeTypeName) {
+		this.employeeTypeName = employeeTypeName;
 	}
 	
 	
