@@ -30,7 +30,7 @@
 
 <ui:define name="content">
 		<h:form id="departmentTableForm">
-		<p:messages autoUpdate="true" />
+		
 		
         <p:dataTable id="departmentTable" widgetVar="departmentTable" var="department0" value="#{departmentMgmtBean.departmentDataModel}" rowKey="#{department0.id}"
                  selection="#{departmentMgmtBean.selectedDepartment}" selectionMode="single" >
@@ -49,10 +49,13 @@
         
         </p:dataTable>
         
-        <p:commandButton value="New Department" oncomplete="PF('newDepartmentDialog').show()"
+        </h:form> 
+      
+      <h:form id="commandButtonForm">
+      <p:commandButton value="New Department" update=":newDepartmentForm"  oncomplete="PF('newDepartmentDialog').show()"
          icon="ui-icon-star" title="Creates new department"/>
-         
-      </h:form>      
+       </h:form>
+           
    <!--    $('.dlgCSS').css('background-color','red');  $('body').css('background-color','green');-->
       <p:growl id="growl" showDetail="true" life="1000"/> 
   </ui:define>  
@@ -84,7 +87,7 @@
           
       <p:dialog header="Create New Department" styleClass="dlgCSS" widgetVar="newDepartmentDialog" resizable="false" id="newDepartmentDlg"  modal ="true">
               <h:form id="newDepartmentForm">
-              
+              <p:messages autoUpdate="true" />
               
                 <p:panelGrid id="displayNewDepartment" columns="2" cellpadding="4" style="margin:0 auto;">
             <h:outputText value="Department :"></h:outputText>

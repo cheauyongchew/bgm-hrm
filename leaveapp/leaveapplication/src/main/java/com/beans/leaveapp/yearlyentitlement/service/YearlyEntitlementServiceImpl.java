@@ -1,4 +1,3 @@
-
 package com.beans.leaveapp.yearlyentitlement.service;
 
 import java.util.ArrayList;
@@ -394,5 +393,4 @@ public  class YearlyEntitlementServiceImpl implements YearlyEntitlementService{
 		return null;
 }
 }
-	
 	

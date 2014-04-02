@@ -1,3 +1,4 @@
+
 package com.beans.leaveapp.leavetype.service;
 
 import java.util.LinkedList;
@@ -101,4 +102,3 @@ public class LeaveTypeServiceImpl implements LeaveTypeService {
 
 	
 }
-

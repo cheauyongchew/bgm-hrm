@@ -1,3 +1,4 @@
+
 package com.beans.leaveapp.leavetype.bean;
 
 import java.io.Serializable;
@@ -123,11 +124,6 @@ public class LeaveTypeManagementBean implements Serializable{
 		public boolean isInsertDelete() {
 			return insertDelete;
 		}
-		/*
-		public void NamesList(){
-			leaveTypeService.fin
-		}
-		*/	
 		
 	}
  

@@ -1,3 +1,4 @@
+
 package com.beans.leaveapp.employeetype.repository;
 
 import java.util.List;

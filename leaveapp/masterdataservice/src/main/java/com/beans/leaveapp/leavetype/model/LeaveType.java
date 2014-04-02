@@ -1,3 +1,4 @@
+
 package com.beans.leaveapp.leavetype.model;
 
 import javax.persistence.Column;

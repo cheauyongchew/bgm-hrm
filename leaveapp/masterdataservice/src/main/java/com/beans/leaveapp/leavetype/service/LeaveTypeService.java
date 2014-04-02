@@ -1,3 +1,4 @@
+
 package com.beans.leaveapp.leavetype.service;
 
 import java.util.List;
@@ -15,6 +16,5 @@ public interface LeaveTypeService {
 	public LeaveType findByLeaveType(String name) throws LeaveTypeNotFound;
 	public List<String> findByName();
 }
-
 
 

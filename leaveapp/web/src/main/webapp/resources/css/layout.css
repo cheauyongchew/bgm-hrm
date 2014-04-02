@@ -1,3 +1,4 @@
+
 /* Color Info
 #fefdfa [Light Grayish Yellow]  
 #396c84 [Dark Moderate Blue] 
@@ -6,10 +7,10 @@
 
 body { 
     background-color: #fefdfa;
-    font-family: 'Maven Pro', sans-serif;
+    font-family: 'Sintony', sans-serif;
     font-size: 13px; 
     height: 100%;
-    margin: 0.5em;
+    margin: 0 0.5em;
 }
 
 button {
@@ -28,7 +29,12 @@ img {
 }
 
 h3 {
-    text-align: center;
+    font-family: 'Sintony', sans-serif;
+}
+
+.ui-scrollpanel > h3, .ui-scrollpanel-content > h3 {
+	margin: auto 5em;
+	text-align: left;
 }
 
 /* To set footer to stick at end of page */
@@ -63,7 +69,7 @@ h3 {
 /* Setting for menu text */
 .ui-menuitem-text {
     color: #fff;
-    font-family: 'Maven Pro', sans-serif;
+    font-family: 'Sintony', sans-serif;
     font-weight: bold;
     margin: auto 1em;
 }
@@ -83,7 +89,7 @@ a.ui-menuitem-link.ui-corner-all.ui-state-hover {
 /* Setting for datatable header */
 .ui-datatable-header.ui-widget-header.ui-corner-top {
     background: #faf5e5;
-    font-family: 'Maven Pro', sans-serif;
+    font-family: 'Sintony', sans-serif;
     padding: 10px;
     text-align: left;
     text-transform: capitalize;
@@ -100,14 +106,14 @@ a.ui-menuitem-link.ui-corner-all.ui-state-hover {
 th {
     background: #FF9912 !important;
     color: #fff !important;
-    font-family: 'Maven Pro', sans-serif;
+    font-family: 'Sintony', sans-serif;
     font-size: 13.5px !important;
     font-weight: bold;
 }
 
 /* Setting for all datatable content */
 tr.ui-widget-content.ui-datatable-selectable, .ui-datatable-data {
-    font-family: 'Maven Pro', sans-serif;
+    font-family: 'Sintony', sans-serif;
     font-size: 12px;
     text-align: center !important;
 }
@@ -151,18 +157,18 @@ tr.ui-widget-content.ui-datatable-odd.ui-datatable-selectable.ui-state-hover {
 
 /* Setting for button */
 .ui-button-text {
-    background-color: #32cd32;
-    font-family: 'Maven Pro', sans-serif;
+    /* background-color: #b3b3b3; */
+    font-family: 'Sintony', sans-serif;
     font-size: 14px;
-    color: #fff;
+    /* color: #fff; */
     font-weight: bold;
-    text-shadow: none;
+    /* text-shadow: none; */
 }
 
 /* Setting for dialog box */
 .ui-dialog {
     background: #fefdfa !important;
-    font-family: 'Maven Pro', sans-serif;
+    font-family: 'Sintony', sans-serif;
 } 
 
 /* Setting for dialog titlebar */
@@ -181,13 +187,13 @@ tr.ui-widget-content.ui-datatable-odd.ui-datatable-selectable.ui-state-hover {
 tr.ui-widget-header {
     color: #396c84 !important;
     text-transform: uppercase;
-    font-family: 'Maven Pro', sans-serif;
+    font-family: 'Sintony', sans-serif;
     font-size: 16px;  
 }
 
 /* Setting for field label in widget */
 table.ui-panelgrid.ui-widget > tbody > tr.ui-widget-content > td {
-    font-family: 'Maven Pro', sans-serif;
+    font-family: 'Sintony', sans-serif;
     text-align: right ;
 }
 
@@ -195,7 +201,7 @@ table.ui-panelgrid.ui-widget > tbody > tr.ui-widget-content > td {
 .ui-widget input, .ui-inputfield.hasDatePicker {
     border: 1px solid gray;
     border-radius: 5px;
-    font-family: 'Maven Pro', sans-serif;
+    font-family: 'Sintony', sans-serif;
     width: 139px;
     padding: 1px 0.5em;
     margin: auto 3px;
@@ -203,8 +209,8 @@ table.ui-panelgrid.ui-widget > tbody > tr.ui-widget-content > td {
 
 /* Setting for selectonemenu field in form */
 .ui-selectonemenu {
-	border: 1px solid gray !important;
-    font-family: 'Maven Pro', sans-serif;
+    border: 1px solid gray !important;
+    font-family: 'Sintony', sans-serif;
     text-align: left;
     text-transform: capitalize;
     width: 140px !important;
@@ -213,165 +219,182 @@ table.ui-panelgrid.ui-widget > tbody > tr.ui-widget-content > td {
 /* Setting for selectonemenu trigger */
 .ui-selectonemenu-trigger.ui-corner-right {
     background: #fff ;
-    border-left: 1px solid gray !important;
+    border-left: hidden !important;
 }
 
 /* Setting to capitalize list item for selectonemenu */
 .ui-selectonemenu-list-item {
+    font-family: 'Sintony', sans-serif;
     text-transform: capitalize;
 }
 
 /* Setting for highlight state for selectonemenu */
 .ui-selectonemenu-list-item.ui-state-highlight {
    background: #396c84 !important;
+   font-family: 'Sintony', sans-serif;
 }
 
 /* Setting for selected tab */
 .ui-tabs-selected.ui-state-active > a {
-	background: #fefdfa !important;	
-	color: #f88d00 !important;
-	font-weight: bold !important;
+    background: #fefdfa !important; 
+    color: #f88d00 !important;
+    font-family: 'Sintony', sans-serif;
+    font-weight: bold !important;
 }
 
 /* Setting for normal tab */
 .ui-state-default > a {
-	color: #f88d00 !important;
+    color: #f88d00 !important;
+    font-family: 'Sintony', sans-serif;
 }
 
 /* Setting for hover tab */
 .ui-state-hover > a {
     background: #f88d00 !important; 
     color: #fff !important;
+    font-family: 'Sintony', sans-serif;
     font-weight: bold !important;
 }
 
 /* Setting for datepicker */
 .ui-datepicker-header, .ui-datepicker-unselectable  {
     background: #fefdfa !important;
+    font-family: 'Sintony', sans-serif;
 }
 
 /* Setting for dates background */
 a.ui-state-default {
-	background: none !important;
+    background: none !important;
+    font-family: 'Sintony', sans-serif;
 }
 
 /* Setting for today datepicker */
 a.ui-state-default.ui-state-highlight {
-	background: none !important;
-	color: #396c84 !important;
-	font-weight: bold;
+    background: none !important;
+    color: #396c84 !important;
+    font-family: 'Sintony', sans-serif;
+    font-weight: bold;
 }
 
 /* Setting for selected and hover datepicker */
 a.ui-state-default.ui-state-active, a.ui-state-default.ui-state-highlight.ui-state-active, a.ui-state-default.ui-state-hover   {
     background: #396c84 !important;
     color: #fff !important;
+    font-family: 'Sintony', sans-serif;
 }
 
 
 /* Setting for error message text */
 .ui-messages-error-summary {
    text-transform: capitalize;
-   font-family: 'Maven Pro', sans-serif;
+   font-family: 'Sintony', sans-serif;
 }
 
 /* Setting for myprofile panelgrid page */
 .ui-panelgrid-header > .ui-widget-header > td  {
- 	width: 1000px !important;
+    width: 1000px !important;
 }
 
 /* Setting for data not found */
 .ui-datatable-empty-message {
-	text-align: center;
+    text-align: center;
 }
 
 /* Setting for Search titlebar */
 .ui-panel-titlebar {
-	background: #f88d00 !important;
-	border-radius: 10px;
-	color: #fff;
-	font-size: 16px;
-	font-weight: bold;
-	text-align: left;
-	text-transform: uppercase;
+    background: #f88d00 !important;
+    border-radius: 5px;
+    color: #fff;
+    font-family: 'Sintony', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: left;
 }
 
 /* Setting for titlebar toggle button */
 .ui-panel-titlebar-icon.ui-corner-all.ui-state-default {
-	background: #fff !important;
+    background: #fff !important;
 }
 
 /* Setting for panel and datatable  */
 .ui-panel, .ui-datatable {
-	background: #faf5e5;
-	border: 1px solid #f1e4ba;
-	border-radius: 10px;
-	margin: 10px 5px;
+    background: #faf5e5;
+    border: 1px solid #f1e4ba;
+    border-radius: 10px;
+    margin: 10px 5px;
 }
 
 /* Setting for paginator */
 .ui-paginator {
-	background: none !important;
+    background: none !important;
 }
 
 /* Setting for paginator background */
 .ui-paginator-first, .ui-paginator-prev, .ui-paginator-page, .ui-paginator-next, .ui-paginator-last {
-	background: #fff !important;
-	font-family: 'Maven Pro', sans-serif;
+    background: #fff !important;
+    font-family: 'Sintony', sans-serif;
 }
 
 /* Setting for scrollable datatable */
 .ui-datatable-scrollable-header-box, .ui-datatable-scrollable-body {
-	width: 100%;
+    width: 100%;
 }
 
 /* Setting for scrollpanel */
 .ui-scrollpanel, .ui-scrollpanel-content {
-	background: #faf5e5 !important;
-	width: 100% !important;
-	height: 100% !important;
+    background: #faf5e5 !important;
+    width: 100% !important;
+    height: 100% !important;
 }
 
 /* Setting to centralize button in panelgrid */
 .ui-panelgrid-footer > tr.ui-widget-header > td, tr.ui-widget-content > td {
-	text-align: center;
+    text-align: right;
 }
 
+/* Setting to centralize content */
+tr.ui-widget-content > td {
+    text-align: center;
+}
+
+
 /* Setting to centralize panelgrid */
-.ui-panelgrid {
+/* .ui-panelgrid {
     margin: auto;
     padding: 25px;
-}
+} */
 
 /* Setting for hiding content border */
 .ui-tabs.ui-widget-content, .ui-tabs.ui-tabs-top .ui-tabs-nav.ui-widget-header {
-	border: none !important;
+    border: none !important;
 }
 
 /* Setting for tab borders */
 .ui-tabs-panel.ui-widget-content.ui-corner-bottom {
-	border: 1px solid #DDDDDD;
-	border-radius: 3px;
+    border: 2px solid #DDDDDD;
+    border-radius: 3px;
 }
 
 /* Setting for picklist caption */
 .ui-picklist-caption {
-	background: #396c84;
-	color: #fff;
-	font-family: 'Maven Pro', sans-serif;
+    background: #396c84;
+    color: #fff;
+    font-family: 'Sintony', sans-serif;
 }
 
 /* Setting for picklist list */
 .ui-picklist-list {
-	text-align: center;
-	font-size: 12px;
+	font-family: 'Sintony', sans-serif;
+    text-align: center;
+    font-size: 12px;
 }
 
 /* Setting for picklist highlight  */
 .ui-picklist-item.ui-state-highlight {
-	background: #dfebf1;
+    background: #dfebf1;
     color: #000;
+    font-family: 'Sintony', sans-serif;
     font-weight: normal;
-	
+    
 }
 
