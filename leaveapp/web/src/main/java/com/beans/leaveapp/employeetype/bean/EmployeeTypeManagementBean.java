@@ -107,8 +107,9 @@ public class EmployeeTypeManagementBean implements Serializable{
 		newEmployeeType.setDeleted(false);
 		getEmployeeTypeService().create(newEmployeeType);
 		setInsertDelete(true);
-		auditTrail.log(SystemAuditTrailActivity.CREATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has created an Employee Type");
 		newEmployeeType = new EmployeeType();
+		auditTrail.log(SystemAuditTrailActivity.CREATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has created an employee type");
+		
 	}
 	
 	public void doUpdateEmployeeType() throws EmployeeTypeNotFound {
@@ -116,7 +117,7 @@ public class EmployeeTypeManagementBean implements Serializable{
 			System.out.println("New name:" + selectedEmployeeType.getName());
 			System.out.println("ID: " + selectedEmployeeType.getId());
 			getEmployeeTypeService().update(selectedEmployeeType);
-			auditTrail.log(SystemAuditTrailActivity.UPDATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has updated an Employee Type");
+			auditTrail.log(SystemAuditTrailActivity.UPDATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has updated an employee type");
 			
 		// RequestContext.getCurrentInstance().
 		} catch(Exception e) {
@@ -137,7 +138,7 @@ public class EmployeeTypeManagementBean implements Serializable{
 	public void doDeleteEmployeeType() throws Exception, EmployeeTypeNotFound {
 		try {
 			getEmployeeTypeService().delete(selectedEmployeeType.getId());
-			auditTrail.log(SystemAuditTrailActivity.DELETED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has deleted an Employee Type");
+			auditTrail.log(SystemAuditTrailActivity.DELETED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has deleted an employee type");
 			
 		} catch(EmployeeTypeNotFound e) {
 			FacesMessage msg = new FacesMessage("Error", "Employee Type With id: " + selectedEmployeeType.getId() + " not found!");  

@@ -99,6 +99,7 @@ private static final long serialVersionUID = 1L;
 		newDepartment.setDeleted(false);
 		getDepartmentService().create(newDepartment);
 		setInsertDelete(true);
+		newDepartment = new Department();
 		auditTrail.log(SystemAuditTrailActivity.CREATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has created a department");
 		
 	}

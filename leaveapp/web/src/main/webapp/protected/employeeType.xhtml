@@ -49,11 +49,14 @@
         
         
         </p:dataTable>
-        
-        <p:commandButton value="New Employee Type" oncomplete="PF('newEmployeeTypeDialog').show()"
+           
+      </h:form>
+      
+      <h:form id="commandButtonForm">
+       <p:commandButton value="New Employee Type" update=":newEmployeeTypeForm" oncomplete="PF('newEmployeeTypeDialog').show()"
          icon="ui-icon-star" title="Creates new type"/>
-         
-      </h:form>      
+       </h:form>
+               
    <!--    $('.dlgCSS').css('background-color','red');  $('body').css('background-color','green');-->
       <p:growl id="growl" showDetail="true" life="1000"/> 
   </ui:define>  
