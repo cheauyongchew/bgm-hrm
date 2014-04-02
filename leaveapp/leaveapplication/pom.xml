@@ -85,6 +85,13 @@
 			<version>${project.version}</version>
 		</dependency>
 
+
+		<dependency>
+			<groupId>${project.groupid}</groupId>
+			<artifactId>employeeprofileservice</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
 	</dependencies>
   
 </project>

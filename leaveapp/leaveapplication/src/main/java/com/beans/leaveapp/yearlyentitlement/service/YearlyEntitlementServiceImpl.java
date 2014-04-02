@@ -1,3 +1,4 @@
+
 package com.beans.leaveapp.yearlyentitlement.service;
 
 import java.util.ArrayList;
@@ -6,6 +7,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.beans.common.audit.service.AuditTrail;
 import com.beans.leaveapp.employee.model.Employee;
 import com.beans.leaveapp.employee.repository.EmployeeRepository;
 import com.beans.leaveapp.leavetype.model.LeaveType;
@@ -32,6 +34,7 @@ public  class YearlyEntitlementServiceImpl implements YearlyEntitlementService{
 	
 	EmployeeEntitlement employeeEntitlement = new EmployeeEntitlement();
 	
+	AuditTrail auditTrail;
 	
 	
 	
@@ -198,7 +201,7 @@ public  class YearlyEntitlementServiceImpl implements YearlyEntitlementService{
 	@Override
 	public List<EmployeeEntitlement> findByEmployeeId(int x) {
 		
-		List<YearlyEntitlement> employeeYearlyEntitlementList =  (List<YearlyEntitlement>)yearlyEntitleRepository.findByEmployeeId(x);
+		List<YearlyEntitlement> employeeYearlyEntitlementList =  (List<YearlyEntitlement>)yearlyEntitleRepository.findByEmployeeIdLike(x);
 		List<EmployeeEntitlement> employeeEntitlementList  = new ArrayList<EmployeeEntitlement>();
 		 for(YearlyEntitlement yearlyEntitlement : employeeYearlyEntitlementList){
 			int leaveTypeId =  yearlyEntitlement.getLeaveTypeId();
@@ -216,5 +219,171 @@ public  class YearlyEntitlementServiceImpl implements YearlyEntitlementService{
 		
 	}
 
+
+
+	@Override
+	public List<LeaveEntitlement> findByEmployee(int x) {
+		List<YearlyEntitlement> yearlyEntitlementlist = yearlyEntitleRepository.findByEmployeeIdLike(x);
+		 List<LeaveEntitlement> leaveEntitlementList = new ArrayList<LeaveEntitlement>();
+		if(yearlyEntitlementlist != null){
+			 for(YearlyEntitlement y :yearlyEntitlementlist){
+				 
+				 Employee employeeObj = employeeRepository.findOne(y.getEmployeeId());
+				 LeaveType leaveTypeObj = leaveTypeRepository.findOne(y.getLeaveTypeId());
+				if(employeeObj != null || leaveTypeObj != null){
+					 String name = null,leaveType = null;
+					 
+					 
+				if(employeeObj.getName() != null){
+				 name = employeeObj.getName();
+				}
+				
+				if(leaveTypeObj.getName() != null){
+				    // id =lt.getId();
+				     leaveType = leaveTypeObj.getName();
+				}
+				 Double d = y.getEntitlement();
+				 Double ab = y.getAvailableBalance();
+				int id = y.getId();
+				 System.out.println(leaveEntitlement.getEmployeeName()+" "+leaveEntitlement.getAvailableBalance()+ " " +leaveEntitlement.getEntitlement() + " "+leaveEntitlement.getId());			 
+				 leaveEntitlementList.add(new LeaveEntitlement(id,d,ab,name,leaveType));
+	             
+				   
+				}
+			 }
+			 }
+		
+		return leaveEntitlementList;
+	}
+
+
+
+	@Override
+	public List<LeaveEntitlement> findBySearchLeave(int leaveTypeId) {
+		List<YearlyEntitlement> yearlyEntitlementlist = yearlyEntitleRepository.findByLeaveTypeIdLike(leaveTypeId);
+		 List<LeaveEntitlement> leaveEntitlementList = new ArrayList<LeaveEntitlement>();
+			if(yearlyEntitlementlist != null){
+				 for(YearlyEntitlement y :yearlyEntitlementlist){
+					 
+					 Employee employeeObj = employeeRepository.findOne(y.getEmployeeId());
+					 LeaveType leaveTypeObj = leaveTypeRepository.findOne(y.getLeaveTypeId());
+					if(employeeObj != null || leaveTypeObj != null){
+						 String name = null,leaveType = null;
+					if(employeeObj.getName() != null){
+					 name = employeeObj.getName();
+					}
+					
+					if(leaveTypeObj.getName() != null){
+					    // id =lt.getId();
+					     leaveType = leaveTypeObj.getName();
+					}
+					 Double d = y.getEntitlement();
+					 Double ab = y.getAvailableBalance();
+					int id = y.getId();
+					 System.out.println(leaveEntitlement.getEmployeeName()+" "+leaveEntitlement.getAvailableBalance()+ " " +leaveEntitlement.getEntitlement() + " "+leaveEntitlement.getId());			 
+					 leaveEntitlementList.add(new LeaveEntitlement(id,d,ab,name,leaveType));
+		             
+					   
+					}
+				 }
+				 }
+			
+			return leaveEntitlementList;
+	}
+
+
+
+	// @SuppressWarnings("unused")
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<LeaveEntitlement> findByEmployeeIdAndfindByLeaveTypeId(String employeeName,String leaveType) {
+		try{
+		List<YearlyEntitlement> yearlyEntitlementlist = new  LinkedList<YearlyEntitlement>();
+		 List<Integer> employeeIds = new ArrayList<Integer>();
+		 List<Integer> leaveTypeIds = new ArrayList<Integer>();
+		boolean e = employeeName.trim().equals(""), e1=leaveType.trim().equals("");
+		String leaveTypeSearchTerm = "%" + leaveType + "%";
+		String employeeNameSearchTerm = "%" + employeeName + "%";
+		boolean ee = !e,ee1 = !e1;
+       if(ee && ee1){
+    	   System.out.println(employeeName.trim().equals("")+"  "+leaveType.trim().equals("")+" "+leaveTypeSearchTerm+" "+employeeNameSearchTerm);
+    	   List<LeaveType> leaveTypeList =(List<LeaveType>) leaveTypeRepository.findByNameLike(leaveTypeSearchTerm);
+    	   
+    	   for(LeaveType leaveTypeObj: leaveTypeList){
+    		   Integer id = leaveTypeObj.getId();
+    		   leaveTypeIds.add(id);
+    	   }
+    	   List<Employee> employeelist = (List<Employee>) employeeRepository.findByEmployeeNameLike(employeeNameSearchTerm);
+    	   for(Employee employeeObj :employeelist){
+    		   int name =  employeeObj.getId();
+    		   employeeIds.add(name);
+    		  
+    	   }
+		for(Integer i:leaveTypeIds){
+			for(Integer ii:employeeIds){
+				yearlyEntitlementlist= (List<YearlyEntitlement>)yearlyEntitleRepository.findByEmployeeIdAndLeaveTypeIdLike(i, ii);
+			}
+		}
+		
+			
+       }else if(ee) {
+            
+			
+    	   List<Employee> employeelist = employeeRepository.findByEmployeeNameLike(employeeNameSearchTerm);
+    	   for(Employee employeeObject : employeelist){
+			 yearlyEntitlementlist =  yearlyEntitleRepository.findByEmployeeIdLike(employeeObject.getId());
+    	   }
+		
+		} else if(ee1){
+			
+			 List<LeaveType> leaveTypeList = leaveTypeRepository.findByNameLike(leaveTypeSearchTerm);
+			 for(LeaveType leaveTypeObj: leaveTypeList){
+			 yearlyEntitlementlist =  yearlyEntitleRepository.findByLeaveTypeIdLike(leaveTypeObj.getId());
+			 }
+			
+		}else{
+			System.out.println("both are null values");
+		}
+		
+		List<LeaveEntitlement> leaveEntitlementList = new ArrayList<LeaveEntitlement>();
+		
+		if(yearlyEntitlementlist != null){
+			 for(YearlyEntitlement yearlyEntitlementObj :yearlyEntitlementlist){
+				 
+				 Employee employeeObj = employeeRepository.findOne(yearlyEntitlementObj.getEmployeeId());
+				 LeaveType leaveTypeObj = leaveTypeRepository.findOne(yearlyEntitlementObj.getLeaveTypeId());
+				if(employeeObj != null || leaveTypeObj != null){
+					 String name = null,leaveTypeVar = null;
+					 
+					 
+				if(employeeObj.getName() != null){
+				 name = employeeObj.getName();
+				}
+				
+				if(leaveTypeObj.getName() != null){
+				    // id =lt.getId();
+					leaveTypeVar = leaveTypeObj.getName();
+				}
+				 Double d = yearlyEntitlementObj.getEntitlement();
+				 Double ab = yearlyEntitlementObj.getAvailableBalance();
+				int id = yearlyEntitlementObj.getId();
+				 System.out.println(leaveEntitlement.getEmployeeName()+" "+leaveEntitlement.getAvailableBalance()+ " " +leaveEntitlement.getEntitlement() + " "+leaveEntitlement.getId());			 
+				 leaveEntitlementList.add(new LeaveEntitlement(id,d,ab,name,leaveTypeVar));
+	             
+				   
+				}
+		
+	}
+		}
+		
+		return leaveEntitlementList;
+	}
 	
+	catch(Exception e){
+		e.printStackTrace();
+	}
+		return null;
 }
+}
+	
+	

@@ -26,7 +26,7 @@ public class SystemAuditTrailManagementBean implements Serializable {
 	private boolean insertDeleted = false;
 	private boolean forDates = false;
 
-	SimpleDateFormat s = new SimpleDateFormat("yyyy-mm-dd");
+	SimpleDateFormat s = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
 
 	public Date date1;
 	public Date date2;
@@ -50,17 +50,20 @@ public class SystemAuditTrailManagementBean implements Serializable {
 	public void search() throws Exception {
 
 		if(date1 != null && date2 != null){
-		java.sql.Date date = new java.sql.Date(date1.getTime());
-		java.sql.Date dates = new java.sql.Date(date2.getTime());
-
+		java.sql.Date fromDate = new java.sql.Date(date1.getTime());
+		java.sql.Date toDate = new java.sql.Date(date2.getTime());
+	
 		List<SystemAuditTrail> systemAuditTrailList = getSystemAuditTrailService()
-				.findSelectedDates(date, dates);
+				.findSelectedDates(fromDate, toDate);
 
 		setSystemAuditTrailList(getSystemAuditTrailService().findSelectedDates(
-				date, dates));
+				fromDate, toDate));
 		System.out.println(getSystemAuditTrailList().size());
 		forDates = true;
 		this.getSystemAuditTrailDataModel();
+		date1.getTime();
+		String currentTime = s.format(fromDate);
+		System.out.println(currentTime);
 		}
 	}
 
@@ -134,58 +137,5 @@ public class SystemAuditTrailManagementBean implements Serializable {
 	public void setSystemAuditTrailList(
 			List<SystemAuditTrail> systemAuditTrailLists) {
 		this.systemAuditTrailList = systemAuditTrailLists;
-	}
-
-	public void doCreateSystemAuditTrail() throws Exception {
-		getSystemAuditTrailService().create(newSystemAuditTrail);
-		setInsertDelete(true);
-	}
-
-	public void doUpdate() throws Exception {
-
-		try {
-
-			System.out.println("ID: " + selectedSystemAuditTrail.getDate());
-			System.out.println("ID: " + selectedSystemAuditTrail.getId());
-			System.out.println("ActorUsername: "
-					+ selectedSystemAuditTrail.getActorUsername());
-			System.out.println("Description: "
-					+ selectedSystemAuditTrail.getDescription());
-
-			getSystemAuditTrailService().update(selectedSystemAuditTrail);
-
-		} catch (Exception e) {
-			FacesMessage msg = new FacesMessage("Error", "Leave Type With id: "
-					+ selectedSystemAuditTrail.getId() + " not found!");
-
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-		}
-	}
-
-	public void onRowSelect(SelectEvent event) {
-		setSelectedSystemAuditTrail((SystemAuditTrail) event.getObject());
-		FacesMessage msg = new FacesMessage("Leave Type Selected",
-				selectedSystemAuditTrail.getDescription()); // need to update
-
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-	}
-
-	public void doDeleteSystemAuditTrail() {
-		try {
-			getSystemAuditTrailService().delete(
-					selectedSystemAuditTrail.getId());
-			this.search();
-		} catch (Exception e) {
-			FacesMessage msg = new FacesMessage("Error", "Leave Type With id: "
-					+ selectedSystemAuditTrail.getId() + " not found!");
-
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-		}
-
-		setInsertDelete(true);
-	}
-
-	public void doResetFrom() throws Exception {
-
 	}
 }

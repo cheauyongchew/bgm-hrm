@@ -1,3 +1,4 @@
+
 package com.beans.leaveapp.employeetype.bean;
 
 import java.io.Serializable;
@@ -169,3 +170,4 @@ public class EmployeeTypeManagementBean implements Serializable{
 	}
 
 }
+

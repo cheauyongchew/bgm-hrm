@@ -69,3 +69,4 @@ public class EmployeeTypeServiceImpl implements EmployeeTypeService {
 	}
 
 }
+

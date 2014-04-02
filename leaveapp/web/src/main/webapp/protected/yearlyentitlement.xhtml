@@ -19,15 +19,31 @@
         <h1>Yearly Entitlement Maintenance</h1>
 		<h:form id="yearlyEntitlementTable">
 
-<h:inputText value="#{yearlyEntitlementMgmtBean.employeeName}" />
-<p:commandButton value="Search" action="#{yearlyEntitlementMgmtBean.search}" update=":yearlyEntitlementTable:yearlyEntitlementTable" ></p:commandButton>
-
+ <p:panel header="Search" toggleable="true">
+			<p:panelGrid id="SearchEmployee" columns="2" cellpadding="4">
+				
+				<h:outputText value="Name" />
+					<h:inputText value="#{yearlyEntitlementMgmtBean.employeeName}">
+					</h:inputText>
+				
+				<h:outputText value="Leave Type" />
+					<h:inputText value="#{yearlyEntitlementMgmtBean.leaveTypeName}">
+					</h:inputText>
+					
+				<f:facet name="footer">				
+					<p:commandButton value="Search" update=":yearlyEntitlementTable:yearlyEntitlementTable" actionListener="#{yearlyEntitlementMgmtBean.search}" ajax="false"></p:commandButton>
+					<p:commandButton type="reset" value="Reset" update=":yearlyEntitlementTable:yearlyEntitlementTable" ></p:commandButton>
+				</f:facet>
+			</p:panelGrid>
+		</p:panel> 
+		
 				 <p:dataTable id="yearlyEntitlementTable" widgetVar="yearlyEntitlementTableVar"
 					var="yearlyEntitlement0"
 					value="#{yearlyEntitlementMgmtBean.yearlyEntitlementDataModel}"
 					rowKey="#{yearlyEntitlement0.id}"
 					selection="#{yearlyEntitlementMgmtBean.selectedLeaveEntitlement}"
-					selectionMode="single">
+					selectionMode="single"
+					 paginator="true" rows="10" scrollable="true" >
 					<p:ajax event="rowSelect"
 						listener="#{yearlyEntitlementMgmtBean.onRowSelect}"
 						update=":yearlyEntitlementDetailForm:display, :growl"

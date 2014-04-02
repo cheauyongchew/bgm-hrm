@@ -34,7 +34,11 @@ public interface EmployeeRepository extends CrudRepository<Employee, Integer>{
 	@Query("select e.name from Employee e")
 	List<String> findByNames();
 	
-	@Query("select e from Employee e where e.name = ?")
-	Employee findByName(String userName);
+	@Query("select e from Employee e where name = ? and isDeleted = 0")
+	Employee findByName(String name);
+	
+	@Query("select e from Employee e where name like ?")
+	List<Employee> findByEmployeeNameLike(String userName);
+	
 }
 

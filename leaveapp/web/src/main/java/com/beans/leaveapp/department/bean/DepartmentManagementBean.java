@@ -1,3 +1,4 @@
+
 package com.beans.leaveapp.department.bean;
 
 import java.io.Serializable;
