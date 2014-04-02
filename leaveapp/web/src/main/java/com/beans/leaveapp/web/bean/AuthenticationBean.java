@@ -13,6 +13,8 @@ import javax.servlet.ServletResponse;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.beans.common.audit.service.AuditTrail;
 import com.beans.common.audit.service.SystemAuditTrailActivity;
@@ -134,5 +136,6 @@ public class AuthenticationBean implements Serializable{
 	public void setAuditTrail(AuditTrail auditTrail) {
 		this.auditTrail = auditTrail;
 	}
+	
 }
 

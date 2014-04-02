@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS Department (
 CREATE TABLE IF NOT EXISTS Users (
   id INT(10) NOT NULL AUTO_INCREMENT,
   username VARCHAR(45) NOT NULL,
-  password VARCHAR(45) NOT NULL,
+  password VARCHAR(100) NOT NULL,
   enabled TINYINT(1) NOT NULL,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -246,7 +246,7 @@ INSERT INTO LeaveType(name, description, employeeTypeId, entitlement, isAccounta
 INSERT INTO LeaveType(name, description, employeeTypeId, entitlement, isAccountable, isDeleted) VALUES ('Maternity', 'Maternity leave', (SELECT id from EmployeeType WHERE name = 'PERM'), 60.0, 0, 0);
 INSERT INTO LeaveType(name, description, employeeTypeId, entitlement, isAccountable, isDeleted) VALUES ('Paternity', 'Paternity leave', (SELECT id from EmployeeType WHERE name = 'PERM'), 3.0, 0, 0);
 
-INSERT INTO Users(id, username, password, enabled) VALUES ('1', 'test1', 'test1', '1');
+INSERT INTO Users(id, username, password, enabled) VALUES ('1', 'test1', '$2a$10$qzEqlpoVOYv4yT/pAqq7L.Y8PX.DLbtfWuPDvenJfcfhJd4I2wvZy', '1');
 
 INSERT INTO Role(id, role, description, isDeleted) VALUES ('1', 'ROLE_USER', 'Normal User', 0);
 
