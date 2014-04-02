@@ -1,30 +1,5 @@
 package com.beans.leaveapp.jbpm6.util;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-
-import javax.persistence.EntityManagerFactory;
-
-import org.kie.api.KieServices;
-import org.kie.api.io.ResourceType;
-import org.kie.api.runtime.EnvironmentName;
-import org.kie.api.runtime.KieSession;
-import org.kie.api.runtime.manager.RuntimeEngine;
-import org.kie.api.runtime.manager.RuntimeEnvironment;
-import org.kie.api.runtime.manager.RuntimeEnvironmentBuilder;
-import org.kie.api.runtime.manager.RuntimeManager;
-import org.kie.api.runtime.manager.RuntimeManagerFactory;
-import org.kie.api.runtime.process.ProcessInstance;
-import org.kie.api.task.TaskService;
-import org.kie.api.task.model.Task;
-import org.kie.api.task.model.TaskSummary;
-import org.kie.internal.runtime.manager.context.EmptyContext;
-import org.kie.internal.runtime.manager.context.ProcessInstanceIdContext;
-import org.springframework.transaction.support.AbstractPlatformTransactionManager;
-
-import com.beans.util.config.ConfigurationHolder;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;

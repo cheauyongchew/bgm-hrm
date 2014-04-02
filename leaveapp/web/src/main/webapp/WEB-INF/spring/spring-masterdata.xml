@@ -70,19 +70,14 @@
 	 <bean id="roleService" class="com.beans.common.security.role.service.RoleServiceImpl">
 	 </bean>
 
-<bean id="yearlyEntitlement" class="com.beans.leaveapp.yearlyentitlement.model.YearlyEntitlement" />
-	
-	<bean id="yearlyEntitlementService" class=" com.beans.leaveapp.yearlyentitlement.service.YearlyEntitlementServiceImpl">
-	
+	<bean id="yearlyEntitlement" class="com.beans.leaveapp.yearlyentitlement.model.YearlyEntitlement" />	
+	<bean id="yearlyEntitlementService" class=" com.beans.leaveapp.yearlyentitlement.service.YearlyEntitlementServiceImpl">	
 	</bean>	 
 	
 	 <bean id="accessRights" class="com.beans.common.security.accessrights.model.AccessRights"/>
     <bean id="accessRightsService" class="com.beans.common.security.accessrights.service.AccessRightsServiceImpl">
-    </bean>  
-	 
-	 <bean id="userToAccessRights" class="com.beans.common.security.usertoaccessrights.model.UserToAccessRights"/>
-	 <bean id="userToAccessRightsService" class="com.beans.common.security.usertoaccessrights.service.UserToAccessRightsServiceImpl">
-	 </bean>
+    </bean>  	 
 
 
 </beans>
+

@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS LeaveType (
 
 CREATE TABLE IF NOT EXISTS SystemAuditTrail (
     id INT(10) NOT NULL AUTO_INCREMENT,
-    actionDate DATE,
+    actionDate DATETIME,
     level VARCHAR(10),
     activity VARCHAR(15),
     description VARCHAR(50),
@@ -207,7 +207,8 @@ CREATE TABLE IF NOT EXISTS UserToAccessRights (
   id int(10) NOT NULL AUTO_INCREMENT,
   userId int(10) NOT NULL ,
   accessRightsId int(10) NOT NULL,
-  enabled TINYINT(1),
+  enabled TINYINT(1) NOT NULL,
+  isDeleted TINYINT(1) NOT NULL,
   FOREIGN KEY (userId) REFERENCES Users(id),
   FOREIGN KEY (accessRightsId) REFERENCES AccessRights(id),
   PRIMARY KEY (id)
@@ -256,4 +257,6 @@ INSERT INTO AccessRights(id, accessRights, description, isDeleted) VALUES ('1', 
 INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('1', '1');
 
 INSERT INTO Employee(name, employeenumber, position, employeeGradeId, employeeTypeId, departmentId, userId, isDeleted, isResigned) values('Lim', '12', 'Software Engineer', 1, 1, 1, 1, 0, 0); 
+
+INSERT INTO UserToAccessRights(id, userId, accessRightsId, enabled, isDeleted) values('1', '1', '1', '1', 0);
  

@@ -1,3 +1,7 @@
+<<<<<<< HEAD
 default.configuration=web (5)
+=======
+default.configuration=web
+>>>>>>> de75f16b1767df93cac127f36e064fbeefa55d9b
 eclipse.preferences.version=1
 hibernate3.enabled=true

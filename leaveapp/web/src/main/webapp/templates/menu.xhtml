@@ -16,15 +16,14 @@
 		<p:menubar>
 			<p:menuitem value="Home" url="/protected/index.jsf" />
 			<p:menuitem value="My Profile" url="/protected/employeeprofile/myprofile.jsf"/>
-			<p:menuitem value="Employee List" url="/protected/employeeprofile/employeeprofilemgmt.jsf"/>
+			<p:menuitem value="Employees" url="/protected/employeeprofile/employeeprofilemgmt.jsf"/>
 			<p:submenu label="Administration">
 				<p:submenu label="Master Data Management">					
 					<p:menuitem value="Leave Type" url="/protected/leavetypemgmt.jsf" />
 					<p:menuitem value="Employee Grade" url="/protected/employeeGrade.jsf"/>
 					<p:menuitem value="Employee Type" url="/protected/employeeType.jsf"/>
 					<p:menuitem value="Department" url="/protected/department.jsf"/>
-					<p:menuitem value="System Audit Trail" url="/protected/systemAuditTrail.jsf"/>
-                     <p:menuitem value="Yearly Entitlement" url="/protected/yearlyentitlement.jsf"/>
+					
 				</p:submenu>
 				<p:submenu label="Access Control">
 					<p:menuitem value="Roles" url="/protected/role.jsf"/>
@@ -34,6 +33,8 @@
 					<p:menuitem value="User To Access Rights" url="/protected/usertoaccessrightsmapping.jsf"/>
 					
 				</p:submenu>
+				<p:menuitem value="System Audit Trail" url="/protected/systemAuditTrail.jsf"/>
+                <p:menuitem value="Yearly Entitlement" url="/protected/yearlyentitlement.jsf"/>
 			</p:submenu>
 			<p:menuitem value="Logout" action="${authenticationBean.doLogout}"></p:menuitem>
 		</p:menubar>
@@ -44,4 +45,5 @@
 </h:body>
 
 </html>
+
 

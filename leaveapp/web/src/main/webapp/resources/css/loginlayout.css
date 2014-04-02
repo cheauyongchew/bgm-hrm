@@ -1,5 +1,6 @@
+
 body,div,td {
-    font-family: 'Maven Pro', sans-serif;
+    font-family: 'PT Sans', sans-serif;
     font-size: 14px;
     word-wrap: break-word;
 }
@@ -29,6 +30,7 @@ img {
    bottom: 0;
    color: #fff;
    height: 20px;
+   left: 0;
    position: absolute;
    text-align: center;
    width: 100%; 
@@ -90,8 +92,9 @@ img {
 }
 
 input {
-	border-radius: 5px;
-	padding: 1px 0.5em;
-	
+    border-radius: 5px;
+    font-family: 'PT Sans', sans-serif !important;
+    padding: 1px 0.5em;
+    
 }
 

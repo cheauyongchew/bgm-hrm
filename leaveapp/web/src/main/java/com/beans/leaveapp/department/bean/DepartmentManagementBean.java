@@ -1,3 +1,4 @@
+
 package com.beans.leaveapp.department.bean;
 
 import java.io.Serializable;
@@ -8,6 +9,10 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.event.SelectEvent;
 
+import com.beans.common.audit.service.AuditTrail;
+import com.beans.common.audit.service.SystemAuditTrailActivity;
+import com.beans.common.audit.service.SystemAuditTrailLevel;
+import com.beans.common.security.users.model.Users;
 import com.beans.leaveapp.department.model.DepartmentDataModel;
 import com.beans.leaveapp.department.model.Department;
 import com.beans.leaveapp.department.service.DepartmentNotFound;
@@ -25,6 +30,8 @@ private static final long serialVersionUID = 1L;
 	private Department newDepartment = new Department();
 	private Department selectedDepartment = new Department();
 	private boolean insertDeleted = false;
+	private Users actorUsers;
+	private AuditTrail auditTrail;
 	
 
 	public DepartmentService getDepartmentService() {
@@ -93,6 +100,9 @@ private static final long serialVersionUID = 1L;
 		newDepartment.setDeleted(false);
 		getDepartmentService().create(newDepartment);
 		setInsertDelete(true);
+		newDepartment = new Department();
+		auditTrail.log(SystemAuditTrailActivity.CREATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has created a department");
+		
 	}
 	
 	public void doUpdateDepartment() throws DepartmentNotFound {
@@ -100,6 +110,8 @@ private static final long serialVersionUID = 1L;
 			System.out.println("New name:" + selectedDepartment.getName());
 			System.out.println("ID: " + selectedDepartment.getId());
 			getDepartmentService().update(selectedDepartment);
+			auditTrail.log(SystemAuditTrailActivity.UPDATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has updated a department");
+			
 		// RequestContext.getCurrentInstance().
 		} catch(Exception e) {
 			FacesMessage msg = new FacesMessage("Error", "Department With id: " + selectedDepartment.getId() + " not found!");  
@@ -119,6 +131,8 @@ private static final long serialVersionUID = 1L;
 	public void doDeleteDepartment() throws Exception, DepartmentNotFound {
 		try {
 			getDepartmentService().delete(selectedDepartment.getId());
+			auditTrail.log(SystemAuditTrailActivity.DELETED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has deleted a department");
+			
 		} catch(DepartmentNotFound e) {
 			FacesMessage msg = new FacesMessage("Error", "Department With id: " + selectedDepartment.getId() + " not found!");  
 			  
@@ -131,4 +145,20 @@ private static final long serialVersionUID = 1L;
 	public void doResetFrom() throws DepartmentNotFound {
 		
 	}
+	
+	public Users getActorUsers() {
+		return actorUsers;
+	}
+	public void setActorUsers(Users actorUsers) {
+		this.actorUsers = actorUsers;
+	}
+	
+	
+	public AuditTrail getAuditTrail() {
+		return auditTrail;
+	}
+	public void setAuditTrail(AuditTrail auditTrail) {
+		this.auditTrail = auditTrail;
+	}
+
 }

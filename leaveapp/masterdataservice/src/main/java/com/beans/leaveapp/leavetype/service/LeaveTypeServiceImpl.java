@@ -66,6 +66,12 @@ public class LeaveTypeServiceImpl implements LeaveTypeService {
 		
 		return leaveType;
 	}
+
+	@Override
+	public LeaveType findByLeaveType(String name) throws LeaveTypeNotFound {
+		LeaveType leaveTypeList =  leaveTypeRepository.findByName(name);
+		return leaveTypeList;
+	}
 	
 
 	

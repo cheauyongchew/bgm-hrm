@@ -1,9 +1,5 @@
-
 package com.beans.leaveapp.jbpm6.service;
 
-import javax.persistence.EntityManagerFactory;
-
-import org.springframework.transaction.support.AbstractPlatformTransactionManager;
 import java.util.HashMap;
 import java.util.List;
 

@@ -1,7 +1,7 @@
+
 package com.beans.leaveapp.yearlyentitlement.bean;
 
 import java.io.Serializable;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -9,10 +9,13 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.event.SelectEvent;
 
-import com.beans.common.security.users.service.UsersNotFound;
+import com.beans.common.audit.service.AuditTrail;
+import com.beans.common.audit.service.SystemAuditTrailActivity;
+import com.beans.common.audit.service.SystemAuditTrailLevel;
+import com.beans.common.security.users.model.Users;
 import com.beans.leaveapp.employee.model.Employee;
-import com.beans.leaveapp.employee.service.EmployeeNotFound;
 import com.beans.leaveapp.employee.service.EmployeeService;
+import com.beans.leaveapp.leavetype.service.LeaveTypeService;
 import com.beans.leaveapp.yearlyentitlement.model.EmployeeEntitlement;
 import com.beans.leaveapp.yearlyentitlement.model.EmployeeLeaveEntitlementDataModel;
 import com.beans.leaveapp.yearlyentitlement.model.LeaveEntitlement;
@@ -26,7 +29,6 @@ public class YearlyEntitlementManagementBean implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
 	private YearlyEntitlementService yearlyEntitlementService;
 	private YearlyEntitleDataModel yearlyEntitlementDataModel;
 	private YearlyEntitlement yearlyEntitlement = new YearlyEntitlement();
@@ -43,11 +45,24 @@ public class YearlyEntitlementManagementBean implements Serializable {
 	double availableBalance;
 	private Employee employee;
 	private EmployeeService employeeService;
-	private String employeeName;
+	private LeaveTypeService leaveTypeService;
+	private String employeeName = this.getEmployeeName();
+	private String leaveTypeName = this.getLeaveTypeName();
 	private String userName;
 	List<YearlyEntitlement>  listOfYearlyEntitlement;
 	List<EmployeeEntitlement> employeeEntitlementList;
 	EmployeeLeaveEntitlementDataModel employeeLeaveEntitlementDataModel;
+	private AuditTrail auditTrail;
+	
+	public AuditTrail getAuditTrail() {
+		return auditTrail;
+	}
+
+	public void setAuditTrail(AuditTrail auditTrail) {
+		this.auditTrail = auditTrail;
+	}
+
+	private Users actorUsers; 
 
 	public double getAvailableBalance() {
 		return availableBalance;
@@ -89,17 +104,6 @@ public class YearlyEntitlementManagementBean implements Serializable {
 	public void setYearlyEntitlement(YearlyEntitlement yearlyEntitlement) {
 		this.yearlyEntitlement = yearlyEntitlement;
 	}
-
-	/*
-	 * public List<YearlyEntitlement> getYearlyEntitlementList() throws
-	 * Exception { if(yearlyEntitlementList == null || delete == true){
-	 * yearlyEntitlementList = getYearlyEntitlementService().findAll();
-	 * 
-	 * System.out.println("entitlementListSize" +yearlyEntitlementList.size());
-	 * } return yearlyEntitlementList; }
-	 */
-	
-
 
 	public List<LeaveEntitlement> getYearlyEntitlementList() throws Exception {
 		if (leaveEntitlementList == null || InsertDelete == true) {
@@ -146,6 +150,13 @@ public class YearlyEntitlementManagementBean implements Serializable {
 			YearlyEntitlement selectedYearlyEntitlement) {
 		this.selectedYearlyEntitlement = selectedYearlyEntitlement;
 	}
+	public String getLeaveTypeName() {
+		return leaveTypeName;
+	}
+
+	public void setLeaveTypeName(String leaveTypeName) {
+		this.leaveTypeName = leaveTypeName;
+	}
 
 	public void doUpdateYearlyEntitlement() {
 		try {
@@ -168,7 +179,7 @@ public class YearlyEntitlementManagementBean implements Serializable {
 					.getEntitlement());
 			getYearlyEntitlementService().update(selectedYearlyEntitlement);
 		} catch (Exception e) {
-			FacesMessage msg = new FacesMessage("Error", "Leave Type With id: "
+			FacesMessage msg = new FacesMessage("Error", "Yearly Entitle With id: "
 					+ selectedYearlyEntitlement.getId() + " not found!");
 
 			FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -201,6 +212,8 @@ public class YearlyEntitlementManagementBean implements Serializable {
 	
 		this.getYearlyEntitlementService().create(newLeaveEntitlement);
 		setInsertDelete(true);
+		 auditTrail.log(SystemAuditTrailActivity.CREATED, SystemAuditTrailLevel.INFO, this.getActorUsers().getId(),getActorUsers().getUsername(), getActorUsers().getUsername()+" created yearly Entitlement: "+newLeaveEntitlement.getEmployeeName());
+	
 	}
 
 	public void employeeList() {
@@ -307,11 +320,46 @@ public class YearlyEntitlementManagementBean implements Serializable {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	
-	public void search(){
-		int id = getEmployeeService().findByEmployee(employeeName).getId();
-		// List<YearlyEntitlement> list = yearlyEntitlementService.findByEmployeeId(id);
+	 
+	public void search() {
+		try{
+		if((getEmployeeName() == null || getEmployeeName().trim().equals("")) && (getLeaveTypeName() == null || getLeaveTypeName().trim().equals(""))) {
+			this.leaveEntitlementList = null;
+		    this.yearlyEntitlementDataModel = null;
+		} else {
+		
+		   leaveEntitlementList = this.getYearlyEntitlementService().findByEmployeeIdAndfindByLeaveTypeId(getEmployeeName(),getLeaveTypeName() );
+		   this.yearlyEntitlementDataModel = null;
+		
+		   auditTrail.log(SystemAuditTrailActivity.ACCESSED, SystemAuditTrailLevel.INFO, actorUsers.getId(),actorUsers.getUsername(), actorUsers.getUsername()+" searching Entitlement of : "+getEmployeeName());
+		}
+		
 	}
 	
+	catch(Exception e){
+		e.printStackTrace(); 
+	}
+	}
+
+	private Object getUsers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public LeaveTypeService getLeaveTypeService() {
+		return leaveTypeService;
+	}
+
+	public void setLeaveTypeService(LeaveTypeService leaveTypeService) {
+		this.leaveTypeService = leaveTypeService;
+	}
+
+	public Users getActorUsers() {
+		return actorUsers;
+	}
+
+	public void setActorUsers(Users actorUsers) {
+		this.actorUsers = actorUsers;
+	}
 
 }

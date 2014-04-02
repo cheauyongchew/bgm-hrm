@@ -8,7 +8,6 @@
 	
 	
 <h:head>
-
 	
 <style>
 .ui-dialog.ui-dlgCSS-content 
@@ -24,47 +23,67 @@
 
 </h:head>
 	
-	 
-	<h:body>
+<h:body>
 <ui:composition template="/templates/mainlayout.xhtml">
 
 <ui:define name="title">System Audit Trail Records</ui:define>
 
 <ui:define name="content">
-       <h1>System Audit Trail Records</h1>
 
+       <h1>System Audit Trail Records</h1>
 		<h:form id="systemAuditTrailForm">
+		<p:panel header="Search" toggleable="true">
+			<p:panelGrid id="SearchEmployee" columns="2" cellpadding="4">
+				
+				<h:outputText value="From :" />
+					<p:calendar value="#{systemAuditTrailMgmtBean.date1}" pattern="MM/dd/yyyy HH:mm" id="start1" shownOn="button"/>
+					
+				
+				<h:outputText value="To :" />
+				<p:calendar value="#{systemAuditTrailMgmtBean.date2}" pattern="MM/dd/yyyy HH:mm" id="start2"  shownOn="button" />
+					
 		
-		<b>From :</b> 
-		<p:calendar value="#{systemAuditTrailMgmtBean.date1}" id="start1" shownOn="button"/>
-		   
-		<b>To :</b>   
-		<p:calendar value="#{systemAuditTrailMgmtBean.date2}" id="start2"  shownOn="button" />
+					
+				<f:facet name="footer">				
+						  <p:commandButton action="#{systemAuditTrailMgmtBean.search}" value="Search" update=":systemAuditTrailForm:systemAuditTrailTable" ajax="false"/>
+				          <p:commandButton value="Reset"  type="reset" update=":systemAuditTrailForm:systemAuditTrailTable" />
+				</f:facet>
+			</p:panelGrid>
+			</p:panel>
 		
-		  <p:commandButton action="#{systemAuditTrailMgmtBean.search}" value="Search" update=":systemAuditTrailForm:systemAuditTrailTable" ajax="false"/>
-		     
 		  
-        <p:dataTable id="systemAuditTrailTable" widgetVar="systemAuditTraiVar" var="systemAudit0" value="#{systemAuditTrailMgmtBean.systemAuditTrailDataModel}" rowKey="#{systemAudit0.id}">
+        <p:dataTable id="systemAuditTrailTable" widgetVar="systemAuditTraiVar" var="systemAudit0" scrollable="true" rows="10" paginator="true" value="#{systemAuditTrailMgmtBean.systemAuditTrailDataModel}" rowKey="#{systemAudit0.id}">
             
-          <p:column id="date" >
-            <f:facet name="header"> Date </f:facet>
-            <h:outputText value="#{systemAudit0.date}" />
+             <p:column id="userNameHeader" sortById="actorUsername">
+            <f:facet name="header"> User Name </f:facet>
+            <h:outputText value="#{systemAudit0.actorUsername}" />
           </p:column>
-          <p:column id="descHeader">
+          
+          <p:column id="date"  sortBy="date">
+            <f:facet name="header"> Date </f:facet>
+            <h:outputText value="#{systemAudit0.date}" >
+           <f:convertDateTime pattern="MM/dd/yyyy HH:mm" />  
+            </h:outputText>
+          </p:column>
+          <p:column id="descHeader" sortBy="desription">
             <f:facet name="header"> Description </f:facet>
             <h:outputText value="#{systemAudit0.description}" />
           </p:column>
         
-        <p:column id="actorHeader">
-            <f:facet name="header"> ActorUserId </f:facet>
+        <p:column id="actorHeader" sortById="actorUserId">
+            <f:facet name="header"> Actor UserId </f:facet>
             <h:outputText value="#{systemAudit0.actorUserId}" />
           </p:column>
+        <p:column id="activityHeader" sortById="activity">
+            <f:facet name="header"> Activity </f:facet>
+            <h:outputText value="#{systemAudit0.activity}" />
+          </p:column>
+        
         </p:dataTable>
-         
+        
       </h:form>      
-      <p:growl id="growl" showDetail="true" life="1000"/> 
+    
   </ui:define>  
-  
 	
 </ui:composition>
 </h:body>
