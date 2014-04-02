@@ -7,7 +7,7 @@
 
 body { 
     background-color: #fefdfa;
-    font-family: 'Sintony', sans-serif;
+    font-family: 'PT Sans', sans-serif;
     font-size: 13px; 
     height: 100%;
     margin: 0 0.5em;
@@ -29,7 +29,7 @@ img {
 }
 
 h3 {
-    font-family: 'Sintony', sans-serif;
+    font-family: 'PT Sans', sans-serif;
 }
 
 .ui-scrollpanel > h3, .ui-scrollpanel-content > h3 {
@@ -69,7 +69,7 @@ h3 {
 /* Setting for menu text */
 .ui-menuitem-text {
     color: #fff;
-    font-family: 'Sintony', sans-serif;
+    font-family: 'PT Sans', sans-serif;
     font-weight: bold;
     margin: auto 1em;
 }
@@ -89,7 +89,7 @@ a.ui-menuitem-link.ui-corner-all.ui-state-hover {
 /* Setting for datatable header */
 .ui-datatable-header.ui-widget-header.ui-corner-top {
     background: #faf5e5;
-    font-family: 'Sintony', sans-serif;
+    font-family: 'PT Sans', sans-serif;
     padding: 10px;
     text-align: left;
     text-transform: capitalize;
@@ -106,14 +106,14 @@ a.ui-menuitem-link.ui-corner-all.ui-state-hover {
 th {
     background: #FF9912 !important;
     color: #fff !important;
-    font-family: 'Sintony', sans-serif;
+    font-family: 'PT Sans', sans-serif;
     font-size: 13.5px !important;
     font-weight: bold;
 }
 
 /* Setting for all datatable content */
 tr.ui-widget-content.ui-datatable-selectable, .ui-datatable-data {
-    font-family: 'Sintony', sans-serif;
+    font-family: 'PT Sans', sans-serif;
     font-size: 12px;
     text-align: center !important;
 }
@@ -158,7 +158,7 @@ tr.ui-widget-content.ui-datatable-odd.ui-datatable-selectable.ui-state-hover {
 /* Setting for button */
 .ui-button-text {
     /* background-color: #b3b3b3; */
-    font-family: 'Sintony', sans-serif;
+    font-family: 'PT Sans', sans-serif;
     font-size: 14px;
     /* color: #fff; */
     font-weight: bold;
@@ -168,7 +168,7 @@ tr.ui-widget-content.ui-datatable-odd.ui-datatable-selectable.ui-state-hover {
 /* Setting for dialog box */
 .ui-dialog {
     background: #fefdfa !important;
-    font-family: 'Sintony', sans-serif;
+    font-family: 'PT Sans', sans-serif;
 } 
 
 /* Setting for dialog titlebar */
@@ -187,13 +187,13 @@ tr.ui-widget-content.ui-datatable-odd.ui-datatable-selectable.ui-state-hover {
 tr.ui-widget-header {
     color: #396c84 !important;
     text-transform: uppercase;
-    font-family: 'Sintony', sans-serif;
+    font-family: 'PT Sans', sans-serif;
     font-size: 16px;  
 }
 
 /* Setting for field label in widget */
 table.ui-panelgrid.ui-widget > tbody > tr.ui-widget-content > td {
-    font-family: 'Sintony', sans-serif;
+    font-family: 'PT Sans', sans-serif;
     text-align: right ;
 }
 
@@ -201,7 +201,7 @@ table.ui-panelgrid.ui-widget > tbody > tr.ui-widget-content > td {
 .ui-widget input, .ui-inputfield.hasDatePicker {
     border: 1px solid gray;
     border-radius: 5px;
-    font-family: 'Sintony', sans-serif;
+    font-family: 'PT Sans', sans-serif;
     width: 139px;
     padding: 1px 0.5em;
     margin: auto 3px;
@@ -210,7 +210,7 @@ table.ui-panelgrid.ui-widget > tbody > tr.ui-widget-content > td {
 /* Setting for selectonemenu field in form */
 .ui-selectonemenu {
     border: 1px solid gray !important;
-    font-family: 'Sintony', sans-serif;
+    font-family: 'PT Sans', sans-serif;
     text-align: left;
     text-transform: capitalize;
     width: 140px !important;
@@ -224,55 +224,55 @@ table.ui-panelgrid.ui-widget > tbody > tr.ui-widget-content > td {
 
 /* Setting to capitalize list item for selectonemenu */
 .ui-selectonemenu-list-item {
-    font-family: 'Sintony', sans-serif;
+    font-family: 'PT Sans', sans-serif;
     text-transform: capitalize;
 }
 
 /* Setting for highlight state for selectonemenu */
 .ui-selectonemenu-list-item.ui-state-highlight {
    background: #396c84 !important;
-   font-family: 'Sintony', sans-serif;
+   font-family: 'PT Sans', sans-serif;
 }
 
 /* Setting for selected tab */
 .ui-tabs-selected.ui-state-active > a {
     background: #fefdfa !important; 
     color: #f88d00 !important;
-    font-family: 'Sintony', sans-serif;
+    font-family: 'PT Sans', sans-serif;
     font-weight: bold !important;
 }
 
 /* Setting for normal tab */
 .ui-state-default > a {
     color: #f88d00 !important;
-    font-family: 'Sintony', sans-serif;
+    font-family: 'PT Sans', sans-serif;
 }
 
 /* Setting for hover tab */
 .ui-state-hover > a {
     background: #f88d00 !important; 
     color: #fff !important;
-    font-family: 'Sintony', sans-serif;
+    font-family: 'PT Sans', sans-serif;
     font-weight: bold !important;
 }
 
 /* Setting for datepicker */
 .ui-datepicker-header, .ui-datepicker-unselectable  {
     background: #fefdfa !important;
-    font-family: 'Sintony', sans-serif;
+    font-family: 'PT Sans', sans-serif;
 }
 
 /* Setting for dates background */
 a.ui-state-default {
     background: none !important;
-    font-family: 'Sintony', sans-serif;
+    font-family: 'PT Sans', sans-serif;
 }
 
 /* Setting for today datepicker */
 a.ui-state-default.ui-state-highlight {
     background: none !important;
     color: #396c84 !important;
-    font-family: 'Sintony', sans-serif;
+    font-family: 'PT Sans', sans-serif;
     font-weight: bold;
 }
 
@@ -280,14 +280,14 @@ a.ui-state-default.ui-state-highlight {
 a.ui-state-default.ui-state-active, a.ui-state-default.ui-state-highlight.ui-state-active, a.ui-state-default.ui-state-hover   {
     background: #396c84 !important;
     color: #fff !important;
-    font-family: 'Sintony', sans-serif;
+    font-family: 'PT Sans', sans-serif;
 }
 
 
 /* Setting for error message text */
 .ui-messages-error-summary {
    text-transform: capitalize;
-   font-family: 'Sintony', sans-serif;
+   font-family: 'PT Sans', sans-serif;
 }
 
 /* Setting for myprofile panelgrid page */
@@ -305,7 +305,7 @@ a.ui-state-default.ui-state-active, a.ui-state-default.ui-state-highlight.ui-sta
     background: #f88d00 !important;
     border-radius: 5px;
     color: #fff;
-    font-family: 'Sintony', sans-serif;
+    font-family: 'PT Sans', sans-serif;
     font-size: 16px;
     font-weight: bold;
     text-align: left;
@@ -332,7 +332,7 @@ a.ui-state-default.ui-state-active, a.ui-state-default.ui-state-highlight.ui-sta
 /* Setting for paginator background */
 .ui-paginator-first, .ui-paginator-prev, .ui-paginator-page, .ui-paginator-next, .ui-paginator-last {
     background: #fff !important;
-    font-family: 'Sintony', sans-serif;
+    font-family: 'PT Sans', sans-serif;
 }
 
 /* Setting for scrollable datatable */
@@ -379,12 +379,12 @@ tr.ui-widget-content > td {
 .ui-picklist-caption {
     background: #396c84;
     color: #fff;
-    font-family: 'Sintony', sans-serif;
+    font-family: 'PT Sans', sans-serif;
 }
 
 /* Setting for picklist list */
 .ui-picklist-list {
-	font-family: 'Sintony', sans-serif;
+	font-family: 'PT Sans', sans-serif;
     text-align: center;
     font-size: 12px;
 }
@@ -393,7 +393,7 @@ tr.ui-widget-content > td {
 .ui-picklist-item.ui-state-highlight {
     background: #dfebf1;
     color: #000;
-    font-family: 'Sintony', sans-serif;
+    font-family: 'PT Sans', sans-serif;
     font-weight: normal;
     
 }

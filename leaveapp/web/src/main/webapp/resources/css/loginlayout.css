@@ -1,6 +1,6 @@
 
 body,div,td {
-    font-family: 'Sintony', sans-serif;
+    font-family: 'PT Sans', sans-serif;
     font-size: 14px;
     word-wrap: break-word;
 }
@@ -93,7 +93,7 @@ img {
 
 input {
     border-radius: 5px;
-    font-family: 'Sintony', sans-serif;
+    font-family: 'PT Sans', sans-serif !important;
     padding: 1px 0.5em;
     
 }
