@@ -23,6 +23,9 @@ public interface YearlyEntitlementService {
 
 	public List<String> findLeaveTypes();
 	
-	public List<EmployeeEntitlement> findByEmployeeId(int x);
+	public List<EmployeeEntitlement> findByEmployeeIdLike(int x);
+
+	List<LeaveEntitlement> findByEmployeeIdAndfindByLeaveTypeId(
+			String employeeName, String leaveType);
 	
 }
