@@ -64,7 +64,7 @@ public class UserToAccessRightsManagement implements Serializable{
 	
 	
 	public List<Users> getUsersList() {
-			if(usersList == null){
+			if(usersList == null || insertDelete == true){
 					
 					usersList = usersService.findAll();
 				}		
@@ -77,7 +77,7 @@ public class UserToAccessRightsManagement implements Serializable{
 	
 	
 	public UserToAccessRightsDataModel getUserToAccessRightsDataModel() {
-		if(userToAccessRightsDataModel == null)
+		if(userToAccessRightsDataModel == null || insertDelete == true)
 			userToAccessRightsDataModel = new UserToAccessRightsDataModel(getUsersList());		
 		return userToAccessRightsDataModel;
 	}
@@ -151,8 +151,11 @@ public class UserToAccessRightsManagement implements Serializable{
 	public List<AssignedAccessRights> getAssignedAccessRightsList() {
 		 if(assignedAccessRightsList == null || insertDelete == true){
 			 
-			 assignedAccessRightsList = userToAccessRightsService.findAssignedAccessRights(userId);
+			 if(userId != 0){
 			 System.out.println("" +userId);
+			 assignedAccessRightsList = userToAccessRightsService.findAssignedAccessRights(userId);
+			 }
+			 
 		 }				
 		return assignedAccessRightsList;
 	}
@@ -184,12 +187,12 @@ public class UserToAccessRightsManagement implements Serializable{
 		this.userToAccessRightsService = userToAccessRightsService;
 	}
 
-	public int getUserId() {
+	/*public int getUserId() {
 		return userId;
 	}
 
 	public void setUserId(int userId) {
 		this.userId = userId;
-	}	
+	}*/	
 	
 }

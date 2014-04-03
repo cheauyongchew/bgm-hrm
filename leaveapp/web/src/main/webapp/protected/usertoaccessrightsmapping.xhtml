@@ -34,9 +34,11 @@
                 selection="#{userToRoleMgmtBean.selectedUsers}" paginator="true" rows="20" scrollable="true" selectionMode="single" emptyMessage="No data found with given criteria" >
                  
         
-         <p:ajax event="rowSelect" listener="#{userToAccessRightsMgmtBean.onRowSelect}" update=":assignedAccessRightsTableForm" oncomplete="PF('assignedAccessRightsDialog').show()" /> 
+          <p:ajax event="rowSelect" listener="#{userToAccessRightsMgmtBean.userToAssignedAccessRightsDataModel}" update=":assignedAccessRightsTableForm:assignedAccessRightsTable"  action="#{userToAccessRightsMgmtBean.assignedAccessRights}" oncomplete="PF('assignedAccessRightsDialog').show()" /> 
          
        <!--   update=":userToAccessRightsTableForm,:assignedAccessRightsDlg, :growl" -->
+       
+       <!-- update=":assignedAccessRightsTableForm" -->
           
           <p:column id="userIdHeader"  headerText="User Id" >
             <h:outputText value="#{users0.id}" />
