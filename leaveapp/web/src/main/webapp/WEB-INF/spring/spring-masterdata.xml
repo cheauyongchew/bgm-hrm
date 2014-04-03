@@ -9,24 +9,7 @@
 
 	<import resource="spring-ds.xml"/>
 
-    <!--Following entity manager for Mysql database-->
-    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="dataSource" ref="dataSource"/>
-        <property name="persistenceUnitName" value="masterDataMysql"/>
-    </bean>
-
-    <!--Transaction manager for both H2 and Mysql-->
-    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="entityManagerFactory"/>
-    </bean>
-   
-    <jpa:repositories base-package="com.beans"></jpa:repositories>
     
-	
-	
-	<!-- Model and Service declarations -->
-	
-	<context:component-scan base-package="com.bean.leaveapp" />
 	
 	<bean id="leaveType" class="com.beans.leaveapp.leavetype.model.LeaveType" />
 

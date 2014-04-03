@@ -8,32 +8,33 @@
 
 	<import resource="spring-ds.xml"/>
 
-    
-	  <bean id="role" class="com.beans.common.security.role.model.Role"/>
-	 <bean id="roleService" class="com.beans.common.security.role.service.RoleServiceImpl">
-	 </bean>
-	  <bean id="users" class="com.beans.common.security.users.model.Users" />
-	<bean id="usersService" class="com.beans.common.security.users.service.UsersServiceImpl">
+	<bean id="jbpm6Service" class="com.beans.leaveapp.jbpm6.service.JBPM6ServiceImpl">
+		<property name="entityManagerFactory" >
+			<ref bean="entityManagerFactory"/>
+		</property>
+		<property name="abstractPlatformTransactionManager" >
+			<ref bean="transactionManager"/>
+		</property>
+		<property name="userGroupCallback" >
+			<ref bean="userGroupCallback"/>
+		</property>
+	</bean>
+	
+	<bean id="userGroupCallback" class="com.beans.leaveapp.jbpm6.util.RoleBasedUserGroupCallback">
 		<property name="roleService" >
 			<ref bean="roleService"/>
 		</property>
-		<property name="userToAccessRightsService" >
-			<ref bean="userToAccessRightsService"/>
-		</property>
-	</bean>
-	
-		<bean  id="userAuthenticationService" class="com.beans.common.security.users.service.UserAuthenticationServiceImpl"> 
-    	<property name="userService" >
+		<property name="usersService" >
 			<ref bean="usersService"/>
 		</property>
-    </bean>
-	
-	<bean id="userToAccessRightsService" class="com.beans.common.security.usertoaccessrights.service.UserToAccessRightsServiceImpl">
-	
 	</bean>
-		 <bean id="accessRights" class="com.beans.common.security.accessrights.model.AccessRights"/>
-    <bean id="accessRightsService" class="com.beans.common.security.accessrights.service.AccessRightsServiceImpl">
-    </bean>  	 
+	
+	<bean  id="employeeRegistrationService" class="com.beans.leaveapp.employee.service.EmployeeRegistrationServiceImpl"> 
+    	<property name="jbpm6Service" >
+			<ref bean="jbpm6Service"/>
+		</property>
+    </bean>
+	 	 
 	
 	
 </beans>

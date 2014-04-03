@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.beans.common.security.accessrights.model.AccessRights;
 import com.beans.common.security.role.model.Role;
+import com.beans.common.security.role.service.RoleNotFound;
 import com.beans.common.security.role.service.RoleService;
 import com.beans.common.security.users.model.Users;
 import com.beans.common.security.users.repository.UsersRepository;
@@ -81,10 +82,14 @@ public class UsersServiceImpl implements UsersService {
 		String hashedPassword = passwordEncoder.encode(users.getPassword());
 		users.setPassword(hashedPassword);
 		Users createdUsers = usersRepository.save(users);
-		Role userRole = roleService.findByRole("ROLE_USER");
-		Set<Role> roleSet = new HashSet<Role>();
-		roleSet.add(userRole);
-		createdUsers.setUserRoles(roleSet);		
+		try {
+			Role userRole = roleService.findByRole("ROLE_USER");
+			Set<Role> roleSet = new HashSet<Role>();
+			roleSet.add(userRole);
+			createdUsers.setUserRoles(roleSet);
+		} catch(RoleNotFound e) {
+			e.printStackTrace();
+		}
 		
 		return usersRepository.save(createdUsers);
 	}

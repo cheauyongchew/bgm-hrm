@@ -3,6 +3,6 @@
 <config>
     <bpmn>
         <file>sample.bpmn</file>
-        <file>sample2.bpmn</file>
+        <file>employeeregistration.bpmn</file>
     </bpmn>
 </config>

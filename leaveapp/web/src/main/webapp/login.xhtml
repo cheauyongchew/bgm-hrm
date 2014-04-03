@@ -34,14 +34,13 @@
                                
                 <h:outputLabel for="j_password" value="Password: " styleClass="flabel"/>  
                 <h:inputSecret id="j_password" required="true" requiredMessage="Please enter password" />
-                            
-                <h:outputLabel for="_spring_security_remember_me" value="Remember Me? " styleClass="flabel"/>
-                <h:selectBooleanCheckbox id="_spring_security_remember_me" />
           
                 <f:facet name="footer">
                     <h:commandButton id="loginButton" value="Login" action="#{authenticationBean.doLogin}" />
                 </f:facet>              
-            </p:panelGrid>              
+            </p:panelGrid>
+            
+            Don't have an account? <p:commandLink immediate="true" ajax="false" action="/register.xhtml">Sign Up Now!</p:commandLink>              
         </h:form>   
     </div>
     <div id="footer">

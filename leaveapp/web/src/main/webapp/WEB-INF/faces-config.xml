@@ -280,4 +280,32 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 		</managed-property>
 	</managed-bean>
 	
+	<managed-bean>
+		<managed-bean-name>employeeRegistrationMgmtBean</managed-bean-name>
+		<managed-bean-class>com.beans.leaveapp.employeeregistration.bean.EmployeeRegistrationBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>employeeRegistrationService</property-name>
+			<value>#{employeeRegistrationService}</value>
+		</managed-property>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>employeeRegistrationApprovalMgmtBean</managed-bean-name>
+		<managed-bean-class>com.beans.leaveapp.employeeregistration.bean.EmployeeRegistrationApprovalBean</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+		<managed-property>
+			<property-name>employeeRegistrationService</property-name>
+			<value>#{employeeRegistrationService}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>auditTrail</property-name>
+			<value>#{auditTrail}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>actorUsers</property-name>
+			<value>#{authenticationBean.getUsers()}</value>
+		</managed-property>
+	</managed-bean>
+	
 </faces-config>
