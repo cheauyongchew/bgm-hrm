@@ -12,7 +12,7 @@ import org.hibernate.annotations.Type;
 import com.beans.leaveapp.employee.model.Employee;
 
 @Entity
-@Table(name="yearlyentitlement")
+@Table(name="YearlyEntitlement")
 public class YearlyEntitlement {
 
 		

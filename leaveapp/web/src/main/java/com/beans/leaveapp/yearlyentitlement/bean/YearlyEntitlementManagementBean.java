@@ -362,4 +362,5 @@ public class YearlyEntitlementManagementBean implements Serializable {
 		this.actorUsers = actorUsers;
 	}
 
+	
 }

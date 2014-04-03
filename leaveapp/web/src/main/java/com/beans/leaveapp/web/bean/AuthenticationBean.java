@@ -34,6 +34,8 @@ public class AuthenticationBean implements Serializable{
 	private Users users;
 	private HashMap<String, Boolean> accessRightsMap = new HashMap<String, Boolean>();
 	private AuditTrail auditTrail;
+	private String employeeName;
+	
 	
 	public String doLogin() throws IOException, ServletException {
 		ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
@@ -133,6 +135,20 @@ public class AuthenticationBean implements Serializable{
 	}
 	public void setAuditTrail(AuditTrail auditTrail) {
 		this.auditTrail = auditTrail;
+	}
+
+	public String getEmployeeName() {
+		try {
+			employee = getEmployeeService().findByUsername(getUsername());
+			employeeName =employee.getName();
+		} catch(EmployeeNotFound e) {
+			System.out.println("Employee not found for " + getUsername());
+		}
+		return employeeName;
+	}
+
+	public void setEmployeeName(String employeeName) {
+		this.employeeName = employeeName;
 	}
 }
 

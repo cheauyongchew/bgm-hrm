@@ -29,7 +29,7 @@ public interface YearlyEntitlementRepository extends CrudRepository<YearlyEntitl
 	@Query("select y from  YearlyEntitlement y where leaveTypeId like ? and isDeleted = 0")
 	public List<YearlyEntitlement> findByLeaveTypeIdLike(int x);
 	
-	@Query("select y from YearlyEntitlement y where employeeId like ? and leaveTypeId  like ? and isDeleted = 0")
+	@Query("select y from YearlyEntitlement y where leaveTypeId like ? and employeeId  like ? and isDeleted = 0")
 	public List<YearlyEntitlement> findByEmployeeIdAndLeaveTypeIdLike(int x,int y);
 	
 }

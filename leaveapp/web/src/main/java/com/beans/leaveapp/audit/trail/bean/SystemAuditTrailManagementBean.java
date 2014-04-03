@@ -15,9 +15,9 @@ import com.beans.common.audit.service.SystemAuditTrailRecordService;
 import com.beans.leaveapp.audit.trail.model.SystemAuditTrailDataModel;
 
 public class SystemAuditTrailManagementBean implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 
-	// EmployeeGradeRepository employeeGradeRepository;
 	private SystemAuditTrailRecordService systemAuditTrailService;
 	private List<SystemAuditTrail> systemAuditTrailList;
 	private SystemAuditTrailDataModel systemAuditTrailDataModel;

@@ -23,7 +23,8 @@ BODY {
 
 		<ui:define name="title">Beans Leave Application</ui:define>
 	<ui:define name="content">
-	<h1>Welcome! </h1>
+	<h1>Welcome! </h1><!--  <h:outputText value="#{authenticationBean.username}" /> --> 
+
 	
 	<h:form id="employeeEntitlementForm">
 	
@@ -45,9 +46,9 @@ BODY {
             <f:facet name="header"> Leave Balance</f:facet>
             <h:outputText value="#{employeeEntitlement0.availableBalance}" />
           </p:column>
+        
         </p:dataTable>
          
-    
          
       </h:form>      
       <p:growl id="growl" showDetail="true" life="1000"/> 
