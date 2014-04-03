@@ -15,9 +15,9 @@
 		<!-- Need to add authorization based on role here -->
 		<p:menubar>
 			<p:menuitem value="Home" url="/protected/index.jsf" />
-			<p:menuitem value="My Profile" url="/protected/employeeprofile/myprofile.jsf"/>
-			<p:menuitem value="Employees" url="/protected/employeeprofile/employeeprofilemgmt.jsf"/>
-			<p:submenu label="Administration">
+			<p:menuitem value="My Profile" url="/protected/employeeprofile/myprofile.jsf" rendered="#{authenticationBean.hasAccess('ViewMyProfile')}"/>
+			<p:menuitem value="Employees" url="/protected/employeeprofile/employeeprofilemgmt.jsf" rendered="#{authenticationBean.hasAccess('ViewEmployees')}"/>
+			<p:submenu label="Administration" rendered="#{authenticationBean.hasAccess('AdminFunctions')}">
 				<p:submenu label="Master Data Management">					
 					<p:menuitem value="Leave Type" url="/protected/leavetypemgmt.jsf" />
 					<p:menuitem value="Employee Grade" url="/protected/employeeGrade.jsf"/>

@@ -3,6 +3,7 @@ package com.beans.leaveapp.web.bean;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -34,7 +35,7 @@ public class AuthenticationBean implements Serializable{
 	private Employee employee;
 	private String username;
 	private Users users;
-	private HashMap<String, Boolean> accessRightsMap = new HashMap<String, Boolean>();
+	private HashSet<String> accessRightsSet = new HashSet<String>();
 	private AuditTrail auditTrail;
 	
 	public String doLogin() throws IOException, ServletException {
@@ -45,7 +46,7 @@ public class AuthenticationBean implements Serializable{
 		if(auth != null) {
 			setUsername(auth.getName());
 			initEmployee();
-			populateAccessRightsMap();
+			populateAccessRightsSet();
 			
 			auditTrail.log(SystemAuditTrailActivity.LOGIN, SystemAuditTrailLevel.INFO, getUsers().getId(), getUsername(), getUsername() + " has successfully logged in to the system.");
 		} else {
@@ -88,14 +89,18 @@ public class AuthenticationBean implements Serializable{
 		}
 	}
 	
-	private void populateAccessRightsMap() {
-		
+	private void populateAccessRightsSet() {
+		try {
+			accessRightsSet = usersService.getAccessRightsMapForUser(users.getId());
+		} catch(UsersNotFound e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public Boolean hasAccess(String key) {
 		if (key != null) {
-			if (accessRightsMap.containsKey(key)) {
-				return accessRightsMap.get(key);
+			if (accessRightsSet.contains(key)) {
+				return true;
 
 			}
 		}		
