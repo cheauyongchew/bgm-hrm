@@ -1,247 +1,370 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.jboss.org/drools" xmlns="http://www.jboss.org/drools" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd http://www.jboss.org/drools drools.xsd http://www.bpsim.org/schemas/1.0 bpsim.xsd" id="Definition" expressionLanguage="http://www.mvel.org/2.0" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
-  <bpmn2:itemDefinition id="ItemDefinition_1" structureRef="String"/>
-  <bpmn2:itemDefinition id="ItemDefinition_2" structureRef="Integer"/>
-  <bpmn2:itemDefinition id="ItemDefinition_3" structureRef="Boolean"/>
-  <bpmn2:process id="com.beans.leaveapp.bpmn.empreg" tns:version="1" tns:packageName="defaultPackage" tns:adHoc="false" name="Employee Registration" isExecutable="true" processType="Private">
-    <bpmn2:property id="username" itemSubjectRef="ItemDefinition_1"/>
-    <bpmn2:property id="password" itemSubjectRef="ItemDefinition_1"/>
-    <bpmn2:property id="fullname" itemSubjectRef="ItemDefinition_1"/>
-    <bpmn2:property id="personalEmailAddress" itemSubjectRef="ItemDefinition_1"/>
-    <bpmn2:property id="personalPhoneNumber" itemSubjectRef="ItemDefinition_1"/>
-    <bpmn2:property id="gender" itemSubjectRef="ItemDefinition_1"/>
-    <bpmn2:property id="idNumber" itemSubjectRef="ItemDefinition_1"/>
-    <bpmn2:property id="passportNumber" itemSubjectRef="ItemDefinition_1"/>
-    <bpmn2:property id="position" itemSubjectRef="ItemDefinition_1"/>
-    <bpmn2:property id="departmentId" itemSubjectRef="ItemDefinition_2"/>
-    <bpmn2:property id="employeeTypeId" itemSubjectRef="ItemDefinition_2"/>
-    <bpmn2:property id="employeeGradeId" itemSubjectRef="ItemDefinition_2"/>
-    <bpmn2:property id="isApproved" itemSubjectRef="ItemDefinition_3"/>
-    <bpmn2:property id="workEmailAddress" itemSubjectRef="ItemDefinition_1"/>
-    <bpmn2:property id="workPhoneNumber" itemSubjectRef="ItemDefinition_1"/>
-    <bpmn2:property id="reason" itemSubjectRef="ItemDefinition_1"/>
-    <bpmn2:property id="employeeNumber" itemSubjectRef="ItemDefinition_1"/>
-    <bpmn2:startEvent id="_1" name="">
-      <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
-    </bpmn2:startEvent>
-    <bpmn2:userTask id="UserTask_1" name="HR Approval">
-      <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
-      <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
-      <bpmn2:ioSpecification id="_InputOutputSpecification_2">
-        <bpmn2:dataInput id="_DataInput_2" itemSubjectRef="ItemDefinition_1" name="TaskName"/>
-        <bpmn2:dataInput id="_DataInput_3" itemSubjectRef="ItemDefinition_2" name="Priority"/>
-        <bpmn2:dataInput id="_DataInput_4" itemSubjectRef="ItemDefinition_1" name="Comment"/>
-        <bpmn2:dataInput id="_DataInput_5" itemSubjectRef="ItemDefinition_1" name="GroupId"/>
-        <bpmn2:dataInput id="_DataInput_6" itemSubjectRef="ItemDefinition_3" name="Skippable"/>
-        <bpmn2:dataInput id="_DataInput_7" itemSubjectRef="ItemDefinition_1" name="Content"/>
-        <bpmn2:dataInput id="_DataInput_8" itemSubjectRef="ItemDefinition_1" name="Locale"/>
-        <bpmn2:dataInput id="DataInput_1" itemSubjectRef="ItemDefinition_1" name="fullname"/>
-        <bpmn2:dataInput id="DataInput_2" itemSubjectRef="ItemDefinition_1" name="gender"/>
-        <bpmn2:dataInput id="DataInput_3" itemSubjectRef="ItemDefinition_1" name="idNumber"/>
-        <bpmn2:dataInput id="DataInput_4" itemSubjectRef="ItemDefinition_1" name="passportNumber"/>
-        <bpmn2:dataInput id="DataInput_5" itemSubjectRef="ItemDefinition_1" name="password"/>
-        <bpmn2:dataInput id="DataInput_6" itemSubjectRef="ItemDefinition_1" name="personalEmailAddress"/>
-        <bpmn2:dataInput id="DataInput_7" itemSubjectRef="ItemDefinition_1" name="personalPhoneNumber"/>
-        <bpmn2:dataInput id="DataInput_8" itemSubjectRef="ItemDefinition_1" name="username"/>
-        <bpmn2:dataOutput id="DataOutput_1" itemSubjectRef="ItemDefinition_2" name="departmentId"/>
-        <bpmn2:dataOutput id="DataOutput_2" itemSubjectRef="ItemDefinition_2" name="employeeTypeId"/>
-        <bpmn2:dataOutput id="DataOutput_3" itemSubjectRef="ItemDefinition_2" name="employeeGradeId"/>
-        <bpmn2:dataOutput id="DataOutput_4" itemSubjectRef="ItemDefinition_1" name="position"/>
-        <bpmn2:dataOutput id="DataOutput_5" itemSubjectRef="ItemDefinition_3" name="isApproved"/>
-        <bpmn2:dataOutput id="DataOutput_6" itemSubjectRef="ItemDefinition_1" name="workEmailAddress"/>
-        <bpmn2:dataOutput id="DataOutput_7" itemSubjectRef="ItemDefinition_1" name="workPhoneNumber"/>
-        <bpmn2:dataOutput id="DataOutput_8" itemSubjectRef="ItemDefinition_1" name="reason"/>
-        <bpmn2:dataOutput id="DataOutput_9" itemSubjectRef="ItemDefinition_1" name="employeeNumber"/>
-        <bpmn2:dataOutput id="DataOutput_10" itemSubjectRef="ItemDefinition_1" name="fullname"/>
-        <bpmn2:dataOutput id="DataOutput_11" itemSubjectRef="ItemDefinition_1" name="idNumber"/>
-        <bpmn2:dataOutput id="DataOutput_12" itemSubjectRef="ItemDefinition_1" name="passportNumber"/>
-        <bpmn2:dataOutput id="DataOutput_13" itemSubjectRef="ItemDefinition_1" name="personalPhoneNumber"/>
-        <bpmn2:dataOutput id="DataOutput_14" itemSubjectRef="ItemDefinition_1" name="personalEmailAddress"/>
-        <bpmn2:dataOutput id="DataOutput_15" itemSubjectRef="ItemDefinition_1" name="gender"/>
-        <bpmn2:inputSet id="_InputSet_2">
-          <bpmn2:dataInputRefs>DataInput_1</bpmn2:dataInputRefs>
-          <bpmn2:dataInputRefs>DataInput_2</bpmn2:dataInputRefs>
-          <bpmn2:dataInputRefs>DataInput_3</bpmn2:dataInputRefs>
-          <bpmn2:dataInputRefs>DataInput_4</bpmn2:dataInputRefs>
-          <bpmn2:dataInputRefs>DataInput_5</bpmn2:dataInputRefs>
-          <bpmn2:dataInputRefs>DataInput_6</bpmn2:dataInputRefs>
-          <bpmn2:dataInputRefs>DataInput_7</bpmn2:dataInputRefs>
-          <bpmn2:dataInputRefs>DataInput_8</bpmn2:dataInputRefs>
-        </bpmn2:inputSet>
-        <bpmn2:inputSet id="_InputSet_3" name="New Input Set">
-          <bpmn2:dataInputRefs>_DataInput_2</bpmn2:dataInputRefs>
-          <bpmn2:dataInputRefs>_DataInput_3</bpmn2:dataInputRefs>
-          <bpmn2:dataInputRefs>_DataInput_4</bpmn2:dataInputRefs>
-          <bpmn2:dataInputRefs>_DataInput_5</bpmn2:dataInputRefs>
-          <bpmn2:dataInputRefs>_DataInput_6</bpmn2:dataInputRefs>
-          <bpmn2:dataInputRefs>_DataInput_7</bpmn2:dataInputRefs>
-          <bpmn2:dataInputRefs>_DataInput_8</bpmn2:dataInputRefs>
-        </bpmn2:inputSet>
-        <bpmn2:outputSet id="_OutputSet_2">
-          <bpmn2:dataOutputRefs>DataOutput_1</bpmn2:dataOutputRefs>
-          <bpmn2:dataOutputRefs>DataOutput_2</bpmn2:dataOutputRefs>
-          <bpmn2:dataOutputRefs>DataOutput_3</bpmn2:dataOutputRefs>
-          <bpmn2:dataOutputRefs>DataOutput_4</bpmn2:dataOutputRefs>
-          <bpmn2:dataOutputRefs>DataOutput_5</bpmn2:dataOutputRefs>
-          <bpmn2:dataOutputRefs>DataOutput_6</bpmn2:dataOutputRefs>
-          <bpmn2:dataOutputRefs>DataOutput_7</bpmn2:dataOutputRefs>
-          <bpmn2:dataOutputRefs>DataOutput_8</bpmn2:dataOutputRefs>
-          <bpmn2:dataOutputRefs>DataOutput_9</bpmn2:dataOutputRefs>
-          <bpmn2:dataOutputRefs>DataOutput_10</bpmn2:dataOutputRefs>
-          <bpmn2:dataOutputRefs>DataOutput_11</bpmn2:dataOutputRefs>
-          <bpmn2:dataOutputRefs>DataOutput_12</bpmn2:dataOutputRefs>
-          <bpmn2:dataOutputRefs>DataOutput_13</bpmn2:dataOutputRefs>
-          <bpmn2:dataOutputRefs>DataOutput_14</bpmn2:dataOutputRefs>
-          <bpmn2:dataOutputRefs>DataOutput_15</bpmn2:dataOutputRefs>
-        </bpmn2:outputSet>
-        <bpmn2:outputSet id="_OutputSet_3" name="Output Set"/>
-      </bpmn2:ioSpecification>
-      <bpmn2:dataInputAssociation id="_DataInputAssociation_2">
-        <bpmn2:targetRef>_DataInput_2</bpmn2:targetRef>
-      </bpmn2:dataInputAssociation>
-      <bpmn2:dataInputAssociation id="_DataInputAssociation_3">
-        <bpmn2:targetRef>_DataInput_3</bpmn2:targetRef>
-      </bpmn2:dataInputAssociation>
-      <bpmn2:dataInputAssociation id="_DataInputAssociation_4">
-        <bpmn2:targetRef>_DataInput_4</bpmn2:targetRef>
-      </bpmn2:dataInputAssociation>
-      <bpmn2:dataInputAssociation id="_DataInputAssociation_5">
-        <bpmn2:targetRef>_DataInput_5</bpmn2:targetRef>
-        <bpmn2:assignment id="Assignment_4">
-          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_8">ROLE_HR</bpmn2:from>
-          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_7">_DataInput_5</bpmn2:to>
-        </bpmn2:assignment>
-      </bpmn2:dataInputAssociation>
-      <bpmn2:dataInputAssociation id="_DataInputAssociation_6">
-        <bpmn2:targetRef>_DataInput_6</bpmn2:targetRef>
-      </bpmn2:dataInputAssociation>
-      <bpmn2:dataInputAssociation id="_DataInputAssociation_7">
-        <bpmn2:targetRef>_DataInput_7</bpmn2:targetRef>
-      </bpmn2:dataInputAssociation>
-      <bpmn2:dataInputAssociation id="_DataInputAssociation_8">
-        <bpmn2:targetRef>_DataInput_8</bpmn2:targetRef>
-      </bpmn2:dataInputAssociation>
-      <bpmn2:dataInputAssociation id="DataInputAssociation_1">
-        <bpmn2:sourceRef>fullname</bpmn2:sourceRef>
-        <bpmn2:targetRef>DataInput_1</bpmn2:targetRef>
-      </bpmn2:dataInputAssociation>
-      <bpmn2:dataInputAssociation id="DataInputAssociation_2">
-        <bpmn2:sourceRef>gender</bpmn2:sourceRef>
-        <bpmn2:targetRef>DataInput_2</bpmn2:targetRef>
-      </bpmn2:dataInputAssociation>
-      <bpmn2:dataInputAssociation id="DataInputAssociation_3">
-        <bpmn2:sourceRef>idNumber</bpmn2:sourceRef>
-        <bpmn2:targetRef>DataInput_3</bpmn2:targetRef>
-      </bpmn2:dataInputAssociation>
-      <bpmn2:dataInputAssociation id="DataInputAssociation_4">
-        <bpmn2:sourceRef>passportNumber</bpmn2:sourceRef>
-        <bpmn2:targetRef>DataInput_4</bpmn2:targetRef>
-      </bpmn2:dataInputAssociation>
-      <bpmn2:dataInputAssociation id="DataInputAssociation_5">
-        <bpmn2:sourceRef>password</bpmn2:sourceRef>
-        <bpmn2:targetRef>DataInput_5</bpmn2:targetRef>
-      </bpmn2:dataInputAssociation>
-      <bpmn2:dataInputAssociation id="DataInputAssociation_6">
-        <bpmn2:sourceRef>personalEmailAddress</bpmn2:sourceRef>
-        <bpmn2:targetRef>DataInput_6</bpmn2:targetRef>
-      </bpmn2:dataInputAssociation>
-      <bpmn2:dataInputAssociation id="DataInputAssociation_7">
-        <bpmn2:sourceRef>personalPhoneNumber</bpmn2:sourceRef>
-        <bpmn2:targetRef>DataInput_7</bpmn2:targetRef>
-      </bpmn2:dataInputAssociation>
-      <bpmn2:dataInputAssociation id="DataInputAssociation_8">
-        <bpmn2:sourceRef>username</bpmn2:sourceRef>
-        <bpmn2:targetRef>DataInput_8</bpmn2:targetRef>
-      </bpmn2:dataInputAssociation>
-      <bpmn2:dataOutputAssociation id="DataOutputAssociation_1">
-        <bpmn2:sourceRef>DataOutput_1</bpmn2:sourceRef>
-        <bpmn2:targetRef>departmentId</bpmn2:targetRef>
-      </bpmn2:dataOutputAssociation>
-      <bpmn2:dataOutputAssociation id="DataOutputAssociation_2">
-        <bpmn2:sourceRef>DataOutput_2</bpmn2:sourceRef>
-        <bpmn2:targetRef>employeeTypeId</bpmn2:targetRef>
-      </bpmn2:dataOutputAssociation>
-      <bpmn2:dataOutputAssociation id="DataOutputAssociation_3">
-        <bpmn2:sourceRef>DataOutput_3</bpmn2:sourceRef>
-        <bpmn2:targetRef>employeeGradeId</bpmn2:targetRef>
-      </bpmn2:dataOutputAssociation>
-      <bpmn2:dataOutputAssociation id="DataOutputAssociation_4">
-        <bpmn2:sourceRef>DataOutput_4</bpmn2:sourceRef>
-        <bpmn2:targetRef>position</bpmn2:targetRef>
-      </bpmn2:dataOutputAssociation>
-      <bpmn2:dataOutputAssociation id="DataOutputAssociation_5">
-        <bpmn2:sourceRef>DataOutput_5</bpmn2:sourceRef>
-        <bpmn2:targetRef>isApproved</bpmn2:targetRef>
-      </bpmn2:dataOutputAssociation>
-      <bpmn2:dataOutputAssociation id="DataOutputAssociation_6">
-        <bpmn2:sourceRef>DataOutput_6</bpmn2:sourceRef>
-        <bpmn2:targetRef>workEmailAddress</bpmn2:targetRef>
-      </bpmn2:dataOutputAssociation>
-      <bpmn2:dataOutputAssociation id="DataOutputAssociation_7">
-        <bpmn2:sourceRef>DataOutput_7</bpmn2:sourceRef>
-        <bpmn2:targetRef>workPhoneNumber</bpmn2:targetRef>
-      </bpmn2:dataOutputAssociation>
-      <bpmn2:dataOutputAssociation id="DataOutputAssociation_8">
-        <bpmn2:sourceRef>DataOutput_8</bpmn2:sourceRef>
-        <bpmn2:targetRef>reason</bpmn2:targetRef>
-      </bpmn2:dataOutputAssociation>
-      <bpmn2:dataOutputAssociation id="DataOutputAssociation_9">
-        <bpmn2:sourceRef>DataOutput_9</bpmn2:sourceRef>
-        <bpmn2:targetRef>employeeNumber</bpmn2:targetRef>
-      </bpmn2:dataOutputAssociation>
-      <bpmn2:dataOutputAssociation id="DataOutputAssociation_10">
-        <bpmn2:sourceRef>DataOutput_10</bpmn2:sourceRef>
-        <bpmn2:targetRef>fullname</bpmn2:targetRef>
-      </bpmn2:dataOutputAssociation>
-      <bpmn2:dataOutputAssociation id="DataOutputAssociation_11">
-        <bpmn2:sourceRef>DataOutput_11</bpmn2:sourceRef>
-        <bpmn2:targetRef>idNumber</bpmn2:targetRef>
-      </bpmn2:dataOutputAssociation>
-      <bpmn2:dataOutputAssociation id="DataOutputAssociation_12">
-        <bpmn2:sourceRef>DataOutput_12</bpmn2:sourceRef>
-        <bpmn2:targetRef>passportNumber</bpmn2:targetRef>
-      </bpmn2:dataOutputAssociation>
-      <bpmn2:dataOutputAssociation id="DataOutputAssociation_13">
-        <bpmn2:sourceRef>DataOutput_13</bpmn2:sourceRef>
-        <bpmn2:targetRef>personalPhoneNumber</bpmn2:targetRef>
-      </bpmn2:dataOutputAssociation>
-      <bpmn2:dataOutputAssociation id="DataOutputAssociation_14">
-        <bpmn2:sourceRef>DataOutput_14</bpmn2:sourceRef>
-        <bpmn2:targetRef>personalEmailAddress</bpmn2:targetRef>
-      </bpmn2:dataOutputAssociation>
-      <bpmn2:dataOutputAssociation id="DataOutputAssociation_15">
-        <bpmn2:sourceRef>DataOutput_15</bpmn2:sourceRef>
-        <bpmn2:targetRef>gender</bpmn2:targetRef>
-      </bpmn2:dataOutputAssociation>
-    </bpmn2:userTask>
-    <bpmn2:endEvent id="EndEvent_1" name="">
-      <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
-    </bpmn2:endEvent>
-    <bpmn2:sequenceFlow id="SequenceFlow_1" tns:priority="1" name="" sourceRef="_1" targetRef="UserTask_1"/>
-    <bpmn2:sequenceFlow id="SequenceFlow_2" tns:priority="1" name="" sourceRef="UserTask_1" targetRef="EndEvent_1"/>
-  </bpmn2:process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_1" name="Employee Registration">
-    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="com.beans.leaveapp.bpmn.empreg">
-      <bpmndi:BPMNShape id="BPMNShape_StartEvent_1" bpmnElement="_1">
-        <dc:Bounds height="36.0" width="36.0" x="45.0" y="45.0"/>
+<?xml version="1.0" encoding="UTF-8"?> 
+<definitions id="Definition"
+             targetNamespace="http://www.jboss.org/drools"
+             typeLanguage="http://www.java.com/javaTypes"
+             expressionLanguage="http://www.mvel.org/2.0"
+             xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd"
+             xmlns:g="http://www.jboss.org/drools/flow/gpd"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+             xmlns:tns="http://www.jboss.org/drools">
+
+  <itemDefinition id="ItemDefinition_1" structureRef="String" />
+  <itemDefinition id="ItemDefinition_2" structureRef="Integer" />
+  <itemDefinition id="ItemDefinition_3" structureRef="Boolean" />
+  <itemDefinition id="_ItemDefinition_3" structureRef="com.beans.leaveapp.employee.model.RegisteredEmployee" />
+  <itemDefinition id="_joinDate" structureRef="java.util.Date" />
+
+  <process processType="Private" isExecutable="true" id="com.beans.leaveapp.bpmn.empreg" name="Employee Registration" tns:packageName="defaultPackage" tns:version="1" >
+
+    <extensionElements>
+     <tns:import name="com.beans.leaveapp.employee.model.RegisteredEmployee" />
+     <tns:import name="com.beans.leaveapp.employee.service.EmployeeRegistrationWorker" />
+    </extensionElements>
+    <!-- process variables -->
+    <property id="username" itemSubjectRef="ItemDefinition_1"/>
+    <property id="password" itemSubjectRef="ItemDefinition_1"/>
+    <property id="fullname" itemSubjectRef="ItemDefinition_1"/>
+    <property id="personalEmailAddress" itemSubjectRef="ItemDefinition_1"/>
+    <property id="personalPhoneNumber" itemSubjectRef="ItemDefinition_1"/>
+    <property id="gender" itemSubjectRef="ItemDefinition_1"/>
+    <property id="idNumber" itemSubjectRef="ItemDefinition_1"/>
+    <property id="passportNumber" itemSubjectRef="ItemDefinition_1"/>
+    <property id="position" itemSubjectRef="ItemDefinition_1"/>
+    <property id="departmentId" itemSubjectRef="ItemDefinition_2"/>
+    <property id="employeeTypeId" itemSubjectRef="ItemDefinition_2"/>
+    <property id="employeeGradeId" itemSubjectRef="ItemDefinition_2"/>
+    <property id="isApproved" itemSubjectRef="ItemDefinition_3"/>
+    <property id="workEmailAddress" itemSubjectRef="ItemDefinition_1"/>
+    <property id="workPhoneNumber" itemSubjectRef="ItemDefinition_1"/>
+    <property id="reason" itemSubjectRef="ItemDefinition_1"/>
+    <property id="employeeNumber" itemSubjectRef="ItemDefinition_1"/>
+    <property id="registeredEmployee" itemSubjectRef="_ItemDefinition_3"/>
+    <property id="joinDate" itemSubjectRef="null"/>
+
+    <!-- nodes -->
+    <startEvent id="_1" name=""  isInterrupting="true"/>
+    <userTask id="UserTask_1" name="HR Approval" >
+      <ioSpecification>
+        <dataInput id="UserTask_1_positionInput" name="position" />
+        <dataInput id="UserTask_1_employeeTypeIdInput" name="employeeTypeId" />
+        <dataInput id="UserTask_1_reasonInput" name="reason" />
+        <dataInput id="UserTask_1_personalEmailAddressInput" name="personalEmailAddress" />
+        <dataInput id="UserTask_1_personalPhoneNumberInput" name="personalPhoneNumber" />
+        <dataInput id="UserTask_1_passportNumberInput" name="passportNumber" />
+        <dataInput id="UserTask_1_workPhoneNumberInput" name="workPhoneNumber" />
+        <dataInput id="UserTask_1_workEmailAddressInput" name="workEmailAddress" />
+        <dataInput id="UserTask_1_passwordInput" name="password" />
+        <dataInput id="UserTask_1_joinDateInput" name="joinDate" />
+        <dataInput id="UserTask_1_usernameInput" name="username" />
+        <dataInput id="UserTask_1_genderInput" name="gender" />
+        <dataInput id="UserTask_1_isApprovedInput" name="isApproved" />
+        <dataInput id="UserTask_1_departmentIdInput" name="departmentId" />
+        <dataInput id="UserTask_1_employeeGradeIdInput" name="employeeGradeId" />
+        <dataInput id="UserTask_1_registeredEmployeeInput" name="registeredEmployee" />
+        <dataInput id="UserTask_1_fullnameInput" name="fullname" />
+        <dataInput id="UserTask_1_idNumberInput" name="idNumber" />
+        <dataInput id="UserTask_1_GroupIdInput" name="GroupId" />
+        <dataInput id="UserTask_1_NodeNameInput" name="NodeName" />
+        <dataOutput id="UserTask_1_positionOutput" name="position" />
+        <dataOutput id="UserTask_1_employeeTypeIdOutput" name="employeeTypeId" />
+        <dataOutput id="UserTask_1_reasonOutput" name="reason" />
+        <dataOutput id="UserTask_1_personalEmailAddressOutput" name="personalEmailAddress" />
+        <dataOutput id="UserTask_1_personalPhoneNumberOutput" name="personalPhoneNumber" />
+        <dataOutput id="UserTask_1_workPhoneNumberOutput" name="workPhoneNumber" />
+        <dataOutput id="UserTask_1_passportNumberOutput" name="passportNumber" />
+        <dataOutput id="UserTask_1_workEmailAddressOutput" name="workEmailAddress" />
+        <dataOutput id="UserTask_1_joinDateOutput" name="joinDate" />
+        <dataOutput id="UserTask_1_genderOutput" name="gender" />
+        <dataOutput id="UserTask_1_departmentIdOutput" name="departmentId" />
+        <dataOutput id="UserTask_1_isApprovedOutput" name="isApproved" />
+        <dataOutput id="UserTask_1_employeeGradeIdOutput" name="employeeGradeId" />
+        <dataOutput id="UserTask_1_employeeNumberOutput" name="employeeNumber" />
+        <dataOutput id="UserTask_1_registeredEmployeeOutput" name="registeredEmployee" />
+        <dataOutput id="UserTask_1_fullnameOutput" name="fullname" />
+        <dataOutput id="UserTask_1_idNumberOutput" name="idNumber" />
+        <inputSet>
+          <dataInputRefs>UserTask_1_positionInput</dataInputRefs>
+          <dataInputRefs>UserTask_1_employeeTypeIdInput</dataInputRefs>
+          <dataInputRefs>UserTask_1_reasonInput</dataInputRefs>
+          <dataInputRefs>UserTask_1_personalEmailAddressInput</dataInputRefs>
+          <dataInputRefs>UserTask_1_personalPhoneNumberInput</dataInputRefs>
+          <dataInputRefs>UserTask_1_passportNumberInput</dataInputRefs>
+          <dataInputRefs>UserTask_1_workPhoneNumberInput</dataInputRefs>
+          <dataInputRefs>UserTask_1_workEmailAddressInput</dataInputRefs>
+          <dataInputRefs>UserTask_1_passwordInput</dataInputRefs>
+          <dataInputRefs>UserTask_1_joinDateInput</dataInputRefs>
+          <dataInputRefs>UserTask_1_usernameInput</dataInputRefs>
+          <dataInputRefs>UserTask_1_genderInput</dataInputRefs>
+          <dataInputRefs>UserTask_1_isApprovedInput</dataInputRefs>
+          <dataInputRefs>UserTask_1_departmentIdInput</dataInputRefs>
+          <dataInputRefs>UserTask_1_employeeGradeIdInput</dataInputRefs>
+          <dataInputRefs>UserTask_1_registeredEmployeeInput</dataInputRefs>
+          <dataInputRefs>UserTask_1_fullnameInput</dataInputRefs>
+          <dataInputRefs>UserTask_1_idNumberInput</dataInputRefs>
+          <dataInputRefs>UserTask_1_GroupIdInput</dataInputRefs>
+          <dataInputRefs>UserTask_1_NodeNameInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+          <dataOutputRefs>UserTask_1_positionOutput</dataOutputRefs>
+          <dataOutputRefs>UserTask_1_employeeTypeIdOutput</dataOutputRefs>
+          <dataOutputRefs>UserTask_1_reasonOutput</dataOutputRefs>
+          <dataOutputRefs>UserTask_1_personalEmailAddressOutput</dataOutputRefs>
+          <dataOutputRefs>UserTask_1_personalPhoneNumberOutput</dataOutputRefs>
+          <dataOutputRefs>UserTask_1_workPhoneNumberOutput</dataOutputRefs>
+          <dataOutputRefs>UserTask_1_passportNumberOutput</dataOutputRefs>
+          <dataOutputRefs>UserTask_1_workEmailAddressOutput</dataOutputRefs>
+          <dataOutputRefs>UserTask_1_joinDateOutput</dataOutputRefs>
+          <dataOutputRefs>UserTask_1_genderOutput</dataOutputRefs>
+          <dataOutputRefs>UserTask_1_departmentIdOutput</dataOutputRefs>
+          <dataOutputRefs>UserTask_1_isApprovedOutput</dataOutputRefs>
+          <dataOutputRefs>UserTask_1_employeeGradeIdOutput</dataOutputRefs>
+          <dataOutputRefs>UserTask_1_employeeNumberOutput</dataOutputRefs>
+          <dataOutputRefs>UserTask_1_registeredEmployeeOutput</dataOutputRefs>
+          <dataOutputRefs>UserTask_1_fullnameOutput</dataOutputRefs>
+          <dataOutputRefs>UserTask_1_idNumberOutput</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <sourceRef>position</sourceRef>
+        <targetRef>UserTask_1_positionInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>employeeTypeId</sourceRef>
+        <targetRef>UserTask_1_employeeTypeIdInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>reason</sourceRef>
+        <targetRef>UserTask_1_reasonInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>personalEmailAddress</sourceRef>
+        <targetRef>UserTask_1_personalEmailAddressInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>personalPhoneNumber</sourceRef>
+        <targetRef>UserTask_1_personalPhoneNumberInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>passportNumber</sourceRef>
+        <targetRef>UserTask_1_passportNumberInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>workPhoneNumber</sourceRef>
+        <targetRef>UserTask_1_workPhoneNumberInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>workEmailAddress</sourceRef>
+        <targetRef>UserTask_1_workEmailAddressInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>password</sourceRef>
+        <targetRef>UserTask_1_passwordInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>joinDate</sourceRef>
+        <targetRef>UserTask_1_joinDateInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>username</sourceRef>
+        <targetRef>UserTask_1_usernameInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>gender</sourceRef>
+        <targetRef>UserTask_1_genderInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>isApproved</sourceRef>
+        <targetRef>UserTask_1_isApprovedInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>departmentId</sourceRef>
+        <targetRef>UserTask_1_departmentIdInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>employeeGradeId</sourceRef>
+        <targetRef>UserTask_1_employeeGradeIdInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>registeredEmployee</sourceRef>
+        <targetRef>UserTask_1_registeredEmployeeInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>fullname</sourceRef>
+        <targetRef>UserTask_1_fullnameInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>idNumber</sourceRef>
+        <targetRef>UserTask_1_idNumberInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>UserTask_1_GroupIdInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">ROLE_HR</from>
+          <to xsi:type="tFormalExpression">UserTask_1_GroupIdInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>UserTask_1_NodeNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">HR Approval</from>
+          <to xsi:type="tFormalExpression">UserTask_1_NodeNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>UserTask_1_positionOutput</sourceRef>
+        <targetRef>position</targetRef>
+      </dataOutputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>UserTask_1_employeeTypeIdOutput</sourceRef>
+        <targetRef>employeeTypeId</targetRef>
+      </dataOutputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>UserTask_1_reasonOutput</sourceRef>
+        <targetRef>reason</targetRef>
+      </dataOutputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>UserTask_1_personalEmailAddressOutput</sourceRef>
+        <targetRef>personalEmailAddress</targetRef>
+      </dataOutputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>UserTask_1_personalPhoneNumberOutput</sourceRef>
+        <targetRef>personalPhoneNumber</targetRef>
+      </dataOutputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>UserTask_1_workPhoneNumberOutput</sourceRef>
+        <targetRef>workPhoneNumber</targetRef>
+      </dataOutputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>UserTask_1_passportNumberOutput</sourceRef>
+        <targetRef>passportNumber</targetRef>
+      </dataOutputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>UserTask_1_workEmailAddressOutput</sourceRef>
+        <targetRef>workEmailAddress</targetRef>
+      </dataOutputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>UserTask_1_joinDateOutput</sourceRef>
+        <targetRef>joinDate</targetRef>
+      </dataOutputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>UserTask_1_genderOutput</sourceRef>
+        <targetRef>gender</targetRef>
+      </dataOutputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>UserTask_1_departmentIdOutput</sourceRef>
+        <targetRef>departmentId</targetRef>
+      </dataOutputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>UserTask_1_isApprovedOutput</sourceRef>
+        <targetRef>isApproved</targetRef>
+      </dataOutputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>UserTask_1_employeeGradeIdOutput</sourceRef>
+        <targetRef>employeeGradeId</targetRef>
+      </dataOutputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>UserTask_1_employeeNumberOutput</sourceRef>
+        <targetRef>employeeNumber</targetRef>
+      </dataOutputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>UserTask_1_registeredEmployeeOutput</sourceRef>
+        <targetRef>registeredEmployee</targetRef>
+      </dataOutputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>UserTask_1_fullnameOutput</sourceRef>
+        <targetRef>fullname</targetRef>
+      </dataOutputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>UserTask_1_idNumberOutput</sourceRef>
+        <targetRef>idNumber</targetRef>
+      </dataOutputAssociation>
+    </userTask>
+    <endEvent id="EndEvent_1" name="" />
+    <exclusiveGateway id="ExclusiveGateway_1" name="" gatewayDirection="Diverging" />
+    <scriptTask id="ScriptTask_1" name="Send Reject Email" scriptFormat="http://www.java.com/java" >
+      <script>System.out.println("Reject");</script>
+    </scriptTask>
+    <scriptTask id="ScriptTask_2" name="Save Employee" scriptFormat="http://www.java.com/java" >
+      <script>EmployeeRegistrationWorker.registerEmployee(registeredEmployee);</script>
+    </scriptTask>
+    <endEvent id="EndEvent_3" name="" />
+
+    <!-- connections -->
+    <sequenceFlow id="_1-UserTask_1" sourceRef="_1" targetRef="UserTask_1" />
+    <sequenceFlow id="ScriptTask_2-EndEvent_1" sourceRef="ScriptTask_2" targetRef="EndEvent_1" />
+    <sequenceFlow id="UserTask_1-ExclusiveGateway_1" sourceRef="UserTask_1" targetRef="ExclusiveGateway_1" />
+    <sequenceFlow id="ExclusiveGateway_1-ScriptTask_1" sourceRef="ExclusiveGateway_1" targetRef="ScriptTask_1" name="Not Approved" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return isApproved == false;</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="ExclusiveGateway_1-ScriptTask_2" sourceRef="ExclusiveGateway_1" targetRef="ScriptTask_2" name="Approved" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return isApproved == true;</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="ScriptTask_1-EndEvent_3" sourceRef="ScriptTask_1" targetRef="EndEvent_3" />
+
+  </process>
+
+  <bpmndi:BPMNDiagram>
+    <bpmndi:BPMNPlane bpmnElement="com.beans.leaveapp.bpmn.empreg" >
+      <bpmndi:BPMNShape bpmnElement="_1" >
+        <dc:Bounds x="39" y="39" width="48" height="48" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_UserTask_1" bpmnElement="UserTask_1">
-        <dc:Bounds height="50.0" width="110.0" x="215.0" y="65.0"/>
+      <bpmndi:BPMNShape bpmnElement="UserTask_1" >
+        <dc:Bounds x="215" y="65" width="110" height="50" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_EndEvent_1" bpmnElement="EndEvent_1">
-        <dc:Bounds height="36.0" width="36.0" x="452.0" y="72.0"/>
+      <bpmndi:BPMNShape bpmnElement="EndEvent_1" >
+        <dc:Bounds x="446" y="66" width="48" height="48" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="SequenceFlow_1" sourceElement="BPMNShape_StartEvent_1" targetElement="BPMNShape_UserTask_1">
-        <di:waypoint xsi:type="dc:Point" x="63.0" y="81.0"/>
-        <di:waypoint xsi:type="dc:Point" x="63.0" y="90.0"/>
-        <di:waypoint xsi:type="dc:Point" x="215.0" y="90.0"/>
+      <bpmndi:BPMNShape bpmnElement="ExclusiveGateway_1" >
+        <dc:Bounds x="365" y="145" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="ScriptTask_1" >
+        <dc:Bounds x="324" y="240" width="110" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="ScriptTask_2" >
+        <dc:Bounds x="525" y="165" width="110" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="EndEvent_3" >
+        <dc:Bounds x="496" y="241" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="_1-UserTask_1" >
+        <di:waypoint x="63" y="63" />
+        <di:waypoint x="63" y="90" />
+        <di:waypoint x="270" y="90" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_2" bpmnElement="SequenceFlow_2" sourceElement="BPMNShape_UserTask_1" targetElement="BPMNShape_EndEvent_1">
-        <di:waypoint xsi:type="dc:Point" x="325.0" y="90.0"/>
-        <di:waypoint xsi:type="dc:Point" x="382.0" y="90.0"/>
-        <di:waypoint xsi:type="dc:Point" x="382.0" y="90.0"/>
-        <di:waypoint xsi:type="dc:Point" x="452.0" y="90.0"/>
+      <bpmndi:BPMNEdge bpmnElement="ScriptTask_2-EndEvent_1" >
+        <di:waypoint x="580" y="190" />
+        <di:waypoint x="650" y="190" />
+        <di:waypoint x="650" y="90" />
+        <di:waypoint x="470" y="90" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="UserTask_1-ExclusiveGateway_1" >
+        <di:waypoint x="270" y="90" />
+        <di:waypoint x="390" y="90" />
+        <di:waypoint x="389" y="169" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="ExclusiveGateway_1-ScriptTask_1" >
+        <di:waypoint x="389" y="169" />
+        <di:waypoint x="390" y="220" />
+        <di:waypoint x="379" y="220" />
+        <di:waypoint x="379" y="265" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="ExclusiveGateway_1-ScriptTask_2" >
+        <di:waypoint x="389" y="169" />
+        <di:waypoint x="514" y="170" />
+        <di:waypoint x="514" y="190" />
+        <di:waypoint x="580" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="ScriptTask_1-EndEvent_3" >
+        <di:waypoint x="379" y="265" />
+        <di:waypoint x="464" y="265" />
+        <di:waypoint x="464" y="265" />
+        <di:waypoint x="520" y="265" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
-</bpmn2:definitions>
+
+</definitions>

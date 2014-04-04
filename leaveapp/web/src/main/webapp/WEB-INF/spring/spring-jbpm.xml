@@ -32,4 +32,5 @@
 		<constructor-arg index="3" type="java.lang.String" value="employeeregistration.bpmn"/>
 	</bean>
 	
+	<bean id="applicationContextProvider" class="com.beans.leaveapp.jbpm6.util.ApplicationContextProvider"></bean>
 </beans>

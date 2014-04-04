@@ -60,18 +60,47 @@
 					style="margin:0 auto;">
 					<h:outputText value="Name*" />
 					<h:inputText value="#{employeeRegistrationApprovalMgmtBean.selectedRegisteredEmployee.fullname}"
-						required="true" requiredMessage="Please Enter Name"/>
+						required="true" requiredMessage="Please enter Name"/>
 
 					<h:outputText value="Employee Number*" />
 					<h:inputText
 						value="#{employeeRegistrationApprovalMgmtBean.selectedRegisteredEmployee.employeeNumber}"
-						required="true" requiredMessage="Please Enter Employee Number" />
+						required="true" requiredMessage="Please enter Employee Number" />
 
 					<h:outputText value="Position*" />
 					<h:inputText
 						value="#{employeeRegistrationApprovalMgmtBean.selectedRegisteredEmployee.position}"
-						required="true" requiredMessage="Please Enter Position" />
+						required="true" requiredMessage="Please enter Position" />
 
+					
+
+					<h:outputText value="Email Address(Work)*" />
+					<h:inputText
+						value="#{employeeRegistrationApprovalMgmtBean.selectedRegisteredEmployee.workEmailAddress}" required="true" requiredMessage="Please enter Email Address(Work)"  />
+
+
+					<h:outputText value="Email Address(Personal)" />
+					<h:inputText
+						value="#{employeeRegistrationApprovalMgmtBean.selectedRegisteredEmployee.personalEmailAddress}" required="true" requiredMessage="Please enter Email Address(Personal)"/>
+
+					<h:outputText value="Phone Number(Work)" />
+					<h:inputText
+						value="#{employeeRegistrationApprovalMgmtBean.selectedRegisteredEmployee.workPhoneNumber}" />
+
+					<h:outputText value="Phone Number(Personal)" />
+					<h:inputText
+						value="#{employeeRegistrationApprovalMgmtBean.selectedRegisteredEmployee.personalPhoneNumber}" />
+					
+					<h:outputText value="Join Date" />
+					<p:calendar pattern="dd/MM/yyyy"
+						value="#{employeeRegistrationApprovalMgmtBean.selectedRegisteredEmployee.joinDate}"
+						id="newEmployeeJoinDateCal" required="true" requiredMessage="Please enter Join Date"/>
+					
+					</p:panelGrid>
+					
+					<p:panelGrid id="EmployeeReqDetailRight" columns="2" cellpadding="4"
+					style="margin:0 auto;">
+					
 					<h:outputText value="IC Number" />
 					<h:inputText
 						value="#{employeeRegistrationApprovalMgmtBean.selectedRegisteredEmployee.idNumber}" />
@@ -79,20 +108,7 @@
 					<h:outputText value="Passport Number" />
 					<h:inputText
 						value="#{employeeRegistrationApprovalMgmtBean.selectedRegisteredEmployee.passportNumber}" />
-
-					
-					
-					<h:outputText value="Reason*" />
-					<p:inputTextarea id="reason" rows="5" cols="20" counter="counter" maxlength="100" styleClass="noprocess"     
-    					counterTemplate="{0} characters remaining." autoResize="false" value="#{employeeRegistrationApprovalMgmtBean.selectedRegisteredEmployee.reason}" required="true" requiredMessage="Please Enter Reason"/> 
-					<h:outputText value="" />
-					<h:outputText id="counter" /> 
-					
-					</p:panelGrid>
-					
-					<p:panelGrid id="EmployeeReqDetailRight" columns="2" cellpadding="4"
-					style="margin:0 auto;">
-					
+						
 					<h:outputText value="Gender" />
 					<p:selectOneMenu
 						value="#{employeeRegistrationApprovalMgmtBean.selectedRegisteredEmployee.gender}"
@@ -134,36 +150,40 @@
 							var="department0" itemLabel="#{department0.description}"
 							itemValue="#{department0.id}" />
 					</p:selectOneMenu>
-					<h:outputText value="Email Address(Work)*" />
-					<h:inputText
-						value="#{employeeRegistrationApprovalMgmtBean.selectedRegisteredEmployee.workEmailAddress}" required="true" requiredMessage="Please Enter Email Address(Work)"  />
-
-
-					<h:outputText value="Email Address(Personal)" />
-					<h:inputText
-						value="#{employeeRegistrationApprovalMgmtBean.selectedRegisteredEmployee.personalEmailAddress}" required="true" requiredMessage="Please Enter Email Address(Personal)"/>
-
-					<h:outputText value="Phone Number(Work)" />
-					<h:inputText
-						value="#{employeeRegistrationApprovalMgmtBean.selectedRegisteredEmployee.workPhoneNumber}" />
-
-					<h:outputText value="Phone Number(Personal)" />
-					<h:inputText
-						value="#{employeeRegistrationApprovalMgmtBean.selectedRegisteredEmployee.personalPhoneNumber}" />
-						
+					
+					
+					
+							
 					</p:panelGrid>
 					
 						
                     <f:facet name="footer">
-                            <p:commandButton value="Approve" update=":employeeRegistrationTableForm:employeeRegistrationTable" oncomplete="if(!args.validationFailed) empRegDialog.hide()" actionListener="#{employeeRegistrationApprovalMgmtBeann.doApproveEmployeeRegistration()}" validateClient="true"/>
-                            <p:commandButton value="Reject" process="@this,reason" update=":employeeRegistrationTableForm:employeeRegistrationTable" oncomplete="if(!args.validationFailed) empRegDialog.hide()" actionListener="#{employeeRegistrationApprovalMgmtBean.doRejectEmployeeRegistration()}" validateClient="true"/>
+                            <p:commandButton value="Approve" update=":employeeRegistrationTableForm:employeeRegistrationTable" oncomplete="if(!args.validationFailed) empRegDialog.hide()" actionListener="#{employeeRegistrationApprovalMgmtBean.doApproveEmployeeRegistration()}" validateClient="true"/>
+                            <p:commandButton value="Reject" immediate="true" oncomplete="empRegDialog.hide();cd.show()"/>
                             <p:commandButton value="Cancel" oncomplete="PF('empRegDialog').hide()" immediate="true"/>
                     </f:facet>
                 </p:panelGrid>
              </h:form>
           </p:dialog>          
           
-          
+          <p:dialog header="Reject Registration" 
+          	severity="alert" widgetVar="cd">	
+			<h:form>
+			<p:messages autoUpdate="true" />
+			<p:panelGrid id="RejectReason" columns="2" cellpadding="4" style="margin:0 auto;">
+			<h:outputText value="Reason*" />
+					<p:inputTextarea id="reason" rows="5" cols="20" counter="counter" maxlength="100"
+    					counterTemplate="{0} characters remaining." autoResize="false" value="#{employeeRegistrationApprovalMgmtBean.selectedRegisteredEmployee.reason}" required="true" requiredMessage="Please enter Reason"/> 
+					<h:outputText value="" />
+					<h:outputText id="counter" /> 
+					
+			 <f:facet name="footer">
+			<p:commandButton value="Reject" update=":employeeRegistrationTableForm:employeeRegistrationTable" oncomplete="if(!args.validationFailed) cd.hide()" actionListener="#{employeeRegistrationApprovalMgmtBean.doRejectEmployeeRegistration()}" validateClient="true"/>
+			<p:commandButton value="Cancel" immediate="true" onclick="PF('cd').hide();PF('empRegDialog').show();" type="button" />
+			</f:facet>
+			</p:panelGrid>
+			</h:form>
+			</p:dialog>
 			
 			
 </ui:define>

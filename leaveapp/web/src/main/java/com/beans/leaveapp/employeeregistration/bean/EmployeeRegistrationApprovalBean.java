@@ -99,6 +99,9 @@ private static final long serialVersionUID = 1L;
 			
 			auditTrail.log(SystemAuditTrailActivity.APPROVED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has approved a employee registration of " + selectedRegisteredEmployee.getFullname());
 			setInsertDelete(true);
+			setSelectedDepartment(0);
+			setSelectedEmployeeGrade(0);
+			setSelectedEmployeeType(0);
 		
 		} catch(Exception e) {
 			e.printStackTrace(); 
@@ -117,6 +120,9 @@ private static final long serialVersionUID = 1L;
 				
 				auditTrail.log(SystemAuditTrailActivity.REJECTED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has approved a employee registration of " + selectedRegisteredEmployee.getFullname() + " due to " + selectedRegisteredEmployee.getReason());
 				setInsertDelete(true);
+				setSelectedDepartment(0);
+				setSelectedEmployeeGrade(0);
+				setSelectedEmployeeType(0);
 			}
 			
 		} catch(Exception e) {

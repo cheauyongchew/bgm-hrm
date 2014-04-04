@@ -26,10 +26,8 @@ import org.kie.api.task.model.Content;
 import org.kie.api.task.model.Task;
 import org.kie.api.task.model.TaskSummary;
 import org.kie.internal.runtime.manager.context.EmptyContext;
-import org.kie.internal.runtime.manager.context.ProcessInstanceIdContext;
 import org.springframework.transaction.support.AbstractPlatformTransactionManager;
 
-import com.beans.util.config.ConfigurationHolder;
 
 public class JBPM6Runtime {
 	private static RuntimeManager manager;
@@ -44,6 +42,7 @@ public class JBPM6Runtime {
 		runtimeEnvironmentBuilder.userGroupCallback(userGroupCallback);
 		RuntimeEnvironment runtimeEnvironment = runtimeEnvironmentBuilder.get();
 		manager = RuntimeManagerFactory.Factory.get().newSingletonRuntimeManager(runtimeEnvironment);
+		RuntimeEngine runtimeEngine = manager.getRuntimeEngine(EmptyContext.get());	
 		
 	}	
 	

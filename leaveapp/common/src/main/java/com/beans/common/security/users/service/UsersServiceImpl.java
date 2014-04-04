@@ -84,8 +84,10 @@ public class UsersServiceImpl implements UsersService {
 		Users createdUsers = usersRepository.save(users);
 		try {
 			Role userRole = roleService.findByRole("ROLE_USER");
+			Role employeeRole = roleService.findByRole("ROLE_EMPLOYEE");
 			Set<Role> roleSet = new HashSet<Role>();
 			roleSet.add(userRole);
+			roleSet.add(employeeRole);
 			createdUsers.setUserRoles(roleSet);
 		} catch(RoleNotFound e) {
 			e.printStackTrace();
