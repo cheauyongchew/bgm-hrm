@@ -19,6 +19,8 @@ public class RegisteredEmployee {
 	private String password;
 	private String gender;
 	private String reason;
+	private String employeeNumber;
+	private String position;
 	
 	public long getTaskId() {
 		return taskId;
@@ -115,5 +117,19 @@ public class RegisteredEmployee {
 	}
 	public void setReason(String reason) {
 		this.reason = reason;
+	}
+	
+	public String getEmployeeNumber() {
+		return employeeNumber;
+	}
+	public void setEmployeeNumber(String employeeNumber) {
+		this.employeeNumber = employeeNumber;
+	}
+	
+	public String getPosition() {
+		return position;
+	}
+	public void setPosition(String position) {
+		this.position = position;
 	}
 }

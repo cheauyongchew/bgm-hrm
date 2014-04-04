@@ -32,38 +32,20 @@ import org.springframework.transaction.support.AbstractPlatformTransactionManage
 import com.beans.util.config.ConfigurationHolder;
 
 public class JBPM6Runtime {
-	private static JBPM6Runtime jbpm6Runtime;
 	private static RuntimeManager manager;
 	
-	private JBPM6Runtime(EntityManagerFactory entityManagerFactory, AbstractPlatformTransactionManager abstractPlatformTransactionManager, UserGroupCallback userGroupCallback) {
-		List<String> bpmnList = ConfigurationHolder.getStringList("bpmn.file");
+	private JBPM6Runtime(EntityManagerFactory entityManagerFactory, AbstractPlatformTransactionManager abstractPlatformTransactionManager, UserGroupCallback userGroupCallback, String bpmnFile) {
 		KieServices kservices = KieServices.Factory.get();
 		RuntimeEnvironmentBuilder runtimeEnvironmentBuilder = RuntimeEnvironmentBuilder.Factory.get().newDefaultBuilder();
-		Iterator<String> bpmnIterator = bpmnList.iterator();
-		while(bpmnIterator.hasNext()) {
-			String currentBPMNFile = bpmnIterator.next();
-			
-			runtimeEnvironmentBuilder.addAsset(kservices.getResources().newClassPathResource(currentBPMNFile), ResourceType.BPMN2);
-		}
+		runtimeEnvironmentBuilder.addAsset(kservices.getResources().newClassPathResource(bpmnFile), ResourceType.BPMN2);
+		
 		runtimeEnvironmentBuilder.addEnvironmentEntry(EnvironmentName.TRANSACTION_MANAGER, abstractPlatformTransactionManager);
 		runtimeEnvironmentBuilder.entityManagerFactory(entityManagerFactory);
 		runtimeEnvironmentBuilder.userGroupCallback(userGroupCallback);
 		RuntimeEnvironment runtimeEnvironment = runtimeEnvironmentBuilder.get();
 		manager = RuntimeManagerFactory.Factory.get().newSingletonRuntimeManager(runtimeEnvironment);
-        
 		
-		
-	}
-	
-	
-	public static JBPM6Runtime getRuntime(EntityManagerFactory entityManagerFactory, AbstractPlatformTransactionManager abstractPlatformTransactionManager, UserGroupCallback userGroupCallback) {
-		if(jbpm6Runtime == null) {
-			jbpm6Runtime = new JBPM6Runtime(entityManagerFactory, abstractPlatformTransactionManager, userGroupCallback);
-		}
-		
-		
-		return jbpm6Runtime;
-	}
+	}	
 	
 	public List<TaskSummary> getTaskAssignedForUser(String username) {
 		RuntimeEngine runtimeEngine = manager.getRuntimeEngine(EmptyContext.get());	

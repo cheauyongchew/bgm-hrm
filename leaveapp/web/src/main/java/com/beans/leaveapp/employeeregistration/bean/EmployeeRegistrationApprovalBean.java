@@ -28,6 +28,10 @@ private static final long serialVersionUID = 1L;
 	private Users actorUsers;
 	private AuditTrail auditTrail;
 	
+	private int selectedEmployeeGrade;
+	private int selectedDepartment;
+	private int selectedEmployeeType;
+	
 
 	public EmployeeRegistrationService getEmployeeRegistrationService() {
 		return employeeRegistrationService;
@@ -86,8 +90,15 @@ private static final long serialVersionUID = 1L;
 	
 	public void doApproveEmployeeRegistration() {
 		try {
-			auditTrail.log(SystemAuditTrailActivity.UPDATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has updated a department");
+			selectedRegisteredEmployee.setDepartmentId(selectedDepartment);
+			selectedRegisteredEmployee.setEmployeeGradeId(selectedEmployeeGrade);
+			selectedRegisteredEmployee.setEmployeeTypeId(selectedEmployeeType);
 			
+			employeeRegistrationService.approveRegistration(selectedRegisteredEmployee, getActorUsers().getUsername());
+			
+			
+			auditTrail.log(SystemAuditTrailActivity.APPROVED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has approved a employee registration of " + selectedRegisteredEmployee.getFullname());
+			setInsertDelete(true);
 		
 		} catch(Exception e) {
 			e.printStackTrace(); 
@@ -96,7 +107,17 @@ private static final long serialVersionUID = 1L;
 	
 	public void doRejectEmployeeRegistration() {
 		try {
-			auditTrail.log(SystemAuditTrailActivity.UPDATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has updated a department");
+			if(selectedRegisteredEmployee.getReason() == null || selectedRegisteredEmployee.getReason().trim().equals("")) {
+				FacesMessage msg = new FacesMessage("Please enter Reason for rejection");  
+		        
+		        FacesContext.getCurrentInstance().addMessage(null, msg);  
+			} else {
+				
+				employeeRegistrationService.rejectRegistration(selectedRegisteredEmployee, getActorUsers().getUsername());
+				
+				auditTrail.log(SystemAuditTrailActivity.REJECTED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has approved a employee registration of " + selectedRegisteredEmployee.getFullname() + " due to " + selectedRegisteredEmployee.getReason());
+				setInsertDelete(true);
+			}
 			
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -104,10 +125,7 @@ private static final long serialVersionUID = 1L;
 	}
 	
 	public void onRowSelect(SelectEvent event) {  
-		setSelectedRegisteredEmployee((RegisteredEmployee) event.getObject());
-        FacesMessage msg = new FacesMessage("Employee Registration Selected", selectedRegisteredEmployee.getFullname());  
-        
-        FacesContext.getCurrentInstance().addMessage(null, msg);  
+		setSelectedRegisteredEmployee((RegisteredEmployee) event.getObject()); 
     }  
 	
 	
@@ -124,5 +142,24 @@ private static final long serialVersionUID = 1L;
 	}
 	public void setAuditTrail(AuditTrail auditTrail) {
 		this.auditTrail = auditTrail;
+	}
+	
+	public int getSelectedDepartment() {
+		return selectedDepartment;
+	}
+	public void setSelectedDepartment(int selectedDepartment) {
+		this.selectedDepartment = selectedDepartment;
+	}
+	public int getSelectedEmployeeGrade() {
+		return selectedEmployeeGrade;
+	}
+	public void setSelectedEmployeeGrade(int selectedEmployeeGrade) {
+		this.selectedEmployeeGrade = selectedEmployeeGrade;
+	}
+	public int getSelectedEmployeeType() {
+		return selectedEmployeeType;
+	}
+	public void setSelectedEmployeeType(int selectedEmployeeType) {
+		this.selectedEmployeeType = selectedEmployeeType;
 	}
 }

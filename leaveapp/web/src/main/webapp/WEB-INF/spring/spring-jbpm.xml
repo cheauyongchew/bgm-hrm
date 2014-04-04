@@ -8,19 +8,9 @@
 
 	<import resource="spring-ds.xml"/>
 
-	<bean id="jbpm6Service" class="com.beans.leaveapp.jbpm6.service.JBPM6ServiceImpl">
-		<property name="entityManagerFactory" >
-			<ref bean="entityManagerFactory"/>
-		</property>
-		<property name="abstractPlatformTransactionManager" >
-			<ref bean="transactionManager"/>
-		</property>
-		<property name="userGroupCallback" >
-			<ref bean="userGroupCallback"/>
-		</property>
-	</bean>
 	
-	<bean id="userGroupCallback" class="com.beans.leaveapp.jbpm6.util.RoleBasedUserGroupCallback">
+	
+	<bean id="roleBasedUserGroupCallback" class="com.beans.leaveapp.jbpm6.util.RoleBasedUserGroupCallback">
 		<property name="roleService" >
 			<ref bean="roleService"/>
 		</property>
@@ -30,11 +20,16 @@
 	</bean>
 	
 	<bean  id="employeeRegistrationService" class="com.beans.leaveapp.employee.service.EmployeeRegistrationServiceImpl"> 
-    	<property name="jbpm6Service" >
-			<ref bean="jbpm6Service"/>
+    	<property name="employeeRegistrationRuntime" >
+			<ref bean="employeeRegistrationRuntime"/>
 		</property>
     </bean>
 	 	 
-	
+	<bean id="employeeRegistrationRuntime" class="com.beans.leaveapp.jbpm6.util.JBPM6Runtime">
+		<constructor-arg index="0" ref="entityManagerFactory"/>
+		<constructor-arg index="1" ref="transactionManager"/>
+		<constructor-arg index="2" ref="roleBasedUserGroupCallback"/>
+		<constructor-arg index="3" type="java.lang.String" value="employeeregistration.bpmn"/>
+	</bean>
 	
 </beans>
