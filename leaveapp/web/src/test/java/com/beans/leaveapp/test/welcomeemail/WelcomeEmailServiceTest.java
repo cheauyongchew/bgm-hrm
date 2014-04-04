@@ -16,7 +16,7 @@ import com.beans.leaveapp.welcomeemail.service.WelcomeEmailService;
 @ContextConfiguration(locations="/META-INF/spring-welcomeemail.xml")
 public class WelcomeEmailServiceTest {
 
-	ApplicationContext applicationContext;
+	/*ApplicationContext applicationContext;
 	WelcomeEmailService welcomeEmailService;
 	
 	@Before
@@ -42,5 +42,5 @@ public class WelcomeEmailServiceTest {
 		welcomeEmailService.sendHTMLEmail(employee);
 	}
 	
-	
+	*/
 }
