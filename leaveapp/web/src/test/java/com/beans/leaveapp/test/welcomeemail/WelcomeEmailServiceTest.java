@@ -1,5 +1,6 @@
 package com.beans.leaveapp.test.welcomeemail;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,4 +44,9 @@ public class WelcomeEmailServiceTest {
 	}
 	
 	*/
+	
+	@Test
+	public void testNothing() {
+		Assert.assertEquals(1, 1);
+	}
 }
