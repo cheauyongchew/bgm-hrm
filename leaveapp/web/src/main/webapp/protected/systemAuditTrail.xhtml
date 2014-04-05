@@ -9,6 +9,18 @@
 	
 <h:head>
 	
+<style>
+.ui-dialog.ui-dlgCSS-content 
+{
+     background-image: none;
+     background-color: red;
+}
+         
+</style>
+<script type="text/javascript">
+    
+</script>
+
 </h:head>
 	
 <h:body>
@@ -17,6 +29,8 @@
 <ui:define name="title">System Audit Trail Records</ui:define>
 
 <ui:define name="content">
+
+       <h1>System Audit Trail Records</h1>
 		<h:form id="systemAuditTrailForm">
 		<p:panel header="Search" toggleable="true">
 			<p:panelGrid id="SearchEmployee" columns="2" cellpadding="4">
@@ -70,7 +84,10 @@
       </h:form>      
     
   </ui:define>  
-  
-</ui:composition>	
-</h:body> 
+	
+</ui:composition>
+</h:body>
+
 </html>
+
+

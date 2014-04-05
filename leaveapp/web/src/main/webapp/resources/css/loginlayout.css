@@ -1,6 +1,6 @@
 
 body,div,td {
-    font-family: 'Sintony', sans-serif;
+    font-family: 'PT Sans', sans-serif;
     font-size: 14px;
     word-wrap: break-word;
 }
@@ -56,6 +56,27 @@ img {
     margin-right: auto;
 }
 
+#registerHeader {
+    font-size: 16px;
+    color: #fff;
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
+}
+
+#registerContainer {
+    margin-left: auto;
+    margin-right: auto;
+    width: 800px;
+}
+
+#registerForm {
+    margin-left: auto;
+    margin-right: auto;
+   	width: 800px
+}
+
 #panel {
     background-color: #f06409;
     border-radius: 15px;
@@ -93,7 +114,7 @@ img {
 
 input {
     border-radius: 5px;
-    font-family: 'Sintony', sans-serif;
+    font-family: 'PT Sans', sans-serif !important;
     padding: 1px 0.5em;
     
 }

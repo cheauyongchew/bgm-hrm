@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Resource;
-import javax.management.relation.RoleInfoNotFoundException;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -72,8 +71,12 @@ public class RoleServiceImpl implements RoleService{
 	}
 
 	@Override
-	public Role findByRole(String role) {
-		Role foundRole = roleRepository.findByRole(role);			
+	public Role findByRole(String role) throws RoleNotFound {
+		Role foundRole = roleRepository.findByRole(role);
+		
+		if(foundRole == null)
+			throw new RoleNotFound();
+		
 		return foundRole;
 	}
 	
@@ -85,6 +88,18 @@ public class RoleServiceImpl implements RoleService{
 	       if(role == null)
 	    	   throw new RoleNotFound();	     
 		return role;
+	}
+
+	@Override
+	public List<Role> findRoleByRoleName(String role) {
+		String roleSearchTerm = "%" + role + "%";
+		return roleRepository.findByRoleLike(roleSearchTerm);
+	}
+
+	@Override
+	public List<String> findRoleNamesByUsername(String username) {
+		List<String> roleNameList = roleRepository.findRoleNamesByUsername(username);
+		return roleNameList;
 	}	
 
 	

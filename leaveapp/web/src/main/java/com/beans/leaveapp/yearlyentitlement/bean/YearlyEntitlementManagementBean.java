@@ -278,7 +278,7 @@ public class YearlyEntitlementManagementBean implements Serializable {
 		try {
 			int employeeId = this.employee.getId();
 			employeeEntitlementList = yearlyEntitlementService
-					.findByEmployeeId(employeeId);
+					.findByEmployeeIdLike(employeeId);
 
 		} catch (Exception e) {
 			e.printStackTrace();

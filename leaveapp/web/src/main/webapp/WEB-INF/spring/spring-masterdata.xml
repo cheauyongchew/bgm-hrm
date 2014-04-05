@@ -9,24 +9,7 @@
 
 	<import resource="spring-ds.xml"/>
 
-    <!--Following entity manager for Mysql database-->
-    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="dataSource" ref="dataSource"/>
-        <property name="persistenceUnitName" value="masterDataMysql"/>
-    </bean>
-
-    <!--Transaction manager for both H2 and Mysql-->
-    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="entityManagerFactory"/>
-    </bean>
-   
-    <jpa:repositories base-package="com.beans"></jpa:repositories>
     
-	
-	
-	<!-- Model and Service declarations -->
-	
-	<context:component-scan base-package="com.bean.leaveapp" />
 	
 	<bean id="leaveType" class="com.beans.leaveapp.leavetype.model.LeaveType" />
 
@@ -58,28 +41,13 @@
 	
 	 <bean id="departmentService" class="com.beans.leaveapp.department.service.DepartmentServiceImpl" >
 	 </bean>	 
-	
-	<bean id="users" class="com.beans.common.security.users.role.model.Users"/>
-    <bean  id="usersService" class="com.beans.common.security.users.service.UsersServiceImpl"> 
-    
-    </bean>	 
+ 
 
-
-
-	 <bean id="role" class="com.beans.common.security.role.model.Role"/>
-	 <bean id="roleService" class="com.beans.common.security.role.service.RoleServiceImpl">
-	 </bean>
-
-<bean id="yearlyEntitlement" class="com.beans.leaveapp.yearlyentitlement.model.YearlyEntitlement" />
-	
-	<bean id="yearlyEntitlementService" class=" com.beans.leaveapp.yearlyentitlement.service.YearlyEntitlementServiceImpl">
-	
+	<bean id="yearlyEntitlement" class="com.beans.leaveapp.yearlyentitlement.model.YearlyEntitlement" />	
+	<bean id="yearlyEntitlementService" class=" com.beans.leaveapp.yearlyentitlement.service.YearlyEntitlementServiceImpl">	
 	</bean>	 
 	
-	 <bean id="accessRights" class="com.beans.common.security.accessrights.model.AccessRights"/>
-    <bean id="accessRightsService" class="com.beans.common.security.accessrights.service.AccessRightsServiceImpl">
-    </bean>  
-	 
 
 
 </beans>
+

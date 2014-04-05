@@ -29,7 +29,7 @@ public class AccessRights {
 		this.id = id;
 	}	
 	
-	@Column(name="accessRights", nullable=false) 
+	@Column(name="accessRights", nullable=false , length=45) 
 	public String getAccessRights() {
 		return accessRights;
 	}
@@ -38,7 +38,7 @@ public class AccessRights {
 		this.accessRights = accessRights;
 	}
 	
-	@Column(name="description" , nullable=false)
+	@Column(name="description" , nullable=false , length=255)
 	public String getDescription() {
 		return description;
 	}

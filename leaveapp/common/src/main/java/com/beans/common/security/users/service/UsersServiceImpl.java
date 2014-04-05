@@ -1,20 +1,26 @@
 package com.beans.common.security.users.service;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Resource;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.beans.common.security.accessrights.model.AccessRights;
 import com.beans.common.security.role.model.Role;
 import com.beans.common.security.role.service.RoleNotFound;
 import com.beans.common.security.role.service.RoleService;
 import com.beans.common.security.users.model.Users;
 import com.beans.common.security.users.repository.UsersRepository;
+import com.beans.common.security.usertoaccessrights.model.UserToAccessRights;
+import com.beans.common.security.usertoaccessrights.service.UserToAccessRightsService;
 
 
 @Service
@@ -24,12 +30,16 @@ public class UsersServiceImpl implements UsersService {
 	@Resource
 	private UsersRepository usersRepository;
 	
-	RoleService roleService;
+	private RoleService roleService;
+	private UserToAccessRightsService userToAccessRightsService;
 	
 	@Override
 	@Transactional
 	public Users create(Users users) {	
 		 Users usersToBeCreated = users;
+		 PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		 String hashedPassword = passwordEncoder.encode(usersToBeCreated.getPassword());
+		 usersToBeCreated.setPassword(hashedPassword);
 		return usersRepository.save(usersToBeCreated);
 	}
 
@@ -54,7 +64,10 @@ public class UsersServiceImpl implements UsersService {
 		if(usersToBeUpdated == null)
 			 throw new UsersNotFound();
 		usersToBeUpdated.setUsername(users.getUsername());
-		usersToBeUpdated.setPassword(users.getPassword());
+		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String hashedPassword = passwordEncoder.encode(users.getPassword());
+		usersToBeUpdated.setPassword(hashedPassword);
+		usersToBeUpdated.setPassword(hashedPassword);
 		usersToBeUpdated.setEnabled(users.isEnabled());
 		Set<Role> roleSet = new HashSet<Role>();
 		roleSet.addAll(users.getUserRoles());
@@ -65,12 +78,18 @@ public class UsersServiceImpl implements UsersService {
 
 	@Override	
 	public Users registerUser(Users users) {
-		
+		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String hashedPassword = passwordEncoder.encode(users.getPassword());
+		users.setPassword(hashedPassword);
 		Users createdUsers = usersRepository.save(users);
-		Role userRole = roleService.findByRole("ROLE_USER");
-		Set<Role> roleSet = new HashSet<Role>();
-		roleSet.add(userRole);
-		createdUsers.setUserRoles(roleSet);		
+		try {
+			Role userRole = roleService.findByRole("ROLE_USER");
+			Set<Role> roleSet = new HashSet<Role>();
+			roleSet.add(userRole);
+			createdUsers.setUserRoles(roleSet);
+		} catch(RoleNotFound e) {
+			e.printStackTrace();
+		}
 		
 		return usersRepository.save(createdUsers);
 	}
@@ -98,6 +117,51 @@ public class UsersServiceImpl implements UsersService {
 		return users;
 	}
 
+	@Override
+	public List<Users> findUsersByUsername(String username) {
+			String usernameSearchTerm = "%" + username + "%";
+		return usersRepository.findByUsernameLike(usernameSearchTerm);
+	}
+
+	@Override
+	public HashSet<String> getAccessRightsMapForUser(int userId) throws UsersNotFound {
+		HashSet<String> accessRightsSet = new HashSet<String>();
+		
+		Users user = findById(userId);
+		
+		if(user == null) {
+			throw new UsersNotFound();
+		}
+		
+		
+		Set<Role> roleSet =  user.getUserRoles();
+		
+		Iterator<Role> roleIterator = roleSet.iterator();
+		while(roleIterator.hasNext()) {
+			Role currentRole = roleIterator.next();
+			Set<AccessRights> currentRoleAccessRightSet = currentRole.getAccessRights();
+			Iterator<AccessRights> currentRoleAccessRightIterator = currentRoleAccessRightSet.iterator();
+			while(currentRoleAccessRightIterator.hasNext()) {
+				AccessRights currentAccessRights = currentRoleAccessRightIterator.next();
+				accessRightsSet.add(currentAccessRights.getAccessRights());
+			}
+		}
+		
+		List<UserToAccessRights> userToAccessRightList = userToAccessRightsService.findByUserId(userId);
+		Iterator<UserToAccessRights> userToAccessRightIterator = userToAccessRightList.iterator();
+		while(userToAccessRightIterator.hasNext()) {
+			UserToAccessRights currentUserToAccessRights = userToAccessRightIterator.next();
+			AccessRights currentAccessRights = currentUserToAccessRights.getAccessRights();
+			if(!currentUserToAccessRights.isEnabled() && accessRightsSet.contains(currentAccessRights.getAccessRights())) {
+				accessRightsSet.remove(currentAccessRights.getAccessRights());
+			} else {
+				accessRightsSet.add(currentAccessRights.getAccessRights());
+			}
+		}
+		
+		return accessRightsSet;
+	}
+
 	public RoleService getRoleService() {
 		return roleService;
 	}
@@ -105,6 +169,12 @@ public class UsersServiceImpl implements UsersService {
 		this.roleService = roleService;
 	}
 	
-
+	public UserToAccessRightsService getUserToAccessRightsService() {
+		return userToAccessRightsService;
+	}
+	public void setUserToAccessRightsService(
+			UserToAccessRightsService userToAccessRightsService) {
+		this.userToAccessRightsService = userToAccessRightsService;
+	}
 	 
 }

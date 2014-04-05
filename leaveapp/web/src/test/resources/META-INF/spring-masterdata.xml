@@ -28,16 +28,7 @@
 	<context:annotation-config/>
 	<context:component-scan base-package="com.bean.leaveapp" />
 	
-	
-	<bean id="leaveType" class="com.beans.leaveapp.leavetype.model.LeaveType" /> 
-
-	<bean id="leaveTypeService" class="com.beans.leaveapp.leavetype.service.LeaveTypeServiceImpl">
-	</bean>
 	 
-	 <bean id="employeeGrade" class="com.beans.leaveapp.employeegrade.model.EmployeeGrade" /> 
-	
-	 <bean id="employeeGradeService" class="com.beans.leaveapp.employeegrade.service.EmployeeGradeServiceImpl" >
-	 </bean>  
 	
 	
 </beans>
