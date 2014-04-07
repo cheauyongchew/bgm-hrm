@@ -1,5 +1,5 @@
 
-body,div,td {
+body, div, td, .ui-commandlink.ui-widget {
     font-family: 'PT Sans', sans-serif;
     font-size: 14px;
     word-wrap: break-word;
@@ -7,6 +7,8 @@ body,div,td {
 
 body {
     background-color: #fefdfa;
+    height: 100%;
+    margin: 0;
     text-align: center;
 }
 
@@ -18,12 +20,19 @@ h1 {
 
 img {
     background: white;
+    margin-top: 0.2em;
+}
+
+#wrapper {
+    min-height: 100%;
+    position: relative;
+    width: 100%;
 }
 
 #container {
-    min-height: 100%;
-    position: relative;
+    padding-bottom: 20px;
 }
+
 
 #footer {
    background: #396c84;
@@ -42,7 +51,6 @@ img {
     width: 300px;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 10%;
 }
 
 #loginContainer {
@@ -62,7 +70,6 @@ img {
     width: 300px;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 10%;
 }
 
 #registerContainer {
@@ -95,27 +102,63 @@ img {
     background-color: transparent;
 }
 
-.flabel {
-    color: #315d72;
-    font-weight: bold;
-}
-
-
-.ui-growl {
+/* .ui-growl {
     position: fixed;
     top: 45%;
     left: 63%;
-}
+} */
 
 .ui-growl-item-container {
     background-image: none;
     background-color: #e27129;  
 }
 
-input {
+
+/* Setting for input fields */
+.ui-widget input, .ui-inputfield.hasDatePicker {
+    border: 1px solid gray;
     border-radius: 5px;
-    font-family: 'PT Sans', sans-serif !important;
+    font-family: 'PT Sans', sans-serif;
+    width: 139px;
     padding: 1px 0.5em;
-    
+    margin: auto 3px;
 }
 
+/* Setting for selectonemenu field in form */
+.ui-selectonemenu {
+    border: 1px solid gray !important;
+    font-family: 'PT Sans', sans-serif;
+    text-align: left;
+    text-transform: capitalize;
+    width: 140px !important;
+}
+
+/* Setting for selectonemenu trigger */
+.ui-selectonemenu-trigger.ui-corner-right {
+    background: #fff ;
+    border-left: hidden !important;
+}
+
+/* Setting to capitalize list item for selectonemenu */
+.ui-selectonemenu-list-item {
+    font-family: 'PT Sans', sans-serif;
+    text-transform: capitalize;
+}
+
+/* Setting for highlight state for selectonemenu */
+.ui-selectonemenu-list-item.ui-state-highlight {
+   background: #396c84 !important;
+   font-family: 'PT Sans', sans-serif;
+}
+
+
+/* Setting for button */
+.ui-button-text, input#loginButton {
+    /* background-color: #b3b3b3; */
+    font-family: 'PT Sans', sans-serif;
+    font-size: 14px;
+    /* color: #fff; */
+    font-weight: bold;
+    /* text-shadow: none; */
+    width: auto !important;
+}
