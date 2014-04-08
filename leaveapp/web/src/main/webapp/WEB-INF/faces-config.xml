@@ -190,6 +190,25 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 	</managed-bean>
 	
 	<managed-bean>
+		<managed-bean-name>userChangePasswordBean</managed-bean-name>
+		<managed-bean-class>com.beans.leaveapp.web.bean.UserChangePasswordBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>usersService</property-name>
+			<value>#{usersService}</value>
+		</managed-property>
+		
+		<managed-property>
+			<property-name>auditTrail</property-name>
+			<value>#{auditTrail}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>actorUsers</property-name>
+			<value>#{authenticationBean.getUsers()}</value>
+		</managed-property>
+	</managed-bean>
+	
+	<managed-bean>
 	
 	<managed-bean-name>accessRightsMgmtBean</managed-bean-name>
 		<managed-bean-class>com.beans.leaveapp.accessrights.bean.AccessRightsManagement</managed-bean-class>
