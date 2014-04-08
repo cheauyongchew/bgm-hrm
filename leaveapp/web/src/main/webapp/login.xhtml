@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml"
     xmlns:h="http://java.sun.com/jsf/html"
@@ -39,7 +40,7 @@
                     <h:commandButton id="loginButton" value="Login" action="#{authenticationBean.doLogin}" />
                 </f:facet>              
             </p:panelGrid>
-            
+            <br/>
             Don't have an account? <p:commandLink immediate="true" ajax="false" action="/register.xhtml">Sign Up Now!</p:commandLink>              
         </h:form>   
     </div>
