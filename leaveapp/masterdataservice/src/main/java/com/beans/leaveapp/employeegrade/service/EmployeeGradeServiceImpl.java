@@ -1,8 +1,11 @@
 package com.beans.leaveapp.employeegrade.service;
 
 
+import java.util.Calendar;
 import java.util.List;
+
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -63,7 +66,10 @@ public class EmployeeGradeServiceImpl implements EmployeeGradeService {
 		employeeGradeToBeUpdated.setName(employeeGrade.getName());
 		employeeGradeToBeUpdated.setDescription(employeeGrade.getDescription());
 		employeeGradeToBeUpdated.setDeleted(employeeGrade.isDeleted());
+		employeeGradeToBeUpdated.setLastModifiedBy(employeeGrade.getLastModifiedBy());
+		employeeGradeToBeUpdated.setLastModifiedTime(new java.util.Date());
 		employeeGradeRepository.save(employeeGradeToBeUpdated);
+		System.out.println("update recode with username:" + employeeGradeToBeUpdated.getLastModifiedBy());
 		return employeeGradeToBeUpdated;
 		}
 		return null;
