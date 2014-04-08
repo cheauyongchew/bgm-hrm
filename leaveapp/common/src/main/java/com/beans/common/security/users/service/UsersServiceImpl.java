@@ -163,6 +163,23 @@ public class UsersServiceImpl implements UsersService {
 		
 		return accessRightsSet;
 	}
+	
+	
+
+	@Override
+	public void changePassword(Users users, String oldPassword,
+			String newPassword) throws ChangePasswordException, UsersNotFound{
+		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		if(!passwordEncoder.matches(oldPassword, users.getPassword())) {
+			throw new ChangePasswordException("Invalid old password");
+		}
+		
+		
+		users.setPassword(newPassword);
+		
+		update(users);
+		
+	}
 
 	public RoleService getRoleService() {
 		return roleService;
