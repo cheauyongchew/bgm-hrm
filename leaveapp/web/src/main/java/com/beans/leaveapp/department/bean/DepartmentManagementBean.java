@@ -98,6 +98,8 @@ private static final long serialVersionUID = 1L;
 
 	public void doCreateDepartment() throws DepartmentNotFound {
 		newDepartment.setDeleted(false);
+		newDepartment.setCreatedBy(getActorUsers().getUsername());
+		newDepartment.setCreationTime(new java.util.Date());
 		getDepartmentService().create(newDepartment);
 		setInsertDelete(true);
 		newDepartment = new Department();
@@ -109,9 +111,10 @@ private static final long serialVersionUID = 1L;
 		try {
 			System.out.println("New name:" + selectedDepartment.getName());
 			System.out.println("ID: " + selectedDepartment.getId());
+			selectedDepartment.setLastModifiedBy(getActorUsers().getUsername());
 			getDepartmentService().update(selectedDepartment);
 			auditTrail.log(SystemAuditTrailActivity.UPDATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has updated a department");
-			
+			setInsertDelete(true);
 		// RequestContext.getCurrentInstance().
 		} catch(Exception e) {
 			FacesMessage msg = new FacesMessage("Error", "Department With id: " + selectedDepartment.getId() + " not found!");  
