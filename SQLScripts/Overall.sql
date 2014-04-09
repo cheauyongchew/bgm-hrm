@@ -222,12 +222,12 @@ GRANT ALL PRIVILEGES ON beans.* TO 'beans'@'localhost';
 GRANT ALL PRIVILEGES ON beans.* TO 'beans'@'127.0.0.1';
 
 
-INSERT INTO EmployeeGrade(name, description, isDeleted) VALUES('JNR1', 'Junior 1', 0);
-INSERT INTO EmployeeGrade(name, description, isDeleted) VALUES('JNR2', 'Junior 2', 0);
-INSERT INTO EmployeeGrade(name, description, isDeleted) VALUES('JNR3', 'Junior 3', 0);
-INSERT INTO EmployeeGrade(name, description, isDeleted) VALUES('SNR1', 'Senior 1', 0);
-INSERT INTO EmployeeGrade(name, description, isDeleted) VALUES('SNR2', 'Senior 2', 0);
-INSERT INTO EmployeeGrade(name, description, isDeleted) VALUES('SNR3', 'Senior 3', 0);
+INSERT INTO EmployeeGrade(name, description,creationTime,createdBy, isDeleted) VALUES('JNR1', 'Junior 1',CURRENT_TIMESTAMP,'admin', 0);
+INSERT INTO EmployeeGrade(name, description,creationTime,createdBy, isDeleted) VALUES('JNR2', 'Junior 2',CURRENT_TIMESTAMP,'admin', 0);
+INSERT INTO EmployeeGrade(name, description,creationTime,createdBy, isDeleted) VALUES('JNR3', 'Junior 3',CURRENT_TIMESTAMP,'admin', 0);
+INSERT INTO EmployeeGrade(name, description,creationTime,createdBy, isDeleted) VALUES('SNR1', 'Senior 1',CURRENT_TIMESTAMP,'admin', 0);
+INSERT INTO EmployeeGrade(name, description,creationTime,createdBy, isDeleted) VALUES('SNR2', 'Senior 2',CURRENT_TIMESTAMP,'admin', 0);
+INSERT INTO EmployeeGrade(name, description,creationTime,createdBy, isDeleted) VALUES('SNR3', 'Senior 3',CURRENT_TIMESTAMP,'admin', 0);
 
 INSERT INTO EmployeeType(name, description, isDeleted) VALUES('INT', 'Internship', 0);
 INSERT INTO EmployeeType(name, description, isDeleted) VALUES('CONT', 'Contracted', 0);
