@@ -7,8 +7,9 @@ public class AssignedAccessRights {
 	private boolean enabled;
 	
 	
-	public AssignedAccessRights(String assignedAccessRights, boolean enabled) {
+	public AssignedAccessRights(int id, String assignedAccessRights, boolean enabled) {
 		super();
+		this.id = id;
 		this.assignedAccessRights = assignedAccessRights;
 		this.enabled = enabled;
 	}

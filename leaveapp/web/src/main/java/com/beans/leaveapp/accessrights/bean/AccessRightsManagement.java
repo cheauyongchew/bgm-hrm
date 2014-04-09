@@ -125,7 +125,7 @@ public class AccessRightsManagement implements Serializable {
 		try {
 			getAccessRightsService().delete(selectedAccessRights.getId());
 			
-			auditTrail.log(SystemAuditTrailActivity.CREATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has Deleted Access Right " + selectedAccessRights.getAccessRights() + " with id " + selectedAccessRights.getId());
+			auditTrail.log(SystemAuditTrailActivity.DELETED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has Deleted Access Right " + selectedAccessRights.getAccessRights() + " with id " + selectedAccessRights.getId());
 	
 			System.out.println("actor id: " +getActorUsers().getId());
 		} catch (AccessRightsNotFound e) {

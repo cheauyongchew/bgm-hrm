@@ -42,14 +42,15 @@ public class UserToAccessRightsServiceImpl implements UserToAccessRightsService{
 	}
 
 	@Override
-	public List<AssignedAccessRights> findAssignedAccessRights(int id) {
+	public List<AssignedAccessRights> findAssignedAccessRights() {
 	    List<AssignedAccessRights> assignedAccessRightsList = new ArrayList<AssignedAccessRights>();	    
-	    List<UserToAccessRights> userToAccessRightsList = userToAccessRightsRepository.findByUserId(id);
+	    List<UserToAccessRights> userToAccessRightsList = userToAccessRightsRepository.findByIsDeleted(0);
 	    for(UserToAccessRights userToAccessRights: userToAccessRightsList){
 	    	String accessRights = userToAccessRights.getAccessRights().getAccessRights();
 	    	Boolean enabled= userToAccessRights.isEnabled();
+	    	int id = userToAccessRights.getId();
 	    	
-	    	assignedAccessRightsList.add(new AssignedAccessRights(accessRights,enabled));
+	    	assignedAccessRightsList.add(new AssignedAccessRights(id,accessRights,enabled));
 	    }
 		return assignedAccessRightsList;
 	}

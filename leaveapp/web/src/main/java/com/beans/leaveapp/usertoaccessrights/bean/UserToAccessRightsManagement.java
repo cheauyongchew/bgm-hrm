@@ -42,6 +42,8 @@ public class UserToAccessRightsManagement implements Serializable{
 	private UserToAccessRights selectedUserToAccessRights = new UserToAccessRights();	
 	private int userId;
 	private List<AssignedAccessRights> assignedAccessRightsList;
+	private List<UserToAccessRights> userToAccessRightsList;
+	
 	
 	private String searchUsername = "";
 	
@@ -148,27 +150,23 @@ public class UserToAccessRightsManagement implements Serializable{
 		}		
 	}
 	
-	public List<AssignedAccessRights> getAssignedAccessRightsList() {
+	public List<AssignedAccessRights> getuserToAccessRightsList() throws Exception{
 		 if(assignedAccessRightsList == null || insertDelete == true){
 			 
-			 if(userId != 0){
-			 System.out.println("" +userId);
-			 assignedAccessRightsList = userToAccessRightsService.findAssignedAccessRights(userId);
-			 }
-			 
+			assignedAccessRightsList = (List<AssignedAccessRights>) getUserToAccessRightsService().findAssignedAccessRights();
 		 }				
 		return assignedAccessRightsList;
 	}
 
-	public void setAssignedAccessRightsList(
-			List<AssignedAccessRights> assignedAccessRightsList) {
-		this.assignedAccessRightsList = assignedAccessRightsList;
+	public void setuserToAccessRightsList(
+			List<UserToAccessRights> userToAccessRightsList) {
+		this.userToAccessRightsList = userToAccessRightsList;
 	}
 
-	public UserToAssignedAccessRightsDataModel getUserToAssignedAccessRightsDataModel() {	
+	public UserToAssignedAccessRightsDataModel getUserToAssignedAccessRightsDataModel() throws Exception {	
 		if(userToAssignedAccessRightsDataModel == null || insertDelete == true){
 					
-			userToAssignedAccessRightsDataModel = new UserToAssignedAccessRightsDataModel(getAssignedAccessRightsList());
+			userToAssignedAccessRightsDataModel = new UserToAssignedAccessRightsDataModel(getuserToAccessRightsList());
 		}		
 		return userToAssignedAccessRightsDataModel;
 	}
