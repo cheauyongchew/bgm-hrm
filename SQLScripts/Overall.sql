@@ -13,6 +13,10 @@ CREATE TABLE IF NOT EXISTS EmployeeGrade (
     id INT(10) NOT NULL AUTO_INCREMENT,
     name VARCHAR(20),
     description VARCHAR(50),
+    creationTime TIMESTAMP,
+    createdBy VARCHAR(70),
+    lastModifiedTime TIMESTAMP,
+    lastModifiedBy VARCHAR(70),
     isDeleted CHAR(1),
     PRIMARY KEY (id)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8;
