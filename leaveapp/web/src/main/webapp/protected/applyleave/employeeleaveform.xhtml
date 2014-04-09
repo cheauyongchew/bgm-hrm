@@ -9,25 +9,60 @@
 <h:body>
 <ui:composition template="/templates/mainlayout.xhtml">
 
-<ui:define name="title">Apply Leave</ui:define>
+<ui:define name="title">Leave Application</ui:define>
 
 <ui:define name="content">
-        <h1>Apply Leave</h1>
-		<h:form id="employeeLeaveForm">
+        <h1>Leave Application</h1>
+		<h:form id="employeeLeaveTypeForm">
+		<p:messages showDetail="true" autoUpdate="true"></p:messages>
+		<p:panelGrid id="leaveTypeSelection" columns="2" cellpadding="4" style="">
 		<h:outputText value="Leave Type*" />
 					<p:selectOneMenu
 						value="#{employeeLeaveFormMgmtBean.selectedLeaveType}"
 						effect="fade" required="true"
-						requiredMessage="Please select Leave Type">
+						requiredMessage="Please select Leave Type" valueChangeListener="#{employeeLeaveFormMgmtBean.leaveTypeSelected}">
+						<p:ajax update=":employeeLeaveTypeForm"></p:ajax>
 						<f:selectItem itemLabel="Select One" itemValue="" />
 						<f:selectItems value="#{leaveTypeListBean.leaveTypeList}"
 							var="leaveType0" itemLabel="#{leaveType0.description}"
-							itemValue="#{leaveType0.id}" />
+							itemValue="#{leaveType0.name}" />
+							
 					</p:selectOneMenu>
-      
-      <p:growl id="growl" showDetail="true" life="1000"/> 
-      
+      </p:panelGrid>						
+			<p:panelGrid id="AnnualLeaveDetail" columns="2" cellpadding="4"
+							rendered="#{employeeLeaveFormMgmtBean.selectedLeaveType == 'Annual'}" style="">
+			<h:outputText value="Entitlement" />
+					<h:inputText
+						value="#{employeeLeaveFormMgmtBean.yearlyEntitlement.entitlement}" disabled="true"/>
+						
+			<h:outputText value="Balance" />
+					<h:inputText
+						value="#{employeeLeaveFormMgmtBean.yearlyEntitlement.availableBalance}" disabled="true" />						
+			
+  			<h:outputText value="Start Date*" />
+					<p:calendar pattern="dd/MM/yyyy" mode="popup" value="#{employeeLeaveFormMgmtBean.startDate}"
+						id="annualLeaveStartDateCal" required="true" requiredMessage="Please choose start date" />		
+  			<h:outputText value="End Date*" />
+					<p:calendar pattern="dd/MM/yyyy"
+						value="#{employeeLeaveFormMgmtBean.endDate}"
+						id="annualLeaveEndDateCal" required="true" requiredMessage="Please choose end date"/>	
+			<h:outputText value="Number of Day(s)*" />
+					<h:inputText label="Number of Day(s)"
+						value="#{employeeLeaveFormMgmtBean.numberOfDays}" required="true" requiredMessage="Please enter number of day(s)">
+						<f:validateDoubleRange minimum="0.5" maximum="#{employeeLeaveFormMgmtBean.yearlyEntitlement.availableBalance}" />
+						</h:inputText>			
+			<h:outputText value="Reason*" />
+					<p:inputTextarea id="reason" rows="5" cols="18" counter="counter" maxlength="100"
+    					counterTemplate="{0} characters remaining." autoResize="false" value="#{employeeLeaveFormMgmtBean.reason}" required="true" requiredMessage="Please enter Reason"/> 
+					<h:outputText value="" />
+					<h:outputText id="counter" />
+					
+			<f:facet name="footer">
+					<p:commandButton value="Apply" actionListener="#{employeeLeaveFormMgmtBean.applyLeave}" update=":employeeLeaveTypeForm" validateClient="true"/>
+			</f:facet> 		
+      		</p:panelGrid>
       </h:form>
+      
   </ui:define>    
   
 	

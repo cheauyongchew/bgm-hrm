@@ -72,8 +72,14 @@ public class LeaveTypeServiceImpl implements LeaveTypeService {
 		LeaveType leaveTypeList =  leaveTypeRepository.findByName(name);
 		return leaveTypeList;
 	}
-	
 
+	@Override
+	public List<LeaveType> findByEmployeeType(int employeeTypeId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
 	
 }
 
