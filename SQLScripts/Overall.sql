@@ -13,9 +13,9 @@ CREATE TABLE IF NOT EXISTS EmployeeGrade (
     id INT(10) NOT NULL AUTO_INCREMENT,
     name VARCHAR(20),
     description VARCHAR(50),
-    creationTime TIMESTAMP,
+    creationTime TIMESTAMP NULL,
     createdBy VARCHAR(70),
-    lastModifiedTime TIMESTAMP,
+    lastModifiedTime TIMESTAMP NULL,
     lastModifiedBy VARCHAR(70),
     isDeleted CHAR(1),
     PRIMARY KEY (id)
