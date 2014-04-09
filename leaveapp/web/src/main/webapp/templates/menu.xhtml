@@ -17,6 +17,8 @@
 			<p:menuitem value="Home" url="/protected/index.jsf" />
 			<p:menuitem value="My Profile" url="/protected/employeeprofile/myprofile.jsf" rendered="#{authenticationBean.hasAccess('ViewMyProfile')}"/>
 			<p:menuitem value="Employees" url="/protected/employeeprofile/employeeprofilemgmt.jsf" rendered="#{authenticationBean.hasAccess('ViewEmployees')}"/>
+			<p:menuitem value="Apply Leave" url="/protected/applyleave/employeeleaveform.jsf" rendered="#{authenticationBean.hasAccess('ApplyLeave')}"/>			
+			<p:menuitem value="Employee Registration Approval" url="/protected/employeeregistration/employeeregistrationtasklist.jsf" rendered="#{authenticationBean.hasAccess('ApproveEmployeeRegistration')}"/>
 			<p:submenu label="Administration" rendered="#{authenticationBean.hasAccess('AdminFunctions')}">
 				<p:submenu label="Master Data Management">					
 					<p:menuitem value="Leave Type" url="/protected/leavetypemgmt.jsf" />
@@ -36,6 +38,7 @@
 				<p:menuitem value="System Audit Trail" url="/protected/systemAuditTrail.jsf"/>
                 <p:menuitem value="Yearly Entitlement" url="/protected/yearlyentitlement.jsf"/>
 			</p:submenu>
+			<p:menuitem value="Change Password" url="/protected/userchangepassword.jsf"/>
 			<p:menuitem value="Logout" action="${authenticationBean.doLogout}"></p:menuitem>
 		</p:menubar>
 

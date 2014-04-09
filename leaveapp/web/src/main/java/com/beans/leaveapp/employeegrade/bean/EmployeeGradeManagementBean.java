@@ -2,9 +2,14 @@ package com.beans.leaveapp.employeegrade.bean;
 
 import java.io.Serializable;
 import java.util.List;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+
 import org.primefaces.event.SelectEvent;
+
+import com.beans.common.security.users.model.Users;
+import com.beans.common.security.users.service.UsersService;
 import com.beans.leaveapp.employeegrade.model.EmployeeGradeDataModel;
 import com.beans.leaveapp.employeegrade.model.EmployeeGrade;
 import com.beans.leaveapp.employeegrade.service.EmployeeGradeNotFound;
@@ -25,7 +30,15 @@ public class EmployeeGradeManagementBean implements Serializable{
 	private EmployeeGrade selectedEmployeeGrade = new EmployeeGrade();
 	private boolean insertDeleted = false;
 	private String searchName;
-
+	private Users actorUsers;
+	
+	
+	public Users getActorUsers() {
+		return actorUsers;
+	}
+	public void setActorUsers(Users actorUsers) {
+		this.actorUsers = actorUsers;
+	}
 	public EmployeeGradeService getEmployeeGradeService() {
 		return employeeGradeService;
 	}
@@ -92,6 +105,8 @@ public class EmployeeGradeManagementBean implements Serializable{
 
 	public void doCreateEmployeeGrade() throws EmployeeGradeNotFound {
 		newEmployeeGrade.setDeleted(false);
+		newEmployeeGrade.setCreatedBy(actorUsers.getUsername());
+		newEmployeeGrade.setCreationTime(new java.util.Date());
 		getEmployeeGradeService().create(newEmployeeGrade);
 		setInsertDelete(true);
 	}
@@ -100,7 +115,10 @@ public class EmployeeGradeManagementBean implements Serializable{
 		try {
 			System.out.println("New name:" + selectedEmployeeGrade.getName());
 			System.out.println("ID: " + selectedEmployeeGrade.getId());
+			System.out.println("Username in session : "+actorUsers.getUsername());
+			selectedEmployeeGrade.setLastModifiedBy(actorUsers.getUsername());
 			getEmployeeGradeService().update(selectedEmployeeGrade);
+			this.setInsertDelete(true);
 		// RequestContext.getCurrentInstance().
 		} catch(Exception e) {
 			FacesMessage msg = new FacesMessage("Error", "Leave Type With id: " + selectedEmployeeGrade.getId() + " not found!");  

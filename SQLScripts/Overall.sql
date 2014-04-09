@@ -13,6 +13,10 @@ CREATE TABLE IF NOT EXISTS EmployeeGrade (
     id INT(10) NOT NULL AUTO_INCREMENT,
     name VARCHAR(20),
     description VARCHAR(50),
+    creationTime TIMESTAMP NULL,
+    createdBy VARCHAR(70),
+    lastModifiedTime TIMESTAMP NULL,
+    lastModifiedBy VARCHAR(70),
     isDeleted CHAR(1),
     PRIMARY KEY (id)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -190,7 +194,7 @@ CREATE TABLE IF NOT EXISTS LeaveAttachment (
 
 CREATE TABLE IF NOT EXISTS AccessRights (
   id int(10) NOT NULL AUTO_INCREMENT,
-  accessRights VARCHAR(20) NOT NULL,
+  accessRights VARCHAR(50) NOT NULL,
   description VARCHAR(150),
   isDeleted TINYINT(1),
   PRIMARY KEY (id)
@@ -218,12 +222,12 @@ GRANT ALL PRIVILEGES ON beans.* TO 'beans'@'localhost';
 GRANT ALL PRIVILEGES ON beans.* TO 'beans'@'127.0.0.1';
 
 
-INSERT INTO EmployeeGrade(name, description, isDeleted) VALUES('JNR1', 'Junior 1', 0);
-INSERT INTO EmployeeGrade(name, description, isDeleted) VALUES('JNR2', 'Junior 2', 0);
-INSERT INTO EmployeeGrade(name, description, isDeleted) VALUES('JNR3', 'Junior 3', 0);
-INSERT INTO EmployeeGrade(name, description, isDeleted) VALUES('SNR1', 'Senior 1', 0);
-INSERT INTO EmployeeGrade(name, description, isDeleted) VALUES('SNR2', 'Senior 2', 0);
-INSERT INTO EmployeeGrade(name, description, isDeleted) VALUES('SNR3', 'Senior 3', 0);
+INSERT INTO EmployeeGrade(name, description,creationTime,createdBy, isDeleted) VALUES('JNR1', 'Junior 1',CURRENT_TIMESTAMP,'admin', 0);
+INSERT INTO EmployeeGrade(name, description,creationTime,createdBy, isDeleted) VALUES('JNR2', 'Junior 2',CURRENT_TIMESTAMP,'admin', 0);
+INSERT INTO EmployeeGrade(name, description,creationTime,createdBy, isDeleted) VALUES('JNR3', 'Junior 3',CURRENT_TIMESTAMP,'admin', 0);
+INSERT INTO EmployeeGrade(name, description,creationTime,createdBy, isDeleted) VALUES('SNR1', 'Senior 1',CURRENT_TIMESTAMP,'admin', 0);
+INSERT INTO EmployeeGrade(name, description,creationTime,createdBy, isDeleted) VALUES('SNR2', 'Senior 2',CURRENT_TIMESTAMP,'admin', 0);
+INSERT INTO EmployeeGrade(name, description,creationTime,createdBy, isDeleted) VALUES('SNR3', 'Senior 3',CURRENT_TIMESTAMP,'admin', 0);
 
 INSERT INTO EmployeeType(name, description, isDeleted) VALUES('INT', 'Internship', 0);
 INSERT INTO EmployeeType(name, description, isDeleted) VALUES('CONT', 'Contracted', 0);
@@ -256,15 +260,18 @@ INSERT INTO Role(id, role, description, isDeleted) VALUES ('2', 'ROLE_EMPLOYEE',
 INSERT INTO Role(id, role, description, isDeleted) VALUES ('3', 'ROLE_HRJR', 'HR Junior Users', 0);
 INSERT INTO Role(id, role, description, isDeleted) VALUES ('4', 'ROLE_HRSR', 'HR Senior Users', 0);
 INSERT INTO Role(id, role, description, isDeleted) VALUES ('5', 'ROLE_ADMIN', 'Administrator', 0);
+INSERT INTO Role(id, role, description, isDeleted) VALUES ('6', 'ROLE_HR', 'General HR Users', 0);
 
 INSERT INTO UserToRole(userId, userRoleId) VALUES ('1', '1');
 INSERT INTO UserToRole(userId, userRoleId) VALUES ('1', '2');
 INSERT INTO UserToRole(userId, userRoleId) VALUES ('2', '1');
 INSERT INTO UserToRole(userId, userRoleId) VALUES ('2', '2');
 INSERT INTO UserToRole(userId, userRoleId) VALUES ('2', '3');
+INSERT INTO UserToRole(userId, userRoleId) VALUES ('2', '6');
 INSERT INTO UserToRole(userId, userRoleId) VALUES ('3', '1');
 INSERT INTO UserToRole(userId, userRoleId) VALUES ('3', '2');
 INSERT INTO UserToRole(userId, userRoleId) VALUES ('3', '4');
+INSERT INTO UserToRole(userId, userRoleId) VALUES ('3', '6');
 INSERT INTO UserToRole(userId, userRoleId) VALUES ('4', '1');
 INSERT INTO UserToRole(userId, userRoleId) VALUES ('4', '5');
 
@@ -274,14 +281,20 @@ INSERT INTO AccessRights(id, accessRights, description, isDeleted) VALUES ('3', 
 INSERT INTO AccessRights(id, accessRights, description, isDeleted) VALUES ('4', 'AdminFunctions', 'General Admin Functions', 0);
 INSERT INTO AccessRights(id, accessRights, description, isDeleted) VALUES ('5', 'ViewMyProfile', 'View Access to MyProfile', 0);
 INSERT INTO AccessRights(id, accessRights, description, isDeleted) VALUES ('6', 'DeleteEmployee', 'Access to Delete Employee', 0);
+INSERT INTO AccessRights(id, accessRights, description, isDeleted) VALUES ('7', 'ApproveEmployeeRegistration', 'Access to Employee Registration Approval', 0);
+INSERT INTO AccessRights(id, accessRights, description, isDeleted) VALUES ('8', 'ApplyLeave', 'Access to Leave Form', 0);
+
 
 INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('2', '5');
+INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('2', '8');
 INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('3', '1');
+INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('3', '7');
 INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('4', '1');
 INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('4', '2');
 INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('4', '3');
 INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('4', '6');
 INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('5', '4');
+INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('6', '7');
 
 INSERT INTO Employee(name, employeenumber, position, employeeGradeId, employeeTypeId, departmentId, userId, isDeleted, isResigned) values('John Doe', '1', 'Software Engineer', 1, 1, 1, 1, 0, 0);
 INSERT INTO Employee(name, employeenumber, position, employeeGradeId, employeeTypeId, departmentId, userId, isDeleted, isResigned) values('Jennifer', '2', 'HR Executive', 1, 1, 1, 2, 0, 0);
