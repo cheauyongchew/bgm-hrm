@@ -1,4 +1,3 @@
-
 package com.beans.common.security.role.service;
 
 import java.util.HashSet;
@@ -72,8 +71,12 @@ public class RoleServiceImpl implements RoleService{
 	}
 
 	@Override
-	public Role findByRole(String role) {
-		Role foundRole = roleRepository.findByRole(role);			
+	public Role findByRole(String role) throws RoleNotFound {
+		Role foundRole = roleRepository.findByRole(role);
+		
+		if(foundRole == null)
+			throw new RoleNotFound();
+		
 		return foundRole;
 	}
 	
@@ -91,9 +94,14 @@ public class RoleServiceImpl implements RoleService{
 	public List<Role> findRoleByRoleName(String role) {
 		String roleSearchTerm = "%" + role + "%";
 		return roleRepository.findByRoleLike(roleSearchTerm);
+	}
+
+	@Override
+	public List<String> findRoleNamesByUsername(String username) {
+		List<String> roleNameList = roleRepository.findRoleNamesByUsername(username);
+		return roleNameList;
 	}	
 
 	
 }
-
 

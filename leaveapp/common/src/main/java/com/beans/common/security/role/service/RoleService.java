@@ -1,4 +1,3 @@
-
 package com.beans.common.security.role.service;
 
 import java.util.List;
@@ -14,9 +13,9 @@ public interface RoleService {
 	public List<Role> findAll();
 	public Role update(Role role) throws RoleNotFound;
 	public Role findById(int id) throws RoleNotFound;
-	public Role findByRole(String role);
+	public Role findByRole(String role) throws RoleNotFound;
 	public List<Role> findRoleByRoleName(String role);
 	public Set<Role> findAllInSet();
+	public List<String> findRoleNamesByUsername(String username);
 }
-
 

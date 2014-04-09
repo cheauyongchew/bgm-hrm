@@ -28,6 +28,6 @@ public interface YearlyEntitlementService {
 	
 	public List<LeaveEntitlement> findBySearchLeave(int id);
 	
-	public List<LeaveEntitlement> findByEmployeeIdAndfindByLeaveTypeId(String x,String y);
+	public List<LeaveEntitlement> findByEmployeeAndfindByLeaveType(String x,String y);
 	
 }

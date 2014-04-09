@@ -328,10 +328,10 @@ public class YearlyEntitlementManagementBean implements Serializable {
 		    this.yearlyEntitlementDataModel = null;
 		} else {
 		
-		   leaveEntitlementList = this.getYearlyEntitlementService().findByEmployeeIdAndfindByLeaveTypeId(getEmployeeName(),getLeaveTypeName() );
+		   leaveEntitlementList = this.getYearlyEntitlementService().findByEmployeeAndfindByLeaveType(getEmployeeName(),getLeaveTypeName() );
 		   this.yearlyEntitlementDataModel = null;
 		if(leaveEntitlementList != null){
-			 auditTrail.log(SystemAuditTrailActivity.ACCESSED, SystemAuditTrailLevel.INFO, actorUsers.getId(),actorUsers.getUsername(), actorUsers.getUsername()+" searching Entitlement of : "+getEmployeeName());
+			//  auditTrail.log(SystemAuditTrailActivity.ACCESSED, SystemAuditTrailLevel.INFO, actorUsers.getId(),actorUsers.getUsername(), actorUsers.getUsername()+" searching Entitlement of : "+getEmployeeName());
 		}
 		   
 		 //  auditTrail.log(SystemAuditTrailActivity.ACCESSED, SystemAuditTrailLevel.INFO, actorUsers.getId(),actorUsers.getUsername(), actorUsers.getUsername()+" searching Entitlement of : "+getEmployeeName());

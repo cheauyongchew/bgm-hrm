@@ -4,12 +4,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 
 import com.beans.leaveapp.employee.model.Employee;
+import com.beans.leaveapp.leavetype.model.LeaveType;
 
 @Entity
 @Table(name="YearlyEntitlement")
@@ -17,12 +19,13 @@ public class YearlyEntitlement {
 
 		
 		private int id;
-		private int employeeId;
-		private int leaveTypeId;
+	//	private int employeeId;
+	//	private int leaveTypeId;
 		private double entitlement;
 		private double availableBalance;
 		private boolean isDeleted = false;
 		private Employee employee;
+		private LeaveType leaveType;
 		
 		
 		
@@ -36,21 +39,21 @@ public class YearlyEntitlement {
 			this.id = id;
 		}
 		
-		@Column(name="employeeId",nullable=false)
+	/*	@Column(name="employeeId",nullable=false)
 		public int getEmployeeId() {
 			return employeeId;
 		}
 		public void setEmployeeId(int employeeId) {
 			this.employeeId = employeeId;
 		}
-		
-		@Column(name="leaveTypeId",nullable=false)
+		*/
+	/*	@Column(name="leaveTypeId",nullable=false)
 		public int getLeaveTypeId() {
 			return leaveTypeId;
 		}
 		public void setLeaveTypeId(int leaveTypeId) {
 			this.leaveTypeId = leaveTypeId;
-		}
+		}*/
 		
 		@Column(name="entitlement",nullable=false)
 		public double getEntitlement() {
@@ -78,11 +81,22 @@ public class YearlyEntitlement {
 		}
 		
 		@OneToOne
+		@JoinColumn(name="employeeId")
 		public Employee getEmployee() {
 			return employee;
 		}
 		public void setEmployee(Employee employee) {
 			this.employee = employee;
+		}
+		
+		
+		@OneToOne
+		@JoinColumn(name="leaveTypeId")
+		public LeaveType getLeaveType() {
+			return leaveType;
+		}
+		public void setLeaveType(LeaveType leaveType) {
+			this.leaveType = leaveType;
 		}
 		
 }

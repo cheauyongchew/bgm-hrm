@@ -1,0 +1,90 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:head>
+</h:head>
+
+
+<h:body>
+	<ui:composition template="/templates/mainlayout.xhtml">
+
+		<ui:define name="title"> Leave Transaction List for Employee</ui:define>
+
+		<ui:define name="content">
+			<h1>Employee Leave Transaction List</h1>
+			<h:form id="leaveTransactionEmployee">
+
+				<p:panel header="Search" toggleable="true">
+					<p:panelGrid id="SearchEmployee" columns="2" cellpadding="4">
+
+						<h:outputText value="Name" />
+						<h:inputText value="#{leaveTransactionMgmtBean.employeename}">
+						</h:inputText>
+
+						<h:outputText value="Leave Type" />
+						<h:inputText value="#{leaveTransactionMgmtBean.leaveType}">
+						</h:inputText>
+
+						<f:facet name="footer">
+							<p:commandButton value="Search"
+								update=":leaveTransactionEmployee:leaveTransactionEmployee"
+								actionListener="#{leaveTransactionMgmtBean.doSearchLeaveTransaction}"
+								ajax="false"></p:commandButton>
+							<p:commandButton type="reset" value="Reset"></p:commandButton>
+						</f:facet>
+					</p:panelGrid>
+				</p:panel>
+
+				<p:dataTable id="leaveTransactionEmployee"
+					widgetVar="leaveTransactionEmployeeTableVar" var="leaveTransaction0"
+					value="#{leaveTransactionMgmtBean.leaveTransactionDataModel}"
+					rowKey="#{leaveTransaction0.id}"
+					selectionMode="single" paginator="true" rows="10" scrollable="true">
+				
+
+
+					<p:column id="employeeHeader" sortBy="employeeName">
+						<f:facet name="header"> Employee Name </f:facet>
+						<h:outputText value="#{leaveTransaction0.employeeName}" />
+					</p:column>
+					<p:column id="leaveTypeHeader" sortBy="leaveType">
+						<f:facet name="header"> Leave Type </f:facet>
+						<h:outputText value="#{leaveTransaction0.leaveType}" />
+					</p:column>
+					<p:column id="startTimeHeader" sortBy="startTime">
+						<f:facet name="header"> Start Date </f:facet>
+						<h:outputText value="#{leaveTransaction0.startTime}">
+							<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss" />
+						</h:outputText>
+					</p:column>
+					<p:column id="endTimeHeader" sortBy="endTime">
+						<f:facet name="header"> End Date  </f:facet>
+						<h:outputText value="#{leaveTransaction0.endTime}">
+							<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss" />
+						</h:outputText>
+					</p:column>
+					<p:column id="statusHeader" sortBy="status">
+						<f:facet name="header"> Status  </f:facet>
+						<h:outputText value="#{leaveTransaction0.reason}" />
+					</p:column>
+					<p:column id="noOfDaysHeader" sortBy="noOfDays">
+						<f:facet name="header"> Days </f:facet>
+						<h:outputText value="#{leaveTransaction0.noOfDays}" />
+					</p:column>
+					<p:column id="noOfHoursHeader" sortBy="noOfHours">
+						<f:facet name="header"> Hours  </f:facet>
+						<h:outputText value="#{leaveTransaction0.noOfHours}" />
+					</p:column>
+
+
+				</p:dataTable>
+</h:form>
+</ui:define>
+</ui:composition>
+</h:body>
+</html>

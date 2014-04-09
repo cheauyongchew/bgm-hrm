@@ -115,8 +115,8 @@ public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 			int leaveTypObjId = leaveTypObj.getId();
 			YearlyEntitlement finalYearlyEntitlementToBeCreated = new YearlyEntitlement();
 
-			finalYearlyEntitlementToBeCreated.setEmployeeId(employeeId);
-			finalYearlyEntitlementToBeCreated.setLeaveTypeId(leaveTypObjId);
+			finalYearlyEntitlementToBeCreated.setEmployee(employeeObj);
+			finalYearlyEntitlementToBeCreated.setLeaveType(leaveTypObj);
 			finalYearlyEntitlementToBeCreated
 					.setEntitlement(yearlyEntitlementToBeCreated
 							.getEntitlement());
@@ -140,10 +140,10 @@ public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 		if (yearlyEntitlementList != null) {
 			for (YearlyEntitlement y : yearlyEntitlementList) {
 
-				Employee employeeObj = employeeRepository.findOne(y
-						.getEmployeeId());
-				LeaveType leaveTypeObj = leaveTypeRepository.findOne(y
-						.getLeaveTypeId());
+				Employee employeeObj = employeeRepository.findOne(y.getEmployee().getId());
+						
+				LeaveType leaveTypeObj = leaveTypeRepository.findOne(y.getLeaveType().getId());
+					
 				if (employeeObj != null || leaveTypeObj != null) {
 					String name = null, leaveType = null;
 
@@ -195,7 +195,7 @@ public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 				.findByEmployeeIdLike(x);
 		List<EmployeeEntitlement> employeeEntitlementList = new ArrayList<EmployeeEntitlement>();
 		for (YearlyEntitlement yearlyEntitlement : employeeYearlyEntitlementList) {
-			int leaveTypeId = yearlyEntitlement.getLeaveTypeId();
+			int leaveTypeId = yearlyEntitlement.getLeaveType().getId();
 			LeaveType leaveTypeObj = leaveTypeRepository.findOne(leaveTypeId);
 			String leaveTypeName = leaveTypeObj.getName();
 			int id = yearlyEntitlement.getId();
@@ -218,10 +218,9 @@ public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 		if (yearlyEntitlementlist != null) {
 			for (YearlyEntitlement y : yearlyEntitlementlist) {
 
-				Employee employeeObj = employeeRepository.findOne(y
-						.getEmployeeId());
-				LeaveType leaveTypeObj = leaveTypeRepository.findOne(y
-						.getLeaveTypeId());
+				Employee employeeObj = employeeRepository.findOne(y.getEmployee().getId());
+				LeaveType leaveTypeObj = leaveTypeRepository.findOne(y.getLeaveType().getId());
+						
 				if (employeeObj != null || leaveTypeObj != null) {
 					String name = null, leaveType = null;
 
@@ -258,10 +257,10 @@ public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 		if (yearlyEntitlementlist != null) {
 			for (YearlyEntitlement y : yearlyEntitlementlist) {
 
-				Employee employeeObj = employeeRepository.findOne(y
-						.getEmployeeId());
-				LeaveType leaveTypeObj = leaveTypeRepository.findOne(y
-						.getLeaveTypeId());
+				Employee employeeObj = employeeRepository.findOne(y.getEmployee().getId());
+						
+				LeaveType leaveTypeObj = leaveTypeRepository.findOne(y.getLeaveType().getId());
+						
 				if (employeeObj != null || leaveTypeObj != null) {
 					String name = null, leaveType = null;
 					if (employeeObj.getName() != null) {
@@ -290,10 +289,11 @@ public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 	}
 
 	@Override
-	public List<LeaveEntitlement> findByEmployeeIdAndfindByLeaveTypeId(
+	public List<LeaveEntitlement> findByEmployeeAndfindByLeaveType(
 			String employeeName, String leaveType) {
 		try {
 			List<YearlyEntitlement> yearlyEntitlementlist = new LinkedList<YearlyEntitlement>();
+			YearlyEntitlement yearlyEntitlement = new YearlyEntitlement();
 			List<Integer> employeeIds = new ArrayList<Integer>();
 			List<Integer> leaveTypeIds = new ArrayList<Integer>();
 			boolean e = employeeName.trim().equals(""), e1 = leaveType.trim()
@@ -306,15 +306,21 @@ public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 				System.out.println(employeeName.trim().equals("") + "  "
 						+ leaveType.trim().equals("") + " "
 						+ leaveTypeSearchTerm + " " + employeeNameSearchTerm);
+			
+				
+				//yearlyEntitlement = yearlyEntitleRepository.findByEmployeeLike(employeeNameSearchTerm);
+				//yearlyEntitlement = yearlyEntitleRepository.findByLeaveType(leaveTypeSearchTerm);
+				
+				
 				List<LeaveType> leaveTypeList = (List<LeaveType>) leaveTypeRepository
 						.findByNameLike(leaveTypeSearchTerm);
+				
 				if (leaveTypeList.size() > 0) {
 					for (LeaveType leaveTypeObj : leaveTypeList) {
 						System.out.println(leaveTypeObj.getName());
 						String lepTypeName = leaveTypeObj.getName().trim();
-						if (lepTypeName.equalsIgnoreCase(leaveType)) {
+						if(lepTypeName.equalsIgnoreCase(leaveType)) {
 							requiredid = leaveTypeObj.getId();
-
 						}
 						System.out.println(leaveTypeObj.getName().trim());
 						Integer id = leaveTypeObj.getId();
@@ -360,7 +366,8 @@ public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 					yearlyEntitlementlist = yearlyEntitleRepository
 							.findByEmployeeIdLike(employeeObject.getId());
 				}
-
+				//yearlyEntitlementlist = yearlyEntitleRepository.findByEmployeeLike(employeeName);
+			// 	yearlyEntitlementlist.add(yearlyEntitlement);
 			} else if (ee1) {
 
 				List<LeaveType> leaveTypeList = leaveTypeRepository
@@ -369,7 +376,7 @@ public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 					yearlyEntitlementlist = yearlyEntitleRepository
 							.findByLeaveTypeIdLike(leaveTypeObj.getId());
 				}
-
+				yearlyEntitlement = yearlyEntitleRepository.findByLeaveType(leaveType);
 			} else {
 				System.out.println("both are null values");
 			}
@@ -380,9 +387,9 @@ public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 				for (YearlyEntitlement yearlyEntitlementObj : yearlyEntitlementlist) {
 
 					Employee employeeObj = employeeRepository
-							.findOne(yearlyEntitlementObj.getEmployeeId());
+							.findOne(yearlyEntitlementObj.getEmployee().getId());
 					LeaveType leaveTypeObj = leaveTypeRepository
-							.findOne(yearlyEntitlementObj.getLeaveTypeId());
+							.findOne(yearlyEntitlementObj.getLeaveType().getId());
 					if (employeeObj != null || leaveTypeObj != null) {
 						String name = null, leaveTypeVar = null;
 

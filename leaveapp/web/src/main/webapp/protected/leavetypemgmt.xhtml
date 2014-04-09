@@ -30,7 +30,7 @@
             <h:outputText value="#{leaveType0.description}" />
           </p:column>
         <p:column id="employeeIdHeader" headerText="Employee Type" sortBy="employeeType">
-            <h:outputText value="#{leaveType0.employeeTypeName}" />
+            <h:outputText value="#{leaveType0.employeeTypeId.name}" />
           </p:column>
         <p:column id="entitlementHeader" headerText="Entitlement" sortBy="entitlement">
             <h:outputText value="#{leaveType0.entitlement}" />
@@ -55,7 +55,7 @@
                         <h:inputText value="#{leaveTypeMgmtBean.selectedLeaveType.description}"/>
  
  <h:outputText value="EmployeeTypeId :" ></h:outputText>
-                        <p:selectOneMenu value="#{leaveTypeMgmtBean.selectedLeaveType.employeeTypeName}">
+                        <p:selectOneMenu value="#{leaveTypeMgmtBean.selectedLeaveType.employeeTypeId.name}">
                         <f:selectItem itemLabel="Select one" itemValue="" />
                         <f:selectItems value="#{employeeTypeListBean.employeeTypeList}"
 							var="employeeType0" itemLabel="#{employeeType0.name}"

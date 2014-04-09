@@ -139,11 +139,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 			employee.setEmployeeType(employeeType);
 			employee.setDepartment(department);
 			employee.setDeleted(false);
-			employee.setResigned(false);
+			employee.setResigned(false);			
 			
-			if(users != null) {
-				Users newUsers = usersService.registerUser(users);
-			}
 			
 			Employee newEmployee = create(employee);
 			
@@ -158,6 +155,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 				
 			}
 			
+			if(users != null) {
+				Users newUsers = usersService.registerUser(users);
+				newEmployee.setUsers(newUsers);
+				employeeRepository.save(newEmployee);
+				
+			}
 			
 			
 		} catch(EmployeeGradeNotFound e) {

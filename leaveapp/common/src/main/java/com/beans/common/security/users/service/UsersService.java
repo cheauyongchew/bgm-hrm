@@ -1,4 +1,3 @@
-
 package com.beans.common.security.users.service;
 
 import java.util.HashSet;
@@ -17,5 +16,7 @@ public interface UsersService {
 	 public Users findByUsername(String username) throws UsersNotFound;
 	 public List<Users> findUsersByUsername(String username);
 	 public HashSet<String> getAccessRightsMapForUser(int userId) throws UsersNotFound;
+	 public void changePassword(Users users, String oldPassword, String newPassword) throws ChangePasswordException, UsersNotFound;
 }
+
 

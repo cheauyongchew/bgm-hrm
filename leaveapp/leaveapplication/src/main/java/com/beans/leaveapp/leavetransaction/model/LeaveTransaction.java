@@ -6,11 +6,16 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Type;
+
+import com.beans.leaveapp.employee.model.Employee;
+import com.beans.leaveapp.leavetype.model.LeaveType;
 
 @Entity
 @Table(name="LeaveTransaction")
@@ -23,15 +28,16 @@ public class LeaveTransaction {
 	private Double numberOfHours;
 	private Double numberOfDays;
 	private String reason;
-	private int leaveTypeId;
-	private int employeeId;
+	private LeaveType leaveTypeId;
+	private Employee employeeId;
+	private String name;
 	
 	private boolean isDeleted;
 	
 	public LeaveTransaction(int id, Date applicationDate,
 			Date startDateTime, Date endDateTime,
 			Double numberOfHours, Double numberOfDays, String reason,
-			int leaveTypeId, int employeeId, boolean isDeleted) {
+			LeaveType leaveTypeId, Employee employeeId, boolean isDeleted) {
 		super();
 		this.id = id;
 		this.applicationDate = applicationDate;
@@ -121,21 +127,27 @@ public class LeaveTransaction {
 	}
 	
 
-	
-	@Column(name="leaveTypeId",nullable=false)
-	public int getLeaveTypeId() {
+	@OneToOne
+	@JoinColumn(name="leaveTypeId",nullable=false)
+	public LeaveType getLeaveTypeId(){
 		return leaveTypeId;
 	}
-	public void setLeaveTypeId(int leaveTypeId) {
+	public void setLeaveTypeId(LeaveType leaveTypeId) {
 		this.leaveTypeId = leaveTypeId;
 	}
 	
-
-	@Column(name="employeeId",nullable=false)
-	public int getEmployeeId() {
+    @OneToOne
+	@JoinColumn(name="employeeId")
+	public Employee getEmployeeId() {
 		return employeeId;
 	}
-	public void setEmployeeId(int employeeId) {
+	public void setEmployeeId(Employee employeeId) {
 		this.employeeId = employeeId;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 }

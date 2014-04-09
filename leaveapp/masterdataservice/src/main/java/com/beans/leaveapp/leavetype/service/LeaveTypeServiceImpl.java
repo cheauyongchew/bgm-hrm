@@ -47,12 +47,12 @@ public class LeaveTypeServiceImpl implements LeaveTypeService {
 	public List<LeaveType> findAll() {
 		List<LeaveType> resultList = leaveTypeRepository.findByisDeleted(0);
 		List<LeaveType> list = new LinkedList<LeaveType>();
-		for(LeaveType leaveType: resultList){
-			EmployeeType e = employeeTypeRepository.findOne(leaveType.getEmployeeTypeId());
-			String employeeTypeName = e.getName();
-			leaveType.setEmployeeTypeName(employeeTypeName);
+		/*for(LeaveType leaveType: resultList){
+			//EmployeeType e = employeeTypeRepository.findOne();
+			// String employeeTypeName = e.getName();
+			leaveType.getEmployeeTypeId().getName();
 		}
-		
+		*/
 		return resultList;
 	}
 
@@ -61,19 +61,19 @@ public class LeaveTypeServiceImpl implements LeaveTypeService {
 	public LeaveType update(LeaveType leaveType) throws LeaveTypeNotFound {
 		LeaveType leaveTypeToBeUpdated = leaveTypeRepository.findOne(leaveType.getId());
 		
-		if(leaveTypeToBeUpdated == null)
+		/*if(leaveTypeToBeUpdated == null)
 			throw new LeaveTypeNotFound();
 		
 		leaveTypeToBeUpdated.setName(leaveType.getName());
 		leaveTypeToBeUpdated.setDescription(leaveType.getDescription());
 		leaveTypeToBeUpdated.setDeleted(leaveType.isDeleted());
-		if(leaveType.getEmployeeTypeName() != null){
+		if(leaveType != null){
 			EmployeeType employeeTypeObj = employeeTypeRepository.findByName(leaveType.getEmployeeTypeName());
 			int employeeTypeId = employeeTypeObj.getId();
 			leaveTypeToBeUpdated.setEmployeeTypeId(employeeTypeId);
 		}
 			leaveTypeRepository.save(leaveTypeToBeUpdated);
-		
+		*/
 		return leaveTypeToBeUpdated;
 	}
 

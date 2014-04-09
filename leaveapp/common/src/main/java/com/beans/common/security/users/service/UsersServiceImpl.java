@@ -1,4 +1,3 @@
-
 package com.beans.common.security.users.service;
 
 import java.util.HashMap;
@@ -16,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.beans.common.security.accessrights.model.AccessRights;
 import com.beans.common.security.role.model.Role;
+import com.beans.common.security.role.service.RoleNotFound;
 import com.beans.common.security.role.service.RoleService;
 import com.beans.common.security.users.model.Users;
 import com.beans.common.security.users.repository.UsersRepository;
@@ -82,10 +82,16 @@ public class UsersServiceImpl implements UsersService {
 		String hashedPassword = passwordEncoder.encode(users.getPassword());
 		users.setPassword(hashedPassword);
 		Users createdUsers = usersRepository.save(users);
-		Role userRole = roleService.findByRole("ROLE_USER");
-		Set<Role> roleSet = new HashSet<Role>();
-		roleSet.add(userRole);
-		createdUsers.setUserRoles(roleSet);		
+		try {
+			Role userRole = roleService.findByRole("ROLE_USER");
+			Role employeeRole = roleService.findByRole("ROLE_EMPLOYEE");
+			Set<Role> roleSet = new HashSet<Role>();
+			roleSet.add(userRole);
+			roleSet.add(employeeRole);
+			createdUsers.setUserRoles(roleSet);
+		} catch(RoleNotFound e) {
+			e.printStackTrace();
+		}
 		
 		return usersRepository.save(createdUsers);
 	}
@@ -157,6 +163,23 @@ public class UsersServiceImpl implements UsersService {
 		
 		return accessRightsSet;
 	}
+	
+	
+
+	@Override
+	public void changePassword(Users users, String oldPassword,
+			String newPassword) throws ChangePasswordException, UsersNotFound{
+		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		if(!passwordEncoder.matches(oldPassword, users.getPassword())) {
+			throw new ChangePasswordException("Invalid old password");
+		}
+		
+		
+		users.setPassword(newPassword);
+		
+		update(users);
+		
+	}
 
 	public RoleService getRoleService() {
 		return roleService;
@@ -174,4 +197,3 @@ public class UsersServiceImpl implements UsersService {
 	}
 	 
 }
-
