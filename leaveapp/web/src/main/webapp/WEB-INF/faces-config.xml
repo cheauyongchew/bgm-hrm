@@ -283,6 +283,14 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 			<property-name>employeeTypeService</property-name>
 			<value>#{employeeTypeService}</value>
 		</managed-property>
+		<managed-property>
+			<property-name>actorUsers</property-name>
+			<value>#{authenticationBean.getUsers()}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>auditTrail</property-name>
+			<value>#{auditTrail}</value>
+		</managed-property>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>departmentMgmtBean</managed-bean-name>
@@ -291,6 +299,14 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 		<managed-property>
 			<property-name>departmentService</property-name>
 			<value>#{departmentService}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>actorUsers</property-name>
+			<value>#{authenticationBean.getUsers()}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>auditTrail</property-name>
+			<value>#{auditTrail}</value>
 		</managed-property>
 	</managed-bean>
 	<managed-bean>

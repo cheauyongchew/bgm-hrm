@@ -1,5 +1,6 @@
 package com.beans.leaveapp.department.service;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -56,6 +57,8 @@ public class DepartmentServiceImpl implements DepartmentService {
 		
 		departmentToBeUpDepartment.setName(department.getName());
 		departmentToBeUpDepartment.setDescription(department.getDescription());
+		departmentToBeUpDepartment.setLastModifiedBy(department.getLastModifiedBy());
+		departmentToBeUpDepartment.setLastModifiedTime(new java.util.Date());
 		departmentToBeUpDepartment.setDeleted(department.isDeleted());
 		return departmentRepository.save(departmentToBeUpDepartment);
 	}
