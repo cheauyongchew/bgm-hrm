@@ -23,10 +23,9 @@ BODY {
 
 		<ui:define name="title">Beans Leave Application</ui:define>
 	<ui:define name="content">
-	<h1>Welcome! </h1><!--  <h:outputText value="#{authenticationBean.username}" /> --> 
-
+	<h1>Welcome!</h1>
 	
-	<h:form id="employeeEntitlementForm">
+	<h:form id="employeeEntitlementForm" rendered="#{authenticationBean.hasAccess('ViewMyProfile')}">
 	
 	
 	 <p:dataTable id="employeeEntitlementTable" widgetVar="employeeEntitlement" var="employeeEntitlement0" value="#{yearlyEntitlementMgmtBean.employeeLeaveEntitlementDataModel}" rowKey="#{employeeEntitlement0.id}">
@@ -46,9 +45,9 @@ BODY {
             <f:facet name="header"> Leave Balance</f:facet>
             <h:outputText value="#{employeeEntitlement0.availableBalance}" />
           </p:column>
-        
         </p:dataTable>
          
+    
          
       </h:form>      
       <p:growl id="growl" showDetail="true" life="1000"/> 

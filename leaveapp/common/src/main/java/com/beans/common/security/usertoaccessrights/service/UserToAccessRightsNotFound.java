@@ -1,5 +1,7 @@
+
 package com.beans.common.security.usertoaccessrights.service;
 
-public class UserToAccessRightsNotFound {
+public class UserToAccessRightsNotFound extends Throwable{
 
 }
+

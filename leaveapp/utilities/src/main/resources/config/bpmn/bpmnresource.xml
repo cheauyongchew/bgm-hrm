@@ -3,5 +3,7 @@
 <config>
     <bpmn>
         <file>sample.bpmn</file>
+        <file>sample2.bpmn</file>
     </bpmn>
+
 </config>

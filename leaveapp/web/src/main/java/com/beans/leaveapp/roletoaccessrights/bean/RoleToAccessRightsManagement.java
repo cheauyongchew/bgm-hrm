@@ -1,3 +1,4 @@
+
 package com.beans.leaveapp.roletoaccessrights.bean;
 
 import java.io.Serializable;
@@ -13,6 +14,9 @@ import javax.faces.context.FacesContext;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DualListModel;
 
+import com.beans.common.audit.service.AuditTrail;
+import com.beans.common.audit.service.SystemAuditTrailActivity;
+import com.beans.common.audit.service.SystemAuditTrailLevel;
 import com.beans.common.security.accessrights.model.AccessRights;
 import com.beans.common.security.accessrights.service.AccessRightsService;
 import com.beans.common.security.role.model.Role;
@@ -35,6 +39,11 @@ public class RoleToAccessRightsManagement implements Serializable{
 	private Set<AccessRights> assignedAccessRightsSet = new HashSet<AccessRights>();
 	private Set<AccessRights> unassignedAccessRightsSet = new HashSet<AccessRights>();
 	private DualListModel<AccessRights> dualAccessRightsList = new DualListModel<AccessRights>();
+	
+	private String searchRoleName = "";
+	
+	private Users actorUsers;
+	private AuditTrail auditTrail; 
 	
 	@PostConstruct
 	public void init(){
@@ -109,6 +118,8 @@ public class RoleToAccessRightsManagement implements Serializable{
 			selectedAccessRightsSet.addAll(selectedAccessRightsList);
 			selectedRole.setAccessRights(selectedAccessRightsSet);
 			getRoleService().update(selectedRole);
+			
+			auditTrail.log(SystemAuditTrailActivity.UPDATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has Assigned Access Rights for " +selectedRole.getRole());
 		} catch (RoleNotFound e) {
 			FacesMessage msg = new FacesMessage("Error" , "Role With roleId" + selectedRole.getId() + "not found");
 			 FacesContext.getCurrentInstance().addMessage(null, msg); 
@@ -158,14 +169,50 @@ public class RoleToAccessRightsManagement implements Serializable{
 			DualListModel<AccessRights> dualAccessRightsList) {
 		this.dualAccessRightsList = dualAccessRightsList;
 	}
+
+
+	public String getSearchRoleName() {
+		return searchRoleName;
+	}
+
+
+	public void setSearchRoleName(String searchRoleName) {
+		this.searchRoleName = searchRoleName;
+	}
 	
 	
-	
-	
-	
-	
-	
+	public void searchRolename(){
+		
+		if(getSearchRoleName() == null || getSearchRoleName().trim().equals("")){
+			this.roleList = null;
+			this.roleDataModel = null;
+		}else{
+			this.roleList = roleService.findRoleByRoleName(getSearchRoleName());
+			this.roleDataModel = null;
+		}		
+	}
+
+
+	public Users getActorUsers() {
+		return actorUsers;
+	}
+
+
+	public void setActorUsers(Users actorUsers) {
+		this.actorUsers = actorUsers;
+	}
+
+
+	public AuditTrail getAuditTrail() {
+		return auditTrail;
+	}
+
+
+	public void setAuditTrail(AuditTrail auditTrail) {
+		this.auditTrail = auditTrail;
+	}
 	
 	
 	
 }
+

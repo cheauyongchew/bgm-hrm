@@ -15,9 +15,9 @@
 		<!-- Need to add authorization based on role here -->
 		<p:menubar>
 			<p:menuitem value="Home" url="/protected/index.jsf" />
-			<p:menuitem value="My Profile" url="/protected/employeeprofile/myprofile.jsf"/>
-			<p:menuitem value="Employees" url="/protected/employeeprofile/employeeprofilemgmt.jsf"/>
-			<p:submenu label="Administration">
+			<p:menuitem value="My Profile" url="/protected/employeeprofile/myprofile.jsf" rendered="#{authenticationBean.hasAccess('ViewMyProfile')}"/>
+			<p:menuitem value="Employees" url="/protected/employeeprofile/employeeprofilemgmt.jsf" rendered="#{authenticationBean.hasAccess('ViewEmployees')}"/>
+			<p:submenu label="Administration" rendered="#{authenticationBean.hasAccess('AdminFunctions')}">
 				<p:submenu label="Master Data Management">					
 					<p:menuitem value="Leave Type" url="/protected/leavetypemgmt.jsf" />
 					<p:menuitem value="Employee Grade" url="/protected/employeeGrade.jsf"/>
@@ -30,19 +30,20 @@
 					<p:menuitem value="User Role Mapping" url="/protected/usertorolemapping.jsf"/>
 					<p:menuitem value="Access Rights" url="/protected/accessRights.jsf"/>
 					<p:menuitem value="Role To Access Rights" url="/protected/roletoaccessrightsmapping.jsf"/>
+					<p:menuitem value="User To Access Rights" url="/protected/usertoaccessrightsmapping.jsf"/>
 					
 				</p:submenu>
 				<p:menuitem value="System Audit Trail" url="/protected/systemAuditTrail.jsf"/>
                 <p:menuitem value="Yearly Entitlement" url="/protected/yearlyentitlement.jsf"/>
-			</p:submenu>
+                <p:menuitem value="Admin Leave Transaction" url="/protected/leavetransactionadmin.jsf"/>
+                <p:menuitem value="Employee Leave Transaction" url="/protected/leavetransactionemployee.jsf" />
+                 </p:submenu>
 			<p:menuitem value="Logout" action="${authenticationBean.doLogout}"></p:menuitem>
 		</p:menubar>
-
 
 	</h:form>
 
 </h:body>
 
 </html>
-
 

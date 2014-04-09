@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
+
+?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
 	<name>leaveapplication</name>
 	<comment></comment>
@@ -44,5 +45,6 @@
 		<nature>org.hibernate.eclipse.console.hibernateNature</nature>
 		<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
 		<nature>org.jboss.tools.jst.web.kb.kbnature</nature>
-	</natures>
+	</natures>	
 </projectDescription>
+

@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS Department (
 CREATE TABLE IF NOT EXISTS Users (
   id INT(10) NOT NULL AUTO_INCREMENT,
   username VARCHAR(45) NOT NULL,
-  password VARCHAR(45) NOT NULL,
+  password VARCHAR(100) NOT NULL,
   enabled TINYINT(1) NOT NULL,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS SystemAuditTrail (
     actionDate DATETIME,
     level VARCHAR(10),
     activity VARCHAR(15),
-    description VARCHAR(50),
+    description VARCHAR(250),
     actorUserId INT(10),
     actorUsername VARCHAR(50),
     isDeleted TINYINT(1),
@@ -207,7 +207,8 @@ CREATE TABLE IF NOT EXISTS UserToAccessRights (
   id int(10) NOT NULL AUTO_INCREMENT,
   userId int(10) NOT NULL ,
   accessRightsId int(10) NOT NULL,
-  enabled TINYINT(1),
+  enabled TINYINT(1) NOT NULL,
+  isDeleted TINYINT(1) NOT NULL,
   FOREIGN KEY (userId) REFERENCES Users(id),
   FOREIGN KEY (accessRightsId) REFERENCES AccessRights(id),
   PRIMARY KEY (id)
@@ -245,15 +246,46 @@ INSERT INTO LeaveType(name, description, employeeTypeId, entitlement, isAccounta
 INSERT INTO LeaveType(name, description, employeeTypeId, entitlement, isAccountable, isDeleted) VALUES ('Maternity', 'Maternity leave', (SELECT id from EmployeeType WHERE name = 'PERM'), 60.0, 0, 0);
 INSERT INTO LeaveType(name, description, employeeTypeId, entitlement, isAccountable, isDeleted) VALUES ('Paternity', 'Paternity leave', (SELECT id from EmployeeType WHERE name = 'PERM'), 3.0, 0, 0);
 
-INSERT INTO Users(id, username, password, enabled) VALUES ('1', 'test1', 'test1', '1');
+INSERT INTO Users(id, username, password, enabled) VALUES ('1', 'johndoe', '$2a$10$qzEqlpoVOYv4yT/pAqq7L.Y8PX.DLbtfWuPDvenJfcfhJd4I2wvZy', '1');
+INSERT INTO Users(id, username, password, enabled) VALUES ('2', 'jennifer', '$2a$10$qzEqlpoVOYv4yT/pAqq7L.Y8PX.DLbtfWuPDvenJfcfhJd4I2wvZy', '1');
+INSERT INTO Users(id, username, password, enabled) VALUES ('3', 'ruby', '$2a$10$qzEqlpoVOYv4yT/pAqq7L.Y8PX.DLbtfWuPDvenJfcfhJd4I2wvZy', '1');
+INSERT INTO Users(id, username, password, enabled) VALUES ('4', 'admin', '$2a$10$qzEqlpoVOYv4yT/pAqq7L.Y8PX.DLbtfWuPDvenJfcfhJd4I2wvZy', '1');
 
 INSERT INTO Role(id, role, description, isDeleted) VALUES ('1', 'ROLE_USER', 'Normal User', 0);
+INSERT INTO Role(id, role, description, isDeleted) VALUES ('2', 'ROLE_EMPLOYEE', 'Employee', 0);
+INSERT INTO Role(id, role, description, isDeleted) VALUES ('3', 'ROLE_HRJR', 'HR Junior Users', 0);
+INSERT INTO Role(id, role, description, isDeleted) VALUES ('4', 'ROLE_HRSR', 'HR Senior Users', 0);
+INSERT INTO Role(id, role, description, isDeleted) VALUES ('5', 'ROLE_ADMIN', 'Administrator', 0);
 
 INSERT INTO UserToRole(userId, userRoleId) VALUES ('1', '1');
+INSERT INTO UserToRole(userId, userRoleId) VALUES ('1', '2');
+INSERT INTO UserToRole(userId, userRoleId) VALUES ('2', '1');
+INSERT INTO UserToRole(userId, userRoleId) VALUES ('2', '2');
+INSERT INTO UserToRole(userId, userRoleId) VALUES ('2', '3');
+INSERT INTO UserToRole(userId, userRoleId) VALUES ('3', '1');
+INSERT INTO UserToRole(userId, userRoleId) VALUES ('3', '2');
+INSERT INTO UserToRole(userId, userRoleId) VALUES ('3', '4');
+INSERT INTO UserToRole(userId, userRoleId) VALUES ('4', '1');
+INSERT INTO UserToRole(userId, userRoleId) VALUES ('4', '5');
 
-INSERT INTO AccessRights(id, accessRights, description, isDeleted) VALUES ('1', 'Edit Employee', 'Can Edit Employee', 0);
+INSERT INTO AccessRights(id, accessRights, description, isDeleted) VALUES ('1', 'ViewEmployees', 'View Access to Employees.', 0);
+INSERT INTO AccessRights(id, accessRights, description, isDeleted) VALUES ('2', 'AddEmployee', 'Access to Add Employee.', 0);
+INSERT INTO AccessRights(id, accessRights, description, isDeleted) VALUES ('3', 'EditEmployee', 'Access to Edit Employee.', 0);
+INSERT INTO AccessRights(id, accessRights, description, isDeleted) VALUES ('4', 'AdminFunctions', 'General Admin Functions', 0);
+INSERT INTO AccessRights(id, accessRights, description, isDeleted) VALUES ('5', 'ViewMyProfile', 'View Access to MyProfile', 0);
+INSERT INTO AccessRights(id, accessRights, description, isDeleted) VALUES ('6', 'DeleteEmployee', 'Access to Delete Employee', 0);
 
-INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('1', '1');
+INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('2', '5');
+INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('3', '1');
+INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('4', '1');
+INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('4', '2');
+INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('4', '3');
+INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('4', '6');
+INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('5', '4');
 
-INSERT INTO Employee(name, employeenumber, position, employeeGradeId, employeeTypeId, departmentId, userId, isDeleted, isResigned) values('Lim', '12', 'Software Engineer', 1, 1, 1, 1, 0, 0); 
+INSERT INTO Employee(name, employeenumber, position, employeeGradeId, employeeTypeId, departmentId, userId, isDeleted, isResigned) values('John Doe', '1', 'Software Engineer', 1, 1, 1, 1, 0, 0);
+INSERT INTO Employee(name, employeenumber, position, employeeGradeId, employeeTypeId, departmentId, userId, isDeleted, isResigned) values('Jennifer', '2', 'HR Executive', 1, 1, 1, 2, 0, 0);
+INSERT INTO Employee(name, employeenumber, position, employeeGradeId, employeeTypeId, departmentId, userId, isDeleted, isResigned) values('Ruby', '3', 'HR Manager', 1, 1, 1, 3, 0, 0);
+
+INSERT INTO UserToAccessRights(id, userId, accessRightsId, enabled, isDeleted) values('1', '1', '1', '1', 0);
  

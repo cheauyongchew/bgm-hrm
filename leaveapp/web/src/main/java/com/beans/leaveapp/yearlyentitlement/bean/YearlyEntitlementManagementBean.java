@@ -1,3 +1,4 @@
+
 package com.beans.leaveapp.yearlyentitlement.bean;
 
 import java.io.Serializable;
@@ -216,8 +217,6 @@ public class YearlyEntitlementManagementBean implements Serializable {
 	
 	}
 
-	public void employeeList() {
-	}
 	
 	public boolean isInsertDelete() {
 		return InsertDelete;
@@ -243,6 +242,7 @@ public class YearlyEntitlementManagementBean implements Serializable {
 
 	}
 
+	
 	public void setEmployeeList(List<String> employeeList) {
 		this.employeeList = employeeList;
 	}
@@ -330,8 +330,11 @@ public class YearlyEntitlementManagementBean implements Serializable {
 		
 		   leaveEntitlementList = this.getYearlyEntitlementService().findByEmployeeIdAndfindByLeaveTypeId(getEmployeeName(),getLeaveTypeName() );
 		   this.yearlyEntitlementDataModel = null;
-		
-		   auditTrail.log(SystemAuditTrailActivity.ACCESSED, SystemAuditTrailLevel.INFO, actorUsers.getId(),actorUsers.getUsername(), actorUsers.getUsername()+" searching Entitlement of : "+getEmployeeName());
+		if(leaveEntitlementList != null){
+			 auditTrail.log(SystemAuditTrailActivity.ACCESSED, SystemAuditTrailLevel.INFO, actorUsers.getId(),actorUsers.getUsername(), actorUsers.getUsername()+" searching Entitlement of : "+getEmployeeName());
+		}
+		   
+		 //  auditTrail.log(SystemAuditTrailActivity.ACCESSED, SystemAuditTrailLevel.INFO, actorUsers.getId(),actorUsers.getUsername(), actorUsers.getUsername()+" searching Entitlement of : "+getEmployeeName());
 		}
 		
 	}

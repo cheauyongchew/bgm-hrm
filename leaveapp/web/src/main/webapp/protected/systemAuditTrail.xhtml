@@ -23,11 +23,11 @@
 			<p:panelGrid id="SearchEmployee" columns="2" cellpadding="4">
 				
 				<h:outputText value="From :" />
-					<p:calendar value="#{systemAuditTrailMgmtBean.date1}" pattern="MM/dd/yyyy HH:mm" id="start1" shownOn="button"/>
+					<p:calendar value="#{systemAuditTrailMgmtBean.date1}" pattern="dd/MM/yyyy HH:mm" id="start1" shownOn="button"/>
 					
 				
 				<h:outputText value="To :" />
-				<p:calendar value="#{systemAuditTrailMgmtBean.date2}" pattern="MM/dd/yyyy HH:mm" id="start2"  shownOn="button" />
+				<p:calendar value="#{systemAuditTrailMgmtBean.date2}" pattern="dd/MM/yyyy HH:mm" id="start2"  shownOn="button" />
 					
 		
 					
@@ -54,7 +54,7 @@
           <p:column id="date"  sortBy="date">
             <f:facet name="header"> Date </f:facet>
             <h:outputText value="#{systemAudit0.date}" >
-           <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />  
+           <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />  
             </h:outputText>
           </p:column>
           <p:column id="descHeader" sortBy="desription">
@@ -72,3 +72,4 @@
 </ui:composition>	
 </h:body> 
 </html>
+

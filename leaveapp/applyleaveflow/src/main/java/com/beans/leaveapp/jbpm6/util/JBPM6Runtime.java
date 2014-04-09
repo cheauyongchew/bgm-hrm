@@ -23,6 +23,7 @@ import org.kie.api.task.model.TaskSummary;
 import org.kie.internal.runtime.manager.context.EmptyContext;
 import org.springframework.transaction.support.AbstractPlatformTransactionManager;
 
+
 import com.beans.util.config.ConfigurationHolder;
 
 public class JBPM6Runtime {

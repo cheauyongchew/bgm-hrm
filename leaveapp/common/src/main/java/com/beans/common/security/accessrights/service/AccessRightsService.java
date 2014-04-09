@@ -1,3 +1,4 @@
+
 package com.beans.common.security.accessrights.service;
 
 import java.util.List;
@@ -14,5 +15,7 @@ public interface AccessRightsService {
 	public AccessRights update(AccessRights accessRights) throws AccessRightsNotFound;
 	public AccessRights findById(int id) throws AccessRightsNotFound;	
 	public Set<AccessRights> findAllInSet();
+	public List<AccessRights> findAccessRightsByAccessRight(String accessRight);
 	
 }
+

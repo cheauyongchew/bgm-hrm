@@ -8,9 +8,13 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.event.SelectEvent;
 
+import com.beans.common.audit.service.AuditTrail;
+import com.beans.common.audit.service.SystemAuditTrailActivity;
+import com.beans.common.audit.service.SystemAuditTrailLevel;
 import com.beans.common.security.accessrights.model.AccessRights;
 import com.beans.common.security.accessrights.service.AccessRightsNotFound;
 import com.beans.common.security.accessrights.service.AccessRightsService;
+import com.beans.common.security.users.model.Users;
 import com.beans.leaveapp.accessrights.model.AccessRightsDataModel;
 
 public class AccessRightsManagement implements Serializable {
@@ -24,6 +28,11 @@ public class AccessRightsManagement implements Serializable {
 	private AccessRights selectedAccessRights = new AccessRights();
 	private boolean insertDelete = false;
 	private List<AccessRights> searchAccessRights;
+	
+	private String searchAccessRight = "";
+	
+	private Users actorUsers;
+	private AuditTrail auditTrail;
 	
 	
 	public AccessRightsService getAccessRightsService() {
@@ -74,7 +83,10 @@ public class AccessRightsManagement implements Serializable {
 	public void doCreateAccessRights(){
 		newAccessRights.setDeleted(false);
 		getAccessRightsService().create(newAccessRights);
-		setInsertDelete(true);		
+		setInsertDelete(true);	
+		
+		auditTrail.log(SystemAuditTrailActivity.CREATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has Created Access Right " + newAccessRights.getAccessRights());	
+		
 	}
 	
 	
@@ -93,7 +105,8 @@ public class AccessRightsManagement implements Serializable {
 			System.out.println("Id:" + selectedAccessRights.getId());
 			System.out.println("Description:" + selectedAccessRights.getDescription());
 			accessRightsService.update(selectedAccessRights);		
-			
+		
+			auditTrail.log(SystemAuditTrailActivity.UPDATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has Updated Access Right " + selectedAccessRights.getAccessRights() + " with id " + selectedAccessRights.getId());
 		} catch (AccessRightsNotFound e) {
 			FacesMessage msg = new FacesMessage("Error", "UserAccess with Id: " + selectedAccessRights.getId() + "is not found");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -111,6 +124,10 @@ public class AccessRightsManagement implements Serializable {
 	public void doDeleteAccessRights(){
 		try {
 			getAccessRightsService().delete(selectedAccessRights.getId());
+			
+			auditTrail.log(SystemAuditTrailActivity.CREATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has Deleted Access Right " + selectedAccessRights.getAccessRights() + " with id " + selectedAccessRights.getId());
+	
+			System.out.println("actor id: " +getActorUsers().getId());
 		} catch (AccessRightsNotFound e) {
 			FacesMessage msg = new FacesMessage("Error", "UserAccess with Id: " + selectedAccessRights.getId() + "is not found");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -128,7 +145,43 @@ public class AccessRightsManagement implements Serializable {
 	}
 	public void setSearchAccessRights(List<AccessRights> searchAccessRights) {
 		this.searchAccessRights = searchAccessRights;
+	}
+
+	public String getSearchAccessRight() {
+		return searchAccessRight;
+	}
+
+	public void setSearchAccessRight(String searchAccessRight) {
+		this.searchAccessRight = searchAccessRight;
 	}	
+	
+	
+	public void searchAccessRightName(){		
+		if(getSearchAccessRight() == null || getSearchAccessRight().trim().equals("")){
+			this.accessRightsList = null;
+			this.accessRightsDataModel = null;			
+		}else {
+			this.accessRightsList = accessRightsService.findAccessRightsByAccessRight(getSearchAccessRight());
+			this.accessRightsDataModel = null;
+		}
+	}
+
+	public Users getActorUsers() {
+		return actorUsers;
+	}
+
+	public void setActorUsers(Users actorUsers) {
+		this.actorUsers = actorUsers;
+	}
+
+	public AuditTrail getAuditTrail() {
+		return auditTrail;
+	}
+
+	public void setAuditTrail(AuditTrail auditTrail) {
+		this.auditTrail = auditTrail;
+	}	
+	
 	
 
 }

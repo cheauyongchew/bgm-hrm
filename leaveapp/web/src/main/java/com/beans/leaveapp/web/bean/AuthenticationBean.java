@@ -3,6 +3,7 @@ package com.beans.leaveapp.web.bean;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -13,6 +14,8 @@ import javax.servlet.ServletResponse;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.beans.common.audit.service.AuditTrail;
 import com.beans.common.audit.service.SystemAuditTrailActivity;
@@ -32,10 +35,8 @@ public class AuthenticationBean implements Serializable{
 	private Employee employee;
 	private String username;
 	private Users users;
-	private HashMap<String, Boolean> accessRightsMap = new HashMap<String, Boolean>();
+	private HashSet<String> accessRightsSet = new HashSet<String>();
 	private AuditTrail auditTrail;
-	private String employeeName;
-	
 	
 	public String doLogin() throws IOException, ServletException {
 		ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
@@ -45,7 +46,7 @@ public class AuthenticationBean implements Serializable{
 		if(auth != null) {
 			setUsername(auth.getName());
 			initEmployee();
-			populateAccessRightsMap();
+			populateAccessRightsSet();
 			
 			auditTrail.log(SystemAuditTrailActivity.LOGIN, SystemAuditTrailLevel.INFO, getUsers().getId(), getUsername(), getUsername() + " has successfully logged in to the system.");
 		} else {
@@ -88,14 +89,18 @@ public class AuthenticationBean implements Serializable{
 		}
 	}
 	
-	private void populateAccessRightsMap() {
-		
+	private void populateAccessRightsSet() {
+		try {
+			accessRightsSet = usersService.getAccessRightsMapForUser(users.getId());
+		} catch(UsersNotFound e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public Boolean hasAccess(String key) {
 		if (key != null) {
-			if (accessRightsMap.containsKey(key)) {
-				return accessRightsMap.get(key);
+			if (accessRightsSet.contains(key)) {
+				return true;
 
 			}
 		}		
@@ -136,19 +141,5 @@ public class AuthenticationBean implements Serializable{
 	public void setAuditTrail(AuditTrail auditTrail) {
 		this.auditTrail = auditTrail;
 	}
-
-	public String getEmployeeName() {
-		try {
-			employee = getEmployeeService().findByUsername(getUsername());
-			employeeName =employee.getName();
-		} catch(EmployeeNotFound e) {
-			System.out.println("Employee not found for " + getUsername());
-		}
-		return employeeName;
-	}
-
-	public void setEmployeeName(String employeeName) {
-		this.employeeName = employeeName;
-	}
+	
 }
-

@@ -13,6 +13,7 @@
 		<spring.version>4.0.0.RELEASE</spring.version>
 		<project.groupid>com.beans</project.groupid>
 		<project.version>1.0-SNAPSHOT</project.version>
+		<spring.security.version>3.2.0.RELEASE</spring.security.version>
 	</properties>
 	
 	<name>Common Project</name>
@@ -31,7 +32,12 @@
 			<artifactId>spring-data-jpa</artifactId>
 			<version>${spring.data.jpa.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+		
 
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -80,3 +86,4 @@
 		</dependency>
 	</dependencies>
 </project>
+

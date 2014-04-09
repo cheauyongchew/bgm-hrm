@@ -1,3 +1,4 @@
+
 package com.beans.leaveapp.role.bean;
 
 import java.io.Serializable;
@@ -8,9 +9,13 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.event.SelectEvent;
 
+import com.beans.common.audit.service.AuditTrail;
+import com.beans.common.audit.service.SystemAuditTrailActivity;
+import com.beans.common.audit.service.SystemAuditTrailLevel;
 import com.beans.common.security.role.model.Role;
 import com.beans.common.security.role.service.RoleNotFound;
 import com.beans.common.security.role.service.RoleService;
+import com.beans.common.security.users.model.Users;
 import com.beans.leaveapp.role.model.RoleDataModel;
 
 public class RoleManagement implements Serializable{
@@ -24,6 +29,11 @@ public class RoleManagement implements Serializable{
 	private Role selectedRole = new Role();
 	private boolean insertDelete = false;
 	private List<Role> searchRole;
+	
+	private String searchRoleName = "";
+	
+	private Users actorUsers;
+	private AuditTrail auditTrail;
 	
 	
 	
@@ -73,7 +83,11 @@ public class RoleManagement implements Serializable{
 	public void doCreateRole() {
 		newRole.setDeleted(false);
 		getRoleService().create(newRole);
-		setInsertDelete(true);		
+		setInsertDelete(true);	
+		
+		auditTrail.log(SystemAuditTrailActivity.CREATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has Created Role " + newRole.getRole());
+		
+		System.out.println("Actor Id: " +getActorUsers().getId());
 	}
 	
 	public Role getSelectedRole() {
@@ -92,6 +106,8 @@ public class RoleManagement implements Serializable{
 			System.out.println("Description:" + selectedRole.getDescription());
 			getRoleService().update(selectedRole);
 			
+			auditTrail.log(SystemAuditTrailActivity.UPDATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has updated Role " + selectedRole.getRole() + " with id " + selectedRole.getId());
+			
 		} catch (RoleNotFound e) {
 			FacesMessage msg = new FacesMessage("Error", "Role With id: " + selectedRole.getId() + " not found!");  
 			FacesContext.getCurrentInstance().addMessage(null, msg);  
@@ -108,6 +124,8 @@ public class RoleManagement implements Serializable{
 	public void doDeleteRole(){
 		try {
 			getRoleService().delete(selectedRole.getId());
+			
+			auditTrail.log(SystemAuditTrailActivity.DELETED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has Deleted Role " + selectedRole.getRole() + " with id " + selectedRole.getId());	
 		} catch (RoleNotFound e) {
 			FacesMessage msg = new FacesMessage("Error", "Role With id: " + selectedRole.getId() + " not found!");  
 			FacesContext.getCurrentInstance().addMessage(null, msg);  
@@ -129,7 +147,44 @@ public class RoleManagement implements Serializable{
 
 	public void setInsertDelete(boolean insertDelete) {
 		this.insertDelete = insertDelete;
+	}
+
+	public String getSearchRoleName() {
+		return searchRoleName;
+	}
+
+	public void setSearchRoleName(String searchRoleName) {
+		this.searchRoleName = searchRoleName;
 	}	
+	
+	public void searchRole(){
+		
+		if(getSearchRoleName() == null || getSearchRoleName().trim().equals("")){
+			this.roleList = null;
+			this.roleDataModel = null;			
+		}else{
+			this.roleList = roleService.findRoleByRoleName(getSearchRoleName());
+			this.roleDataModel = null;		
+		}
+		
+	}
+
+	public Users getActorUsers() {
+		return actorUsers;
+	}
+
+	public void setActorUsers(Users actorUsers) {
+		this.actorUsers = actorUsers;
+	}
+
+	public AuditTrail getAuditTrail() {
+		return auditTrail;
+	}
+
+	public void setAuditTrail(AuditTrail auditTrail) {
+		this.auditTrail = auditTrail;
+	}
+	
 	
 
 }

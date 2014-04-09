@@ -12,25 +12,28 @@
         <h1>Access Rights</h1>
 		<h:form id="accessRightsTableForm">
 
- 
+ <p:panel header="Search" toggleable="true">
+					<p:panelGrid id="SearchAccessRight" columns="2" cellpadding="4">
+						
+						<h:outputText value="Access Right" />
+							<h:inputText value="#{accessRightsMgmtBean.searchAccessRight}">
+							</h:inputText>					
+							
+						<f:facet name="footer">				
+							<p:commandButton value="Search" update="accessRightsTable" actionListener="#{accessRightsMgmtBean.searchAccessRightName()}"></p:commandButton>
+							<p:commandButton type="reset" value="Reset"></p:commandButton>
+						</f:facet>
+					</p:panelGrid>
+				</p:panel>
+	 
 	 
 	 	
         <p:dataTable id="accessRightsTable" var="accessRights0" value="#{accessRightsMgmtBean.accessRightsDataModel}" widgetVar="accessRightsSearch" rowKey="#{accessRights0.id}"
-                 selection="#{accessRightsMgmtBean.selectedAccessRights}" selectionMode="single" filteredValue="#{accessRightsMgmtBean.searchAccessRights}"  emptyMessage="No data found with given criteria" >
+                 selection="#{accessRightsMgmtBean.selectedAccessRights}" paginator="true" rows="20" scrollable="true"  selectionMode="single" emptyMessage="No data found with given criteria" >
         
           <p:ajax event="rowSelect" listener="#{accessRightsMgmtBean.onRowSelect}" update=":accessRightsDetailForm:display, :growl" oncomplete="PF('accessRightsDialog').show()" />  
-          
-                    
-	 	
-        <f:facet name="header">  
-            <h:outputText  value="Search by Name :"></h:outputText>
-          
-                       <h:inputText id="globalFilter"  onkeyup="accessRightsSearch.filter()" />
-                         
-        </f:facet>   
-        
-        
-          <p:column id="nameHeader"  headerText="Name" >
+           
+          <p:column id="accessRightHeader"  headerText="Access Right" >
             <h:outputText value="#{accessRights0.accessRights}" />
           </p:column>        
         <p:column id="descHeader" headerText="Description">           
@@ -95,3 +98,4 @@
 </ui:composition>
 </h:body>	
 </html>	
+

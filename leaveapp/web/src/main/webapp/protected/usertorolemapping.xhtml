@@ -14,22 +14,28 @@
            <ui:define name="content">
            <h1>User Role Mapping</h1>
 		<h:form id="usersTableForm"> 
+		
+		<p:panel header="Search" toggleable="true">
+			<p:panelGrid id="SearchUsername" columns="2" cellpadding="4">
+				
+				<h:outputText value="Username" />
+					<h:inputText value="#{userToRoleMgmtBean.searchUsername}">
+					</h:inputText>					
+					
+				<f:facet name="footer">				
+					<p:commandButton value="Search" update="usersTable" actionListener="#{userToRoleMgmtBean.searchUser}"  ajax="false"></p:commandButton>
+					<p:commandButton type="reset" value="Reset" ajax="false"></p:commandButton>
+				</f:facet>
+			</p:panelGrid>
+		</p:panel>
 	 
 	 	
         <p:dataTable id="usersTable" var="users0" value="#{userToRoleMgmtBean.userToRoleDataModel}" widgetVar="usersSearch" rowKey="#{users0.id}"
-                 selection="#{userToRoleMgmtBean.selectedUsers}" selectionMode="single" filteredValue="#{userToRoleMgmtBean.searchUsers}"  emptyMessage="No data found with given criteria" >
+                 paginator="true" rows="20" scrollable="true" selectionMode="single" emptyMessage="No data found with given criteria" >
+                 <!--  selection="#{userToRoleMgmtBean.selectedUsers}" -->
         
          <p:ajax event="rowSelect" listener="#{userToRoleMgmtBean.onRowSelect}" update=":usersTableForm,:usersDlg, :growl" oncomplete="PF('usersDialog').show()" />
           
-                    
-	 	
-        <f:facet name="header">  
-            <h:outputText  value="Search by Username :"></h:outputText>
-          
-                       <h:inputText id="globalFilter"  onkeyup="usersSearch.filter()" />
-                         
-        </f:facet>           
-        
           <p:column id="userIdHeader"  headerText="User Id" >
             <h:outputText value="#{users0.id}" />
           </p:column>      
@@ -65,3 +71,4 @@
 </ui:composition>
 </h:body>
 </html>	
+
