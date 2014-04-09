@@ -282,9 +282,11 @@ INSERT INTO AccessRights(id, accessRights, description, isDeleted) VALUES ('4', 
 INSERT INTO AccessRights(id, accessRights, description, isDeleted) VALUES ('5', 'ViewMyProfile', 'View Access to MyProfile', 0);
 INSERT INTO AccessRights(id, accessRights, description, isDeleted) VALUES ('6', 'DeleteEmployee', 'Access to Delete Employee', 0);
 INSERT INTO AccessRights(id, accessRights, description, isDeleted) VALUES ('7', 'ApproveEmployeeRegistration', 'Access to Employee Registration Approval', 0);
+INSERT INTO AccessRights(id, accessRights, description, isDeleted) VALUES ('8', 'ApplyLeave', 'Access to Leave Form', 0);
 
 
 INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('2', '5');
+INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('2', '8');
 INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('3', '1');
 INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('3', '7');
 INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('4', '1');
