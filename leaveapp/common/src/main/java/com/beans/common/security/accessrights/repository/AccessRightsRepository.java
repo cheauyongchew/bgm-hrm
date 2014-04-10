@@ -1,3 +1,4 @@
+
 package com.beans.common.security.accessrights.repository;
 
 import java.util.List;
@@ -21,3 +22,4 @@ public interface AccessRightsRepository extends CrudRepository<AccessRights, Int
 	@Query("select ar from AccessRights ar where accessRights like ? and isDeleted = 0")
 	List<AccessRights> findByAccessRightLike(String accessRight);
 }
+

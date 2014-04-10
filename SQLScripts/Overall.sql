@@ -13,10 +13,10 @@ CREATE TABLE IF NOT EXISTS EmployeeGrade (
     id INT(10) NOT NULL AUTO_INCREMENT,
     name VARCHAR(20),
     description VARCHAR(50),
-    creationTime TIMESTAMP NULL,
     createdBy VARCHAR(70),
-    lastModifiedTime TIMESTAMP NULL,
+    creationTime TIMESTAMP NULL,
     lastModifiedBy VARCHAR(70),
+    lastModifiedTime TIMESTAMP NULL,
     isDeleted CHAR(1),
     PRIMARY KEY (id)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -26,6 +26,10 @@ CREATE TABLE IF NOT EXISTS EmployeeType (
     id INT(10) NOT NULL AUTO_INCREMENT,
     name VARCHAR(20),
     description VARCHAR(50),
+    createdBy VARCHAR(70),
+    creationTime TIMESTAMP NULL,
+    lastModifiedBy VARCHAR(70),
+    lastModifiedTime TIMESTAMP NULL,
     isDeleted CHAR(1),
     PRIMARY KEY (id)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -35,6 +39,11 @@ CREATE TABLE IF NOT EXISTS Department (
     id INT(10) NOT NULL AUTO_INCREMENT,
     name VARCHAR(20),
     description VARCHAR(50),
+    createdBy VARCHAR(70),
+    creationTime TIMESTAMP NULL,
+    lastModifiedBy VARCHAR(70),
+    lastModifiedTime TIMESTAMP NULL,
+
     isDeleted CHAR(1),
     PRIMARY KEY (id)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -169,8 +178,6 @@ CREATE TABLE IF NOT EXISTS LeaveTransaction (
     reason VARCHAR(100),
     leaveTypeId INT(10),
     employeeId INT(10),
-    isApproved TINYINT(1),
-    isCancelled TINYINT(1),
     isDeleted TINYINT(1),
     PRIMARY KEY (id),
     FOREIGN KEY (leaveTypeId)
@@ -185,6 +192,21 @@ CREATE TABLE IF NOT EXISTS LeaveAttachment (
     leaveTransactionId INT(10),
     description VARCHAR(50),
     fileLocation VARCHAR(150),
+    isDeleted TINYINT(1),
+    PRIMARY KEY (id),
+    FOREIGN KEY (leaveTransactionId)
+    	REFERENCES LeaveTransaction(id)
+    	ON DELETE CASCADE
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS LeaveApplicationComment (
+    id INT(10) NOT NULL AUTO_INCREMENT,
+    leaveTransactionId INT(10),
+    comment VARCHAR(150) NOT NULL,
+    createdBy VARCHAR(70),
+    creationTime TIMESTAMP NULL,
+    lastModifiedBy VARCHAR(70),
+    lastModifiedTime TIMESTAMP NULL,
     isDeleted TINYINT(1),
     PRIMARY KEY (id),
     FOREIGN KEY (leaveTransactionId)
@@ -229,15 +251,15 @@ INSERT INTO EmployeeGrade(name, description,creationTime,createdBy, isDeleted) V
 INSERT INTO EmployeeGrade(name, description,creationTime,createdBy, isDeleted) VALUES('SNR2', 'Senior 2',CURRENT_TIMESTAMP,'admin', 0);
 INSERT INTO EmployeeGrade(name, description,creationTime,createdBy, isDeleted) VALUES('SNR3', 'Senior 3',CURRENT_TIMESTAMP,'admin', 0);
 
-INSERT INTO EmployeeType(name, description, isDeleted) VALUES('INT', 'Internship', 0);
-INSERT INTO EmployeeType(name, description, isDeleted) VALUES('CONT', 'Contracted', 0);
-INSERT INTO EmployeeType(name, description, isDeleted) VALUES('PERM', 'Permanent', 0);
+INSERT INTO EmployeeType(name, description,creationTime,createdBy, isDeleted) VALUES('INT', 'Internship',CURRENT_TIMESTAMP,'admin', 0);
+INSERT INTO EmployeeType(name, description,creationTime,createdBy, isDeleted) VALUES('CONT', 'Contracted',CURRENT_TIMESTAMP,'admin', 0);
+INSERT INTO EmployeeType(name, description,creationTime,createdBy, isDeleted) VALUES('PERM', 'Permanent',CURRENT_TIMESTAMP,'admin', 0);
 
-INSERT INTO Department(name, description, isDeleted) VALUES('SOA', 'SOA team', 0);
-INSERT INTO Department(name, description, isDeleted) VALUES('JAVA', 'Java team', 0);
-INSERT INTO Department(name, description, isDeleted) VALUES('PM', 'Project management team', 0);
-INSERT INTO Department(name, description, isDeleted) VALUES('HRA', 'HR & Admin team', 0);
-INSERT INTO Department(name, description, isDeleted) VALUES('MGMT', 'Management team', 0);
+INSERT INTO Department(name, description,creationTime,createdBy, isDeleted) VALUES('SOA', 'SOA team',CURRENT_TIMESTAMP,'admin', 0);
+INSERT INTO Department(name, description,creationTime,createdBy, isDeleted) VALUES('JAVA', 'Java team',CURRENT_TIMESTAMP,'admin', 0);
+INSERT INTO Department(name, description,creationTime,createdBy, isDeleted) VALUES('PM', 'Project management team',CURRENT_TIMESTAMP,'admin', 0);
+INSERT INTO Department(name, description,creationTime,createdBy, isDeleted) VALUES('HRA', 'HR & Admin team',CURRENT_TIMESTAMP,'admin', 0);
+INSERT INTO Department(name, description,creationTime,createdBy, isDeleted) VALUES('MGMT', 'Management team',CURRENT_TIMESTAMP,'admin', 0);
 
 INSERT INTO LeaveType(name, description, employeeTypeId, entitlement, isAccountable, isDeleted) VALUES ('Annual', 'Annual leave', (SELECT id from EmployeeType WHERE name = 'INT'), 0.0, 1, 0); 
 INSERT INTO LeaveType(name, description, employeeTypeId, entitlement, isAccountable, isDeleted) VALUES ('Annual', 'Annual leave', (SELECT id from EmployeeType WHERE name = 'CONT'), 12.0, 0, 0);
@@ -301,4 +323,4 @@ INSERT INTO Employee(name, employeenumber, position, employeeGradeId, employeeTy
 INSERT INTO Employee(name, employeenumber, position, employeeGradeId, employeeTypeId, departmentId, userId, isDeleted, isResigned) values('Ruby', '3', 'HR Manager', 1, 1, 1, 3, 0, 0);
 
 INSERT INTO UserToAccessRights(id, userId, accessRightsId, enabled, isDeleted) values('1', '1', '1', '1', 0);
- 
+

@@ -1,3 +1,4 @@
+
 package com.beans.common.security.users.repository;
 
 import java.util.List;
@@ -22,4 +23,5 @@ public interface UsersRepository extends CrudRepository<Users, Integer>{
 	@Query("select u from Users u where username like ? and enabled = 1")
 	List<Users> findByUsernameLike(String username);
 }
+
 

@@ -1,7 +1,7 @@
 package com.beans.leaveapp.employeegrade.service;
 
 
-import java.util.Calendar;
+
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -70,6 +70,7 @@ public class EmployeeGradeServiceImpl implements EmployeeGradeService {
 		employeeGradeToBeUpdated.setLastModifiedTime(new java.util.Date());
 		employeeGradeRepository.save(employeeGradeToBeUpdated);
 		System.out.println("update recode with username:" + employeeGradeToBeUpdated.getLastModifiedBy());
+
 		return employeeGradeToBeUpdated;
 		}
 		return null;
@@ -90,4 +91,5 @@ public class EmployeeGradeServiceImpl implements EmployeeGradeService {
 	
 
 }
+
 

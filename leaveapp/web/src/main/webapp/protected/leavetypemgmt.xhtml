@@ -29,8 +29,8 @@
          <p:column id="descHeader" headerText="Description" sortBy="description">
             <h:outputText value="#{leaveType0.description}" />
           </p:column>
-        <p:column id="employeeIdHeader" headerText="EmployeeTypeId" sortBy="employeeTypeId">
-            <h:outputText value="#{leaveType0.employeeTypeId}" />
+        <p:column id="employeeIdHeader" headerText="Employee Type" sortBy="employeeType">
+            <h:outputText value="#{leaveType0.employeeTypeId.name}" />
           </p:column>
         <p:column id="entitlementHeader" headerText="Entitlement" sortBy="entitlement">
             <h:outputText value="#{leaveType0.entitlement}" />
@@ -55,7 +55,12 @@
                         <h:inputText value="#{leaveTypeMgmtBean.selectedLeaveType.description}"/>
  
  <h:outputText value="EmployeeTypeId :" ></h:outputText>
-                        <h:inputText value="#{leaveTypeMgmtBean.selectedLeaveType.employeeTypeId}"/>
+                        <p:selectOneMenu value="#{leaveTypeMgmtBean.name}">
+                        <f:selectItem itemLabel="Select one" itemValue="" />
+                        <f:selectItems value="#{employeeTypeListBean.employeeTypeList}"
+							var="employeeType0" itemLabel="#{employeeType0.name}"
+							itemValue="#{employeeType0.name}" />
+                        </p:selectOneMenu>
  
  <h:outputText value="Entitlement :" ></h:outputText>
                         <h:inputText value="#{leaveTypeMgmtBean.selectedLeaveType.entitlement}"/>
@@ -79,7 +84,19 @@
             <h:outputText value="Description :"></h:outputText>
                         <p:inputText value="#{leaveTypeMgmtBean.newLeaveType.description}"/>
  
-           
+           <h:outputText value="EmployeeType :"></h:outputText>
+            <p:selectOneMenu value="#{leaveTypeMgmtBean.name}">
+                      <f:selectItem itemLabel="Select one" itemValue="" />
+                        <f:selectItems value="#{employeeTypeListBean.employeeTypeList}"
+							var="employeeType0" itemLabel="#{employeeType0.name}"
+							itemValue="#{employeeType0.name}" />
+							</p:selectOneMenu>
+                        
+          <h:outputText value="Entitlement :"></h:outputText>
+                        <p:inputText value="#{leaveTypeMgmtBean.newLeaveType.entitlement}"/>
+                        
+                        
+                        
                     <f:facet name="footer">
                             <p:commandButton value="Submit" update=":leaveTypeTableForm:leaveTypeTable"  oncomplete="PF('newLeaveTypeDialog').hide()" actionListener="#{leaveTypeMgmtBean.doCreateLeaveType}"/>
                             <p:commandButton type="reset" value="Reset"></p:commandButton>
@@ -101,4 +118,5 @@
 </ui:composition>
 </h:body>
 </html>
+
 

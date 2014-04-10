@@ -168,4 +168,5 @@ public class JBPM6Runtime {
         Map<String, Object> taskContent = (Map<String, Object>) ContentMarshallerHelper.unmarshall(contentById.getContent(), null);
         return taskContent;
 	}
+
 }

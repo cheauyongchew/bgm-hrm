@@ -9,19 +9,18 @@ import javax.faces.context.FacesContext;
 import org.primefaces.event.SelectEvent;
 
 import com.beans.common.security.users.model.Users;
-import com.beans.common.security.users.service.UsersService;
-import com.beans.leaveapp.employeegrade.model.EmployeeGradeDataModel;
 import com.beans.leaveapp.employeegrade.model.EmployeeGrade;
+import com.beans.leaveapp.employeegrade.model.EmployeeGradeDataModel;
 import com.beans.leaveapp.employeegrade.service.EmployeeGradeNotFound;
 import com.beans.leaveapp.employeegrade.service.EmployeeGradeService;
 
-public class EmployeeGradeManagementBean implements Serializable{
+public class EmployeeGradeManagementBean implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	// EmployeeGradeRepository employeeGradeRepository;
 	EmployeeGradeService employeeGradeService;
 	private List<EmployeeGrade> employeeGradeList;
@@ -30,15 +29,17 @@ public class EmployeeGradeManagementBean implements Serializable{
 	private EmployeeGrade selectedEmployeeGrade = new EmployeeGrade();
 	private boolean insertDeleted = false;
 	private String searchName;
+
 	private Users actorUsers;
-	
-	
+
 	public Users getActorUsers() {
 		return actorUsers;
 	}
+
 	public void setActorUsers(Users actorUsers) {
 		this.actorUsers = actorUsers;
 	}
+
 	public EmployeeGradeService getEmployeeGradeService() {
 		return employeeGradeService;
 	}
@@ -67,30 +68,32 @@ public class EmployeeGradeManagementBean implements Serializable{
 		this.insertDeleted = insertDeleted;
 	}
 
-	public void setEmployeeGradeService(EmployeeGradeService employeeGradeService) {
+	public void setEmployeeGradeService(
+			EmployeeGradeService employeeGradeService) {
 		this.employeeGradeService = employeeGradeService;
 	}
 
 	public List<EmployeeGrade> getEmployeeGradeList() {
-		if(employeeGradeList == null || insertDeleted == true) {
-			 try {
+		if (employeeGradeList == null || insertDeleted == true) {
+			try {
 				employeeGradeList = getEmployeeGradeService().findAll();
 			} catch (Throwable e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 		}
-		return employeeGradeList;	
+		return employeeGradeList;
 	}
-	
+
 	public EmployeeGradeDataModel getEmployeeGradeDataModel() {
-		if(employeeGradeDataModel == null || insertDeleted == true) {
+		if (employeeGradeDataModel == null || insertDeleted == true) {
 			System.out.println(getEmployeeGradeList().size());
-			employeeGradeDataModel = new EmployeeGradeDataModel(getEmployeeGradeList());
-			
+			employeeGradeDataModel = new EmployeeGradeDataModel(
+					getEmployeeGradeList());
+
 		}
-		
+
 		return employeeGradeDataModel;
 	}
 
@@ -105,50 +108,49 @@ public class EmployeeGradeManagementBean implements Serializable{
 
 	public void doCreateEmployeeGrade() throws EmployeeGradeNotFound {
 		newEmployeeGrade.setDeleted(false);
+
 		newEmployeeGrade.setCreatedBy(actorUsers.getUsername());
 		newEmployeeGrade.setCreationTime(new java.util.Date());
+
 		getEmployeeGradeService().create(newEmployeeGrade);
 		setInsertDelete(true);
 	}
-	
+
 	public void doUpdateEmployeeGrade() throws EmployeeGradeNotFound {
 		try {
 			System.out.println("New name:" + selectedEmployeeGrade.getName());
 			System.out.println("ID: " + selectedEmployeeGrade.getId());
-			System.out.println("Username in session : "+actorUsers.getUsername());
+
+			getEmployeeGradeService().update(selectedEmployeeGrade);
+
+			System.out.println("Username in session : "
+					+ actorUsers.getUsername());
 			selectedEmployeeGrade.setLastModifiedBy(actorUsers.getUsername());
 			getEmployeeGradeService().update(selectedEmployeeGrade);
 			this.setInsertDelete(true);
-		// RequestContext.getCurrentInstance().
-		} catch(Exception e) {
-			FacesMessage msg = new FacesMessage("Error", "Leave Type With id: " + selectedEmployeeGrade.getId() + " not found!");  
-			  
-	        FacesContext.getCurrentInstance().addMessage(null, msg);  
+
+		} catch (Exception e) {
+			FacesMessage msg = new FacesMessage("Error", "Leave Type With id: "
+					+ selectedEmployeeGrade.getId() + " not found!");
+
+			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
-	
-	public void onRowSelect(SelectEvent event) {  
+
+	public void onRowSelect(SelectEvent event) {
 		setSelectedEmployeeGrade((EmployeeGrade) event.getObject());
-        FacesMessage msg = new FacesMessage("Leave Type Selected", selectedEmployeeGrade.getName());  
-        
-        FacesContext.getCurrentInstance().addMessage(null, msg);  
-    }  
-	
-	
-	public void doDeleteEmployeeGrade() throws Exception, EmployeeGradeNotFound {
-		getEmployeeGradeService().delete(selectedEmployeeGrade.getId());
-		
-		setInsertDelete(true);
-	}
-	
-	public void doResetFrom() throws EmployeeGradeNotFound {
-		
+		FacesMessage msg = new FacesMessage("Leave Type Selected",
+				selectedEmployeeGrade.getName());
+
+		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
-	public void search(){
-		
+	public void doDeleteEmployeeGrade() throws Exception, EmployeeGradeNotFound {
+		getEmployeeGradeService().delete(selectedEmployeeGrade.getId());
+
+		setInsertDelete(true);
 	}
-	
+
 	public String getSearchName() {
 		return searchName;
 	}
@@ -156,7 +158,6 @@ public class EmployeeGradeManagementBean implements Serializable{
 	public void setSearchName(String searchName) {
 		this.searchName = searchName;
 	}
-	
-	
+
 }
 

@@ -7,10 +7,9 @@ import javax.faces.model.ListDataModel;
 import org.primefaces.model.SelectableDataModel;
 
 import com.beans.common.security.usertoaccessrights.model.AssignedAccessRights;
-import com.beans.common.security.usertoaccessrights.model.UserToAccessRights;
 
 
-public class UserToAssignedAccessRightsDataModel extends ListDataModel<AssignedAccessRights> implements SelectableDataModel<UserToAccessRights>{
+public class UserToAssignedAccessRightsDataModel extends ListDataModel<AssignedAccessRights> implements SelectableDataModel<AssignedAccessRights>{
 
 	
 	UserToAssignedAccessRightsDataModel(){
@@ -22,17 +21,28 @@ public class UserToAssignedAccessRightsDataModel extends ListDataModel<AssignedA
 		super(data);
 	}
 
-//	@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	@Override
-	public UserToAccessRights getRowData(String rowKey) {	
+	public AssignedAccessRights getRowData(String rowKey) {
+		List<AssignedAccessRights> assignedAccessRightsList = (List<AssignedAccessRights>)getWrappedData();
+		  Integer rowKeyInt = Integer.parseInt(rowKey);
+	      for(AssignedAccessRights assignedAccessRights : assignedAccessRightsList) {
+	          if(assignedAccessRights.getId() == rowKeyInt) {
+	              return assignedAccessRights;
+	          }
+	      }
 		return null;
 	}
 	
 	@Override
-	public Object getRowKey(UserToAccessRights userToAccessRights) {
+	public Object getRowKey(AssignedAccessRights assignedAccessRights) {
 		
-		return userToAccessRights.getId();
-	}	
+		return assignedAccessRights.getId();
+	}
+
+	
+	
 
 
 }
+

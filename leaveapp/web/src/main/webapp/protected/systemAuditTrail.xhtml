@@ -1,3 +1,4 @@
+
 <html xmlns="http://www.w3.org/1999/xhtml" 
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -9,18 +10,6 @@
 	
 <h:head>
 	
-<style>
-.ui-dialog.ui-dlgCSS-content 
-{
-     background-image: none;
-     background-color: red;
-}
-         
-</style>
-<script type="text/javascript">
-    
-</script>
-
 </h:head>
 	
 <h:body>
@@ -29,18 +18,16 @@
 <ui:define name="title">System Audit Trail Records</ui:define>
 
 <ui:define name="content">
-
-       <h1>System Audit Trail Records</h1>
 		<h:form id="systemAuditTrailForm">
 		<p:panel header="Search" toggleable="true">
 			<p:panelGrid id="SearchEmployee" columns="2" cellpadding="4">
 				
 				<h:outputText value="From :" />
-					<p:calendar value="#{systemAuditTrailMgmtBean.date1}" pattern="MM/dd/yyyy HH:mm" id="start1" shownOn="button"/>
+					<p:calendar value="#{systemAuditTrailMgmtBean.date1}" pattern="dd/MM/yyyy HH:mm" id="start1" shownOn="button"/>
 					
 				
 				<h:outputText value="To :" />
-				<p:calendar value="#{systemAuditTrailMgmtBean.date2}" pattern="MM/dd/yyyy HH:mm" id="start2"  shownOn="button" />
+				<p:calendar value="#{systemAuditTrailMgmtBean.date2}" pattern="dd/MM/yyyy HH:mm" id="start2"  shownOn="button" />
 					
 		
 					
@@ -54,6 +41,11 @@
 		  
         <p:dataTable id="systemAuditTrailTable" widgetVar="systemAuditTraiVar" var="systemAudit0" scrollable="true" rows="10" paginator="true" value="#{systemAuditTrailMgmtBean.systemAuditTrailDataModel}" rowKey="#{systemAudit0.id}">
             
+            <p:column id="activityHeader" sortById="activity">
+            <f:facet name="header"> Activity </f:facet>
+            <h:outputText value="#{systemAudit0.activity}" />
+          </p:column>
+        
              <p:column id="userNameHeader" sortById="actorUsername">
             <f:facet name="header"> User Name </f:facet>
             <h:outputText value="#{systemAudit0.actorUsername}" />
@@ -62,7 +54,7 @@
           <p:column id="date"  sortBy="date">
             <f:facet name="header"> Date </f:facet>
             <h:outputText value="#{systemAudit0.date}" >
-           <f:convertDateTime pattern="MM/dd/yyyy HH:mm" />  
+           <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />  
             </h:outputText>
           </p:column>
           <p:column id="descHeader" sortBy="desription">
@@ -70,24 +62,14 @@
             <h:outputText value="#{systemAudit0.description}" />
           </p:column>
         
-        <p:column id="actorHeader" sortById="actorUserId">
-            <f:facet name="header"> Actor UserId </f:facet>
-            <h:outputText value="#{systemAudit0.actorUserId}" />
-          </p:column>
-        <p:column id="activityHeader" sortById="activity">
-            <f:facet name="header"> Activity </f:facet>
-            <h:outputText value="#{systemAudit0.activity}" />
-          </p:column>
-        
+ 
         </p:dataTable>
         
       </h:form>      
     
   </ui:define>  
-	
-</ui:composition>
-</h:body>
-
+  
+</ui:composition>	
+</h:body> 
 </html>
-
 

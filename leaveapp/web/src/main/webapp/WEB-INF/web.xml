@@ -1,8 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <web-app id="WebApp_ID" version="2.5"
  xmlns="http://java.sun.com/xml/ns/javaee"
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee  http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
  <display-name>Beans Group Leave Application</display-name>
+ <context-param>
+    <param-name>javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
+    <param-value>true</param-value>
+</context-param>
  <context-param>
   <param-name>contextConfigLocation</param-name>
   <param-value>/WEB-INF/spring/spring-*.xml</param-value>
@@ -29,10 +32,7 @@
 	<param-value>6Lc0QfESAAAAAL2aqLSIPDa4HPCH7on4PsP6V7Zr</param-value>
 	</context-param>
 	
-	<context-param>
-    <param-name>javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
-    <param-value>true</param-value>
-  </context-param>
+
  <filter>
   <filter-name>springSecurityFilterChain</filter-name>
   <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
@@ -56,3 +56,4 @@
   <welcome-file>/protected/index.jsf</welcome-file>
  </welcome-file-list>
 </web-app>
+

@@ -1,3 +1,4 @@
+
 package com.beans.leaveapp.employee.model;
 
 import java.util.Date;
@@ -240,3 +241,4 @@ public class Employee {
 	
 	
 }
+

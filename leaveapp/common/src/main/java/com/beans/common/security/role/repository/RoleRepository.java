@@ -1,3 +1,4 @@
+
 package com.beans.common.security.role.repository;
 
 import java.util.List;
