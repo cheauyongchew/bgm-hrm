@@ -366,6 +366,10 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 			<property-name>employee</property-name>
 			<value>#{authenticationBean.getEmployee()}</value>
 		</managed-property>
+		<managed-property>
+			<property-name>yearlyEntitlementService</property-name>
+			<value>#{yearlyEntitlementService}</value>
+		</managed-property>
 	</managed-bean>
 	
 	<managed-bean>
@@ -386,5 +390,17 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 		</managed-property>
 	</managed-bean>
 	
-	
+	<managed-bean>
+	<managed-bean-name>yearlyEntitlementListBean</managed-bean-name>
+	<managed-bean-class>com.beans.leaveapp.yearlyentitlement.bean.YearlyEntitlementListBean</managed-bean-class>
+	<managed-bean-scope>view</managed-bean-scope>
+	<managed-property>
+	      <property-name>yearlyEntitlementService</property-name>
+	      <value>#{yearlyEntitlementService}</value>
+	</managed-property>
+		<managed-property>
+			<property-name>employee</property-name>
+			<value>#{authenticationBean.getEmployee()}</value>
+		</managed-property>
+	</managed-bean>
 </faces-config>

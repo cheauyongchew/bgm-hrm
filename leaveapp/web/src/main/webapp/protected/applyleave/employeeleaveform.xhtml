@@ -18,19 +18,19 @@
 		<p:panelGrid id="leaveTypeSelection" columns="2" cellpadding="4" style="">
 		<h:outputText value="Leave Type*" />
 					<p:selectOneMenu
-						value="#{employeeLeaveFormMgmtBean.selectedLeaveType}"
+						value="#{employeeLeaveFormMgmtBean.selectedYearlyEntitlement}"
 						effect="fade" required="true"
-						requiredMessage="Please select Leave Type" valueChangeListener="#{employeeLeaveFormMgmtBean.leaveTypeSelected}">
+						requiredMessage="Please select Leave Type" valueChangeListener="#{employeeLeaveFormMgmtBean.yearlyEntitlementSelected}">
 						<p:ajax update=":employeeLeaveTypeForm"></p:ajax>
 						<f:selectItem itemLabel="Select One" itemValue="" />
-						<f:selectItems value="#{leaveTypeListBean.leaveTypeList}"
-							var="leaveType0" itemLabel="#{leaveType0.description}"
-							itemValue="#{leaveType0.name}" />
+						<f:selectItems value="#{yearlyEntitlementListBean.yearlyEntitlementList}"
+							var="yearlyEntitlement0" itemLabel="#{yearlyEntitlement0.leaveType.description}"
+							itemValue="#{yearlyEntitlement0.id}" />
 							
 					</p:selectOneMenu>
       </p:panelGrid>						
 			<p:panelGrid id="AnnualLeaveDetail" columns="2" cellpadding="4"
-							rendered="#{employeeLeaveFormMgmtBean.selectedLeaveType == 'Annual'}" style="">
+							rendered="#{employeeLeaveFormMgmtBean.leaveType == 'Annual'}" style="">
 			<h:outputText value="Entitlement" />
 					<h:inputText
 						value="#{employeeLeaveFormMgmtBean.yearlyEntitlement.entitlement}" disabled="true"/>

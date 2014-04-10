@@ -19,7 +19,7 @@ import com.beans.leaveapp.employeetype.model.EmployeeType;
 
 @Entity
 @Table(name="LeaveType")
-public class LeaveType {
+public class LeaveType{
 	private int id;
 	private String name;
 	private String description;
