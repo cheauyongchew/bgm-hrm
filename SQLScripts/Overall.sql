@@ -178,8 +178,6 @@ CREATE TABLE IF NOT EXISTS LeaveTransaction (
     reason VARCHAR(100),
     leaveTypeId INT(10),
     employeeId INT(10),
-    isApproved TINYINT(1),
-    isCancelled TINYINT(1),
     isDeleted TINYINT(1),
     PRIMARY KEY (id),
     FOREIGN KEY (leaveTypeId)
@@ -325,4 +323,4 @@ INSERT INTO Employee(name, employeenumber, position, employeeGradeId, employeeTy
 INSERT INTO Employee(name, employeenumber, position, employeeGradeId, employeeTypeId, departmentId, userId, isDeleted, isResigned) values('Ruby', '3', 'HR Manager', 1, 1, 1, 3, 0, 0);
 
 INSERT INTO UserToAccessRights(id, userId, accessRightsId, enabled, isDeleted) values('1', '1', '1', '1', 0);
- 
+

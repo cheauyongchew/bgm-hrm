@@ -18,7 +18,7 @@ public class EmployeeGrade {
 	 private String name;
 	 private String description;
 	 private boolean isDeleted = false;
-	 private java.util.Date creationTime;
+     private java.util.Date creationTime;
 	 private String createdBy;
 	 private java.util.Date lastModifiedTime;
 	 private String lastModifiedBy;
@@ -56,8 +56,7 @@ public class EmployeeGrade {
 			}
 		public void setDeleted(boolean isDeleted) {
 				this.isDeleted = isDeleted;
-			}
-		
+		}	
 		
 
 		public void setCreationTime(java.util.Date creationTime) {
@@ -91,6 +90,7 @@ public class EmployeeGrade {
 		public String getLastModifiedBy() {
 			return lastModifiedBy;
 		}
+
 		public boolean equals(Object other)
 		{
 		    return other instanceof EmployeeGrade && id == ((EmployeeGrade) other).getId();

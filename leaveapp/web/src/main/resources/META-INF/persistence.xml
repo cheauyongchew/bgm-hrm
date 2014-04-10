@@ -21,6 +21,7 @@
 		<class>com.beans.common.security.role.model.Role</class>
 		<class>com.beans.common.security.accessrights.model.AccessRights</class>
 		<class>com.beans.common.security.usertoaccessrights.model.UserToAccessRights</class>
+		<class>com.beans.leaveapp.leavetransaction.model.LeaveTransaction</class>
 		<class>com.beans.leaveapp.leaveapplicationcomment.model.LeaveApplicationComment</class>
 		
 		<!-- jBPM6 specific -->

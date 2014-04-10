@@ -52,6 +52,8 @@ public class YearlyEntitlementManagementBean implements Serializable {
 	List<YearlyEntitlement>  listOfYearlyEntitlement;
 	List<EmployeeEntitlement> employeeEntitlementList;
 	EmployeeLeaveEntitlementDataModel employeeLeaveEntitlementDataModel;
+	
+	
 	private AuditTrail auditTrail;
 	
 	public AuditTrail getAuditTrail() {
@@ -105,26 +107,16 @@ public class YearlyEntitlementManagementBean implements Serializable {
 		this.yearlyEntitlement = yearlyEntitlement;
 	}
 
-	public List<LeaveEntitlement> getYearlyEntitlementList() throws Exception {
-		if (leaveEntitlementList == null || InsertDelete == true) {
+	public List<YearlyEntitlement> getYearlyEntitlementList() throws Exception {
+		if (yearlyEntitlementList == null || InsertDelete == true) {
 
-			leaveEntitlementList = (List<LeaveEntitlement>) getYearlyEntitlementService()
-					.findLeave();
-
-			System.out.println("entitlementListSize"
-					+ leaveEntitlementList.size());
-
-			for (LeaveEntitlement leaveEntitlementobj : leaveEntitlementList) {
-				System.out.println(leaveEntitlementobj.getEmployeeName());
-			}
+			yearlyEntitlementList =  getYearlyEntitlementService().findAll();
+					
 		}
-		return leaveEntitlementList;
+		return yearlyEntitlementList;
 	}
 
-	public void setYearlyEntitlementList(
-			List<YearlyEntitlement> yearlyEntitlementList) {
-		this.yearlyEntitlementList = yearlyEntitlementList;
-	}
+	
 
 
 	public YearlyEntitleDataModel getYearlyEntitlementDataModel()
@@ -216,8 +208,6 @@ public class YearlyEntitlementManagementBean implements Serializable {
 	
 	}
 
-	public void employeeList() {
-	}
 	
 	public boolean isInsertDelete() {
 		return InsertDelete;
@@ -243,6 +233,7 @@ public class YearlyEntitlementManagementBean implements Serializable {
 
 	}
 
+	
 	public void setEmployeeList(List<String> employeeList) {
 		this.employeeList = employeeList;
 	}
@@ -278,7 +269,7 @@ public class YearlyEntitlementManagementBean implements Serializable {
 		try {
 			int employeeId = this.employee.getId();
 			employeeEntitlementList = yearlyEntitlementService
-					.findByEmployeeIdLike(employeeId);
+					.findByEmployeeId(employeeId);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -328,10 +319,13 @@ public class YearlyEntitlementManagementBean implements Serializable {
 		    this.yearlyEntitlementDataModel = null;
 		} else {
 		
-		   leaveEntitlementList = this.getYearlyEntitlementService().findByEmployeeIdAndfindByLeaveTypeId(getEmployeeName(),getLeaveTypeName() );
+		   leaveEntitlementList = this.getYearlyEntitlementService().findByEmployeeAndfindByLeaveType(getEmployeeName(),getLeaveTypeName() );
 		   this.yearlyEntitlementDataModel = null;
-		
-		   auditTrail.log(SystemAuditTrailActivity.ACCESSED, SystemAuditTrailLevel.INFO, actorUsers.getId(),actorUsers.getUsername(), actorUsers.getUsername()+" searching Entitlement of : "+getEmployeeName());
+		if(leaveEntitlementList != null){
+			//  auditTrail.log(SystemAuditTrailActivity.ACCESSED, SystemAuditTrailLevel.INFO, actorUsers.getId(),actorUsers.getUsername(), actorUsers.getUsername()+" searching Entitlement of : "+getEmployeeName());
+		}
+		   
+		 //  auditTrail.log(SystemAuditTrailActivity.ACCESSED, SystemAuditTrailLevel.INFO, actorUsers.getId(),actorUsers.getUsername(), actorUsers.getUsername()+" searching Entitlement of : "+getEmployeeName());
 		}
 		
 	}
@@ -362,4 +356,5 @@ public class YearlyEntitlementManagementBean implements Serializable {
 		this.actorUsers = actorUsers;
 	}
 
+	
 }

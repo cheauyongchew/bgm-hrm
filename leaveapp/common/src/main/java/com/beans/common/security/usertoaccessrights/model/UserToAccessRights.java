@@ -1,3 +1,4 @@
+
 package com.beans.common.security.usertoaccessrights.model;
 
 import java.util.List;
@@ -78,3 +79,4 @@ public class UserToAccessRights {
 	}	
 	
 }
+

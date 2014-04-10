@@ -1,3 +1,4 @@
+
 package com.beans.common.security.accessrights.model;
 
 import javax.persistence.Column;
@@ -78,3 +79,4 @@ public class AccessRights {
 		
 	 
 }
+

@@ -1,3 +1,4 @@
+
 package com.beans.leaveapp.roletoaccessrights.bean;
 
 import java.io.Serializable;
@@ -214,3 +215,4 @@ public class RoleToAccessRightsManagement implements Serializable{
 	
 	
 }
+

@@ -1,3 +1,4 @@
+
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -37,6 +38,8 @@
 				</p:submenu>
 				<p:menuitem value="System Audit Trail" url="/protected/systemAuditTrail.jsf"/>
                 <p:menuitem value="Yearly Entitlement" url="/protected/yearlyentitlement.jsf"/>
+                <p:menuitem value="Admin Leave Transaction" url="/protected/leavetransactionadmin.jsf"/>
+                <p:menuitem value="Employee Leave Transaction" url="/protected/leavetransactionemployee.jsf" />
 			</p:submenu>
 			<p:menuitem value="Change Password" url="/protected/userchangepassword.jsf"/>
 			<p:menuitem value="Logout" action="${authenticationBean.doLogout}"></p:menuitem>
@@ -48,5 +51,6 @@
 </h:body>
 
 </html>
+
 
 

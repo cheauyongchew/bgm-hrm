@@ -1,12 +1,20 @@
 package com.beans.leaveapp.leavetype.model;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Type;
+
+import com.beans.leaveapp.employeetype.model.EmployeeType;
 
 
 @Entity
@@ -15,10 +23,12 @@ public class LeaveType {
 	private int id;
 	private String name;
 	private String description;
-	private int employeeTypeId;
 	private double entitlement;
 	private boolean isAccountable = false;
 	private boolean isDeleted= false;
+	private EmployeeType employeeTypeId; 
+
+	
 	
 	@Id
 	@GeneratedValue
@@ -45,13 +55,7 @@ public class LeaveType {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	@Column(name="employeeTypeId", nullable=true)
-	public int getEmployeeTypeId() {
-		return employeeTypeId;
-	}
-	public void setEmployeeTypeId(int employeeTypeId) {
-		this.employeeTypeId = employeeTypeId;
-	}
+	
 	
 	@Column(name="entitlement", nullable=false)
 	public double getEntitlement() {
@@ -77,6 +81,19 @@ public class LeaveType {
 	public void setDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
+	
+	
+	
+    @OneToOne
+	@JoinColumn(name="employeeTypeId")
+	public EmployeeType getEmployeeTypeId() {
+		return employeeTypeId;
+	}
+	public void setEmployeeTypeId(EmployeeType employeeTypeId) {
+		this.employeeTypeId = employeeTypeId;
+	}
+	
+	
 	
 	
 	

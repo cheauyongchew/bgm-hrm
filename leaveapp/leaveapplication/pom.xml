@@ -13,10 +13,13 @@
 		<spring.version>4.0.0.RELEASE</spring.version>
 		<project.version>1.0-SNAPSHOT</project.version>
 		<project.groupid>com.beans</project.groupid>
-	</properties>	
+	</properties>
+	
 	<name>Leave Application Project</name>
-  	<description>Leave application related module.</description> 	
-	<dependencies>	
+  	<description>Leave application related module.</description>
+  	
+	<dependencies>
+	
 		<dependency>
 			<groupId>${project.groupid}</groupId>
 			<artifactId>employeeprofileservice</artifactId>

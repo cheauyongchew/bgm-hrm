@@ -1,3 +1,4 @@
+
 package com.beans.leaveapp.role.bean;
 
 import java.io.Serializable;
