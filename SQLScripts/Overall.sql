@@ -201,6 +201,21 @@ CREATE TABLE IF NOT EXISTS LeaveAttachment (
     	ON DELETE CASCADE
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS LeaveApplicationComment (
+    id INT(10) NOT NULL AUTO_INCREMENT,
+    leaveTransactionId INT(10),
+    comment VARCHAR(150) NOT NULL,
+    createdBy VARCHAR(70),
+    creationTime TIMESTAMP NULL,
+    lastModifiedBy VARCHAR(70),
+    lastModifiedTime TIMESTAMP NULL,
+    isDeleted TINYINT(1),
+    PRIMARY KEY (id),
+    FOREIGN KEY (leaveTransactionId)
+    	REFERENCES LeaveTransaction(id)
+    	ON DELETE CASCADE
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 CREATE TABLE IF NOT EXISTS AccessRights (
   id int(10) NOT NULL AUTO_INCREMENT,
   accessRights VARCHAR(50) NOT NULL,
