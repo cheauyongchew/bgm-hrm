@@ -3,20 +3,16 @@ package com.beans.leaveapp.leavetransaction.bean;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import org.primefaces.event.SelectEvent;
 
 import com.beans.common.audit.service.AuditTrail;
-import com.beans.common.audit.service.SystemAuditTrailActivity;
-import com.beans.common.audit.service.SystemAuditTrailLevel;
 import com.beans.common.leavetransaction.LeaveTransactionReason;
 import com.beans.common.security.users.model.Users;
 import com.beans.leaveapp.employee.service.EmployeeService;
-import com.beans.leaveapp.leavetransaction.model.AdminLeaveTransaction;
 import com.beans.leaveapp.leavetransaction.model.LeaveTransaction;
-import com.beans.leaveapp.leavetransaction.model.LeaveTransactionDataModel;
+import com.beans.leaveapp.leavetransaction.model.LeaveTransactionsDataModel;
 import com.beans.leaveapp.leavetransaction.service.LeaveTransactionService;
 
 public class LeaveTransactionManagementBean implements Serializable {
@@ -31,17 +27,17 @@ public class LeaveTransactionManagementBean implements Serializable {
 	private LeaveTransactionService leaveTransactionService;
     private EmployeeService employeeService;
 	private List<LeaveTransaction> list = new ArrayList<LeaveTransaction>();
-	private LeaveTransactionDataModel leaveTransactionDataModel;
+	private LeaveTransactionsDataModel leaveTransactionDataModel;
 	private String employeename = this.getEmployeename() ;
 	private String leaveType = this.getLeaveType();
-	private AdminLeaveTransaction selectedLeaveTransaction = new AdminLeaveTransaction();
-	private AdminLeaveTransaction newLeaveTransaction = new AdminLeaveTransaction(); 
-	private List<AdminLeaveTransaction> adminLeaveTransactionList ;
+	private LeaveTransaction selectedLeaveTransaction = new LeaveTransaction();
+	private LeaveTransaction newLeaveTransaction = new LeaveTransaction(); 
+	// private List<AdminLeaveTransaction> adminLeaveTransactionList ;
 	private List<String> employeeList;
 	private List<String> leaveTypeList;
 	boolean isInsert = false;
 	List<LeaveTransactionReason>  leaveTransactionReasonList;
-
+    private String name;
 
 
 	private AuditTrail auditTrail;
@@ -49,41 +45,21 @@ public class LeaveTransactionManagementBean implements Serializable {
 	
 	
 	
- 
-	public List<AdminLeaveTransaction> getAdminLeaveTransactionList() {
-		if(adminLeaveTransactionList == null || isInsert == true)
-		{
-		try{
-    		adminLeaveTransactionList = this.getLeaveTransactionService().findLeaveTransactions();
-    	}
-    	catch(Exception e){
-    		e.printStackTrace();
-    	} 
-     
-	}
-		
-		return adminLeaveTransactionList;
-	}
-
-	public void setAdminLeaveTransactionList(
-			List<AdminLeaveTransaction> adminLeaveTransactionList) {
-		this.adminLeaveTransactionList = adminLeaveTransactionList;
-	}
-
-	public AdminLeaveTransaction getSelectedLeaveTransaction() {
+	
+	public LeaveTransaction getSelectedLeaveTransaction() {
 		return selectedLeaveTransaction;
 	}
 
 	public void setSelectedLeaveTransaction(
-			AdminLeaveTransaction selectedLeaveTransaction) {
+			LeaveTransaction selectedLeaveTransaction) {
 		this.selectedLeaveTransaction = selectedLeaveTransaction;
 	}
 
-	public AdminLeaveTransaction getNewLeaveTransaction() {
+	public LeaveTransaction getNewLeaveTransaction() {
 		return newLeaveTransaction;
 	}
 
-	public void setNewLeaveTransaction(AdminLeaveTransaction newLeaveTransaction) {
+	public void setNewLeaveTransaction(LeaveTransaction newLeaveTransaction) {
 		this.newLeaveTransaction = newLeaveTransaction;
 	}
 
@@ -104,11 +80,11 @@ public class LeaveTransactionManagementBean implements Serializable {
 		this.leaveTransactionService = leaveTransactionService;
 	}
 
-	public LeaveTransactionDataModel getLeaveTransactionDataModel() {
+	public LeaveTransactionsDataModel getLeaveTransactionDataModel() {
 		if(leaveTransactionDataModel == null || isInsert == true){
 			
-			System.out.println(getAdminLeaveTransactionList().size()+" before data model");
-			leaveTransactionDataModel = new LeaveTransactionDataModel(getAdminLeaveTransactionList());
+		 System.out.println(getList().size()+" before data model");
+			leaveTransactionDataModel = new LeaveTransactionsDataModel(this.getList());
 			
 		}
 		return leaveTransactionDataModel;
@@ -130,7 +106,7 @@ public class LeaveTransactionManagementBean implements Serializable {
 		this.actorUsers = actorUsers;
 	}
 
-	public void setLeaveTransactionDataModel(LeaveTransactionDataModel leaveTransactionDataModel) {
+	public void setLeaveTransactionDataModel(LeaveTransactionsDataModel leaveTransactionDataModel) {
 		this.leaveTransactionDataModel = leaveTransactionDataModel;
 	}
 
@@ -147,7 +123,7 @@ public class LeaveTransactionManagementBean implements Serializable {
 	
 	public void doSearchLeaveTransaction(){
 		
-			try{
+			/*try{
 				System.out.println("first step");
 			if((this.getEmployeename() == null || getEmployeename().trim().equals("")) && (this.getLeaveType()== null || getLeaveType().trim().equals(""))) {
 				this.adminLeaveTransactionList = null;
@@ -162,7 +138,7 @@ public class LeaveTransactionManagementBean implements Serializable {
 		}
 	}catch(Exception e){
 		e.printStackTrace();
-	}
+	}*/
 	}
 	
 	public void doUpdateLeaveTransaction(){
@@ -181,7 +157,7 @@ public class LeaveTransactionManagementBean implements Serializable {
 	
 	public void doCreateLeaveTransaction(){
 		
-		System.out.println(newLeaveTransaction.getStartTime());
+		System.out.println(newLeaveTransaction.getStartDateTime());
              getLeaveTransactionService().create(newLeaveTransaction);
              this.setInsert(true);
 	}
@@ -189,7 +165,7 @@ public class LeaveTransactionManagementBean implements Serializable {
 
 	
 	public void onRowSelect(SelectEvent event){
-		this.setSelectedLeaveTransaction((AdminLeaveTransaction)event.getObject());
+		this.setSelectedLeaveTransaction((LeaveTransaction)event.getObject());
 	}
 
 
@@ -209,16 +185,7 @@ public class LeaveTransactionManagementBean implements Serializable {
 		this.leaveType = leaveType;
 	}
 
-    public List<AdminLeaveTransaction> list(){
-    	try{
-    		adminLeaveTransactionList = this.getLeaveTransactionService().findLeaveTransactions();
-    	}
-    	catch(Exception e){
-    		e.printStackTrace();
-    	}
-     return adminLeaveTransactionList;
-    }
-
+    
 	public List<String> getEmployeeList() {
 		employeeList = this.getLeaveTransactionService().findEmployeeNames();
 		return employeeList;
@@ -264,5 +231,13 @@ public class LeaveTransactionManagementBean implements Serializable {
 	public void setLeaveTransactionReasonList(
 			List<LeaveTransactionReason> leaveTransactionReasonList) {
 		this.leaveTransactionReasonList = leaveTransactionReasonList;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

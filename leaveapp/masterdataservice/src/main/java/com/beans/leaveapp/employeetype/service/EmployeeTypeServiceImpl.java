@@ -54,6 +54,8 @@ public class EmployeeTypeServiceImpl implements EmployeeTypeService {
 		employeeTypeToBeUpdated.setName(employeeType.getName());
 		employeeTypeToBeUpdated.setDescription(employeeType.getDescription());
 		employeeTypeToBeUpdated.setDeleted(employeeType.isDeleted());
+		employeeTypeToBeUpdated.setLastModifiedBy(employeeType.getLastModifiedBy());
+		employeeTypeToBeUpdated.setLastModifiedTime(new java.util.Date());
 		employeeTypeRepository.save(employeeTypeToBeUpdated);
 		return employeeTypeToBeUpdated;
 	}

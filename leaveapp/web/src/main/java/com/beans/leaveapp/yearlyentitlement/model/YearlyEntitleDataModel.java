@@ -6,14 +6,14 @@ import javax.faces.model.ListDataModel;
 
 import org.primefaces.model.SelectableDataModel;
 
-public class YearlyEntitleDataModel extends ListDataModel<LeaveEntitlement> implements
+public class YearlyEntitleDataModel extends ListDataModel<YearlyEntitlement> implements
 		SelectableDataModel<YearlyEntitlement> {
 
 	public YearlyEntitleDataModel(){
 		
 	}
 	
-	public YearlyEntitleDataModel(List<LeaveEntitlement> data){
+	public YearlyEntitleDataModel(List<YearlyEntitlement> data){
 		super(data);
 	}
 	

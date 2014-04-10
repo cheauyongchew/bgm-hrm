@@ -3,9 +3,13 @@ package com.beans.leaveapp.leavetype.bean;
 
 import java.io.Serializable;
 import java.util.List;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+
 import org.primefaces.event.SelectEvent;
+
+import com.beans.leaveapp.employeetype.model.EmployeeType;
 import com.beans.leaveapp.leavetype.model.LeaveType;
 import com.beans.leaveapp.leavetype.model.LeaveTypeDataModel;
 import com.beans.leaveapp.leavetype.service.LeaveTypeNotFound;
@@ -23,7 +27,7 @@ public class LeaveTypeManagementBean implements Serializable{
 		private LeaveType selectedLeaveType = new LeaveType();
 		private boolean insertDelete = false;
 		private List<LeaveType> searchLeaveType;
-		
+		private String name;
 
 		public List<LeaveType> getSearchLeaveType() {
 			return searchLeaveType;
@@ -74,6 +78,8 @@ public class LeaveTypeManagementBean implements Serializable{
 		}
 		
 		public void doCreateLeaveType() {
+			EmployeeType employeeType = getLeaveTypeService().findByEmployeeName(name);
+			newLeaveType.setEmployeeTypeId(employeeType);
 			newLeaveType.setDeleted(false);
 			getLeaveTypeService().create(newLeaveType);
 			setInsertDelete(true);
@@ -88,9 +94,12 @@ public class LeaveTypeManagementBean implements Serializable{
 			
 		public void doUpdateLeaveType() {
 			try {
+				EmployeeType employeeType = getLeaveTypeService().findByEmployeeName(name);
+				selectedLeaveType.setEmployeeTypeId(employeeType);
 				System.out.println("New name:" + selectedLeaveType.getName());
 				System.out.println("ID: " + selectedLeaveType.getId());
 				getLeaveTypeService().update(selectedLeaveType);
+				this.setInsertDelete(true);
 			} catch(LeaveTypeNotFound e) {
 				FacesMessage msg = new FacesMessage("Error", "Leave Type With id: " + selectedLeaveType.getId() + " not found!");  
 				  
@@ -108,6 +117,7 @@ public class LeaveTypeManagementBean implements Serializable{
 		public void doDeleteLeaveType() {
 			try {
 				getLeaveTypeService().delete(selectedLeaveType.getId());
+				this.setInsertDelete(true);
 			} catch(LeaveTypeNotFound e) {
 				FacesMessage msg = new FacesMessage("Error", "Leave Type With id: " + selectedLeaveType.getId() + " not found!");  
 				  
@@ -123,6 +133,14 @@ public class LeaveTypeManagementBean implements Serializable{
 		
 		public boolean isInsertDelete() {
 			return insertDelete;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
 		}
 		
 	}

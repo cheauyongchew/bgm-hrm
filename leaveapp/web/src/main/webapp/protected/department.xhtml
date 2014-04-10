@@ -36,7 +36,16 @@
             <f:facet name="header"> Description </f:facet>
             <h:outputText value="#{department0.description}" />
           </p:column>
-        
+         <p:column id="lastModifiedByHeader"  sortBy="lastModifiedBy" >
+            <f:facet name="header"> Last Modified By </f:facet>
+            <h:outputText value="#{department0.lastModifiedBy}" />
+          </p:column>
+          <p:column id="lastModifiedHeader"  sortBy="lastModifiedTime" >
+            <f:facet name="header"> Last Modified Time</f:facet>
+            <h:outputText value="#{department0.lastModifiedTime}" >
+            	<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+            </h:outputText>
+          </p:column>
         
         </p:dataTable>
         

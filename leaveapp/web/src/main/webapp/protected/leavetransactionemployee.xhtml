@@ -17,7 +17,7 @@
 
 		<ui:define name="content">
 			<h1>Employee Leave Transaction List</h1>
-			<h:form id="leaveTransactionEmployee">
+			<h:form id="leaveTransactionTableForm">
 
 				<p:panel header="Search" toggleable="true">
 					<p:panelGrid id="SearchEmployee" columns="2" cellpadding="4">
@@ -32,7 +32,7 @@
 
 						<f:facet name="footer">
 							<p:commandButton value="Search"
-								update=":leaveTransactionEmployee:leaveTransactionEmployee"
+								update=":leaveTransactionTableForm:leaveTransactionTable"
 								actionListener="#{leaveTransactionMgmtBean.doSearchLeaveTransaction}"
 								ajax="false"></p:commandButton>
 							<p:commandButton type="reset" value="Reset"></p:commandButton>
@@ -40,31 +40,29 @@
 					</p:panelGrid>
 				</p:panel>
 
-				<p:dataTable id="leaveTransactionEmployee"
-					widgetVar="leaveTransactionEmployeeTableVar" var="leaveTransaction0"
+				<p:dataTable id="leaveTransactionTable"
+					widgetVar="yearlyEntitlementTableVar" var="leaveTransaction0"
 					value="#{leaveTransactionMgmtBean.leaveTransactionDataModel}"
-					rowKey="#{leaveTransaction0.id}"
-					selectionMode="single" paginator="true" rows="10" scrollable="true">
-				
-
+					rowKey="#{leaveTransaction0.id}">
+					
 
 					<p:column id="employeeHeader" sortBy="employeeName">
 						<f:facet name="header"> Employee Name </f:facet>
-						<h:outputText value="#{leaveTransaction0.employeeName}" />
+						<h:outputText value="#{leaveTransaction0.employeeId.name}" />
 					</p:column>
 					<p:column id="leaveTypeHeader" sortBy="leaveType">
 						<f:facet name="header"> Leave Type </f:facet>
-						<h:outputText value="#{leaveTransaction0.leaveType}" />
+						<h:outputText value="#{leaveTransaction0.leaveTypeId.name}" />
 					</p:column>
 					<p:column id="startTimeHeader" sortBy="startTime">
 						<f:facet name="header"> Start Date </f:facet>
-						<h:outputText value="#{leaveTransaction0.startTime}">
+						<h:outputText value="#{leaveTransaction0.startDateTime}">
 							<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss" />
 						</h:outputText>
 					</p:column>
 					<p:column id="endTimeHeader" sortBy="endTime">
 						<f:facet name="header"> End Date  </f:facet>
-						<h:outputText value="#{leaveTransaction0.endTime}">
+						<h:outputText value="#{leaveTransaction0.endDateTime}">
 							<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss" />
 						</h:outputText>
 					</p:column>
@@ -74,11 +72,11 @@
 					</p:column>
 					<p:column id="noOfDaysHeader" sortBy="noOfDays">
 						<f:facet name="header"> Days </f:facet>
-						<h:outputText value="#{leaveTransaction0.noOfDays}" />
+						<h:outputText value="#{leaveTransaction0.numberOfDays}" />
 					</p:column>
 					<p:column id="noOfHoursHeader" sortBy="noOfHours">
 						<f:facet name="header"> Hours  </f:facet>
-						<h:outputText value="#{leaveTransaction0.noOfHours}" />
+						<h:outputText value="#{leaveTransaction0.numberOfHours}" />
 					</p:column>
 
 

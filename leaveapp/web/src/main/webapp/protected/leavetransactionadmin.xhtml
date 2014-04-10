@@ -1,4 +1,3 @@
-
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -55,21 +54,21 @@
 
 					<p:column id="employeeHeader" sortBy="employeeName">
 						<f:facet name="header"> Employee Name </f:facet>
-						<h:outputText value="#{leaveTransaction0.employeeName}" />
+						<h:outputText value="#{leaveTransaction0.employeeId.name}" />
 					</p:column>
 					<p:column id="leaveTypeHeader" sortBy="leaveType">
 						<f:facet name="header"> Leave Type </f:facet>
-						<h:outputText value="#{leaveTransaction0.leaveType}" />
+						<h:outputText value="#{leaveTransaction0.leaveTypeId.name}" />
 					</p:column>
 					<p:column id="startTimeHeader" sortBy="startTime">
 						<f:facet name="header"> Start Date </f:facet>
-						<h:outputText value="#{leaveTransaction0.startTime}">
+						<h:outputText value="#{leaveTransaction0.startDateTime}">
 							<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss" />
 						</h:outputText>
 					</p:column>
 					<p:column id="endTimeHeader" sortBy="endTime">
 						<f:facet name="header"> End Date  </f:facet>
-						<h:outputText value="#{leaveTransaction0.endTime}">
+						<h:outputText value="#{leaveTransaction0.endDateTime}">
 							<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss" />
 						</h:outputText>
 					</p:column>
@@ -79,11 +78,11 @@
 					</p:column>
 					<p:column id="noOfDaysHeader" sortBy="noOfDays">
 						<f:facet name="header"> Days </f:facet>
-						<h:outputText value="#{leaveTransaction0.noOfDays}" />
+						<h:outputText value="#{leaveTransaction0.numberOfDays}" />
 					</p:column>
 					<p:column id="noOfHoursHeader" sortBy="noOfHours">
 						<f:facet name="header"> Hours  </f:facet>
-						<h:outputText value="#{leaveTransaction0.noOfHours}" />
+						<h:outputText value="#{leaveTransaction0.numberOfHours}" />
 					</p:column>
 
 
@@ -109,7 +108,7 @@
 
 						<h:outputText value="EmployeeName :" />
 						<p:selectOneMenu
-							value="#{leaveTransactionMgmtBean.selectedLeaveTransaction.employeeName}">
+							value="#{leaveTransactionMgmtBean.name}">
 
 							<f:selectItem itemLabel="select LeaveType" itemValue="" />
 							<f:selectItems value="#{leaveTransactionMgmtBean.employeeList}"
@@ -121,7 +120,7 @@
 						</p:selectOneMenu>
 						<h:outputText value="leaveType :" />
 						<p:selectOneMenu
-							value="#{leaveTransactionMgmtBean.selectedLeaveTransaction.leaveType}">
+							value="#{leaveTransactionMgmtBean.selectedLeaveTransaction.leaveTypeId.name}">
 
 							<f:selectItem itemLabel="select One" itemValue="" />
 							<f:selectItems value="#{leaveTransactionMgmtBean.leaveTypeList}"
@@ -132,24 +131,24 @@
 						<h:outputText value="StartTime : " />
 
 						<p:calendar
-							value="#{leaveTransactionMgmtBean.selectedLeaveTransaction.startTime}"
+							value="#{leaveTransactionMgmtBean.selectedLeaveTransaction.startDateTime}"
 							pattern="dd/MM/yyyy hh:mm:ss" id="start1" shownOn="button" />
 
 						<h:outputText value="EndTime :" />
 
 						<p:calendar
-							value="#{leaveTransactionMgmtBean.selectedLeaveTransaction.endTime}"
+							value="#{leaveTransactionMgmtBean.selectedLeaveTransaction.endDateTime}"
 							pattern="dd/MM/yyyy hh:mm:ss" id="start2" shownOn="button" />
 
 
 					
 						<h:outputText value="Days :"></h:outputText>
 						<h:inputText
-							value="#{leaveTransactionMgmtBean.selectedLeaveTransaction.noOfDays}" />
+							value="#{leaveTransactionMgmtBean.selectedLeaveTransaction.numberOfDays}" />
 
 						<h:outputText value="Hours :"></h:outputText>
 						<h:inputText
-							value="#{leaveTransactionMgmtBean.selectedLeaveTransaction.noOfHours}" />
+							value="#{leaveTransactionMgmtBean.selectedLeaveTransaction.numberOfHours}" />
 
 	                   <h:outputText value="Status :"></h:outputText>
 						<h:inputText
@@ -184,7 +183,7 @@
 
 						<h:outputText value="Employee Name :"></h:outputText>
 						<p:selectOneMenu
-							value="#{leaveTransactionMgmtBean.newLeaveTransaction.employeeName}">
+							value="#{leaveTransactionMgmtBean.newLeaveTransaction.employeeId.name}">
 
 							<f:selectItem itemLabel="select Name" itemValue="" />
 							<f:selectItems value="#{leaveTransactionMgmtBean.employeeList}"
@@ -193,7 +192,7 @@
 
 						<h:outputText value="Leave Type :"></h:outputText>
 						<p:selectOneMenu
-							value="#{leaveTransactionMgmtBean.newLeaveTransaction.leaveType}">
+							value="#{leaveTransactionMgmtBean.newLeaveTransaction.leaveTypeId.name}">
 
 							<f:selectItem itemLabel="select LeaveType" itemValue="" />
 							<f:selectItems value="#{leaveTransactionMgmtBean.leaveTypeList}"
@@ -204,12 +203,12 @@
 						<h:outputText value="Start Time :" ></h:outputText>
 
 						<p:calendar
-							value="#{leaveTransactionMgmtBean.newLeaveTransaction.startTime}"
+							value="#{leaveTransactionMgmtBean.newLeaveTransaction.startDateTime}"
 							pattern="dd/MM/yyyy HH:mm" id="start3" shownOn="button" />
 
 						<h:outputText value="End Time :" ></h:outputText>
 						<p:calendar
-							value="#{leaveTransactionMgmtBean.newLeaveTransaction.endTime}"
+							value="#{leaveTransactionMgmtBean.newLeaveTransaction.endDateTime}"
 							pattern="dd/MM/yyyy HH:mm" id="start4" shownOn="button" />
 
 						<h:outputText value="Status :"></h:outputText>						
@@ -221,11 +220,11 @@
 
 						<h:outputText value="Days :"></h:outputText>
 						<h:inputText
-							value="#{leaveTransactionMgmtBean.newLeaveTransaction.noOfDays}" />
+							value="#{leaveTransactionMgmtBean.newLeaveTransaction.numberOfDays}" />
 
 						<h:outputText value="Hours :"></h:outputText>
 						<h:inputText
-							value="#{leaveTransactionMgmtBean.newLeaveTransaction.noOfHours}" />
+							value="#{leaveTransactionMgmtBean.newLeaveTransaction.numberOfHours}" />
 
 
 

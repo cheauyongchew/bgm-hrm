@@ -53,6 +53,7 @@ public class YearlyEntitlementManagementBean implements Serializable {
 	List<EmployeeEntitlement> employeeEntitlementList;
 	EmployeeLeaveEntitlementDataModel employeeLeaveEntitlementDataModel;
 	
+	
 	private AuditTrail auditTrail;
 	
 	public AuditTrail getAuditTrail() {
@@ -106,26 +107,16 @@ public class YearlyEntitlementManagementBean implements Serializable {
 		this.yearlyEntitlement = yearlyEntitlement;
 	}
 
-	public List<LeaveEntitlement> getYearlyEntitlementList() throws Exception {
-		if (leaveEntitlementList == null || InsertDelete == true) {
+	public List<YearlyEntitlement> getYearlyEntitlementList() throws Exception {
+		if (yearlyEntitlementList == null || InsertDelete == true) {
 
-			leaveEntitlementList = (List<LeaveEntitlement>) getYearlyEntitlementService()
-					.findLeave();
-
-			System.out.println("entitlementListSize"
-					+ leaveEntitlementList.size());
-
-			for (LeaveEntitlement leaveEntitlementobj : leaveEntitlementList) {
-				System.out.println(leaveEntitlementobj.getEmployeeName());
-			}
+			yearlyEntitlementList =  getYearlyEntitlementService().findAll();
+					
 		}
-		return leaveEntitlementList;
+		return yearlyEntitlementList;
 	}
 
-	public void setYearlyEntitlementList(
-			List<YearlyEntitlement> yearlyEntitlementList) {
-		this.yearlyEntitlementList = yearlyEntitlementList;
-	}
+	
 
 
 	public YearlyEntitleDataModel getYearlyEntitlementDataModel()

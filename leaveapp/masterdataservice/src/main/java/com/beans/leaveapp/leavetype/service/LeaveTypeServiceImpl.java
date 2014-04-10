@@ -59,7 +59,9 @@ public class LeaveTypeServiceImpl implements LeaveTypeService {
 	@Override
 	@Transactional(rollbackFor=LeaveTypeNotFound.class)
 	public LeaveType update(LeaveType leaveType) throws LeaveTypeNotFound {
-		LeaveType leaveTypeToBeUpdated = leaveTypeRepository.findOne(leaveType.getId());
+		//int id = employeeTypeRepository.findByName(leaveType.getEmployeeTypeId().getName()).getId();
+		//leaveType.setEmployeeTypeId(id);
+		LeaveType leaveTypeToBeUpdated = leaveTypeRepository.save(leaveType);
 		
 		/*if(leaveTypeToBeUpdated == null)
 			throw new LeaveTypeNotFound();
@@ -98,7 +100,14 @@ public class LeaveTypeServiceImpl implements LeaveTypeService {
 		List<String> list = leaveTypeRepository.findNamesList();
 		return list;
 	}
+
+	@Override
+	public EmployeeType findByEmployeeName(String name) {
+		EmployeeType employeeType =  employeeTypeRepository.findByName(name);
+		return employeeType;
+	}
 	
 
 	
 }
+

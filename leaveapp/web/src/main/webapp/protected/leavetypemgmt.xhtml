@@ -55,7 +55,7 @@
                         <h:inputText value="#{leaveTypeMgmtBean.selectedLeaveType.description}"/>
  
  <h:outputText value="EmployeeTypeId :" ></h:outputText>
-                        <p:selectOneMenu value="#{leaveTypeMgmtBean.selectedLeaveType.employeeTypeId.name}">
+                        <p:selectOneMenu value="#{leaveTypeMgmtBean.name}">
                         <f:selectItem itemLabel="Select one" itemValue="" />
                         <f:selectItems value="#{employeeTypeListBean.employeeTypeList}"
 							var="employeeType0" itemLabel="#{employeeType0.name}"
@@ -84,7 +84,19 @@
             <h:outputText value="Description :"></h:outputText>
                         <p:inputText value="#{leaveTypeMgmtBean.newLeaveType.description}"/>
  
-           
+           <h:outputText value="EmployeeType :"></h:outputText>
+            <p:selectOneMenu value="#{leaveTypeMgmtBean.name}">
+                      <f:selectItem itemLabel="Select one" itemValue="" />
+                        <f:selectItems value="#{employeeTypeListBean.employeeTypeList}"
+							var="employeeType0" itemLabel="#{employeeType0.name}"
+							itemValue="#{employeeType0.name}" />
+							</p:selectOneMenu>
+                        
+          <h:outputText value="Entitlement :"></h:outputText>
+                        <p:inputText value="#{leaveTypeMgmtBean.newLeaveType.entitlement}"/>
+                        
+                        
+                        
                     <f:facet name="footer">
                             <p:commandButton value="Submit" update=":leaveTypeTableForm:leaveTypeTable"  oncomplete="PF('newLeaveTypeDialog').hide()" actionListener="#{leaveTypeMgmtBean.doCreateLeaveType}"/>
                             <p:commandButton type="reset" value="Reset"></p:commandButton>

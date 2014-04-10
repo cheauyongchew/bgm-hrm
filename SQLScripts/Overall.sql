@@ -13,10 +13,10 @@ CREATE TABLE IF NOT EXISTS EmployeeGrade (
     id INT(10) NOT NULL AUTO_INCREMENT,
     name VARCHAR(20),
     description VARCHAR(50),
-    creationTime TIMESTAMP,
     createdBy VARCHAR(70),
-    lastModifiedTime TIMESTAMP,
+    creationTime TIMESTAMP NULL,
     lastModifiedBy VARCHAR(70),
+    lastModifiedTime TIMESTAMP NULL,
     isDeleted CHAR(1),
     PRIMARY KEY (id)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -26,6 +26,10 @@ CREATE TABLE IF NOT EXISTS EmployeeType (
     id INT(10) NOT NULL AUTO_INCREMENT,
     name VARCHAR(20),
     description VARCHAR(50),
+    createdBy VARCHAR(70),
+    creationTime TIMESTAMP NULL,
+    lastModifiedBy VARCHAR(70),
+    lastModifiedTime TIMESTAMP NULL,
     isDeleted CHAR(1),
     PRIMARY KEY (id)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -35,6 +39,11 @@ CREATE TABLE IF NOT EXISTS Department (
     id INT(10) NOT NULL AUTO_INCREMENT,
     name VARCHAR(20),
     description VARCHAR(50),
+    createdBy VARCHAR(70),
+    creationTime TIMESTAMP NULL,
+    lastModifiedBy VARCHAR(70),
+    lastModifiedTime TIMESTAMP NULL,
+
     isDeleted CHAR(1),
     PRIMARY KEY (id)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -220,22 +229,22 @@ GRANT ALL PRIVILEGES ON beans.* TO 'beans'@'localhost';
 GRANT ALL PRIVILEGES ON beans.* TO 'beans'@'127.0.0.1';
 
 
-INSERT INTO EmployeeGrade(name, description, isDeleted) VALUES('JNR1', 'Junior 1', 0);
-INSERT INTO EmployeeGrade(name, description, isDeleted) VALUES('JNR2', 'Junior 2', 0);
-INSERT INTO EmployeeGrade(name, description, isDeleted) VALUES('JNR3', 'Junior 3', 0);
-INSERT INTO EmployeeGrade(name, description, isDeleted) VALUES('SNR1', 'Senior 1', 0);
-INSERT INTO EmployeeGrade(name, description, isDeleted) VALUES('SNR2', 'Senior 2', 0);
-INSERT INTO EmployeeGrade(name, description, isDeleted) VALUES('SNR3', 'Senior 3', 0);
+INSERT INTO EmployeeGrade(name, description,creationTime,createdBy, isDeleted) VALUES('JNR1', 'Junior 1',CURRENT_TIMESTAMP,'admin', 0);
+INSERT INTO EmployeeGrade(name, description,creationTime,createdBy, isDeleted) VALUES('JNR2', 'Junior 2',CURRENT_TIMESTAMP,'admin', 0);
+INSERT INTO EmployeeGrade(name, description,creationTime,createdBy, isDeleted) VALUES('JNR3', 'Junior 3',CURRENT_TIMESTAMP,'admin', 0);
+INSERT INTO EmployeeGrade(name, description,creationTime,createdBy, isDeleted) VALUES('SNR1', 'Senior 1',CURRENT_TIMESTAMP,'admin', 0);
+INSERT INTO EmployeeGrade(name, description,creationTime,createdBy, isDeleted) VALUES('SNR2', 'Senior 2',CURRENT_TIMESTAMP,'admin', 0);
+INSERT INTO EmployeeGrade(name, description,creationTime,createdBy, isDeleted) VALUES('SNR3', 'Senior 3',CURRENT_TIMESTAMP,'admin', 0);
 
-INSERT INTO EmployeeType(name, description, isDeleted) VALUES('INT', 'Internship', 0);
-INSERT INTO EmployeeType(name, description, isDeleted) VALUES('CONT', 'Contracted', 0);
-INSERT INTO EmployeeType(name, description, isDeleted) VALUES('PERM', 'Permanent', 0);
+INSERT INTO EmployeeType(name, description,creationTime,createdBy, isDeleted) VALUES('INT', 'Internship',CURRENT_TIMESTAMP,'admin', 0);
+INSERT INTO EmployeeType(name, description,creationTime,createdBy, isDeleted) VALUES('CONT', 'Contracted',CURRENT_TIMESTAMP,'admin', 0);
+INSERT INTO EmployeeType(name, description,creationTime,createdBy, isDeleted) VALUES('PERM', 'Permanent',CURRENT_TIMESTAMP,'admin', 0);
 
-INSERT INTO Department(name, description, isDeleted) VALUES('SOA', 'SOA team', 0);
-INSERT INTO Department(name, description, isDeleted) VALUES('JAVA', 'Java team', 0);
-INSERT INTO Department(name, description, isDeleted) VALUES('PM', 'Project management team', 0);
-INSERT INTO Department(name, description, isDeleted) VALUES('HRA', 'HR & Admin team', 0);
-INSERT INTO Department(name, description, isDeleted) VALUES('MGMT', 'Management team', 0);
+INSERT INTO Department(name, description,creationTime,createdBy, isDeleted) VALUES('SOA', 'SOA team',CURRENT_TIMESTAMP,'admin', 0);
+INSERT INTO Department(name, description,creationTime,createdBy, isDeleted) VALUES('JAVA', 'Java team',CURRENT_TIMESTAMP,'admin', 0);
+INSERT INTO Department(name, description,creationTime,createdBy, isDeleted) VALUES('PM', 'Project management team',CURRENT_TIMESTAMP,'admin', 0);
+INSERT INTO Department(name, description,creationTime,createdBy, isDeleted) VALUES('HRA', 'HR & Admin team',CURRENT_TIMESTAMP,'admin', 0);
+INSERT INTO Department(name, description,creationTime,createdBy, isDeleted) VALUES('MGMT', 'Management team',CURRENT_TIMESTAMP,'admin', 0);
 
 INSERT INTO LeaveType(name, description, employeeTypeId, entitlement, isAccountable, isDeleted) VALUES ('Annual', 'Annual leave', (SELECT id from EmployeeType WHERE name = 'INT'), 0.0, 1, 0); 
 INSERT INTO LeaveType(name, description, employeeTypeId, entitlement, isAccountable, isDeleted) VALUES ('Annual', 'Annual leave', (SELECT id from EmployeeType WHERE name = 'CONT'), 12.0, 0, 0);
@@ -280,9 +289,11 @@ INSERT INTO AccessRights(id, accessRights, description, isDeleted) VALUES ('4', 
 INSERT INTO AccessRights(id, accessRights, description, isDeleted) VALUES ('5', 'ViewMyProfile', 'View Access to MyProfile', 0);
 INSERT INTO AccessRights(id, accessRights, description, isDeleted) VALUES ('6', 'DeleteEmployee', 'Access to Delete Employee', 0);
 INSERT INTO AccessRights(id, accessRights, description, isDeleted) VALUES ('7', 'ApproveEmployeeRegistration', 'Access to Employee Registration Approval', 0);
+INSERT INTO AccessRights(id, accessRights, description, isDeleted) VALUES ('8', 'ApplyLeave', 'Access to Leave Form', 0);
 
 
 INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('2', '5');
+INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('2', '8');
 INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('3', '1');
 INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('3', '7');
 INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('4', '1');
