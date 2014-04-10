@@ -178,6 +178,7 @@ CREATE TABLE IF NOT EXISTS LeaveTransaction (
     reason VARCHAR(100),
     leaveTypeId INT(10),
     employeeId INT(10),
+    taskId BIGINT(20),
     isDeleted TINYINT(1),
     PRIMARY KEY (id),
     FOREIGN KEY (leaveTypeId)
