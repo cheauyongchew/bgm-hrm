@@ -101,7 +101,14 @@ public class LeaveTransactionServiceImpl implements LeaveTransactionService {
 		}
 	}
 
+
+	@Override
+	public LeaveTransaction insertFromWorkflow(LeaveTransaction leaveTransaction) {
+		
+		return leaveTransactionRepository.save(leaveTransaction);
+	}
+
 	
 
-	}
+}
 

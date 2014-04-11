@@ -17,7 +17,7 @@ public interface LeaveTransactionService {
 	public void update(LeaveTransaction adminLeaveTransaction);
 	
 	public void delete(int id);
-	
+	public LeaveTransaction insertFromWorkflow(LeaveTransaction leaveTransaction);
 	
  
     

@@ -1,5 +1,7 @@
 package com.beans.leaveapp.department.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +14,12 @@ import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name="Department")
-public class Department {
+public class Department implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private String name;
 	private String description;

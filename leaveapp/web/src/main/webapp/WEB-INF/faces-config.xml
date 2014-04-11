@@ -370,6 +370,15 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 			<property-name>yearlyEntitlementService</property-name>
 			<value>#{yearlyEntitlementService}</value>
 		</managed-property>
+		<managed-property>
+			<property-name>auditTrail</property-name>
+			<value>#{auditTrail}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>leaveApplicationService</property-name>
+			<value>#{leaveApplicationService}</value>
+		</managed-property>
+		
 	</managed-bean>
 	
 	<managed-bean>
