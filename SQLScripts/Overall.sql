@@ -80,6 +80,10 @@ CREATE TABLE IF NOT EXISTS LeaveType (
 	entitlement DOUBLE(4,2),
 	isAccountable TINYINT(1) DEFAULT 1 NOT NULL,
 	isDeleted TINYINT(1) DEFAULT 0 NOT NULL,
+	createdBy VARCHAR(70),
+    creationTime TIMESTAMP NULL,
+    lastModifiedBy VARCHAR(70),
+    lastModifiedTime TIMESTAMP NULL,
 	PRIMARY KEY (id),
 	FOREIGN KEY (employeeTypeId)
     	REFERENCES EmployeeType(id)
@@ -262,16 +266,16 @@ INSERT INTO Department(name, description,creationTime,createdBy, isDeleted) VALU
 INSERT INTO Department(name, description,creationTime,createdBy, isDeleted) VALUES('HRA', 'HR & Admin team',CURRENT_TIMESTAMP,'admin', 0);
 INSERT INTO Department(name, description,creationTime,createdBy, isDeleted) VALUES('MGMT', 'Management team',CURRENT_TIMESTAMP,'admin', 0);
 
-INSERT INTO LeaveType(name, description, employeeTypeId, entitlement, isAccountable, isDeleted) VALUES ('Annual', 'Annual leave', (SELECT id from EmployeeType WHERE name = 'INT'), 0.0, 1, 0); 
-INSERT INTO LeaveType(name, description, employeeTypeId, entitlement, isAccountable, isDeleted) VALUES ('Annual', 'Annual leave', (SELECT id from EmployeeType WHERE name = 'CONT'), 12.0, 0, 0);
-INSERT INTO LeaveType(name, description, employeeTypeId, entitlement, isAccountable, isDeleted) VALUES ('Annual', 'Annual leave', (SELECT id from EmployeeType WHERE name = 'PERM'), 16.0, 0, 0);
-INSERT INTO LeaveType(name, description, employeeTypeId, entitlement, isAccountable, isDeleted) VALUES ('Sick', 'Sick leave', (SELECT id from EmployeeType WHERE name = 'INT'), 0.0, 1, 0); 
-INSERT INTO LeaveType(name, description, employeeTypeId, entitlement, isAccountable, isDeleted) VALUES ('Sick', 'Sick leave', (SELECT id from EmployeeType WHERE name = 'CONT'), 12.0, 0, 0);
-INSERT INTO LeaveType(name, description, employeeTypeId, entitlement, isAccountable, isDeleted) VALUES ('Sick', 'Sick leave', (SELECT id from EmployeeType WHERE name = 'PERM'), 30.0, 0, 0);
-INSERT INTO LeaveType(name, description, employeeTypeId, entitlement, isAccountable, isDeleted) VALUES ('Compassionate', 'Compassionate leave', (SELECT id from EmployeeType WHERE name = 'PERM'), 3.0, 0, 0);
-INSERT INTO LeaveType(name, description, employeeTypeId, entitlement, isAccountable, isDeleted) VALUES ('Marriage', 'Marriage leave', (SELECT id from EmployeeType WHERE name = 'PERM'), 3.0, 0, 0);
-INSERT INTO LeaveType(name, description, employeeTypeId, entitlement, isAccountable, isDeleted) VALUES ('Maternity', 'Maternity leave', (SELECT id from EmployeeType WHERE name = 'PERM'), 60.0, 0, 0);
-INSERT INTO LeaveType(name, description, employeeTypeId, entitlement, isAccountable, isDeleted) VALUES ('Paternity', 'Paternity leave', (SELECT id from EmployeeType WHERE name = 'PERM'), 3.0, 0, 0);
+INSERT INTO LeaveType(name, description, employeeTypeId, entitlement, isAccountable, isDeleted,creationTime,createdBy) VALUES ('Annual', 'Annual leave', (SELECT id from EmployeeType WHERE name = 'INT'), 0.0, 1, 0,CURRENT_TIMESTAMP,'admin'); 
+INSERT INTO LeaveType(name, description, employeeTypeId, entitlement, isAccountable, isDeleted,creationTime,createdBy) VALUES ('Annual', 'Annual leave', (SELECT id from EmployeeType WHERE name = 'CONT'), 12.0, 0, 0,CURRENT_TIMESTAMP,'admin');
+INSERT INTO LeaveType(name, description, employeeTypeId, entitlement, isAccountable, isDeleted,creationTime,createdBy) VALUES ('Annual', 'Annual leave', (SELECT id from EmployeeType WHERE name = 'PERM'), 16.0, 0, 0,CURRENT_TIMESTAMP,'admin');
+INSERT INTO LeaveType(name, description, employeeTypeId, entitlement, isAccountable, isDeleted,creationTime,createdBy) VALUES ('Sick', 'Sick leave', (SELECT id from EmployeeType WHERE name = 'INT'), 0.0, 1, 0,CURRENT_TIMESTAMP,'admin'); 
+INSERT INTO LeaveType(name, description, employeeTypeId, entitlement, isAccountable, isDeleted,creationTime,createdBy) VALUES ('Sick', 'Sick leave', (SELECT id from EmployeeType WHERE name = 'CONT'), 12.0, 0, 0,CURRENT_TIMESTAMP,'admin');
+INSERT INTO LeaveType(name, description, employeeTypeId, entitlement, isAccountable, isDeleted,creationTime,createdBy) VALUES ('Sick', 'Sick leave', (SELECT id from EmployeeType WHERE name = 'PERM'), 30.0, 0, 0,CURRENT_TIMESTAMP,'admin');
+INSERT INTO LeaveType(name, description, employeeTypeId, entitlement, isAccountable, isDeleted,creationTime,createdBy) VALUES ('Compassionate', 'Compassionate leave', (SELECT id from EmployeeType WHERE name = 'PERM'), 3.0, 0, 0,CURRENT_TIMESTAMP,'admin');
+INSERT INTO LeaveType(name, description, employeeTypeId, entitlement, isAccountable, isDeleted,creationTime,createdBy) VALUES ('Marriage', 'Marriage leave', (SELECT id from EmployeeType WHERE name = 'PERM'), 3.0, 0, 0,CURRENT_TIMESTAMP,'admin');
+INSERT INTO LeaveType(name, description, employeeTypeId, entitlement, isAccountable, isDeleted,creationTime,createdBy) VALUES ('Maternity', 'Maternity leave', (SELECT id from EmployeeType WHERE name = 'PERM'), 60.0, 0, 0,CURRENT_TIMESTAMP,'admin');
+INSERT INTO LeaveType(name, description, employeeTypeId, entitlement, isAccountable, isDeleted,creationTime,createdBy) VALUES ('Paternity', 'Paternity leave', (SELECT id from EmployeeType WHERE name = 'PERM'), 3.0, 0, 0,CURRENT_TIMESTAMP,'admin');
 
 INSERT INTO Users(id, username, password, enabled) VALUES ('1', 'johndoe', '$2a$10$qzEqlpoVOYv4yT/pAqq7L.Y8PX.DLbtfWuPDvenJfcfhJd4I2wvZy', '1');
 INSERT INTO Users(id, username, password, enabled) VALUES ('2', 'jennifer', '$2a$10$qzEqlpoVOYv4yT/pAqq7L.Y8PX.DLbtfWuPDvenJfcfhJd4I2wvZy', '1');
