@@ -1,6 +1,8 @@
 
 package com.beans.common.security.accessrights.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,8 +15,12 @@ import com.beans.common.security.role.model.Role;
 
 @Entity
 @Table(name="AccessRights")
-public class AccessRights {
+public class AccessRights implements Serializable{
  
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private String accessRights;
 	private String description;	   

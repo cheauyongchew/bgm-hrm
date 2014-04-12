@@ -1,5 +1,7 @@
 package com.beans.leaveapp.yearlyentitlement.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,8 +17,12 @@ import com.beans.leaveapp.leavetype.model.LeaveType;
 
 @Entity
 @Table(name = "YearlyEntitlement")
-public class YearlyEntitlement {
+public class YearlyEntitlement implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;;
 	private double entitlement;
 	private double availableBalance;

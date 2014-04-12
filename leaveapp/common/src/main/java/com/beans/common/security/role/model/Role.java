@@ -1,5 +1,6 @@
 package com.beans.common.security.role.model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -23,9 +24,13 @@ import com.beans.common.security.users.model.Users;
 
 @Entity
 @Table(name="Role")
-public class Role {
+public class Role implements Serializable{
 
-	 private int id;
+	 /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int id;
 	 private String role;
 	 private boolean isDeleted= false;
 	 private String description;

@@ -26,6 +26,14 @@
 		</property>
     </bean>
 	
+	<bean  id="leaveApplicationService" class="com.beans.leaveapp.applyleave.service.LeaveApplicationServiceImpl"> 
+    	<property name="applyLeaveRuntime" >
+			<ref bean="applyLeaveRuntime"/>
+		</property>
+		<property name="leaveTransactionService">
+			<ref bean="leaveTransactionService"/>
+		</property>
+    </bean>
 	
 	<bean id="employeeRegistrationRuntime" class="com.beans.leaveapp.jbpm6.util.JBPM6Runtime">
 		<constructor-arg index="0" ref="entityManagerFactory"/>
