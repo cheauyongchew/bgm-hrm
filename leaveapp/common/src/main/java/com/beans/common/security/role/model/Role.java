@@ -15,6 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Type;
 
@@ -34,6 +36,10 @@ public class Role implements Serializable{
 	 private String role;
 	 private boolean isDeleted= false;
 	 private String description;
+	 private String createdBy;
+	 private java.util.Date creationTime;
+	 private String lastModifiedBy;
+	 private java.util.Date lastModifiedTime;
 	 private Set<AccessRights> accessRights = new HashSet<AccessRights>();
 	 
 	@Id
@@ -76,6 +82,38 @@ public class Role implements Serializable{
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public void setCreationTime(java.util.Date creationTime) {
+		this.creationTime = creationTime;
+	}
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+	public void setLastModifiedTime(java.util.Date lastModifiedTime) {
+		this.lastModifiedTime = lastModifiedTime;
+	}
+	public void setLastModifiedBy(String lastModifiedBy) {
+		this.lastModifiedBy = lastModifiedBy;
+	}
+			
+	@Column(name="creationTime",nullable=true)
+	@Temporal(TemporalType.TIMESTAMP)
+	public java.util.Date getCreationTime() {
+		return creationTime;
+	}
+	@Column(name="createdBy",nullable=true)
+	public String getCreatedBy() {
+		return createdBy;
+	}
+	@Column(name="lastModifiedTime",nullable=true)
+	@Temporal(TemporalType.TIMESTAMP)
+	public java.util.Date getLastModifiedTime() {
+		return lastModifiedTime;
+	}
+	@Column(name="lastModifiedBy",nullable=true)
+	public String getLastModifiedBy() {
+		return lastModifiedBy;
 	}
 
 	
