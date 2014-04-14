@@ -1,12 +1,15 @@
 package com.beans.leaveapp.leavetransaction.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -15,6 +18,7 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.Type;
 
 import com.beans.leaveapp.employee.model.Employee;
+import com.beans.leaveapp.leaveapplicationcomment.model.LeaveApplicationComment;
 import com.beans.leaveapp.leavetype.model.LeaveType;
 
 @Entity
@@ -31,7 +35,8 @@ public class LeaveTransaction {
 	private LeaveType leaveTypeId;
 	private Employee employeeId;
 	private String name;
-	
+	private List<LeaveApplicationComment> leaveApplicationComments;
+	private Long taskId;
 	private boolean isDeleted;
 	
 	public LeaveTransaction(int id, Date applicationDate,
@@ -93,7 +98,7 @@ public class LeaveTransaction {
 		this.endDateTime = endDateTime;
 	}
 	
-	@Column(name="numberOfHours",nullable=false)
+	@Column(name="numberOfHours",nullable=true)
 	public Double getNumberOfHours() {
 		return numberOfHours;
 	}
@@ -101,7 +106,7 @@ public class LeaveTransaction {
 		this.numberOfHours = numberOfHours;
 	}
 	
-	@Column(name="numberOfDays",nullable=false)
+	@Column(name="numberOfDays",nullable=true)
 	public Double getNumberOfDays() {
 		return numberOfDays;
 	}
@@ -150,4 +155,22 @@ public class LeaveTransaction {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	@Column(name="taskId", nullable=true)
+	public Long getTaskId() {
+		return taskId;
+	}
+	public void setTaskId(Long taskId) {
+		this.taskId = taskId;
+	}
+	
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="leaveTransaction")
+	public List<LeaveApplicationComment> getLeaveApplicationComments() {
+		return leaveApplicationComments;
+	}
+	public void setLeaveApplicationComments(
+			List<LeaveApplicationComment> leaveApplicationComments) {
+		this.leaveApplicationComments = leaveApplicationComments;
+	}
 }
+

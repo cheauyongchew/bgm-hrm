@@ -7,6 +7,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.beans.common.security.accessrights.model.AccessRights;
+import com.beans.common.security.accessrights.repository.AccessRightsRepository;
 import com.beans.common.security.usertoaccessrights.model.AssignedAccessRights;
 import com.beans.common.security.usertoaccessrights.model.UserToAccessRights;
 import com.beans.common.security.usertoaccessrights.repository.UserToAccessRightsRepository;
@@ -16,6 +18,8 @@ public class UserToAccessRightsServiceImpl implements UserToAccessRightsService{
 	
 	@Resource
 	private UserToAccessRightsRepository userToAccessRightsRepository;
+	@Resource
+	private AccessRightsRepository accessRightsRepository;
 
 	@Override
 	public UserToAccessRights delete(int id) throws UserToAccessRightsNotFound {
@@ -42,14 +46,15 @@ public class UserToAccessRightsServiceImpl implements UserToAccessRightsService{
 	}
 
 	@Override
-	public List<AssignedAccessRights> findAssignedAccessRights(int id) {
+	public List<AssignedAccessRights> findAssignedAccessRights() {
 	    List<AssignedAccessRights> assignedAccessRightsList = new ArrayList<AssignedAccessRights>();	    
-	    List<UserToAccessRights> userToAccessRightsList = userToAccessRightsRepository.findByUserId(id);
+	    List<UserToAccessRights> userToAccessRightsList = userToAccessRightsRepository.findByIsDeleted(0);
 	    for(UserToAccessRights userToAccessRights: userToAccessRightsList){
 	    	String accessRights = userToAccessRights.getAccessRights().getAccessRights();
 	    	Boolean enabled= userToAccessRights.isEnabled();
+	    	int id = userToAccessRights.getId();
 	    	
-	    	assignedAccessRightsList.add(new AssignedAccessRights(accessRights,enabled));
+	    	assignedAccessRightsList.add(new AssignedAccessRights(id,accessRights,enabled));
 	    }
 		return assignedAccessRightsList;
 	}
@@ -58,10 +63,12 @@ public class UserToAccessRightsServiceImpl implements UserToAccessRightsService{
 	public List<UserToAccessRights> findByUserId(int userId) {
 		List<UserToAccessRights> userToAccessRightsList = userToAccessRightsRepository.findByUserId(userId);
 		return userToAccessRightsList;
-	}	
-	
-	
+	}
+
+	@Override
+	public List<AccessRights> findAllAccessRights() {
+		List<AccessRights> accessRightsList = accessRightsRepository.findByIsDeleted(0);
+		return accessRightsList;
+	}		
 
 }
-
-

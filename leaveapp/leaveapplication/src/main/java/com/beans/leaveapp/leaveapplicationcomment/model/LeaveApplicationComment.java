@@ -7,11 +7,15 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Type;
+
+import com.beans.leaveapp.leavetransaction.model.LeaveTransaction;
 
 @Entity
 @Table(name="LeaveApplicationComment")
@@ -23,6 +27,7 @@ public class LeaveApplicationComment implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private long id;
+	private LeaveTransaction leaveTransaction;
 	private String comment;
 	private Date creationTime;
 	private String createdBy;
@@ -39,6 +44,15 @@ public class LeaveApplicationComment implements Serializable{
 	}
 	public void setId(long id) {
 		this.id = id;
+	}
+	
+	@ManyToOne(targetEntity=LeaveTransaction.class)
+	@JoinColumn(columnDefinition="leaveTransactionId")
+	public LeaveTransaction getLeaveTransaction() {
+		return leaveTransaction;
+	}
+	public void setLeaveTransaction(LeaveTransaction leaveTransaction) {
+		this.leaveTransaction = leaveTransaction;
 	}
 	
 	@Column(name="comment", nullable=false)
@@ -98,3 +112,4 @@ public class LeaveApplicationComment implements Serializable{
 	
 	
 }
+
