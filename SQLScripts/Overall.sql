@@ -130,6 +130,10 @@ CREATE TABLE IF NOT EXISTS Employee (
     resignationDate DATE,
     isDeleted TINYINT(1),
     isResigned TINYINT(1),
+    createdBy VARCHAR(70),
+    creationTime TIMESTAMP NULL,
+    lastModifiedBy VARCHAR(70),
+    lastModifiedTime TIMESTAMP NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (userId) 
   		REFERENCES Users(id),
@@ -152,6 +156,10 @@ CREATE TABLE IF NOT EXISTS Address (
     state VARCHAR(40),
     country VARCHAR(40),
     postcode VARCHAR(10),
+    createdBy VARCHAR(70),
+    creationTime TIMESTAMP NULL,
+    lastModifiedBy VARCHAR(70),
+    lastModifiedTime TIMESTAMP NULL,
     isDeleted TINYINT(1),
     PRIMARY KEY (id),
     FOREIGN KEY (employeeId)
@@ -343,11 +351,11 @@ INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('5', '4');
 INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('6', '7');
 INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('7', '8');
 
-INSERT INTO Employee(id, name, employeenumber, position, employeeGradeId, employeeTypeId, departmentId, userId, isDeleted, isResigned) values(1, 'John Doe', '1', 'Software Engineer', 1, 1, 1, 1, 0, 0);
-INSERT INTO Employee(id, name, employeenumber, position, employeeGradeId, employeeTypeId, departmentId, userId, isDeleted, isResigned) values(2, 'Jennifer', '2', 'HR Executive', 1, 1, 1, 2, 0, 0);
-INSERT INTO Employee(id, name, employeenumber, position, employeeGradeId, employeeTypeId, departmentId, userId, isDeleted, isResigned) values(3, 'Ruby', '3', 'HR Manager', 1, 1, 1, 3, 0, 0);
-INSERT INTO Employee(id, name, employeenumber, position, employeeGradeId, employeeTypeId, departmentId, userId, isDeleted, isResigned) values(4, 'Larry', '4', 'Team Lead', 1, 1, 1, 5, 0, 0);
-INSERT INTO Employee(id, name, employeenumber, position, employeeGradeId, employeeTypeId, departmentId, userId, isDeleted, isResigned) values(5, 'Joe', '5', 'Operation Director', 1, 1, 1, 6, 0, 0);
+INSERT INTO Employee(id, name, employeenumber, position, employeeGradeId, employeeTypeId, departmentId, userId, isDeleted, isResigned,creationTime,createdBy) values(1, 'John Doe', '1', 'Software Engineer', 1, 1, 1, 1, 0, 0,CURRENT_TIMESTAMP,'admin');
+INSERT INTO Employee(id, name, employeenumber, position, employeeGradeId, employeeTypeId, departmentId, userId, isDeleted, isResigned,creationTime,createdBy) values(2, 'Jennifer', '2', 'HR Executive', 1, 1, 1, 2, 0, 0,CURRENT_TIMESTAMP,'admin');
+INSERT INTO Employee(id, name, employeenumber, position, employeeGradeId, employeeTypeId, departmentId, userId, isDeleted, isResigned,creationTime,createdBy) values(3, 'Ruby', '3', 'HR Manager', 1, 1, 1, 3, 0, 0,CURRENT_TIMESTAMP,'admin');
+INSERT INTO Employee(id, name, employeenumber, position, employeeGradeId, employeeTypeId, departmentId, userId, isDeleted, isResigned,creationTime,createdBy) values(4, 'Larry', '4', 'Team Lead', 1, 1, 1, 5, 0, 0,CURRENT_TIMESTAMP,'admin');
+INSERT INTO Employee(id, name, employeenumber, position, employeeGradeId, employeeTypeId, departmentId, userId, isDeleted, isResigned,creationTime,createdBy) values(5, 'Joe', '5', 'Operation Director', 1, 1, 1, 6, 0, 0,CURRENT_TIMESTAMP,'admin');
 
 INSERT INTO UserToAccessRights(id, userId, accessRightsId, enabled, isDeleted) values('1', '1', '1', '1', 0);
 

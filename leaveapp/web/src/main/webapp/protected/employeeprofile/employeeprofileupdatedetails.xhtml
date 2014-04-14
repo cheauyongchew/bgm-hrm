@@ -17,9 +17,8 @@
 			
 			
 			<p:tabView id="employeeUpdateTabView" activeIndex="0">
-			<p:messages autoUpdate="true" />
 			<p:tab id="EmployeeDetailTab" title="Basic Details">
-			
+			<p:messages autoUpdate="true" />
 			<p:panelGrid id="EmployeeDetail" columns="2" cellpadding="4"
 				style="margin:0 auto;">
 				<f:facet name="header"><h3>Basic Details</h3></f:facet>
@@ -153,14 +152,14 @@
 			<f:facet name="footer">
 					<p:commandButton value="Cancel"
 						oncomplete="PF('employeeDialog').hide()" />
-					<p:commandButton value="Update" update=":employeeTableForm:employeeTable" actionListener="#{employeeProfileMgmtBean.doUpdateEmployee()}" validateClient="true" oncomplete="PF('employeeDialog').hide()" rendered="#{authenticationBean.hasAccess('EditEmployee')}"/>
+					<p:commandButton value="Update" update=":employeeTableForm:employeeTable" actionListener="#{employeeProfileMgmtBean.doUpdateEmployee()}" validateClient="true" oncomplete="if(!args.validationFailed)  PF('employeeDialog').hide()" rendered="#{authenticationBean.hasAccess('EditEmployee')}"/>
 			</f:facet>
 				
 			</p:panelGrid>
 			</p:tab>
 			
 			<p:tab id="EmployeeAddressTab" title="Addresses">
-
+			<p:messages autoUpdate="true" />
 			<p:panelGrid id="EmployeeAddress" columns="1" cellpadding="4"
 				style="">
 				
@@ -180,17 +179,23 @@
 							          <p:column id="line1Header" headerText="Line 1">
 							            <h:outputText value="#{address0.line1}" />
 							          </p:column>
-							        <p:column id="cityHeader" headerText="City">
+							          <p:column id="cityHeader" headerText="City">
 							            <h:outputText value="#{address0.city}" />
 							          </p:column>
-							        <p:column id="stateHeader" headerText="State">
+							          <p:column id="stateHeader" headerText="State">
 							            <h:outputText value="#{address0.state}" />
 							          </p:column>
 							          
 							          <p:column id="countryHeader" headerText="Country">
 							            <h:outputText value="#{address0.country}" />
 							          </p:column>
-							        </p:dataTable>
+							          <p:column id="lastModifiedByHeader" headerText="Last Modified By"> 
+	            						<h:outputText value="#{address0.lastModifiedBy}" />
+	         						  </p:column>
+							          <p:column id="lastModifiedHeader" headerText="Last Modified Time">
+							            <h:outputText value="#{address0.lastModifiedTime}" ><f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" /></h:outputText>
+							          </p:column>
+							          </p:dataTable>
 							        
 							        <p:commandButton value="Add Address" update=":employeeForm:employeeUpdateTabView:EmployeeAddress" title="Add Address" actionListener="#{employeeProfileMgmtBean.setAddressOperation(true, 'Create')}" rendered="#{(employeeProfileMgmtBean.isRenderAddress() == false) and (authenticationBean.hasAccess('EditEmployee'))}"/>
 							      
@@ -266,7 +271,7 @@
 			</p:tab>
 			
 			<p:tab id="EmployeeLoginTab" title="Login Details">
-			
+			<p:messages autoUpdate="true" />
 			<p:panelGrid id="EmployeeLogin" columns="1" cellpadding="4"
 				style="margin:0 auto;">
 				
@@ -275,17 +280,17 @@
 				<p:panelGrid id="EmployeeLoginColumn" columns="2" cellpadding="4" style="margin:0 auto;">
 				<h:outputText value="Username" />
 					<h:inputText
-						value="#{employeeProfileMgmtBean.users.username}" disabled="#{authenticationBean.hasAccess('EditEmployee') == false}" />
+						value="#{employeeProfileMgmtBean.users.username}" disabled="#{authenticationBean.hasAccess('EditEmployee') == false}" required="true" requiredMessage="Please enter Username!"/>
 				<h:outputText value="Password" />
-				<p:password id="pwd1" value="#{employeeProfileMgmtBean.users.password}" match="pwd2" disabled="#{authenticationBean.hasAccess('EditEmployee') == false}"/>
+				<p:password id="pwd1" value="#{employeeProfileMgmtBean.users.password}" match="pwd2" disabled="#{authenticationBean.hasAccess('EditEmployee') == false}" required="true" requiredMessage="Please enter Password!"/>
 				<h:outputText value="Confirmed Password" />
-				<p:password id="pwd2" value="#{employeeProfileMgmtBean.users.password}" disabled="#{authenticationBean.hasAccess('EditEmployee') == false}"/>
+				<p:password id="pwd2" value="#{employeeProfileMgmtBean.users.password}" disabled="#{authenticationBean.hasAccess('EditEmployee') == false}" required="true" requiredMessage="Please enter Confirm Password!"/>
 				</p:panelGrid>
 				
 			<f:facet name="footer">
 					<p:commandButton value="Cancel"
 						oncomplete="PF('employeeDialog').hide()" />
-					<p:commandButton value="Update" update=":employeeTableForm:employeeTable" actionListener="#{employeeProfileMgmtBean.doUpdateEmployee()}" validateClient="true" oncomplete="PF('employeeDialog').hide()" rendered="#{authenticationBean.hasAccess('EditEmployee')}"/>
+					<p:commandButton value="Update" update=":employeeTableForm:employeeTable" actionListener="#{employeeProfileMgmtBean.doUpdateEmployee()}" validateClient="true" oncomplete="if(!args.validationFailed)  PF('employeeDialog').hide()" rendered="#{authenticationBean.hasAccess('EditEmployee')}"/>
 			</f:facet>	
 			</p:panelGrid>
 			</p:tab>
