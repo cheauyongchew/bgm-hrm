@@ -52,6 +52,8 @@ public class AddressServiceImpl implements AddressService {
 		addressToBeUpdated.setLine3(address.getLine3());
 		addressToBeUpdated.setPostcode(address.getPostcode());
 		addressToBeUpdated.setState(address.getState());
+		addressToBeUpdated.setLastModifiedBy(address.getLastModifiedBy());
+		addressToBeUpdated.setLastModifiedTime(address.getLastModifiedTime());
 		return addressRepository.save(addressToBeUpdated);
 	}
 
