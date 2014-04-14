@@ -15,3 +15,4 @@ public interface UserToAccessRightsService {
 	public List<UserToAccessRights> findByUserId(int userId);
 	public List<AccessRights> findAllAccessRights();
 }
+

@@ -1,5 +1,6 @@
 package com.beans.leaveapp.leavetransaction.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -23,8 +24,13 @@ import com.beans.leaveapp.leavetype.model.LeaveType;
 
 @Entity
 @Table(name="LeaveTransaction")
-public class LeaveTransaction {
+public class LeaveTransaction implements Serializable{
 
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private Date applicationDate;
 	private Date  startDateTime;
@@ -173,4 +179,3 @@ public class LeaveTransaction {
 		this.leaveApplicationComments = leaveApplicationComments;
 	}
 }
-

@@ -48,4 +48,3 @@ public class JBPMRuntimeTest {
 		Assert.assertEquals(1, 1);
 	}
 }
-

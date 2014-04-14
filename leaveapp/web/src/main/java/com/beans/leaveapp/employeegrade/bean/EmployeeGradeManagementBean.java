@@ -130,7 +130,7 @@ public class EmployeeGradeManagementBean implements Serializable {
 			this.setInsertDelete(true);
 
 		} catch (Exception e) {
-			FacesMessage msg = new FacesMessage("Error", "Leave Type With id: "
+			FacesMessage msg = new FacesMessage("Error", "Employee Grade With id: "
 					+ selectedEmployeeGrade.getId() + " not found!");
 
 			FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -139,7 +139,7 @@ public class EmployeeGradeManagementBean implements Serializable {
 
 	public void onRowSelect(SelectEvent event) {
 		setSelectedEmployeeGrade((EmployeeGrade) event.getObject());
-		FacesMessage msg = new FacesMessage("Leave Type Selected",
+		FacesMessage msg = new FacesMessage("Employee Grade Selected",
 				selectedEmployeeGrade.getName());
 
 		FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -160,4 +160,3 @@ public class EmployeeGradeManagementBean implements Serializable {
 	}
 
 }
-

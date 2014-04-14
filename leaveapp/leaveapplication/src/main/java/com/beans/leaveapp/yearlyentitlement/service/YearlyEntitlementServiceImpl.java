@@ -19,7 +19,7 @@ import com.beans.leaveapp.yearlyentitlement.repository.YearlyEntitlementReposito
 public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 
 	@Resource
-	YearlyEntitlementRepository yearlyEntitleRepository;
+	YearlyEntitlementRepository yearlyEntitlementRepository;
 
 	@Resource
 	EmployeeRepository employeeRepository;
@@ -61,7 +61,7 @@ public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 
 	@Override
 	public List<YearlyEntitlement> findAll() {
-		List<YearlyEntitlement> yearlyEntitlementList = (List<YearlyEntitlement>) yearlyEntitleRepository
+		List<YearlyEntitlement> yearlyEntitlementList = (List<YearlyEntitlement>) yearlyEntitlementRepository
 				.findByIsDeleted(0);
 
 		return yearlyEntitlementList;
@@ -70,7 +70,7 @@ public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 	@Override
 	public YearlyEntitlement update(YearlyEntitlement selectedYearlyEntitlement)
 			throws Exception {
-		YearlyEntitlement yearlyEntitlementToBeUpdated = yearlyEntitleRepository
+		YearlyEntitlement yearlyEntitlementToBeUpdated = yearlyEntitlementRepository
 				.findOne(selectedYearlyEntitlement.getId());
 
 		if (yearlyEntitlementToBeUpdated != null) {
@@ -80,7 +80,7 @@ public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 							.getAvailableBalance());
 			yearlyEntitlementToBeUpdated
 					.setEntitlement(selectedYearlyEntitlement.getEntitlement());
-			yearlyEntitleRepository.save(yearlyEntitlementToBeUpdated);
+			yearlyEntitlementRepository.save(yearlyEntitlementToBeUpdated);
 			return yearlyEntitlementToBeUpdated;
 		}
 		return null;
@@ -88,14 +88,13 @@ public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 
 	@Override
 	public YearlyEntitlement delete(int id) {
-
-		YearlyEntitlement YearlyEntitlement = yearlyEntitleRepository
+		YearlyEntitlement YearlyEntitlement = yearlyEntitlementRepository
 				.findOne(id);
 
 		if (YearlyEntitlement != null) {
 
 			YearlyEntitlement.setDeleted(true);
-			yearlyEntitleRepository.save(YearlyEntitlement);
+			yearlyEntitlementRepository.save(YearlyEntitlement);
 			return YearlyEntitlement;
 		}
 		return null;
@@ -123,8 +122,7 @@ public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 			finalYearlyEntitlementToBeCreated
 					.setAvailableBalance(yearlyEntitlementToBeCreated
 							.getAvailableBalance());
-
-			return yearlyEntitleRepository
+			return yearlyEntitlementRepository
 					.save(finalYearlyEntitlementToBeCreated);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -134,8 +132,7 @@ public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 
 	@Override
 	public List<LeaveEntitlement> findLeave() {
-		List<YearlyEntitlement> yearlyEntitlementList = (List<YearlyEntitlement>) yearlyEntitleRepository
-				.findByIsDeleted(0);
+		List<YearlyEntitlement> yearlyEntitlementList = (List<YearlyEntitlement>) yearlyEntitlementRepository				.findByIsDeleted(0);
 		List<LeaveEntitlement> leaveEntitlementList = new ArrayList<LeaveEntitlement>();
 		if (yearlyEntitlementList != null) {
 			for (YearlyEntitlement y : yearlyEntitlementList) {
@@ -190,8 +187,7 @@ public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 
 	@Override
 	public List<EmployeeEntitlement> findByEmployeeId(int x) {
-
-		List<YearlyEntitlement> employeeYearlyEntitlementList = (List<YearlyEntitlement>) yearlyEntitleRepository
+		List<YearlyEntitlement> employeeYearlyEntitlementList = (List<YearlyEntitlement>) yearlyEntitlementRepository
 				.findByEmployeeIdLike(x);
 		List<EmployeeEntitlement> employeeEntitlementList = new ArrayList<EmployeeEntitlement>();
 		for (YearlyEntitlement yearlyEntitlement : employeeYearlyEntitlementList) {
@@ -212,7 +208,7 @@ public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 
 	@Override
 	public List<LeaveEntitlement> findByEmployee(int x) {
-		List<YearlyEntitlement> yearlyEntitlementlist = yearlyEntitleRepository
+		List<YearlyEntitlement> yearlyEntitlementlist = yearlyEntitlementRepository
 				.findByEmployeeIdLike(x);
 		List<LeaveEntitlement> leaveEntitlementList = new ArrayList<LeaveEntitlement>();
 		if (yearlyEntitlementlist != null) {
@@ -251,7 +247,7 @@ public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 
 	@Override
 	public List<LeaveEntitlement> findBySearchLeave(int leaveTypeId) {
-		List<YearlyEntitlement> yearlyEntitlementlist = yearlyEntitleRepository
+		List<YearlyEntitlement> yearlyEntitlementlist = yearlyEntitlementRepository
 				.findByLeaveTypeIdLike(leaveTypeId);
 		List<LeaveEntitlement> leaveEntitlementList = new ArrayList<LeaveEntitlement>();
 		if (yearlyEntitlementlist != null) {
@@ -345,14 +341,14 @@ public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 					}
 				}
 				if (requiredid != 0 && requiredid1 != 0) {
-					yearlyEntitlementlist = (List<YearlyEntitlement>) yearlyEntitleRepository
+					yearlyEntitlementlist = (List<YearlyEntitlement>) yearlyEntitlementRepository
 							.findByEmployeeIdAndLeaveTypeIdLike(requiredid,
 									requiredid1);
 				} else {
 					System.out.println("last line");
 					for (Integer i : leaveTypeIds) {
 						for (Integer ii : employeeIds) {
-							yearlyEntitlementlist = (List<YearlyEntitlement>) yearlyEntitleRepository
+							yearlyEntitlementlist = (List<YearlyEntitlement>) yearlyEntitlementRepository
 									.findByEmployeeIdAndLeaveTypeIdLike(i, ii);
 						}
 					}
@@ -363,7 +359,7 @@ public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 				List<Employee> employeelist = employeeRepository
 						.findByEmployeeNameLike(employeeNameSearchTerm);
 				for (Employee employeeObject : employeelist) {
-					yearlyEntitlementlist = yearlyEntitleRepository
+					yearlyEntitlementlist = yearlyEntitlementRepository
 							.findByEmployeeIdLike(employeeObject.getId());
 				}
 				//yearlyEntitlementlist = yearlyEntitleRepository.findByEmployeeLike(employeeName);
@@ -373,10 +369,10 @@ public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 				List<LeaveType> leaveTypeList = leaveTypeRepository
 						.findByNameLike(leaveTypeSearchTerm);
 				for (LeaveType leaveTypeObj : leaveTypeList) {
-					yearlyEntitlementlist = yearlyEntitleRepository
+					yearlyEntitlementlist = yearlyEntitlementRepository
 							.findByLeaveTypeIdLike(leaveTypeObj.getId());
 				}
-				yearlyEntitlement = yearlyEntitleRepository.findByLeaveType(leaveType);
+				yearlyEntitlement = yearlyEntitlementRepository.findByLeaveType(leaveType);
 			} else {
 				System.out.println("both are null values");
 			}
@@ -424,4 +420,34 @@ public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 		}
 		return null;
 	}
+	@Override
+	public YearlyEntitlement findByEmployeeAndLeaveType(int employeeId,
+			int leaveTypeId) throws YearlyEntitlementNotFound {
+		List<YearlyEntitlement> resultList = yearlyEntitlementRepository.findByEmployeeIdAndLeaveTypeId(employeeId, leaveTypeId);
+		
+		if(resultList == null || resultList.size() == 0) {
+			throw new YearlyEntitlementNotFound("This Employee does not have the entitlement for this leave type");
+		}
+		return resultList.get(0);
+	}
+
+	@Override
+	public List<YearlyEntitlement> findYearlyEntitlementListByEmployee(
+			int employeeId)  {
+		
+		return yearlyEntitlementRepository.findByEmployeeId(employeeId);
+	}
+
+	@Override
+	public YearlyEntitlement findOne(int yearlyEntitlementId)
+			throws YearlyEntitlementNotFound {
+		YearlyEntitlement yearlyEntitlement = yearlyEntitlementRepository.findOne(yearlyEntitlementId);
+		
+		if(yearlyEntitlement == null) {
+			throw new YearlyEntitlementNotFound("Can't find Yearly Entitlement with id: " + yearlyEntitlementId);
+		}
+		return yearlyEntitlement;
+	}
+	
+	
 }

@@ -35,9 +35,15 @@ public class EmployeeRegistrationWorker {
 		
 		employeeService.createEmployee(employee, registeredEmployee.getEmployeeGradeId(), registeredEmployee.getEmployeeTypeId(), registeredEmployee.getDepartmentId(), user, new HashMap<Integer, Address>());
 		
+sendWelcomeEmail(registeredEmployee);
+	}
+	
+	public static void sendRejectionEmail(RegisteredEmployee registeredEmployee) {
 		
 	}
 
-	
+	public static void sendWelcomeEmail(RegisteredEmployee registeredEmployee) {
+		
+	}
 	
 }

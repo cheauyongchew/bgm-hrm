@@ -5,7 +5,9 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:pe="http://primefaces.org/ui/extensions" >
-	
+	<f:metadata>
+    	<f:event type="preRenderView" listener="#{authenticationBean.hasPageAccess('ViewEmployees')}" />
+    </f:metadata>
 <h:body>
 <ui:composition template="/templates/mainlayout.xhtml">
 
@@ -101,3 +103,4 @@
 </ui:composition>
 </h:body>
 </html>
+

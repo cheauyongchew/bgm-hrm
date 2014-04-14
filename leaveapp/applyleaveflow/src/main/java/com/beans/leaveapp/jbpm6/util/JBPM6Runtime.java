@@ -148,6 +148,18 @@ public class JBPM6Runtime {
 		return processInstanceId;
 	}
 	
+
+	public long startProcessWithInitialParametersAndFireBusinessRules(String processName, Map<String, Object> parameterMap) {
+		
+		RuntimeEngine runtimeEngine = manager.getRuntimeEngine(ProcessInstanceIdContext.get());	
+			
+		KieSession ksession = runtimeEngine.getKieSession();
+		ProcessInstance processInstance = ksession.startProcess(processName, parameterMap);
+		long processInstanceId = processInstance.getId();
+		ksession.fireAllRules();
+		return processInstanceId;
+	}
+	
 	public void submitTask(String username, long taskId, HashMap<String, Object> parameterMap) {
 		RuntimeEngine runtimeEngine = manager.getRuntimeEngine(ProcessInstanceIdContext.get());
 		

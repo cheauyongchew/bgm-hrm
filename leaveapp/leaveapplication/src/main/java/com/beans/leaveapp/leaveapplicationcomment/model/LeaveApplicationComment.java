@@ -107,9 +107,7 @@ public class LeaveApplicationComment implements Serializable{
 			
 	
 	
-	
-	
-	
-	
 }
-
+	
+	
+	

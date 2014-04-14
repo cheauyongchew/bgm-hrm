@@ -15,7 +15,6 @@ public interface YearlyEntitlementService {
 	public YearlyEntitlement delete(int id);
 
 	public YearlyEntitlement create(LeaveEntitlement leaveEntitlement);
-   
 	public List<String> employeeNames();
 	
 	public List<LeaveEntitlement> findLeave();
@@ -29,5 +28,9 @@ public interface YearlyEntitlementService {
 	public List<LeaveEntitlement> findBySearchLeave(int id);
 	
 	public List<LeaveEntitlement> findByEmployeeAndfindByLeaveType(String x,String y);
+	public YearlyEntitlement findByEmployeeAndLeaveType(int employeeId, int leaveTypeId) throws YearlyEntitlementNotFound;
+	//TODO Change method name after Pradeep removed his
+	public List<YearlyEntitlement> findYearlyEntitlementListByEmployee(int employeeId);
 	
+	public YearlyEntitlement findOne(int yearlyEntitlementId) throws YearlyEntitlementNotFound;
 }

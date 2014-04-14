@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.RequestDispatcher;
@@ -61,7 +62,7 @@ public class AuthenticationBean implements Serializable{
 	public String doLogout() throws IOException, ServletException{
 		auditTrail.log(SystemAuditTrailActivity.LOGOUT, SystemAuditTrailLevel.INFO, getUsers().getId(), getUsername(), getUsername() + " has successfully logged out from the system.");
 		SecurityContextHolder.clearContext();
-		return "/login.xhtml";
+		return "/login.xhtml?faces-redirect=true";
 	}
 	
 	public Employee getEmployee() {
@@ -105,6 +106,19 @@ public class AuthenticationBean implements Serializable{
 			}
 		}		
 		return false;
+	}
+	
+	public void hasPageAccess(String key) {
+		if (key != null) {
+			if (!accessRightsSet.contains(key)) {
+				try {
+					FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/protected/accessdenied.jsf");
+				} catch(IOException e) {
+					e.printStackTrace();
+				}
+
+			}
+		}		
 	}
 	
 	public EmployeeService getEmployeeService() {

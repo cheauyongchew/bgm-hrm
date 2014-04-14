@@ -2,23 +2,20 @@
 package com.beans.leaveapp.drl
 import com.beans.leaveapp.applyleave.model.ApprovalLevelModel
 
-
 rule "Require Team Lead Approval" ruleflow-group "leaveapprovalrequirement"
-
+no-loop true
     when
-        $p: ApprovalLevelModel(role == "ROLE_EMPLOYEE")
+        approvalLevelModel: ApprovalLevelModel(role in ("ROLE_EMPLOYEE"))
     then
-		modify($p) {
-			setApprover("ROLE_TEAMLEAD");
-		}
+		approvalLevelModel.setApprover("ROLE_TEAMLEAD");
+		insert(approvalLevelModel);
 end
 
 rule "Require Operation Director Approval" ruleflow-group "leaveapprovalrequirement"
-
+no-loop true
     when
-        $p: ApprovalLevelModel(role == "ROLE_TEAMLEAD" || role == "ROLE_HR")
+        approvalLevelModel: ApprovalLevelModel(role in ("ROLE_TEAMLEAD", "ROLE_HR"))
     then
-		modify($p) {
-			setApprover("ROLE_OPERDIR");
-		}
+		approvalLevelModel.setApprover("ROLE_OPERDIR");
+		insert(approvalLevelModel);
 end

@@ -9,6 +9,10 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.event.SelectEvent;
 
+<<<<<<< HEAD
+=======
+import com.beans.common.security.users.model.Users;
+>>>>>>> 00eb889c2af3fb10dacfded66b6ee3b98d19bacf
 import com.beans.leaveapp.employeetype.model.EmployeeType;
 import com.beans.leaveapp.leavetype.model.LeaveType;
 import com.beans.leaveapp.leavetype.model.LeaveTypeDataModel;
@@ -28,6 +32,16 @@ public class LeaveTypeManagementBean implements Serializable{
 		private boolean insertDelete = false;
 		private List<LeaveType> searchLeaveType;
 		private String name;
+		private Users actorUsers;
+
+		
+		public Users getActorUsers() {
+			return actorUsers;
+		}
+
+		public void setActorUsers(Users actorUsers) {
+			this.actorUsers = actorUsers;
+		}
 
 		public List<LeaveType> getSearchLeaveType() {
 			return searchLeaveType;
@@ -81,6 +95,8 @@ public class LeaveTypeManagementBean implements Serializable{
 			EmployeeType employeeType = getLeaveTypeService().findByEmployeeName(name);
 			newLeaveType.setEmployeeTypeId(employeeType);
 			newLeaveType.setDeleted(false);
+			newLeaveType.setCreatedBy(getActorUsers().getUsername());
+			newLeaveType.setCreationTime(new java.util.Date());
 			getLeaveTypeService().create(newLeaveType);
 			setInsertDelete(true);
 		}
@@ -97,7 +113,9 @@ public class LeaveTypeManagementBean implements Serializable{
 				EmployeeType employeeType = getLeaveTypeService().findByEmployeeName(name);
 				selectedLeaveType.setEmployeeTypeId(employeeType);
 				System.out.println("New name:" + selectedLeaveType.getName());
-				System.out.println("ID: " + selectedLeaveType.getId());
+				System.out.println("ID: " + selectedLeaveType.getId());====
+				selectedLeaveType.setLastModifiedBy(getActorUsers().getUsername());
+				selectedLeaveType.setLastModifiedTime(new java.util.Date());
 				getLeaveTypeService().update(selectedLeaveType);
 				this.setInsertDelete(true);
 			} catch(LeaveTypeNotFound e) {

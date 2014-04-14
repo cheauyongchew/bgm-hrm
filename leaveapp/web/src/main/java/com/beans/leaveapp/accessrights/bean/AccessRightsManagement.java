@@ -104,9 +104,11 @@ public class AccessRightsManagement implements Serializable {
 			System.out.println("New UserAccess:" + selectedAccessRights.getAccessRights());
 			System.out.println("Id:" + selectedAccessRights.getId());
 			System.out.println("Description:" + selectedAccessRights.getDescription());
+			selectedAccessRights.setLastModifiedBy(actorUsers.getUsername());
 			accessRightsService.update(selectedAccessRights);		
 		
 			auditTrail.log(SystemAuditTrailActivity.UPDATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has Updated Access Right " + selectedAccessRights.getAccessRights() + " with id " + selectedAccessRights.getId());
+			setInsertDelete(true);
 		} catch (AccessRightsNotFound e) {
 			FacesMessage msg = new FacesMessage("Error", "UserAccess with Id: " + selectedAccessRights.getId() + "is not found");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -128,6 +130,7 @@ public class AccessRightsManagement implements Serializable {
 			auditTrail.log(SystemAuditTrailActivity.CREATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has Deleted Access Right " + selectedAccessRights.getAccessRights() + " with id " + selectedAccessRights.getId());
 	
 			System.out.println("actor id: " +getActorUsers().getId());
+			setInsertDelete(true);
 		} catch (AccessRightsNotFound e) {
 			FacesMessage msg = new FacesMessage("Error", "UserAccess with Id: " + selectedAccessRights.getId() + "is not found");
 			FacesContext.getCurrentInstance().addMessage(null, msg);

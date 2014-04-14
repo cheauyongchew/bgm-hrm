@@ -1,5 +1,5 @@
 package com.beans.common.security.role.service;
-
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -63,6 +63,8 @@ public class RoleServiceImpl implements RoleService{
 		roleToBeUpdated.setId(role.getId());
 		roleToBeUpdated.setRole(role.getRole());
 		roleToBeUpdated.setDescription(role.getDescription());
+		roleToBeUpdated.setLastModifiedBy(role.getLastModifiedBy());
+		roleToBeUpdated.setLastModifiedTime(new java.util.Date());
 		Set<AccessRights> accessRightsSet = new HashSet<AccessRights>();
 		accessRightsSet.addAll(role.getAccessRights());
 		roleToBeUpdated.setAccessRights(accessRightsSet);
