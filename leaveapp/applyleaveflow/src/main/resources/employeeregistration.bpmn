@@ -275,7 +275,7 @@
     <bpmn2:scriptTask id="ScriptTask_1" name="Send Reject Email" scriptFormat="http://www.java.com/java">
       <bpmn2:incoming>ExclusiveGateway_1-ScriptTask_1</bpmn2:incoming>
       <bpmn2:outgoing>ScriptTask_1-EndEvent_3</bpmn2:outgoing>
-      <bpmn2:script>System.out.println(&quot;Reject&quot;);</bpmn2:script>
+      <bpmn2:script>EmployeeRegistrationWorker.sendRejectionEmail(registeredEmployee);</bpmn2:script>
     </bpmn2:scriptTask>
     <bpmn2:endEvent id="EndEvent_3" name="">
       <bpmn2:incoming>ScriptTask_1-EndEvent_3</bpmn2:incoming>
@@ -300,7 +300,7 @@
     <bpmn2:startEvent id="StartEvent_1" name="">
       <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
     </bpmn2:startEvent>
-    <bpmn2:sequenceFlow id="SequenceFlow_1" tns:priority="1" sourceRef="StartEvent_1" targetRef="UserTask_1"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_1" tns:priority="1" name="" sourceRef="StartEvent_1" targetRef="UserTask_1"/>
   </bpmn2:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="com.beans.leaveapp.bpmn.empreg">
