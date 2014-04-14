@@ -433,4 +433,3 @@ public class EmployeeProfileManagementBean implements Serializable{
 		this.auditTrail = auditTrail;
 	}
 } 
-
