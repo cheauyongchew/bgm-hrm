@@ -112,7 +112,7 @@ public class AuthenticationBean implements Serializable{
 		if (key != null) {
 			if (!accessRightsSet.contains(key)) {
 				try {
-					FacesContext.getCurrentInstance().getExternalContext().redirect("accessdenied.jsf");
+					FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/protected/accessdenied.jsf");
 				} catch(IOException e) {
 					e.printStackTrace();
 				}
