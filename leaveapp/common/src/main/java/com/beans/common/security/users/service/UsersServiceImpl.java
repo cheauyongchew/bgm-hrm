@@ -84,8 +84,10 @@ public class UsersServiceImpl implements UsersService {
 		Users createdUsers = usersRepository.save(users);
 		try {
 			Role userRole = roleService.findByRole("ROLE_USER");
+			Role employeeRole = roleService.findByRole("ROLE_EMPLOYEE");
 			Set<Role> roleSet = new HashSet<Role>();
 			roleSet.add(userRole);
+			roleSet.add(employeeRole);
 			createdUsers.setUserRoles(roleSet);
 		} catch(RoleNotFound e) {
 			e.printStackTrace();
@@ -160,6 +162,23 @@ public class UsersServiceImpl implements UsersService {
 		}
 		
 		return accessRightsSet;
+	}
+	
+	
+
+	@Override
+	public void changePassword(Users users, String oldPassword,
+			String newPassword) throws ChangePasswordException, UsersNotFound{
+		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		if(!passwordEncoder.matches(oldPassword, users.getPassword())) {
+			throw new ChangePasswordException("Invalid old password");
+		}
+		
+		
+		users.setPassword(newPassword);
+		
+		update(users);
+		
 	}
 
 	public RoleService getRoleService() {

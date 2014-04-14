@@ -1,3 +1,4 @@
+
 package com.beans.common.security.accessrights.service;
 
 import java.util.List;
@@ -17,3 +18,4 @@ public interface AccessRightsService {
 	public List<AccessRights> findAccessRightsByAccessRight(String accessRight);
 	
 }
+

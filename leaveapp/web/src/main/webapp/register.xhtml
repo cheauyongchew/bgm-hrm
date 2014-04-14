@@ -1,3 +1,5 @@
+
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -10,12 +12,12 @@
     <title>Beans Group HRM</title>
     <h:outputStylesheet name="css/loginlayout.css" />
     <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'/>
-    <link rel="shortcut icon" type="image/png" href="#{request.contextPath}/resources/images/favicon.png" />   
+    <link rel="shortcut icon" type="image/x-icon" href="#{request.contextPath}/resources/images/favicon.ico"/>   
 </h:head>
 
 <h:body>
-
-
+<div id="wrapper">
+    <div id="container">
     <div id="registerHeader">
        <p:graphicImage name="logo.png" library="images"/>
        <h1>HRM APPLICATION</h1> 
@@ -80,11 +82,14 @@
                     <p:commandButton id="backButton" value="Back" ajax="false" immediate="true"  action="/login.jsf" />
                     <p:commandButton id="registerButton" value="Register" ajax="false" validateClient="true"  action="#{employeeRegistrationMgmtBean.doRegister}" />
                 </f:facet>              
-            </p:panelGrid>              
+            </p:panelGrid>  
+                  
         </h:form>   
+    </div>
     </div>
     <div id="footer">
     © 2014 Beans Group All Rights Reserved 
     </div>
+   </div>
 </h:body>
 </html>

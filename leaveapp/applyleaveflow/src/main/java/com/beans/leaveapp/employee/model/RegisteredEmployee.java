@@ -1,8 +1,10 @@
 package com.beans.leaveapp.employee.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class RegisteredEmployee {
+public class RegisteredEmployee implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private long taskId;
 	private String fullname;
 	private String username;
@@ -21,6 +23,7 @@ public class RegisteredEmployee {
 	private String reason;
 	private String employeeNumber;
 	private String position;
+	private Date joinDate;
 	
 	public long getTaskId() {
 		return taskId;
@@ -131,5 +134,12 @@ public class RegisteredEmployee {
 	}
 	public void setPosition(String position) {
 		this.position = position;
+	}
+	
+	public Date getJoinDate() {
+		return joinDate;
+	}
+	public void setJoinDate(Date joinDate) {
+		this.joinDate = joinDate;
 	}
 }

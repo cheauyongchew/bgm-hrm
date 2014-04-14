@@ -20,7 +20,7 @@ public class EmployeeGradeDataModel extends ListDataModel<EmployeeGrade> impleme
 	
 	@Override
 	public EmployeeGrade getRowData(String rowkey) {
-		  List<EmployeeGrade> employeeGradeList = (List<EmployeeGrade>) getWrappedData();
+		 List<EmployeeGrade> employeeGradeList = (List<EmployeeGrade>) getWrappedData();
 	        Integer rowKeyInt = Integer.parseInt(rowkey);
 	        for(EmployeeGrade employeeGrade : employeeGradeList) {
 	            if(employeeGrade.getId() == rowKeyInt) {

@@ -67,6 +67,7 @@ public class EmployeeRegistrationServiceImpl implements
 			
 			String idNumber = (String) contentMap.get("idNumber");
 			registeredEmployee.setIdNumber(idNumber);
+			
 		}
 		
 		return registeredEmployee;
@@ -88,6 +89,8 @@ public class EmployeeRegistrationServiceImpl implements
 		resultMap.put("workPhoneNumber", registeredEmployee.getWorkPhoneNumber());
 		resultMap.put("position", registeredEmployee.getPosition());
 		resultMap.put("reason", registeredEmployee.getReason());
+		resultMap.put("joinDate", registeredEmployee.getJoinDate());
+		resultMap.put("registeredEmployee", registeredEmployee);
 		return resultMap;
 	}
 	
@@ -97,7 +100,7 @@ public class EmployeeRegistrationServiceImpl implements
 	public void approveRegistration(RegisteredEmployee registeredEmployee,
 			String actorId) {
 		HashMap<String, Object> resultMap = getContentMapFromRegisteredEmployee(registeredEmployee);
-		resultMap.put("isApproved", true);
+		resultMap.put("isApproved", new Boolean(true));
 		long taskId = registeredEmployee.getTaskId();
 		employeeRegistrationRuntime.submitTask(actorId, taskId, resultMap);
 		
@@ -107,7 +110,7 @@ public class EmployeeRegistrationServiceImpl implements
 	public void rejectRegistration(RegisteredEmployee registeredEmployee,
 			String actorId) {
 		HashMap<String, Object> resultMap = getContentMapFromRegisteredEmployee(registeredEmployee);
-		resultMap.put("isApproved", false);
+		resultMap.put("isApproved", new Boolean(false));
 		long taskId = registeredEmployee.getTaskId();
 		employeeRegistrationRuntime.submitTask(actorId, taskId, resultMap);
 		

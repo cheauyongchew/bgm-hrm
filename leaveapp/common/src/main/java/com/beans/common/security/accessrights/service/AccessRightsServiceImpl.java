@@ -1,5 +1,7 @@
+
 package com.beans.common.security.accessrights.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -55,6 +57,8 @@ public class AccessRightsServiceImpl implements AccessRightsService{
 	//	accessRightsToBeUpdated.setId(accessRights.getId());
 		accessRightsToBeUpdated.setAccessRights(accessRights.getAccessRights());
 		accessRightsToBeUpdated.setDescription(accessRights.getDescription());
+		accessRightsToBeUpdated.setLastModifiedBy(accessRights.getLastModifiedBy());
+		accessRightsToBeUpdated.setLastModifiedTime(new java.util.Date());
 		accessRightsRepository.save(accessRightsToBeUpdated);		   
 		return accessRightsToBeUpdated;
 	}
@@ -83,3 +87,4 @@ public class AccessRightsServiceImpl implements AccessRightsService{
 	}
 
 }
+

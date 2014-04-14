@@ -1,3 +1,4 @@
+
 package com.beans.leaveapp.role.bean;
 
 import java.io.Serializable;
@@ -81,6 +82,8 @@ public class RoleManagement implements Serializable{
 	
 	public void doCreateRole() {
 		newRole.setDeleted(false);
+		newRole.setCreatedBy(actorUsers.getUsername());
+		newRole.setCreationTime(new java.util.Date());
 		getRoleService().create(newRole);
 		setInsertDelete(true);	
 		
@@ -103,10 +106,12 @@ public class RoleManagement implements Serializable{
 			System.out.println("New Role:" + selectedRole.getRole());
 			System.out.println("Id:" + selectedRole.getId());
 			System.out.println("Description:" + selectedRole.getDescription());
+			selectedRole.setLastModifiedBy(actorUsers.getUsername());
 			getRoleService().update(selectedRole);
 			
 			auditTrail.log(SystemAuditTrailActivity.UPDATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has updated Role " + selectedRole.getRole() + " with id " + selectedRole.getId());
 			
+			setInsertDelete(true);
 		} catch (RoleNotFound e) {
 			FacesMessage msg = new FacesMessage("Error", "Role With id: " + selectedRole.getId() + " not found!");  
 			FacesContext.getCurrentInstance().addMessage(null, msg);  

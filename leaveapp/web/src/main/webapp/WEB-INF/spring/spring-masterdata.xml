@@ -47,7 +47,9 @@
 	<bean id="yearlyEntitlementService" class=" com.beans.leaveapp.yearlyentitlement.service.YearlyEntitlementServiceImpl">	
 	</bean>	 
 	
-
+	<bean id="leaveTransaction" class="com.beans.leaveapp.leavetransaction.model.LeaveTransaction"/>
+	<bean id="leaveTransactionService" class="com.beans.leaveapp.leavetransaction.service.LeaveTransactionServiceImpl">
+</bean>
 
 </beans>
 

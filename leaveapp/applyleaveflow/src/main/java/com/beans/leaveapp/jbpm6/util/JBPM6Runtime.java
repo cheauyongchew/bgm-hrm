@@ -29,26 +29,32 @@ import org.kie.internal.runtime.manager.context.EmptyContext;
 import org.kie.internal.runtime.manager.context.ProcessInstanceIdContext;
 import org.springframework.transaction.support.AbstractPlatformTransactionManager;
 
-import com.beans.util.config.ConfigurationHolder;
 
 public class JBPM6Runtime {
-	private static RuntimeManager manager;
-	
-	private JBPM6Runtime(EntityManagerFactory entityManagerFactory, AbstractPlatformTransactionManager abstractPlatformTransactionManager, UserGroupCallback userGroupCallback, String bpmnFile) {
+	private RuntimeManager manager;
+	private JBPM6Runtime(EntityManagerFactory entityManagerFactory, AbstractPlatformTransactionManager abstractPlatformTransactionManager, UserGroupCallback userGroupCallback, String bpmnFile, String identifier, String... droolFileList) {
 		KieServices kservices = KieServices.Factory.get();
 		RuntimeEnvironmentBuilder runtimeEnvironmentBuilder = RuntimeEnvironmentBuilder.Factory.get().newDefaultBuilder();
 		runtimeEnvironmentBuilder.addAsset(kservices.getResources().newClassPathResource(bpmnFile), ResourceType.BPMN2);
+		
+		
+		for(int i = 0; i < droolFileList.length; i++) {
+			String droolFile = droolFileList[i];
+			runtimeEnvironmentBuilder.addAsset(kservices.getResources().newClassPathResource(droolFile), ResourceType.DRL);
+		}
+		
 		
 		runtimeEnvironmentBuilder.addEnvironmentEntry(EnvironmentName.TRANSACTION_MANAGER, abstractPlatformTransactionManager);
 		runtimeEnvironmentBuilder.entityManagerFactory(entityManagerFactory);
 		runtimeEnvironmentBuilder.userGroupCallback(userGroupCallback);
 		RuntimeEnvironment runtimeEnvironment = runtimeEnvironmentBuilder.get();
-		manager = RuntimeManagerFactory.Factory.get().newSingletonRuntimeManager(runtimeEnvironment);
+		manager = RuntimeManagerFactory.Factory.get().newPerProcessInstanceRuntimeManager(runtimeEnvironment, identifier);
+		RuntimeEngine runtimeEngine = manager.getRuntimeEngine(ProcessInstanceIdContext.get());	
 		
 	}	
 	
 	public List<TaskSummary> getTaskAssignedForUser(String username) {
-		RuntimeEngine runtimeEngine = manager.getRuntimeEngine(EmptyContext.get());	
+		RuntimeEngine runtimeEngine = manager.getRuntimeEngine(ProcessInstanceIdContext.get());	
         TaskService taskService = runtimeEngine.getTaskService();
         
         List<TaskSummary> resultList = taskService.getTasksAssignedAsPotentialOwner(username, "en-UK");
@@ -80,17 +86,16 @@ public class JBPM6Runtime {
 	}
 	
 	public Task getTaskById(long id) {
-		RuntimeEngine runtimeEngine = manager.getRuntimeEngine(EmptyContext.get());	
+		RuntimeEngine runtimeEngine = manager.getRuntimeEngine(ProcessInstanceIdContext.get());	
 		TaskService taskService = runtimeEngine.getTaskService();
 		return taskService.getTaskById(id);
 	}
 	
 	public List<Long> getTaskIdsByProcessInstanceId(long processInstanceId) {
-		RuntimeEngine runtimeEngine = manager.getRuntimeEngine(EmptyContext.get());	
+		RuntimeEngine runtimeEngine = manager.getRuntimeEngine(ProcessInstanceIdContext.get());	
 		TaskService taskService = runtimeEngine.getTaskService();
 		List<Long> resultList = taskService.getTasksByProcessInstanceId(processInstanceId);
 		
-		manager.disposeRuntimeEngine(runtimeEngine);
 		
 		return resultList;
 	}
@@ -109,13 +114,11 @@ public class JBPM6Runtime {
 	}
 	
 	public WorkflowProcessInstance findProcessInstance(long processInstanceId) {
-		RuntimeEngine runtimeEngine = manager.getRuntimeEngine(EmptyContext.get());	
+		RuntimeEngine runtimeEngine = manager.getRuntimeEngine(ProcessInstanceIdContext.get());	
 		
 		KieSession ksession = runtimeEngine.getKieSession();
 		
 		WorkflowProcessInstance processInstance = (WorkflowProcessInstance) ksession.getProcessInstance(processInstanceId);
-		System.out.println("Process Name: " + processInstance.getProcessName());
-		manager.disposeRuntimeEngine(runtimeEngine);
 		
 		return processInstance;
 	}
@@ -123,50 +126,58 @@ public class JBPM6Runtime {
 	
 	public long startProcess(String processName) {
 		
-		RuntimeEngine runtimeEngine = manager.getRuntimeEngine(EmptyContext.get());	
+		RuntimeEngine runtimeEngine = manager.getRuntimeEngine(ProcessInstanceIdContext.get());	
 		
 		KieSession ksession = runtimeEngine.getKieSession();
 		ProcessInstance processInstance = ksession.startProcess(processName);
 		
 		long processInstanceId = processInstance.getId();
 		
-		manager.disposeRuntimeEngine(runtimeEngine);
 		return processInstanceId;
 		
 	}
 	
 	public long startProcessWithInitialParameters(String processName, Map<String, Object> parameterMap) {
 		
-		RuntimeEngine runtimeEngine = manager.getRuntimeEngine(EmptyContext.get());	
+		RuntimeEngine runtimeEngine = manager.getRuntimeEngine(ProcessInstanceIdContext.get());	
 			
 		KieSession ksession = runtimeEngine.getKieSession();
 		ProcessInstance processInstance = ksession.startProcess(processName, parameterMap);
 		long processInstanceId = processInstance.getId();
 		
-		manager.disposeRuntimeEngine(runtimeEngine);
+		return processInstanceId;
+	}
+	
+	public long startProcessWithInitialParametersAndFireBusinessRules(String processName, Map<String, Object> parameterMap) {
+		
+		RuntimeEngine runtimeEngine = manager.getRuntimeEngine(ProcessInstanceIdContext.get());	
+			
+		KieSession ksession = runtimeEngine.getKieSession();
+		ProcessInstance processInstance = ksession.startProcess(processName, parameterMap);
+		long processInstanceId = processInstance.getId();
+		ksession.fireAllRules();
 		return processInstanceId;
 	}
 	
 	public void submitTask(String username, long taskId, HashMap<String, Object> parameterMap) {
-		RuntimeEngine runtimeEngine = manager.getRuntimeEngine(EmptyContext.get());
+		RuntimeEngine runtimeEngine = manager.getRuntimeEngine(ProcessInstanceIdContext.get());
 		
 		TaskService taskService = runtimeEngine.getTaskService();
 		
 		taskService.start(taskId, username);
 		taskService.complete(taskId, username, parameterMap);
 		
-		manager.disposeRuntimeEngine(runtimeEngine);
 	}
 	
 	public Map<String, Object> getContentForTask(Task task) {
-		RuntimeEngine runtimeEngine = manager.getRuntimeEngine(EmptyContext.get());
+		RuntimeEngine runtimeEngine = manager.getRuntimeEngine(ProcessInstanceIdContext.get());
 		
 		TaskService taskService = runtimeEngine.getTaskService();
 		
 		Content contentById = taskService.getContentById(task.getTaskData().getDocumentContentId());
 
         Map<String, Object> taskContent = (Map<String, Object>) ContentMarshallerHelper.unmarshall(contentById.getContent(), null);
-        manager.disposeRuntimeEngine(runtimeEngine);
         return taskContent;
 	}
+
 }

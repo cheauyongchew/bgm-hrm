@@ -20,7 +20,7 @@ public class SystemAuditTrailRecordServiceImpl implements SystemAuditTrailRecord
 	
 	
 	
-	SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+    SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 
 	
 	

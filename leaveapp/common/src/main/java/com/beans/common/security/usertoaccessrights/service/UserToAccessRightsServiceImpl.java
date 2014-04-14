@@ -1,3 +1,4 @@
+
 package com.beans.common.security.usertoaccessrights.service;
 
 import java.util.ArrayList;
@@ -63,3 +64,4 @@ public class UserToAccessRightsServiceImpl implements UserToAccessRightsService{
 	
 
 }
+

@@ -2,12 +2,14 @@
 package com.beans.leaveapp.employeetype.bean;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.event.SelectEvent;
+
 
 
 
@@ -106,6 +108,8 @@ public class EmployeeTypeManagementBean implements Serializable{
 	public void doCreateEmployeeType() throws EmployeeTypeNotFound {
 		
 		newEmployeeType.setDeleted(false);
+		newEmployeeType.setCreatedBy(getActorUsers().getUsername());
+		newEmployeeType.setCreationTime(new java.util.Date());
 		getEmployeeTypeService().create(newEmployeeType);
 		setInsertDelete(true);
 		newEmployeeType = new EmployeeType();
@@ -117,9 +121,10 @@ public class EmployeeTypeManagementBean implements Serializable{
 		try {
 			System.out.println("New name:" + selectedEmployeeType.getName());
 			System.out.println("ID: " + selectedEmployeeType.getId());
+			selectedEmployeeType.setLastModifiedBy(getActorUsers().getUsername());
 			getEmployeeTypeService().update(selectedEmployeeType);
 			auditTrail.log(SystemAuditTrailActivity.UPDATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has updated an employee type");
-			
+			this.setInsertDelete(true);
 		// RequestContext.getCurrentInstance().
 		} catch(Exception e) {
 			FacesMessage msg = new FacesMessage("Error", "Employee Type With id: " + selectedEmployeeType.getId() + " not found!");  

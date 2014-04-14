@@ -1,3 +1,4 @@
+
 package com.beans.common.security.usertoaccessrights.service;
 
 import java.util.List;
@@ -13,3 +14,4 @@ public interface UserToAccessRightsService {
 	public List<AssignedAccessRights> findAssignedAccessRights(int id);
 	public List<UserToAccessRights> findByUserId(int userId);
 }
+

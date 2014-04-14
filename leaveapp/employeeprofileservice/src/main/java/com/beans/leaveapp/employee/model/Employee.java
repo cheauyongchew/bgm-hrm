@@ -1,5 +1,7 @@
+
 package com.beans.leaveapp.employee.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -26,8 +28,12 @@ import com.beans.leaveapp.employeetype.model.EmployeeType;
 
 @Entity
 @Table(name="Employee")
-public class Employee {
+public class Employee implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private String employeeNumber;
 	private String name;
@@ -240,3 +246,4 @@ public class Employee {
 	
 	
 }
+

@@ -1,4 +1,3 @@
-
 <html xmlns="http://www.w3.org/1999/xhtml"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core"
@@ -10,11 +9,11 @@
     <title>Beans Group HRM</title>
     <h:outputStylesheet name="css/loginlayout.css" />
     <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'/>
-    <link rel="shortcut icon" type="image/png" href="#{request.contextPath}/resources/images/favicon.png" />   
+    <link rel="shortcut icon" type="image/x-icon" href="#{request.contextPath}/resources/images/favicon.ico"/>  
 </h:head>
 
 <h:body>
-
+<div id="wrapper">
 
     <div id="loginHeader">
        <p:graphicImage name="logo.png" library="images"/>
@@ -26,7 +25,7 @@
             <p:growl id="growl" showDetail="true" sticky="true" />  
             <p:panelGrid id="panel" columns="2"> 
                 <f:facet name="header">
-                    LOGIN
+                    Login
                 </f:facet> 
                 
                 <h:outputLabel for="j_username" value="Username: " styleClass="flabel"/>  
@@ -39,12 +38,13 @@
                     <h:commandButton id="loginButton" value="Login" action="#{authenticationBean.doLogin}" />
                 </f:facet>              
             </p:panelGrid>
-            
+            <br/>
             Don't have an account? <p:commandLink immediate="true" ajax="false" action="/register.xhtml">Sign Up Now!</p:commandLink>              
         </h:form>   
     </div>
     <div id="footer">
     © 2014 Beans Group All Rights Reserved 
+    </div>
     </div>
 </h:body>
 </html>

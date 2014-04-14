@@ -48,7 +48,19 @@
 		
 		<dependency>
 			<groupId>${project.groupid}</groupId>
+			<artifactId>common</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>${project.groupid}</groupId>
 			<artifactId>employeeprofileservice</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>${project.groupid}</groupId>
+			<artifactId>leaveapplication</artifactId>
 			<version>${project.version}</version>
 		</dependency>
   	<dependency>
@@ -109,4 +121,6 @@
       <version>3.1.0.Final</version>
     </dependency>
   </dependencies>
+
 </project>
+
