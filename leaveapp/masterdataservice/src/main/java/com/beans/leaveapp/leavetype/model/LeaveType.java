@@ -26,7 +26,7 @@ public class LeaveType {
 	private double entitlement;
 	private boolean isAccountable = false;
 	private boolean isDeleted= false;
-	private EmployeeType employeeTypeId; 
+	private EmployeeType employeeType; 
 
 	
 	
@@ -86,11 +86,14 @@ public class LeaveType {
 	
     @OneToOne
 	@JoinColumn(name="employeeTypeId")
-	public EmployeeType getEmployeeTypeId() {
-		return employeeTypeId;
+	public EmployeeType getEmployeeType() {
+		return employeeType;
 	}
-	public void setEmployeeTypeId(EmployeeType employeeTypeId) {
-		this.employeeTypeId = employeeTypeId;
+	public void setEmployeeType(EmployeeType employeeType) {
+		this.employeeType = employeeType;
+	}
+	
+		
 	}
 	
 	
@@ -99,4 +102,4 @@ public class LeaveType {
 	
 	
 	
-}
+

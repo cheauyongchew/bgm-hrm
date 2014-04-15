@@ -54,11 +54,11 @@
 
 					<p:column id="employeeHeader" sortBy="employeeName">
 						<f:facet name="header"> Employee Name </f:facet>
-						<h:outputText value="#{leaveTransaction0.employeeId.name}" />
+						<h:outputText value="#{leaveTransaction0.employee.name}" />
 					</p:column>
 					<p:column id="leaveTypeHeader" sortBy="leaveType">
 						<f:facet name="header"> Leave Type </f:facet>
-						<h:outputText value="#{leaveTransaction0.leaveTypeId.name}" />
+						<h:outputText value="#{leaveTransaction0.leaveType.name}" />
 					</p:column>
 					<p:column id="startTimeHeader" sortBy="startTime">
 						<f:facet name="header"> Start Date </f:facet>
@@ -72,9 +72,13 @@
 							<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss" />
 						</h:outputText>
 					</p:column>
+					<p:column id="reasonHeader" sortBy="reason">
+						<f:facet name="header"> Reason  </f:facet>
+						<h:outputText value="#{leaveTransaction0.reason}" />
+					</p:column>
 					<p:column id="statusHeader" sortBy="status">
 						<f:facet name="header"> Status  </f:facet>
-						<h:outputText value="#{leaveTransaction0.reason}" />
+						<h:outputText value="#{leaveTransaction0.status}" />
 					</p:column>
 					<p:column id="noOfDaysHeader" sortBy="noOfDays">
 						<f:facet name="header"> Days </f:facet>
@@ -108,19 +112,19 @@
 
 						<h:outputText value="EmployeeName :" />
 						<p:selectOneMenu
-							value="#{leaveTransactionMgmtBean.name}">
+							value="#{leaveTransactionMgmtBean.employeename}">
 
 							<f:selectItem itemLabel="select LeaveType" itemValue="" />
 							<f:selectItems value="#{leaveTransactionMgmtBean.employeeList}"
 								var="leavetype" itemLabel="#{leaveType.name}"
 								itemValue="#{name}" />
 
-
+                           
 
 						</p:selectOneMenu>
-						<h:outputText value="leaveType :" />
-						<p:selectOneMenu
-							value="#{leaveTransactionMgmtBean.selectedLeaveTransaction.leaveTypeId.name}">
+						<h:outputText  value="leaveType :" />
+						<p:selectOneMenu id="leaveTypes"
+							value="#{leaveTransactionMgmtBean.leaveType}">
 
 							<f:selectItem itemLabel="select One" itemValue="" />
 							<f:selectItems value="#{leaveTransactionMgmtBean.leaveTypeList}"
@@ -150,9 +154,15 @@
 						<h:inputText
 							value="#{leaveTransactionMgmtBean.selectedLeaveTransaction.numberOfHours}" />
 
+                        <h:outputText value="Reason :"></h:outputText>						
+					    <h:inputText
+							value="#{leaveTransactionMgmtBean.newLeaveTransaction.reason}">
+							
+						</h:inputText>
+							
 	                   <h:outputText value="Status :"></h:outputText>
 						<h:inputText
-							value="#{leaveTransactionMgmtBean.selectedLeaveTransaction.reason}">
+							value="#{leaveTransactionMgmtBean.selectedLeaveTransaction.status}">
 							
 						</h:inputText>
 							
@@ -183,16 +193,17 @@
 
 						<h:outputText value="Employee Name :"></h:outputText>
 						<p:selectOneMenu
-							value="#{leaveTransactionMgmtBean.newLeaveTransaction.employeeId.name}">
+							value="#{leaveTransactionMgmtBean.employeename}">
 
 							<f:selectItem itemLabel="select Name" itemValue="" />
 							<f:selectItems value="#{leaveTransactionMgmtBean.employeeList}"
 								var="employee" itemLabel="#{employee.name}" itemValue="#{name}" />
+								  <p:ajax event="change" update="leaveTypes" listener="#{leaveTransactionMgmtBean.correspondingList}" />
 						</p:selectOneMenu>
 
 						<h:outputText value="Leave Type :"></h:outputText>
-						<p:selectOneMenu
-							value="#{leaveTransactionMgmtBean.newLeaveTransaction.leaveTypeId.name}">
+						<p:selectOneMenu id ="leaveTypes"
+							value="#{leaveTransactionMgmtBean.leaveType}">
 
 							<f:selectItem itemLabel="select LeaveType" itemValue="" />
 							<f:selectItems value="#{leaveTransactionMgmtBean.leaveTypeList}"
@@ -211,9 +222,16 @@
 							value="#{leaveTransactionMgmtBean.newLeaveTransaction.endDateTime}"
 							pattern="dd/MM/yyyy HH:mm" id="start4" shownOn="button" />
 
-						<h:outputText value="Status :"></h:outputText>						
+                         <h:outputText value="Reason :"></h:outputText>						
 					    <h:inputText
 							value="#{leaveTransactionMgmtBean.newLeaveTransaction.reason}">
+							
+						</h:inputText>
+							
+
+						<h:outputText value="Status :"></h:outputText>						
+					    <h:inputText
+							value="#{leaveTransactionMgmtBean.newLeaveTransaction.status}">
 							
 						</h:inputText>
 							

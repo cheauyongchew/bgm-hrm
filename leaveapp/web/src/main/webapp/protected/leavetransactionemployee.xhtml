@@ -13,10 +13,10 @@
 <h:body>
 	<ui:composition template="/templates/mainlayout.xhtml">
 
-		<ui:define name="title"> Leave Transaction List for Employee</ui:define>
+		<ui:define name="title"> Leave Transaction List for Admin</ui:define>
 
 		<ui:define name="content">
-			<h1>Employee Leave Transaction List</h1>
+			<h1>Admin Leave Transaction List</h1>
 			<h:form id="leaveTransactionTableForm">
 
 				<p:panel header="Search" toggleable="true">
@@ -43,16 +43,18 @@
 				<p:dataTable id="leaveTransactionTable"
 					widgetVar="yearlyEntitlementTableVar" var="leaveTransaction0"
 					value="#{leaveTransactionMgmtBean.leaveTransactionDataModel}"
-					rowKey="#{leaveTransaction0.id}">
+					rowKey="#{leaveTransaction0.id}"
 					
+					selectionMode="single" paginator="true" rows="10" scrollable="true">
+
 
 					<p:column id="employeeHeader" sortBy="employeeName">
 						<f:facet name="header"> Employee Name </f:facet>
-						<h:outputText value="#{leaveTransaction0.employeeId.name}" />
+						<h:outputText value="#{leaveTransaction0.employee.name}" />
 					</p:column>
 					<p:column id="leaveTypeHeader" sortBy="leaveType">
 						<f:facet name="header"> Leave Type </f:facet>
-						<h:outputText value="#{leaveTransaction0.leaveTypeId.name}" />
+						<h:outputText value="#{leaveTransaction0.leaveType.name}" />
 					</p:column>
 					<p:column id="startTimeHeader" sortBy="startTime">
 						<f:facet name="header"> Start Date </f:facet>
@@ -81,8 +83,8 @@
 
 
 				</p:dataTable>
-</h:form>
-</ui:define>
-</ui:composition>
-</h:body>
-</html>
+				</h:form>
+				</ui:define>
+				</ui:composition>
+				</h:body>
+				</html>

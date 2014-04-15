@@ -29,7 +29,8 @@
 				<h:outputText value="To :" />
 				<p:calendar value="#{systemAuditTrailMgmtBean.date2}" pattern="dd/MM/yyyy HH:mm" id="start2"  shownOn="button" />
 					
-		
+		<h:outputText value="Activity :" />
+				<h:inputText value="#{systemAuditTrailMgmtBean.activity}"	 />
 					
 				<f:facet name="footer">				
 						  <p:commandButton action="#{systemAuditTrailMgmtBean.search}" value="Search" update=":systemAuditTrailForm:systemAuditTrailTable" ajax="false"/>

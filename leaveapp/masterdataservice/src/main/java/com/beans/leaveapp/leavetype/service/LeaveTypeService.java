@@ -16,6 +16,7 @@ public interface LeaveTypeService {
 	public LeaveType findByLeaveType(String name) throws LeaveTypeNotFound;
 	public List<String> findByName();
 	public EmployeeType findByEmployeeName(String name);
+    public List<String> findByEmployeeTypes(String name);
 }
 
 

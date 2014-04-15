@@ -11,6 +11,7 @@ import com.beans.leaveapp.employee.model.Employee;
 
 
 public interface EmployeeRepository extends CrudRepository<Employee, Integer>{
+	
 	@Query("select e from Employee e where isDeleted = ?")
 	List<Employee> findByisDeleted(int isDeleted);
 	
@@ -30,9 +31,9 @@ public interface EmployeeRepository extends CrudRepository<Employee, Integer>{
 	Employee findByUsername(@Param("username") String username);
 	
 	@Query("select e from Employee e join e.users u where u.id = :id")
-	Employee findByUserId(@Param("id") int x);
+	Employee findByUserId(@Param("id") int id);
 
-	@Query("select e.name from Employee e")
+	@Query("select e.name from Employee e where isDeleted =0")
 	List<String> findByNames();
 	
 	@Query("select e from Employee e where name = ? and isDeleted = 0")
@@ -41,6 +42,10 @@ public interface EmployeeRepository extends CrudRepository<Employee, Integer>{
 	@Query("select e from Employee e where name like ?")
 	List<Employee> findByEmployeeNameLike(String userName);
 	
+	@Query("select e.employeeType.id from Employee e where e.name = ? and isDeleted = 0")
+	Integer findByEmployeeTypeId(String name);
+	
+ 
 }
 
 

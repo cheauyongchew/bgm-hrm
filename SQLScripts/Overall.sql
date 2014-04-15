@@ -176,6 +176,7 @@ CREATE TABLE IF NOT EXISTS LeaveTransaction (
     numberOfHours DOUBLE(4,2),
     numberOfDays DOUBLE(4,2),
     reason VARCHAR(100),
+    status VARCHAR(100),
     leaveTypeId INT(10),
     employeeId INT(10),
     taskId BIGINT(20),

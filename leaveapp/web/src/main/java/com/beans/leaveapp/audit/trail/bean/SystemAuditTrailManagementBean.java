@@ -15,7 +15,7 @@ import com.beans.common.audit.service.SystemAuditTrailRecordService;
 import com.beans.leaveapp.audit.trail.model.SystemAuditTrailDataModel;
 
 public class SystemAuditTrailManagementBean implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	private SystemAuditTrailRecordService systemAuditTrailService;
@@ -30,6 +30,15 @@ public class SystemAuditTrailManagementBean implements Serializable {
 
 	public Date date1;
 	public Date date2;
+	public String activity;
+
+	public String getActivity() {
+		return activity;
+	}
+
+	public void setActivity(String activity) {
+		this.activity = activity;
+	}
 
 	public Date getDate1() {
 		return date1;
@@ -49,21 +58,21 @@ public class SystemAuditTrailManagementBean implements Serializable {
 
 	public void search() throws Exception {
 
-		if(date1 != null && date2 != null){
-		java.sql.Date fromDate = new java.sql.Date(date1.getTime());
-		java.sql.Date toDate = new java.sql.Date(date2.getTime());
-	
-		List<SystemAuditTrail> systemAuditTrailList = getSystemAuditTrailService()
-				.findSelectedDates(fromDate, toDate);
+		if (date1 != null && date2 != null && !activity.equals("") ) {
+			java.sql.Date fromDate = new java.sql.Date(date1.getTime());
+			java.sql.Date toDate = new java.sql.Date(date2.getTime());
 
-		setSystemAuditTrailList(getSystemAuditTrailService().findSelectedDates(
-				fromDate, toDate));
-		System.out.println(getSystemAuditTrailList().size());
-		forDates = true;
-		this.getSystemAuditTrailDataModel();
-		date1.getTime();
-		String currentTime = s.format(fromDate);
-		System.out.println(currentTime);
+			List<SystemAuditTrail> systemAuditTrailList = getSystemAuditTrailService()
+					.findSelectedDates(fromDate, toDate,activity);
+
+			setSystemAuditTrailList(getSystemAuditTrailService()
+					.findSelectedDates(fromDate, toDate,activity));
+			System.out.println(getSystemAuditTrailList().size());
+			forDates = true;
+			this.getSystemAuditTrailDataModel();
+			date1.getTime();
+			String currentTime = s.format(fromDate);
+			System.out.println(currentTime);
 		}
 	}
 

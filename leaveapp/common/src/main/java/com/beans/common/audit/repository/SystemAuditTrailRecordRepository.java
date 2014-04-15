@@ -17,8 +17,8 @@ public interface SystemAuditTrailRecordRepository extends CrudRepository<SystemA
 	/* @Query("select l from SystemAuditTrail l where date = ?")
 	  List<SystemAuditTrail> findByDate(Date x);*/
 	
-	 @Query("select l from SystemAuditTrail l where isDeleted = 0 and actiondate between ? and  ?")	 
-	 List<SystemAuditTrail> findByDate(Date x,Date y);
+	 @Query("select l from SystemAuditTrail l where isDeleted = 0 and activity =? and actiondate between ? and  ? ")	 
+	 List<SystemAuditTrail> findByDate(String activity,Date date,Date dates);
 
 	
 	

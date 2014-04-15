@@ -2,6 +2,8 @@ package com.beans.leaveapp.yearlyentitlement.service;
 
 import java.util.List;
 
+import com.beans.leaveapp.employee.model.Employee;
+import com.beans.leaveapp.leavetype.model.LeaveType;
 import com.beans.leaveapp.yearlyentitlement.model.EmployeeEntitlement;
 import com.beans.leaveapp.yearlyentitlement.model.LeaveEntitlement;
 import com.beans.leaveapp.yearlyentitlement.model.YearlyEntitlement;
@@ -14,20 +16,17 @@ public interface YearlyEntitlementService {
 
 	public YearlyEntitlement delete(int id);
 
-	public YearlyEntitlement create(LeaveEntitlement leaveEntitlement);
+	public YearlyEntitlement create(YearlyEntitlement yearlyEntitlement);
    
 	public List<String> employeeNames();
-	
-	public List<LeaveEntitlement> findLeave();
 
-	public List<String> findLeaveTypes();
+	public List<String> findLeaveTypes(int employeeTypeId);
 	
-	public List<EmployeeEntitlement> findByEmployeeId(int x);
+	public Employee findByEmployee(String name);
 	
-	public List<LeaveEntitlement> findByEmployee(int x);
+	public LeaveType findByLeaveType(String name);
 	
-	public List<LeaveEntitlement> findBySearchLeave(int id);
+	public List<YearlyEntitlement> findByEmployeeOrfindByLeaveTypeOrBoth(String employeeName,String leaveType);
 	
-	public List<LeaveEntitlement> findByEmployeeAndfindByLeaveType(String x,String y);
-	
+	public List<YearlyEntitlement> findByEmployeeId(int employeeId);
 }

@@ -32,17 +32,18 @@ public class LeaveTransaction {
 	private Double numberOfHours;
 	private Double numberOfDays;
 	private String reason;
-	private LeaveType leaveTypeId;
-	private Employee employeeId;
+	private LeaveType leaveType;
+	private Employee employee;
 	private String name;
 	private List<LeaveApplicationComment> leaveApplicationComments;
 	private Long taskId;
 	private boolean isDeleted;
+	private String status;
 	
 	public LeaveTransaction(int id, Date applicationDate,
 			Date startDateTime, Date endDateTime,
-			Double numberOfHours, Double numberOfDays, String reason,
-			LeaveType leaveTypeId, Employee employeeId, boolean isDeleted) {
+			Double numberOfHours, Double numberOfDays, String reason,String status,
+			LeaveType leaveType, Employee employee, boolean isDeleted) {
 		super();
 		this.id = id;
 		this.applicationDate = applicationDate;
@@ -51,9 +52,9 @@ public class LeaveTransaction {
 		this.numberOfHours = numberOfHours;
 		this.numberOfDays = numberOfDays;
 		this.reason = reason;
-		this.leaveTypeId = leaveTypeId;
-		this.employeeId = employeeId;
-	
+		this.status = status;
+		this.leaveType = leaveType;
+		this.employee = employee;
 		this.isDeleted = isDeleted;
 	}
 	public LeaveTransaction() {
@@ -134,20 +135,20 @@ public class LeaveTransaction {
 
 	@OneToOne
 	@JoinColumn(name="leaveTypeId",nullable=false)
-	public LeaveType getLeaveTypeId(){
-		return leaveTypeId;
+	public LeaveType getLeaveType(){
+		return leaveType;
 	}
-	public void setLeaveTypeId(LeaveType leaveTypeId) {
-		this.leaveTypeId = leaveTypeId;
+	public void setLeaveType(LeaveType leaveType) {
+		this.leaveType = leaveType;
 	}
 	
     @OneToOne
 	@JoinColumn(name="employeeId")
-	public Employee getEmployeeId() {
-		return employeeId;
+	public Employee getEmployee() {
+		return employee;
 	}
-	public void setEmployeeId(Employee employeeId) {
-		this.employeeId = employeeId;
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
 	public String getName() {
 		return name;
@@ -171,5 +172,13 @@ public class LeaveTransaction {
 	public void setLeaveApplicationComments(
 			List<LeaveApplicationComment> leaveApplicationComments) {
 		this.leaveApplicationComments = leaveApplicationComments;
+	}
+	
+	@Column(name="status",nullable=true)
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }

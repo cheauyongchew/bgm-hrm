@@ -28,7 +28,8 @@ public class LeaveTypeManagementBean implements Serializable{
 		private boolean insertDelete = false;
 		private List<LeaveType> searchLeaveType;
 		private String name;
-
+        private List<String> employeeTypes;
+		
 		public List<LeaveType> getSearchLeaveType() {
 			return searchLeaveType;
 		}
@@ -79,7 +80,7 @@ public class LeaveTypeManagementBean implements Serializable{
 		
 		public void doCreateLeaveType() {
 			EmployeeType employeeType = getLeaveTypeService().findByEmployeeName(name);
-			newLeaveType.setEmployeeTypeId(employeeType);
+			newLeaveType.setEmployeeType(employeeType);
 			newLeaveType.setDeleted(false);
 			getLeaveTypeService().create(newLeaveType);
 			setInsertDelete(true);
@@ -95,7 +96,7 @@ public class LeaveTypeManagementBean implements Serializable{
 		public void doUpdateLeaveType() {
 			try {
 				EmployeeType employeeType = getLeaveTypeService().findByEmployeeName(name);
-				selectedLeaveType.setEmployeeTypeId(employeeType);
+				selectedLeaveType.setEmployeeType(employeeType);
 				System.out.println("New name:" + selectedLeaveType.getName());
 				System.out.println("ID: " + selectedLeaveType.getId());
 				getLeaveTypeService().update(selectedLeaveType);
@@ -141,6 +142,23 @@ public class LeaveTypeManagementBean implements Serializable{
 
 		public void setName(String name) {
 			this.name = name;
+		}
+
+		public List<String> getEmployeeTypes() {
+			try{
+				if(this.getSelectedLeaveType().getName().trim().equals("")){
+					
+				employeeTypes =  this.getLeaveTypeService().findByEmployeeTypes(getSelectedLeaveType().getName());
+			    return employeeTypes;
+				}
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			return employeeTypes;
+		}
+
+		public void setEmployeeTypes(List<String> employeeTypes) {
+			this.employeeTypes = employeeTypes;
 		}
 		
 	}

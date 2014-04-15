@@ -22,8 +22,7 @@ public interface LeaveTypeRepository extends CrudRepository<LeaveType, Integer>{
 	 @Query("select l from LeaveType l where name like ?")
 	 List<LeaveType> findByNameLike(String name);
 	 
-	
-	 
-	 
+	 @Query("select l.name from LeaveType l join l.employeeType e where e.id = ?")
+	 List<String> findByLeaveTypes(int id);
 }
 

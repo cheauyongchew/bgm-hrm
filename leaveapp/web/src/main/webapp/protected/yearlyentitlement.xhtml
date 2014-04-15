@@ -42,7 +42,7 @@
 					var="yearlyEntitlement0"
 					value="#{yearlyEntitlementMgmtBean.yearlyEntitlementDataModel}"
 					rowKey="#{yearlyEntitlement0.id}"
-					selection="#{yearlyEntitlementMgmtBean.selectedLeaveEntitlement}"
+					selection="#{yearlyEntitlementMgmtBean.selectedYearlyEntitlement}"
 					selectionMode="single"
 					 paginator="true" rows="10" scrollable="true" >
 					<p:ajax event="rowSelect"
@@ -53,11 +53,11 @@
 
 					<p:column id="employeeHeader" sortBy="employeeName">
 						<f:facet name="header"> Employee Name </f:facet>
-						<h:outputText value="#{yearlyEntitlement0.employeeName}" />
+						<h:outputText value="#{yearlyEntitlement0.employee.name}" />
 					</p:column>
 					<p:column id="leaveTypeHeader" sortBy="leaveType">
 						<f:facet name="header"> Leave Type </f:facet>
-						<h:outputText value="#{yearlyEntitlement0.leaveType}" />
+						<h:outputText value="#{yearlyEntitlement0.leaveType.name}" />
 					</p:column>
 					<p:column id="nameHeader" sortBy="entitlement">
 						<f:facet name="header"> Entitlement </f:facet>
@@ -73,7 +73,7 @@
 
 				<p:commandButton value="New Yearly Entitlement"
 					oncomplete="PF('newYearlyEntitlementDialog').show()" icon="ui-icon-star"
-					title="Creates new" />
+					title="Creates new"/>
 
 			</h:form>
 
@@ -91,18 +91,19 @@
 
                         <h:outputText 
                         value="EmployeeName : 
-                        #{yearlyEntitlementMgmtBean.selectedLeaveEntitlement.employeeName}" />                        
+                        #{yearlyEntitlementMgmtBean.selectedYearlyEntitlement.employee.name}" />  
+                                              
                         <h:outputText 
                         value="leaveType : 
-                        #{yearlyEntitlementMgmtBean.selectedLeaveEntitlement.leaveType} "/>
+                        #{yearlyEntitlementMgmtBean.selectedYearlyEntitlement.leaveType.name} "/>
 						
 						<h:outputText value="Entitlement : "></h:outputText>
 						<h:inputText
-							value="#{yearlyEntitlementMgmtBean.selectedLeaveEntitlement.entitlement}" />
+							value="#{yearlyEntitlementMgmtBean.selectedYearlyEntitlement.entitlement}" />
 
 						<h:outputText value="AvailableBalance :"></h:outputText>
 						<h:inputText
-							value="#{yearlyEntitlementMgmtBean.selectedLeaveEntitlement.availableBalance}" />
+							value="#{yearlyEntitlementMgmtBean.selectedYearlyEntitlement.availableBalance}" />
 
 						<f:facet name="footer">
 							<p:commandButton value="Update"
@@ -129,16 +130,17 @@
 
 						<h:outputText value="Employee Name :"></h:outputText>
 						<p:selectOneMenu
-							value="#{yearlyEntitlementMgmtBean.newLeaveEntitlement.employeeName}">
+							value="#{yearlyEntitlementMgmtBean.employeeName}">
 
 							<f:selectItem itemLabel="select Name" itemValue="" />
 							<f:selectItems value="#{yearlyEntitlementMgmtBean.employeeList}"
 								var="employee" itemLabel="#{employee.name}" itemValue="#{name}" />
+								 <p:ajax  event ="change" update="leaveTypes" listener = "#{yearlyEntitlementMgmtBean.correspondingList}" /> 
 						</p:selectOneMenu>
 
 						<h:outputText value="Leave Type :"></h:outputText>
-						<p:selectOneMenu
-							value="#{yearlyEntitlementMgmtBean.newLeaveEntitlement.leaveType}">
+						<p:selectOneMenu id="leaveTypes"
+							value="#{yearlyEntitlementMgmtBean.leaveTypeName}">
 
 							<f:selectItem itemLabel="select LeaveType" itemValue="" />
 							<f:selectItems value="#{yearlyEntitlementMgmtBean.leaveType}"
@@ -148,13 +150,13 @@
 
 						<h:outputText value="Entitlement :"></h:outputText>
 						<h:inputText id="entitlement"
-							value="#{yearlyEntitlementMgmtBean.newLeaveEntitlement.entitlement}">
+							value="#{yearlyEntitlementMgmtBean.yearlyEntitlement.entitlement}">
 							
 						</h:inputText>
 
 						<h:outputText value="Leave Balance :"></h:outputText>
 						<h:inputText id="availableBalance"
-							value="#{yearlyEntitlementMgmtBean.newLeaveEntitlement.availableBalance}" />
+							value="#{yearlyEntitlementMgmtBean.yearlyEntitlement.availableBalance}" />
 
 						<f:facet name="footer">  
 																									

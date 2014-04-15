@@ -106,8 +106,21 @@ public class LeaveTypeServiceImpl implements LeaveTypeService {
 		EmployeeType employeeType =  employeeTypeRepository.findByName(name);
 		return employeeType;
 	}
+
+	@Override
+	public List<String> findByEmployeeTypes(String name) {
+		List<String> namesList = new LinkedList<String>();
+		 try{
+			  namesList = (List<String>)employeeTypeRepository.findByEmployeeNames();
+	         return namesList;
+		 }catch(Exception e){
+			 e.printStackTrace();
+		 }
+			return namesList;
+		}
+	}
 	
 
 	
-}
+
 
