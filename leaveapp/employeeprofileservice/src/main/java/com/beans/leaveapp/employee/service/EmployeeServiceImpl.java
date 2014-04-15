@@ -113,6 +113,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 		employeeToBeUpdated.setResignationDate(employee.getResignationDate());
 		employeeToBeUpdated.setDeleted(employee.isDeleted());
 		employeeToBeUpdated.setResigned(employee.isResigned());
+		employeeToBeUpdated.setLastModifiedBy(employee.getLastModifiedBy());
+		employeeToBeUpdated.setLastModifiedTime(employee.getLastModifiedTime());
 		return employeeRepository.save(employeeToBeUpdated);
 	}
 
@@ -191,6 +193,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 			employee.setDepartment(department);
 			employee.setDeleted(false);
 			employee.setResigned(false);
+			employee.setLastModifiedBy(employee.getLastModifiedBy());
+			employee.setLastModifiedTime(new java.util.Date());
 			
 			
 			Employee newEmployee = update(employee);
@@ -201,6 +205,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 					Address currentAddress = addressIterator.next();
 					currentAddress.setId(0);
 					currentAddress.setEmployee(newEmployee);
+					currentAddress.setCreatedBy(employee.getLastModifiedBy());
+					currentAddress.setCreationTime(new java.util.Date());
 					addressService.create(currentAddress);
 				}
 				

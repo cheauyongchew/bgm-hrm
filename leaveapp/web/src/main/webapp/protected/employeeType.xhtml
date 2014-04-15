@@ -5,7 +5,9 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:pe="http://primefaces.org/ui/extensions" >
-	
+	<f:metadata>
+    	<f:event type="preRenderView" listener="#{authenticationBean.hasPageAccess('AdminFunctions')}" />
+    </f:metadata>
 	
 <h:head>
 </h:head>
@@ -25,7 +27,6 @@
         <p:dataTable id="employeeTypeTable" widgetVar="employeeTypeTable" var="employeeType0" value="#{employeeTypeMgmtBean.employeeTypeDataModel}" rowKey="#{employeeType0.id}"
                  selection="#{employeeTypeMgmtBean.selectedEmployeeType}" selectionMode="single" >
           <p:ajax event="rowSelect" listener="#{employeeTypeMgmtBean.onRowSelect}" update=":employeeTypeDetailForm:display, :growl" oncomplete="PF('employeeTypeDialog').show()" />  
-       <!--    $('body').css('background-color','green'); -->
                     
           <p:column id="nameHeader" sortBy="name">
             <f:facet name="header"> Employee Type </f:facet>
@@ -51,56 +52,41 @@
       </h:form>
       
       <h:form id="commandButtonForm">
-       <p:commandButton value="New Employee Type" update=":newEmployeeTypeForm" oncomplete="PF('newEmployeeTypeDialog').show()"
-         icon="ui-icon-star" title="Creates new type"/>
+       <p:commandButton value="New Employee Type" update=":newEmployeeTypeForm" oncomplete="PF('newEmployeeTypeDialog').show()"   icon="ui-icon-star" title="Creates new type"/>
        </h:form>
-               
-   <!--    $('.dlgCSS').css('background-color','red');  $('body').css('background-color','green');-->
       <p:growl id="growl" showDetail="true" life="1000"/> 
   </ui:define>  
   
   <ui:define name="dialog">
       <p:dialog header="Employee Type Detail" styleClass="dlgCSS" widgetVar="employeeTypeDialog" resizable="false" id="employeeTypeDlg" modal ="true">
                <h:form id="employeeTypeDetailForm">
-   			
-   				
+   				<p:messages autoUpdate="true" />
                 <p:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
- 
-            <h:outputText value="Type :"></h:outputText>
-                        <h:inputText value="#{employeeTypeMgmtBean.selectedEmployeeType.name}" required="true" requiredMessage="Please Enter Name!"/>
- 
-            <h:outputText value="Description :"></h:outputText>
-                        <h:inputText value="#{employeeTypeMgmtBean.selectedEmployeeType.description}"/>
- 
+            		<h:outputText value="Type :"></h:outputText>
+                    <h:inputText value="#{employeeTypeMgmtBean.selectedEmployeeType.name}" required="true" requiredMessage="Please Enter Name!"><f:validateLength minimum="6" maximum="15"/></h:inputText>
+            		<h:outputText value="Description :"></h:outputText>
+                    <h:inputText value="#{employeeTypeMgmtBean.selectedEmployeeType.description}" required="true" requiredMessage="Please Enter Description!"><f:validateLength minimum="6" maximum="15"/></h:inputText>
                     <f:facet name="footer">
-                            <p:commandButton value="Update" update=":employeeTypeTableForm:employeeTypeTable" oncomplete="PF('employeeTypeDialog').hide()" actionListener="#{employeeTypeMgmtBean.doUpdateEmployeeType}" validateClient="true"/>
+                            <p:commandButton value="Update" update=":employeeTypeTableForm:employeeTypeTable" oncomplete="if(!args.validationFailed) PF('employeeTypeDialog').hide()" actionListener="#{employeeTypeMgmtBean.doUpdateEmployeeType}" validateClient="true"/>
                             <p:commandButton value="Delete" onclick="PF('cd').show()" oncomplete="PF('employeeTypeDialog').hide()"/>
-                            
-                           <!--  $('body').css('background-color','gray');  $('body').css('background-color','gray'); -->
                     </f:facet>
                 </p:panelGrid>
-             </h:form>
-          </p:dialog>
-          
-          
-          
+              </h:form>
+      </p:dialog>
           
       <p:dialog header="Create New Employee Type" styleClass="dlgCSS" widgetVar="newEmployeeTypeDialog" resizable="false" id="newEmployeeTypeDlg"  modal ="true">
               <h:form id="newEmployeeTypeForm">
-             <p:messages autoUpdate="true" />
+              <p:messages autoUpdate="true" />
                 <p:panelGrid id="displayNewEmployeeType" columns="2" cellpadding="4" style="margin:0 auto;">
-            <h:outputText value="Type :"></h:outputText>
-                        <p:inputText value="#{employeeTypeMgmtBean.newEmployeeType.name}" required="true" requiredMessage="Please Enter Employee Type!"> 
+           			 <h:outputText value="Type :"></h:outputText>
+                     <p:inputText value="#{employeeTypeMgmtBean.newEmployeeType.name}" required="true" requiredMessage="Please Enter Employee Type!"> 
                           <f:validateLength minimum="6" maximum="15"/></p:inputText>
- 
-            <h:outputText value="Description :"></h:outputText>
-                        <p:inputText value="#{employeeTypeMgmtBean.newEmployeeType.description}">  <f:validateLength minimum="6" maximum="15"/></p:inputText>
- 
-           
-                    <f:facet name="footer">
-                            <p:commandButton value="Submit" update=":employeeTypeTableForm:employeeTypeTable"  oncomplete="PF('newEmployeeTypeDialog').hide()" validateClient="true" actionListener="#{employeeTypeMgmtBean.doCreateEmployeeType}"/>
+            		 <h:outputText value="Description :"></h:outputText>
+                     <p:inputText value="#{employeeTypeMgmtBean.newEmployeeType.description}" required="true" requiredMessage="Please Enter Employee Description!"> 
+                          <f:validateLength minimum="6" maximum="15"/></p:inputText>
+                     <f:facet name="footer">
+                            <p:commandButton value="Submit" update=":employeeTypeTableForm:employeeTypeTable"  oncomplete="if(!args.validationFailed) PF('newEmployeeTypeDialog').hide()" validateClient="true" actionListener="#{employeeTypeMgmtBean.doCreateEmployeeType}"/>
                             <p:commandButton type="reset" value="Reset"></p:commandButton>
-                           <!--  $('body').css('background-color','gray');   $('body').css('background-color','gray') -->
                     </f:facet>
                 </p:panelGrid>
               </h:form>

@@ -1,4 +1,3 @@
-
 package com.beans.leaveapp.leavetype.repository;
 
 import java.util.List;
@@ -25,4 +24,3 @@ public interface LeaveTypeRepository extends CrudRepository<LeaveType, Integer>{
 	 @Query("select l.name from LeaveType l join l.employeeType e where e.id = ?")
 	 List<String> findByLeaveTypes(int id);
 }
-

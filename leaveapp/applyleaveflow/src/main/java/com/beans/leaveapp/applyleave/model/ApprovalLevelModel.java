@@ -1,6 +1,13 @@
 package com.beans.leaveapp.applyleave.model;
 
-public class ApprovalLevelModel {
+import java.io.Serializable;
+
+public class ApprovalLevelModel implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String role;
 	private String approver;
 	

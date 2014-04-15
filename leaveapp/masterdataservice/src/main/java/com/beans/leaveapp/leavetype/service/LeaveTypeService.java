@@ -19,4 +19,3 @@ public interface LeaveTypeService {
     public List<String> findByEmployeeTypes(String name);
 }
 
-

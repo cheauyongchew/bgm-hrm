@@ -29,4 +29,11 @@ public interface YearlyEntitlementService {
 	public List<YearlyEntitlement> findByEmployeeOrfindByLeaveTypeOrBoth(String employeeName,String leaveType);
 	
 	public List<YearlyEntitlement> findByEmployeeId(int employeeId);
+	
+	public YearlyEntitlement findByEmployeeAndLeaveType(int employeeId, int leaveTypeId) throws YearlyEntitlementNotFound;
+	//TODO Change method name after Pradeep removed his
+	public List<YearlyEntitlement> findYearlyEntitlementListByEmployee(int employeeId);
+	
+	public YearlyEntitlement findOne(int yearlyEntitlementId) throws YearlyEntitlementNotFound;
+	
 }

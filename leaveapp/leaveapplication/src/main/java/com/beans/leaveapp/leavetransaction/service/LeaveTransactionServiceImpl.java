@@ -8,7 +8,6 @@ import javax.annotation.Resource;
 
 import com.beans.leaveapp.employee.model.Employee;
 import com.beans.leaveapp.employee.repository.EmployeeRepository;
-import com.beans.leaveapp.employeetype.repository.EmployeeTypeRepository;
 import com.beans.leaveapp.leavetransaction.model.LeaveTransaction;
 import com.beans.leaveapp.leavetransaction.repository.LeaveTransactionRepository;
 import com.beans.leaveapp.leavetype.model.LeaveType;
@@ -134,5 +133,13 @@ public class LeaveTransactionServiceImpl implements LeaveTransactionService {
 		// leaveTransaction = leaveTransactionRepository.findByEmployeeOrLeaveTypeLike(employeename.trim(), leaveType.trim());
 		
 	}
+
+	@Override
+	public LeaveTransaction insertFromWorkflow(LeaveTransaction leaveTransaction) {
+		
+		return leaveTransactionRepository.save(leaveTransaction);
+	}
+
+	
 }
 

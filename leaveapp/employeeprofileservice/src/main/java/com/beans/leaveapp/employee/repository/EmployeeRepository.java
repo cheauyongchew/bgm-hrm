@@ -1,4 +1,3 @@
-
 package com.beans.leaveapp.employee.repository;
 
 import java.util.List;
@@ -47,5 +46,3 @@ public interface EmployeeRepository extends CrudRepository<Employee, Integer>{
 	
  
 }
-
-

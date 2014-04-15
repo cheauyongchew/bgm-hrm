@@ -26,7 +26,10 @@ public interface LeaveTransactionService {
 
 	public List<LeaveTransaction> findByEmployeeORfindByLeaveTypeORBoth(
 			String employeename, String leaveType);
+
+	public LeaveTransaction insertFromWorkflow(LeaveTransaction leaveTransaction);
 	
-	
+ 
     
 }
+

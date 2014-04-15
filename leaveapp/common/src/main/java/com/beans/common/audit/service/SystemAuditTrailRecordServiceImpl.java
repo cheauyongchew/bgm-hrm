@@ -88,3 +88,4 @@ public class SystemAuditTrailRecordServiceImpl implements SystemAuditTrailRecord
 		
 	}
 }
+

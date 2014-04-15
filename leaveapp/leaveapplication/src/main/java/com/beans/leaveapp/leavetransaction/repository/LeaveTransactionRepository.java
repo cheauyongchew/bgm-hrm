@@ -7,7 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.beans.leaveapp.leavetransaction.model.LeaveTransaction;
-import com.beans.leaveapp.yearlyentitlement.model.YearlyEntitlement;
 
 public interface LeaveTransactionRepository extends CrudRepository<LeaveTransaction, Integer> {
 	

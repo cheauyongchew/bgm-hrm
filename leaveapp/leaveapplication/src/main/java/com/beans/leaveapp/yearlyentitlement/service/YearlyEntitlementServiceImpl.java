@@ -144,7 +144,7 @@ public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 		try {
 
 			if (employeeId > 0) {
-				listOfYearlyEntitlement = yearlyEntitleRepository.findByEmployeeIdLike(employeeId);
+				listOfYearlyEntitlement = yearlyEntitleRepository.findByEmployeeId(employeeId);
 				return listOfYearlyEntitlement;
 			}
 		} catch (Exception e) {
@@ -152,5 +152,35 @@ public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 		}
 		return listOfYearlyEntitlement;
 	}
+
+	@Override
+	public YearlyEntitlement findByEmployeeAndLeaveType(int employeeId,
+			int leaveTypeId) throws YearlyEntitlementNotFound {
+		List<YearlyEntitlement> resultList = yearlyEntitleRepository.findByEmployeeIdAndLeaveTypeId(employeeId, leaveTypeId);
+		
+		if(resultList == null || resultList.size() == 0) {
+			throw new YearlyEntitlementNotFound("This Employee does not have the entitlement for this leave type");
+		}
+		return resultList.get(0);
+	}
+
+	@Override
+	public List<YearlyEntitlement> findYearlyEntitlementListByEmployee(
+			int employeeId)  {
+		
+		return yearlyEntitleRepository.findByEmployeeId(employeeId);
+	}
+
+	@Override
+	public YearlyEntitlement findOne(int yearlyEntitlementId)
+			throws YearlyEntitlementNotFound {
+		YearlyEntitlement yearlyEntitlement = yearlyEntitleRepository.findOne(yearlyEntitlementId);
+		
+		if(yearlyEntitlement == null) {
+			throw new YearlyEntitlementNotFound("Can't find Yearly Entitlement with id: " + yearlyEntitlementId);
+		}
+		return yearlyEntitlement;
+	}
+	
 
 }

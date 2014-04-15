@@ -4,56 +4,53 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:pe="http://primefaces.org/ui/extensions">
-
+	xmlns:pe="http://primefaces.org/ui/extensions" >
+	
+	<f:metadata>
+    	<f:event type="preRenderView" listener="#{authenticationBean.hasPageAccess('AdminFunctions')}" />
+    </f:metadata>
 <h:body>
-	<ui:composition template="/templates/mainlayout.xhtml">
+<ui:composition template="/templates/mainlayout.xhtml">
 
-		<ui:define name="title">Leave Type Maintenance</ui:define>
+<ui:define name="title">Leave Type Maintenance</ui:define>
 
-		<ui:define name="content">
-			<h1>Leave Type Maintenance</h1>
-			<h:form id="leaveTypeTableForm">
-
-
-
-				<p:dataTable id="leaveTypeTable" var="leaveType0"
-					value="#{leaveTypeMgmtBean.leaveTypeDataModel}"
-					widgetVar="leaveTypeSearch" rowKey="#{leaveType0.id}"
-					selection="#{leaveTypeMgmtBean.selectedLeaveType}"
-					selectionMode="single" paginator="true" rows="10" scrollable="true"
-					emptyMessage="No data found with given criteria">
-
-					<p:ajax event="rowSelect"
-						listener="#{leaveTypeMgmtBean.onRowSelect}"
-						update=":leaveTypeDetailForm:display, :growl"
-						oncomplete="PF('leaveTypeDialog').show()" />
-
-
-					<p:column id="nameHeader" headerText="Name" sortBy="name">
-						<h:outputText value="#{leaveType0.name}" />
-					</p:column>
-					<p:column id="descHeader" headerText="Description"
-						sortBy="description">
-						<h:outputText value="#{leaveType0.description}" />
-					</p:column>
-					<p:column id="employeeIdHeader" headerText="Employee Type"
-						sortBy="employeeType">
-						<h:outputText value="#{leaveType0.employeeType.name}" />
-					</p:column>
-					<p:column id="entitlementHeader" headerText="Entitlement"
-						sortBy="entitlement">
-						<h:outputText value="#{leaveType0.entitlement}" />
-					</p:column>
-				</p:dataTable>
-
-				<p:commandButton value="New Leave Type"
-					oncomplete="PF('newLeaveTypeDialog').show()" icon="ui-icon-star"
-					title="Creates new leave type" />
-			</h:form>
-
-			<p:growl id="growl" showDetail="true" life="1000" />
-		</ui:define>
+<ui:define name="content" >
+        <h1>Leave Type Maintenance </h1>
+		<h:form id="leaveTypeTableForm">
+        <p:dataTable id="leaveTypeTable" var="leaveType0" value="#{leaveTypeMgmtBean.leaveTypeDataModel}" widgetVar="leaveTypeSearch" rowKey="#{leaveType0.id}"
+                 										  selection="#{leaveTypeMgmtBean.selectedLeaveType}" selectionMode="single" paginator="true" rows="10" scrollable="true" emptyMessage="No data found with given criteria" >
+          <p:ajax event="rowSelect" listener="#{leaveTypeMgmtBean.onRowSelect}" update=":leaveTypeDetailForm:display, :growl" oncomplete="PF('leaveTypeDialog').show()" />  
+          	<p:column id="nameHeader"  headerText="Name" sortBy="name" >
+           		 <h:outputText value="#{leaveType0.name}" />
+         	</p:column>
+        	<p:column id="descHeader" headerText="Description" sortBy="description">
+          		 <h:outputText value="#{leaveType0.description}" />
+            </p:column>
+            <p:column id="employeeIdHeader" headerText="Employee Type" sortBy="employeeType">
+           		 <h:outputText value="#{leaveType0.employeeType.name}" />
+            </p:column>
+            <p:column id="entitlementHeader" headerText="Entitlement" sortBy="entitlement">
+            	<h:outputText value="#{leaveType0.entitlement}" />
+            </p:column>
+            <p:column id="lastModifiedByHeader"  sortBy="lastModifiedBy" >
+	            <f:facet name="header"> Last Modified By </f:facet>
+	            <h:outputText value="#{leaveType0.lastModifiedBy}" />
+	        </p:column>
+	        <p:column id="lastModifiedHeader"  sortBy="lastModifiedTime" >
+	            <f:facet name="header"> Last Modified Time</f:facet>
+	            <h:outputText value="#{leaveType0.lastModifiedTime}" >
+	            	<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+	            </h:outputText>
+	        </p:column>
+        </p:dataTable>
+       </h:form>
+      <h:form id="commandButtonForm"> 
+        <p:commandButton value="New Leave Type" oncomplete="PF('newLeaveTypeDialog').show()" icon="ui-icon-star" title="Creates new leave type"/>
+      </h:form>      
+      
+      <p:growl id="growl" showDetail="true" life="1000"/> 
+  </ui:define>  
+  
 
 		<ui:define name="dialog">
 			<p:dialog header="Leave Type Detail" widgetVar="leaveTypeDialog"
@@ -152,5 +149,3 @@
 	</ui:composition>
 </h:body>
 </html>
-
-

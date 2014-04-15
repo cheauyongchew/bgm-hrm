@@ -1,5 +1,7 @@
 package com.beans.leaveapp.employeetype.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +15,11 @@ import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name="EmployeeType")
-public class EmployeeType {
+public class EmployeeType implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private String name;
 	private String description;

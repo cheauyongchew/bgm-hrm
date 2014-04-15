@@ -167,6 +167,8 @@ public class MyProfileManagementBean implements Serializable{
 		selectedAddress.setAddressType(selectedAddressType);
 		
 		resetAddressOperation();
+		selectedAddress.setLastModifiedBy(actorUsers.getUsername());
+		selectedAddress.setLastModifiedTime(new java.util.Date());
 	}
 	
 	public void deleteAddressToEmployee() {
@@ -191,6 +193,7 @@ public class MyProfileManagementBean implements Serializable{
 	}
 	
 	public void doUpdateEmployee() {
+		employee.setLastModifiedBy(actorUsers.getUsername());
 		getEmployeeService().updateEmployee(employee, selectedEmployeeGrade, selectedEmployeeType, selectedDepartment, null, existingAddressList, newAddressMap);
 		newAddressMap = new HashMap<Integer, Address>();
 		existingAddressList = null;
