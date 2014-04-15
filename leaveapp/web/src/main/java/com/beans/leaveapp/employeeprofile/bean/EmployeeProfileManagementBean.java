@@ -241,6 +241,8 @@ public class EmployeeProfileManagementBean implements Serializable{
 				users = new Users();
 			} else {
 				users = this.selectedEmployee.getUsers();
+				//users.setLastModifiedBy(actorUsers.getUsername());
+				//users.setLastModifiedTime(new java.util.Date());
 			}
 			setEmployeeName(this.selectedEmployee.getName());
 		}

@@ -272,36 +272,31 @@
 			
 			<p:tab id="EmployeeLoginTab" title="Login Details">
 			<p:messages autoUpdate="true" />
-			<p:panelGrid id="EmployeeLogin" columns="1" cellpadding="4"
-				style="margin:0 auto;">
-				
+			<p:panelGrid id="EmployeeLogin" columns="1" cellpadding="4" style="margin:0 auto;">
 				<f:facet name="header"><h3>Login Details</h3></f:facet>
-				
 				<p:panelGrid id="EmployeeLoginColumn" columns="2" cellpadding="4" style="margin:0 auto;">
 				<h:outputText value="Username" />
-					<h:inputText
-						value="#{employeeProfileMgmtBean.users.username}" disabled="#{authenticationBean.hasAccess('EditEmployee') == false}" required="true" requiredMessage="Please enter Username!"/>
+				<h:inputText value="#{employeeProfileMgmtBean.users.username}" disabled="#{authenticationBean.hasAccess('EditEmployee') == false}" required="true" requiredMessage="Please enter Username!"/>
 				<h:outputText value="Password" />
-				<p:password id="pwd1" value="#{employeeProfileMgmtBean.users.password}" match="pwd2" disabled="#{authenticationBean.hasAccess('EditEmployee') == false}" required="true" requiredMessage="Please enter Password!"/>
+				<p:password id="pwd1" value="#{employeeProfileMgmtBean.users.password}" match="pwd2" disabled="#{authenticationBean.hasAccess('EditEmployee') == false}" required="true" requiredMessage="Please enter Password!" label="Password "/>
 				<h:outputText value="Confirmed Password" />
 				<p:password id="pwd2" value="#{employeeProfileMgmtBean.users.password}" disabled="#{authenticationBean.hasAccess('EditEmployee') == false}" required="true" requiredMessage="Please enter Confirm Password!"/>
-				</p:panelGrid>
+				<h:outputText value="Last Modified By" />
+				<h:outputText value="#{employeeProfileMgmtBean.users.lastModifiedBy}"/>
+				<h:outputText value="Last Modified Time" />
+				<h:outputText value="#{employeeProfileMgmtBean.users.lastModifiedTime}" ><f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" /></h:outputText> 
+			</p:panelGrid>
 				
 			<f:facet name="footer">
-					<p:commandButton value="Cancel"
-						oncomplete="PF('employeeDialog').hide()" />
+					<p:commandButton value="Cancel" oncomplete="PF('employeeDialog').hide()" />
 					<p:commandButton value="Update" update=":employeeTableForm:employeeTable" actionListener="#{employeeProfileMgmtBean.doUpdateEmployee()}" validateClient="true" oncomplete="if(!args.validationFailed)  PF('employeeDialog').hide()" rendered="#{authenticationBean.hasAccess('EditEmployee')}"/>
 			</f:facet>	
 			</p:panelGrid>
 			</p:tab>
 			
 			<p:tab id="EmployeeAdminTab" title="Admin" rendered="#{authenticationBean.hasAccess('DeleteEmployee')}">
-			
-			<p:panelGrid id="EmployeeAdmin" columns="1" cellpadding="4"
-				style="margin:0 auto;">
-				
+			<p:panelGrid id="EmployeeAdmin" columns="1" cellpadding="4" style="margin:0 auto;">
 				<f:facet name="header"><h3>Admin</h3></f:facet>
-				
 				<p:panelGrid id="EmployeeAdminColumn" columns="1" cellpadding="4" style="margin:0 auto;">
 				<h:outputText value="Do you want to delete this employee?"></h:outputText>
 				<p:commandButton id="deleteButton" update=":deleteCD" oncomplete="PF('cd').show()" title="Delete Employee" value="Delete"/>

@@ -54,6 +54,10 @@ CREATE TABLE IF NOT EXISTS Users (
   username VARCHAR(45) NOT NULL,
   password VARCHAR(100) NOT NULL,
   enabled TINYINT(1) NOT NULL,
+  createdBy VARCHAR(70),
+  creationTime TIMESTAMP NULL,
+  lastModifiedBy VARCHAR(70),
+  lastModifiedTime TIMESTAMP NULL,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -212,6 +216,10 @@ CREATE TABLE IF NOT EXISTS LeaveAttachment (
     description VARCHAR(50),
     fileLocation VARCHAR(150),
     isDeleted TINYINT(1),
+    createdBy VARCHAR(70),
+    creationTime TIMESTAMP NULL,
+    lastModifiedBy VARCHAR(70),
+    lastModifiedTime TIMESTAMP NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (leaveTransactionId)
     	REFERENCES LeaveTransaction(id)
@@ -295,12 +303,12 @@ INSERT INTO LeaveType(name, description, employeeTypeId, entitlement, isAccounta
 INSERT INTO LeaveType(name, description, employeeTypeId, entitlement, isAccountable, isDeleted,creationTime,createdBy) VALUES ('Maternity', 'Maternity leave', (SELECT id from EmployeeType WHERE name = 'PERM'), 60.0, 0, 0,CURRENT_TIMESTAMP,'admin');
 INSERT INTO LeaveType(name, description, employeeTypeId, entitlement, isAccountable, isDeleted,creationTime,createdBy) VALUES ('Paternity', 'Paternity leave', (SELECT id from EmployeeType WHERE name = 'PERM'), 3.0, 0, 0,CURRENT_TIMESTAMP,'admin');
 
-INSERT INTO Users(id, username, password, enabled) VALUES ('1', 'johndoe', '$2a$10$qzEqlpoVOYv4yT/pAqq7L.Y8PX.DLbtfWuPDvenJfcfhJd4I2wvZy', '1');
-INSERT INTO Users(id, username, password, enabled) VALUES ('2', 'jennifer', '$2a$10$qzEqlpoVOYv4yT/pAqq7L.Y8PX.DLbtfWuPDvenJfcfhJd4I2wvZy', '1');
-INSERT INTO Users(id, username, password, enabled) VALUES ('3', 'ruby', '$2a$10$qzEqlpoVOYv4yT/pAqq7L.Y8PX.DLbtfWuPDvenJfcfhJd4I2wvZy', '1');
-INSERT INTO Users(id, username, password, enabled) VALUES ('4', 'admin', '$2a$10$qzEqlpoVOYv4yT/pAqq7L.Y8PX.DLbtfWuPDvenJfcfhJd4I2wvZy', '1');
-INSERT INTO Users(id, username, password, enabled) VALUES ('5', 'larry', '$2a$10$qzEqlpoVOYv4yT/pAqq7L.Y8PX.DLbtfWuPDvenJfcfhJd4I2wvZy', '1');
-INSERT INTO Users(id, username, password, enabled) VALUES ('6', 'joe', '$2a$10$qzEqlpoVOYv4yT/pAqq7L.Y8PX.DLbtfWuPDvenJfcfhJd4I2wvZy', '1');
+INSERT INTO Users(id, username, password, enabled,creationTime,createdBy) VALUES ('1', 'johndoe', '$2a$10$qzEqlpoVOYv4yT/pAqq7L.Y8PX.DLbtfWuPDvenJfcfhJd4I2wvZy', '1',CURRENT_TIMESTAMP,'admin');
+INSERT INTO Users(id, username, password, enabled,creationTime,createdBy) VALUES ('2', 'jennifer', '$2a$10$qzEqlpoVOYv4yT/pAqq7L.Y8PX.DLbtfWuPDvenJfcfhJd4I2wvZy', '1',CURRENT_TIMESTAMP,'admin');
+INSERT INTO Users(id, username, password, enabled,creationTime,createdBy) VALUES ('3', 'ruby', '$2a$10$qzEqlpoVOYv4yT/pAqq7L.Y8PX.DLbtfWuPDvenJfcfhJd4I2wvZy', '1',CURRENT_TIMESTAMP,'admin');
+INSERT INTO Users(id, username, password, enabled,creationTime,createdBy) VALUES ('4', 'admin', '$2a$10$qzEqlpoVOYv4yT/pAqq7L.Y8PX.DLbtfWuPDvenJfcfhJd4I2wvZy', '1',CURRENT_TIMESTAMP,'admin');
+INSERT INTO Users(id, username, password, enabled,creationTime,createdBy) VALUES ('5', 'larry', '$2a$10$qzEqlpoVOYv4yT/pAqq7L.Y8PX.DLbtfWuPDvenJfcfhJd4I2wvZy', '1',CURRENT_TIMESTAMP,'admin');
+INSERT INTO Users(id, username, password, enabled,creationTime,createdBy) VALUES ('6', 'joe', '$2a$10$qzEqlpoVOYv4yT/pAqq7L.Y8PX.DLbtfWuPDvenJfcfhJd4I2wvZy', '1',CURRENT_TIMESTAMP,'admin');
 
 INSERT INTO Role(id, role, description,creationTime,createdBy, isDeleted) VALUES ('1', 'ROLE_USER', 'Normal User',CURRENT_TIMESTAMP,'admin', 0);
 INSERT INTO Role(id, role, description,creationTime,createdBy, isDeleted) VALUES ('2', 'ROLE_EMPLOYEE', 'Employee',CURRENT_TIMESTAMP,'admin', 0);

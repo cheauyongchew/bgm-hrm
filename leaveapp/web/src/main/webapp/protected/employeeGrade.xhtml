@@ -51,10 +51,10 @@
     			<p:messages autoUpdate="true"/>
                 <p:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
             			<h:outputText value="Name :"></h:outputText>
-                        <p:inputText value="#{employeeGradeMgmtBean.selectedEmployeeGrade.name}" required="true" requiredMessage="Please Enter Name!"><f:validateLength minimum="6" maximum="15"/></p:inputText>
+                        <p:inputText value="#{employeeGradeMgmtBean.selectedEmployeeGrade.name}" required="true" requiredMessage="Please Enter Name!" label="Name " ><f:validateLength minimum="6" maximum="15"/></p:inputText>
  
            				<h:outputText value="Description :"></h:outputText>
-                        <p:inputText value="#{employeeGradeMgmtBean.selectedEmployeeGrade.description}" required="true" requiredMessage="Please Enter Description"><f:validateLength minimum="6" maximum="15"/></p:inputText>
+                        <p:inputText value="#{employeeGradeMgmtBean.selectedEmployeeGrade.description}" required="true" requiredMessage="Please Enter Description" label="Description "><f:validateLength minimum="6" maximum="15"/></p:inputText>
  
                     	<f:facet name="footer">
                             <p:commandButton value="Update" update=":employeeGradeTabelForm:employeeGradeTabel"  oncomplete="if(!args.validationFailed) PF('leaveTypeDialog').hide()" actionListener="#{employeeGradeMgmtBean.doUpdateEmployeeGrade}" validateClient="true"/>
@@ -69,10 +69,10 @@
                 <p:messages autoUpdate="true" />
                 <p:panelGrid id="displayNewGradeType" columns="2" cellpadding="4" style="margin:0 auto;">
            			 	<h:outputText value="Name :"></h:outputText>
-                        <p:inputText value="#{employeeGradeMgmtBean.newEmployeeGrade.name}" required="true" requiredMessage="Please Enter Name"><f:validateLength minimum="6" maximum="15"/></p:inputText>
+                        <p:inputText value="#{employeeGradeMgmtBean.newEmployeeGrade.name}" required="true" requiredMessage="Please Enter Name" label="Name "><f:validateLength minimum="6" maximum="15"/></p:inputText>
  
            				<h:outputText value="Description :"></h:outputText>
-                        <p:inputText value="#{employeeGradeMgmtBean.newEmployeeGrade.description}" required="true" requiredMessage="Please Enter Description"><f:validateLength minimum="6" maximum="15"/> </p:inputText>
+                        <p:inputText value="#{employeeGradeMgmtBean.newEmployeeGrade.description}" required="true" requiredMessage="Please Enter Description" label="Description "><f:validateLength minimum="6" maximum="15"/> </p:inputText>
            
                    		<f:facet name="footer">
                             <p:commandButton value="Submit" update=":employeeGradeTabelForm:employeeGradeTabel"  oncomplete="if(!args.validationFailed) PF('newEmployeeGradeDialog').hide()" actionListener="#{employeeGradeMgmtBean.doCreateEmployeeGrade}" validateClient="true"/>

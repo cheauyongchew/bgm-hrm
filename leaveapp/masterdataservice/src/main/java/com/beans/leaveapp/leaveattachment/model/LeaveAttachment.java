@@ -1,43 +1,35 @@
-package com.beans.common.security.users.model;
+package com.beans.leaveapp.leaveattachment.model;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Type;
 
-import com.beans.common.security.role.model.Role;
-
 @Entity
-@Table(name="Users")
-public class Users implements Serializable{
+@Table(name="LeaveAttachment")
+public class LeaveAttachment implements Serializable {
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private int id;
-	private String username;
-	private String password;
-	private boolean enabled;
-	private String createdBy;
+	private int leaveTransactionId;
+	private String description;
+	private String fileLocation;
 	private java.util.Date creationTime;
-	private String lastModifiedBy;
+	private String createdBy;
 	private java.util.Date lastModifiedTime;
-	private Set<Role> userRoles = new HashSet<Role>();
+	private String lastModifiedBy;
+	private boolean isDeleted= false;
+	
 	
 	@Id
 	@GeneratedValue
@@ -49,29 +41,35 @@ public class Users implements Serializable{
 		this.id = id;
 	}
 	
-	@Column(name="username", nullable=false)
-	public String getUsername() {
-		return username;
+	@Column(name="leaveTransactionId", nullable=true)
+	public int getLeaveTransactionId() {
+		return leaveTransactionId;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setLeaveTransactionId(int leaveTransactionId) {
+		this.leaveTransactionId = leaveTransactionId;
+	}
+	@Column(name="fileLocation", nullable=true)
+	public String getFileLocation() {
+		return fileLocation;
+	}
+	public void setFileLocation(String fileLocation) {
+		this.fileLocation = fileLocation;
+	}
+	@Column(name="description", nullable=true)
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
-	@Column(name="password", nullable=false)
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
-	@Column(name="enabled", columnDefinition="TINYINT(1)") 
+	@Column(name="isDeleted", columnDefinition="TINYINT(1)") 
 	@Type(type="org.hibernate.type.NumericBooleanType")
-	public boolean isEnabled() {
-		return enabled;
+	public boolean isDeleted() {
+		return isDeleted;
 	}
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
+	public void setDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
 	}
 	public void setCreationTime(java.util.Date creationTime) {
 		this.creationTime = creationTime;
@@ -104,19 +102,20 @@ public class Users implements Serializable{
 	public String getLastModifiedBy() {
 		return lastModifiedBy;
 	}
+	
+	public boolean equals(Object other)
+	{
+	    return other instanceof LeaveAttachment && id == ((LeaveAttachment) other).getId();
+	}
 
+	public int hashCode()
+	{
+	    return this.getClass().hashCode();
+	}
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinTable(name = "UserToRole" , joinColumns = { @JoinColumn(name = "userId", referencedColumnName = "id" )},
-	inverseJoinColumns=
-			{@JoinColumn (name = "userRoleId", referencedColumnName = "id" ) } )
-	public Set<Role> getUserRoles() {
-		return userRoles;
+	public String toString()
+	{
+	    return "Department[" + getId() + "," + getLeaveTransactionId() + "]";
 	}
 	
-	public void setUserRoles(Set<Role> userRoles) {
-		this.userRoles = userRoles;
-	}	
-	
 }
-
