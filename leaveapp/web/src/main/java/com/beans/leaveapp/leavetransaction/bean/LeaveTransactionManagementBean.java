@@ -148,12 +148,12 @@ public class LeaveTransactionManagementBean implements Serializable {
 
 	public void doUpdateLeaveTransaction() {
 
-		Employee employee = getLeaveTransactionService().findByEmployee(
-				employeename);
-		LeaveType leaveType = getLeaveTransactionService().findByLeaveType(
-				this.leaveType);
+		Employee employee = getLeaveTransactionService().findByEmployee(employeename);
+		LeaveType leaveType = getLeaveTransactionService().findByLeaveType(this.leaveType);
 		selectedLeaveTransaction.setEmployee(employee);
 		selectedLeaveTransaction.setLeaveType(leaveType);
+		selectedLeaveTransaction.setLastModifiedBy(actorUsers.getUsername());
+		selectedLeaveTransaction.setLastModifiedTime(new java.util.Date());
 		this.getLeaveTransactionService().update(selectedLeaveTransaction);
 		this.setInsert(true);
 	}
@@ -166,12 +166,12 @@ public class LeaveTransactionManagementBean implements Serializable {
 	}
 
 	public void doCreateLeaveTransaction() {
-		Employee employee = this.getLeaveTransactionService().findByEmployee(
-				employeename);
-		LeaveType leaveType = getLeaveTransactionService().findByLeaveType(
-				this.leaveType);
+		Employee employee = this.getLeaveTransactionService().findByEmployee(employeename);
+		LeaveType leaveType = getLeaveTransactionService().findByLeaveType(this.leaveType);
 		newLeaveTransaction.setEmployee(employee);
 		newLeaveTransaction.setLeaveType(leaveType);
+		newLeaveTransaction.setCreatedBy(actorUsers.getUsername());
+		newLeaveTransaction.setCreationTime(new java.util.Date());
 		getLeaveTransactionService().create(newLeaveTransaction);
 		this.setInsert(true);
 	}

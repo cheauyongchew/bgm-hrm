@@ -117,6 +117,8 @@ public class YearlyEntitlementManagementBean implements Serializable {
 
 	public void doUpdateYearlyEntitlement() {
 		try {
+			selectedYearlyEntitlement.setLastModifiedBy(actorUsers.getUsername());
+			selectedYearlyEntitlement.setLastModifiedTime(new java.util.Date());
 			getYearlyEntitlementService().update(selectedYearlyEntitlement);
 			setInsertDelete(true);
 		} catch (Exception e) {
@@ -153,13 +155,13 @@ public class YearlyEntitlementManagementBean implements Serializable {
 
 	public void doCreateYearlyEntitlement() {
 
-		Employee employee = getYearlyEntitlementService().findByEmployee(
-				employeeName);
+		Employee employee = getYearlyEntitlementService().findByEmployee(employeeName);
 		System.out.println(employeeName + " " + this.yearlyEntitlement);
-		LeaveType leaveType = getYearlyEntitlementService().findByLeaveType(
-				leaveTypeName);
+		LeaveType leaveType = getYearlyEntitlementService().findByLeaveType(leaveTypeName);
 		yearlyEntitlement.setEmployee(employee);
 		yearlyEntitlement.setLeaveType(leaveType);
+		yearlyEntitlement.setCreatedBy(actorUsers.getUsername());
+		yearlyEntitlement.setCreationTime(new java.util.Date());
 		this.getYearlyEntitlementService().create(yearlyEntitlement);
 
 		setInsertDelete(true);

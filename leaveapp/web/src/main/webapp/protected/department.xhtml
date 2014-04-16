@@ -17,29 +17,14 @@
         <p:dataTable id="departmentTable" widgetVar="departmentTable" var="department0" value="#{departmentMgmtBean.departmentDataModel}" rowKey="#{department0.id}"
                  selection="#{departmentMgmtBean.selectedDepartment}" selectionMode="single" >
           <p:ajax event="rowSelect" listener="#{departmentMgmtBean.onRowSelect}" update=":departmentDetailForm:display, :growl" oncomplete="PF('departmentDialog').show()" />  
-	          <p:column id="nameHeader" sortBy="name">
-	            <f:facet name="header"> Department </f:facet>
-	            <h:outputText value="#{department0.name}" />
-	          </p:column>
-	          <p:column id="descHeader"  sortBy="description" >
-	            <f:facet name="header"> Description </f:facet>
-	            <h:outputText value="#{department0.description}" />
-	          </p:column>
-	         <p:column id="lastModifiedByHeader"  sortBy="lastModifiedBy" >
-	            <f:facet name="header"> Last Modified By </f:facet>
-	            <h:outputText value="#{department0.lastModifiedBy}" />
-	          </p:column>
-	          <p:column id="lastModifiedHeader"  sortBy="lastModifiedTime" >
-	            <f:facet name="header"> Last Modified Time</f:facet>
-	            <h:outputText value="#{department0.lastModifiedTime}" >
-	            	<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
-	            </h:outputText>
-	          </p:column>
+	          <p:column id="nameHeader" sortBy="name"><f:facet name="header"> Department </f:facet> <h:outputText value="#{department0.name}" /></p:column>
+	          <p:column id="descHeader"  sortBy="description" ><f:facet name="header"> Description </f:facet><h:outputText value="#{department0.description}" /></p:column>
+	          <p:column id="lastModifiedByHeader"  sortBy="lastModifiedBy" ><f:facet name="header"> Last Modified By </f:facet><h:outputText value="#{department0.lastModifiedBy}" /></p:column>
+	          <p:column id="lastModifiedHeader"  sortBy="lastModifiedTime" ><f:facet name="header"> Last Modified Time</f:facet><h:outputText value="#{department0.lastModifiedTime}" ><f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" /></h:outputText></p:column>
       </p:dataTable>
     </h:form> 
     <h:form id="commandButtonForm">
-      <p:commandButton value="New Department" update=":newDepartmentForm"  oncomplete="PF('newDepartmentDialog').show()"
-         icon="ui-icon-star" title="Creates new department"/>
+      <p:commandButton value="New Department" update=":newDepartmentForm"  oncomplete="PF('newDepartmentDialog').show()" icon="ui-icon-star" title="Creates new department"/>
     </h:form>
     <p:growl id="growl" showDetail="true" life="1000"/> 
   </ui:define>  

@@ -179,6 +179,10 @@ CREATE TABLE IF NOT EXISTS YearlyEntitlement (
     leaveTypeId INT(10) NOT NULL,
     entitlement DOUBLE(4,2),
     leaveBalance DOUBLE(4,2),
+    createdBy VARCHAR(70),
+    creationTime TIMESTAMP NULL,
+    lastModifiedBy VARCHAR(70),
+    lastModifiedTime TIMESTAMP NULL,
     isDeleted TINYINT(1),
     PRIMARY KEY (id),
     FOREIGN KEY (leaveTypeId)
@@ -202,6 +206,11 @@ CREATE TABLE IF NOT EXISTS LeaveTransaction (
     employeeId INT(10),
     taskId BIGINT(20),
     isDeleted TINYINT(1),
+    createdBy VARCHAR(70),
+    creationTime TIMESTAMP NULL,
+    lastModifiedBy VARCHAR(70),
+    lastModifiedTime TIMESTAMP NULL,
+
     PRIMARY KEY (id),
     FOREIGN KEY (leaveTypeId)
     	REFERENCES LeaveType(id),
@@ -368,5 +377,5 @@ INSERT INTO Employee(id, name, employeenumber, position, employeeGradeId, employ
 
 INSERT INTO UserToAccessRights(id, userId, accessRightsId, enabled, isDeleted) values('1', '1', '1', '1', 0);
 
-INSERT INTO YearlyEntitlement(id, employeeId, leaveTypeId, entitlement, leaveBalance, isDeleted) VALUES (1, 1, 1, 12, 12, 0);
-INSERT INTO YearlyEntitlement(id, employeeId, leaveTypeId, entitlement, leaveBalance, isDeleted) VALUES (2, 4, 1, 12, 12, 0);
+INSERT INTO YearlyEntitlement(id, employeeId, leaveTypeId, entitlement, leaveBalance, isDeleted,creationTime,createdBy) VALUES (1, 1, 1, 12, 12, 0,CURRENT_TIMESTAMP,'admin');
+INSERT INTO YearlyEntitlement(id, employeeId, leaveTypeId, entitlement, leaveBalance, isDeleted,creationTime,createdBy) VALUES (2, 4, 1, 12, 12, 0,CURRENT_TIMESTAMP,'admin');
