@@ -51,11 +51,10 @@ public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 
 		if (yearlyEntitlementToBeUpdated != null) {
 
-			yearlyEntitlementToBeUpdated
-					.setAvailableBalance(selectedYearlyEntitlement
-							.getAvailableBalance());
-			yearlyEntitlementToBeUpdated
-					.setEntitlement(selectedYearlyEntitlement.getEntitlement());
+			yearlyEntitlementToBeUpdated.setAvailableBalance(selectedYearlyEntitlement.getAvailableBalance());
+			yearlyEntitlementToBeUpdated.setEntitlement(selectedYearlyEntitlement.getEntitlement());
+			yearlyEntitlementToBeUpdated.setLastModifiedBy(selectedYearlyEntitlement.getLastModifiedBy());
+			yearlyEntitlementToBeUpdated.setLastModifiedTime(selectedYearlyEntitlement.getLastModifiedTime());
 			yearlyEntitleRepository.save(yearlyEntitlementToBeUpdated);
 			return yearlyEntitlementToBeUpdated;
 		}
@@ -95,8 +94,7 @@ public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 	@Override
 	public YearlyEntitlement create(YearlyEntitlement yearlyEntitlement) {
 		yearlyEntitlement.setDeleted(false);
-		YearlyEntitlement yearlyEntitlementObj = yearlyEntitleRepository
-				.save(yearlyEntitlement);
+		YearlyEntitlement yearlyEntitlementObj = yearlyEntitleRepository.save(yearlyEntitlement);
 		return yearlyEntitlementObj;
 	}
 

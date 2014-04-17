@@ -6,47 +6,25 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:pe="http://primefaces.org/ui/extensions" >
-	
-	
 <h:head>
-
 </h:head>
-	
-	 
-	<h:body>
+<h:body>
 <ui:composition template="/templates/mainlayout.xhtml">
-
 <ui:define name="title">Department Maintenance</ui:define>
-
 <ui:define name="content">
    <h1>Department Maintenance</h1>
 	<h:form id="departmentTableForm">
         <p:dataTable id="departmentTable" widgetVar="departmentTable" var="department0" value="#{departmentMgmtBean.departmentDataModel}" rowKey="#{department0.id}"
                  selection="#{departmentMgmtBean.selectedDepartment}" selectionMode="single" >
           <p:ajax event="rowSelect" listener="#{departmentMgmtBean.onRowSelect}" update=":departmentDetailForm:display, :growl" oncomplete="PF('departmentDialog').show()" />  
-	          <p:column id="nameHeader" sortBy="name">
-	            <f:facet name="header"> Department </f:facet>
-	            <h:outputText value="#{department0.name}" />
-	          </p:column>
-	          <p:column id="descHeader"  sortBy="description" >
-	            <f:facet name="header"> Description </f:facet>
-	            <h:outputText value="#{department0.description}" />
-	          </p:column>
-	         <p:column id="lastModifiedByHeader"  sortBy="lastModifiedBy" >
-	            <f:facet name="header"> Last Modified By </f:facet>
-	            <h:outputText value="#{department0.lastModifiedBy}" />
-	          </p:column>
-	          <p:column id="lastModifiedHeader"  sortBy="lastModifiedTime" >
-	            <f:facet name="header"> Last Modified Time</f:facet>
-	            <h:outputText value="#{department0.lastModifiedTime}" >
-	            	<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
-	            </h:outputText>
-	          </p:column>
+	          <p:column id="nameHeader" sortBy="name"><f:facet name="header"> Department </f:facet> <h:outputText value="#{department0.name}" /></p:column>
+	          <p:column id="descHeader"  sortBy="description" ><f:facet name="header"> Description </f:facet><h:outputText value="#{department0.description}" /></p:column>
+	          <p:column id="lastModifiedByHeader"  sortBy="lastModifiedBy" ><f:facet name="header"> Last Modified By </f:facet><h:outputText value="#{department0.lastModifiedBy}" /></p:column>
+	          <p:column id="lastModifiedHeader"  sortBy="lastModifiedTime" ><f:facet name="header"> Last Modified Time</f:facet><h:outputText value="#{department0.lastModifiedTime}" ><f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" /></h:outputText></p:column>
       </p:dataTable>
     </h:form> 
     <h:form id="commandButtonForm">
-      <p:commandButton value="New Department" update=":newDepartmentForm"  oncomplete="PF('newDepartmentDialog').show()"
-         icon="ui-icon-star" title="Creates new department"/>
+      <p:commandButton value="New Department" update=":newDepartmentForm"  oncomplete="PF('newDepartmentDialog').show()" icon="ui-icon-star" title="Creates new department"/>
     </h:form>
     <p:growl id="growl" showDetail="true" life="1000"/> 
   </ui:define>  
@@ -57,9 +35,9 @@
                <p:messages autoUpdate="true"/>
                 <p:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
             		<h:outputText value="Department :"></h:outputText>
-                    <h:inputText value="#{departmentMgmtBean.selectedDepartment.name}" required="true" requiredMessage="Please Enter Department!"><f:validateLength minimum="6" maximum="15"/></h:inputText>
+                    <h:inputText value="#{departmentMgmtBean.selectedDepartment.name}" required="true" requiredMessage="Please Enter Department!" label="Department "><f:validateLength minimum="6" maximum="15"/></h:inputText>
 		            <h:outputText value="Description :"></h:outputText>
-                    <h:inputText value="#{departmentMgmtBean.selectedDepartment.description}" required="true" requiredMessage="Please Enter Description!"><f:validateLength minimum="6" maximum="15"/></h:inputText>
+                    <h:inputText value="#{departmentMgmtBean.selectedDepartment.description}" required="true" requiredMessage="Please Enter Description!" label="Description "><f:validateLength minimum="6" maximum="15"/></h:inputText>
                     <f:facet name="footer">
                             <p:commandButton value="Update" update=":departmentTableForm:departmentTable"  oncomplete="if(!args.validationFailed) PF('departmentDialog').hide()" actionListener="#{departmentMgmtBean.doUpdateDepartment}" validateClient="true"/>
                             <p:commandButton value="Delete" onclick="PF('cd').show()" oncomplete="PF('departmentDialog').hide()"/>
@@ -73,9 +51,9 @@
               <p:messages autoUpdate="true" />
                 <p:panelGrid id="displayNewDepartment" columns="2" cellpadding="4" style="margin:0 auto;">
             			<h:outputText value="Department :"></h:outputText>
-                        <p:inputText value="#{departmentMgmtBean.newDepartment.name}" required="true" requiredMessage="Please Enter Department!"> <f:validateLength minimum="6" maximum="15"/></p:inputText>
+                        <p:inputText value="#{departmentMgmtBean.newDepartment.name}" required="true" requiredMessage="Please Enter Department!" label="Department "> <f:validateLength minimum="6" maximum="15"/></p:inputText>
             			<h:outputText value="Description :"></h:outputText>
-                        <p:inputText value="#{departmentMgmtBean.newDepartment.description}" required="true" requiredMessage="Please Enter Description!">  <f:validateLength minimum="6" maximum="15"/></p:inputText>
+                        <p:inputText value="#{departmentMgmtBean.newDepartment.description}" required="true" requiredMessage="Please Enter Description!" label="Description ">  <f:validateLength minimum="6" maximum="15"/></p:inputText>
                     	<f:facet name="footer">
                             <p:commandButton value="Submit" update=":departmentTableForm:departmentTable"  oncomplete="if(!args.validationFailed) PF('newDepartmentDialog').hide()" validateClient="true" actionListener="#{departmentMgmtBean.doCreateDepartment}"/>
                             <p:commandButton type="reset" value="Reset"></p:commandButton>
@@ -91,8 +69,6 @@
 			<p:commandButton value="No" onclick="PF('cd').hide();PF('departmentDialog').show();" type="button" />
 			</h:form>
 			</p:confirmDialog>
-			
-			
 </ui:define>
 
 

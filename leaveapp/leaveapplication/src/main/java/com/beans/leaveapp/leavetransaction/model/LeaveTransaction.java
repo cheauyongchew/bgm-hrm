@@ -37,6 +37,10 @@ public class LeaveTransaction {
 	private List<LeaveApplicationComment> leaveApplicationComments;
 	private Long taskId;
 	private boolean isDelete;
+	private String createdBy;
+	private java.util.Date creationTime;
+	private String lastModifiedBy;
+	private java.util.Date lastModifiedTime;
 	private String status;
 	
 	public LeaveTransaction(int id, Date applicationDate,
@@ -157,6 +161,38 @@ public class LeaveTransaction {
 	public void setTaskId(Long taskId) {
 		this.taskId = taskId;
 	}
+	public void setCreationTime(java.util.Date creationTime) {
+		this.creationTime = creationTime;
+	}
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+	public void setLastModifiedTime(java.util.Date lastModifiedTime) {
+		this.lastModifiedTime = lastModifiedTime;
+	}
+	public void setLastModifiedBy(String lastModifiedBy) {
+		this.lastModifiedBy = lastModifiedBy;
+	}
+			
+	@Column(name="creationTime",nullable=true)
+	@Temporal(TemporalType.TIMESTAMP)
+	public java.util.Date getCreationTime() {
+		return creationTime;
+	}
+	@Column(name="createdBy",nullable=true)
+	public String getCreatedBy() {
+		return createdBy;
+	}
+	@Column(name="lastModifiedTime",nullable=true)
+	@Temporal(TemporalType.TIMESTAMP)
+	public java.util.Date getLastModifiedTime() {
+		return lastModifiedTime;
+	}
+	@Column(name="lastModifiedBy",nullable=true)
+	public String getLastModifiedBy() {
+		return lastModifiedBy;
+	}
+
 	
 	@OneToMany(fetch=FetchType.EAGER, mappedBy="leaveTransaction")
 	public List<LeaveApplicationComment> getLeaveApplicationComments() {

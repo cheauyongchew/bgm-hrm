@@ -39,8 +39,10 @@
 			</p:submenu>
 			<p:submenu label="Leave Administration" rendered="#{authenticationBean.hasAccess('LeaveTransactionAdmin')}">
 		    <p:menuitem value="Admin Leave Transaction" url="/protected/leavetransactionadmin.jsf"/>
+		  
 		    </p:submenu>
-			<p:submenu label="Employee Leave History" url="/protected/leavetransactionemployee.jsf" rendered="#{authenticationBean.hasAccess('EmployeeLeaveHistory')}">
+			<p:submenu label="Employee Leave History" rendered="#{authenticationBean.hasAccess('EmployeeLeaveHistory')}">
+			 <p:menuitem value="Employee Leave Transaction" url="/protected/leavetransactionemployee.jsf" />
 			</p:submenu>
 			<p:menuitem value="Change Password" url="/protected/userchangepassword.jsf"/>
 			<p:menuitem value="Logout" action="${authenticationBean.doLogout}"></p:menuitem>
