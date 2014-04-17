@@ -23,11 +23,11 @@
 			<p:panelGrid id="SearchEmployee" columns="2" cellpadding="4">
 				
 				<h:outputText value="Name" />
-					<h:inputText value="#{yearlyEntitlementMgmtBean.employeeName}">
+					<h:inputText value="#{yearlyEntitlementMgmtBean.searchEmployeeName}">
 					</h:inputText>
 				
 				<h:outputText value="Leave Type" />
-					<h:inputText value="#{yearlyEntitlementMgmtBean.leaveTypeName}">
+					<h:inputText value="#{yearlyEntitlementMgmtBean.searchLeaveType}">
 					</h:inputText>
 					
 				<f:facet name="footer">				
@@ -89,12 +89,12 @@
 						style="margin:0 auto;">
 
                         <h:outputText 
-                        value="EmployeeName : 
-                        #{yearlyEntitlementMgmtBean.selectedYearlyEntitlement.employee.name}" />  
-                                              
+                        value="EmployeeName :" />  
+                        <h:inputText value="#{yearlyEntitlementMgmtBean.selectedYearlyEntitlement.employee.name}"  readonly="true"/>
+                       
                         <h:outputText 
-                        value="leaveType : 
-                        #{yearlyEntitlementMgmtBean.selectedYearlyEntitlement.leaveType.name} "/>
+                        value="leaveType :"/> 
+                        <h:inputText value="#{yearlyEntitlementMgmtBean.selectedYearlyEntitlement.leaveType.name}" readonly="true"/>
 						
 						<h:outputText value="Entitlement : "></h:outputText>
 						<h:inputText

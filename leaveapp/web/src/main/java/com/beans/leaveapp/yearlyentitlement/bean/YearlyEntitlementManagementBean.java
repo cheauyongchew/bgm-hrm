@@ -39,6 +39,7 @@ public class YearlyEntitlementManagementBean implements Serializable {
 	private LeaveTypeService leaveTypeService;
 	private String employeeName = this.getEmployeeName();
 	private String leaveTypeName = this.getLeaveTypeName();
+	private String searchEmployeeName,searchLeaveType;;
 	private String userName;
 	List<YearlyEntitlement> listOfEmployeeYearlyEntitlement;
 	private Users actorUsers;
@@ -157,7 +158,8 @@ public class YearlyEntitlementManagementBean implements Serializable {
 				employeeName);
 		System.out.println(employeeName + " " + this.yearlyEntitlement);
 		LeaveType leaveType = getYearlyEntitlementService().findByLeaveType(
-				leaveTypeName);
+				leaveTypeName,employee.getEmployeeType().getId());
+		System.out.println(employee.getEmployeeType().getId()+" "+leaveTypeName);
 		yearlyEntitlement.setEmployee(employee);
 		yearlyEntitlement.setLeaveType(leaveType);
 		this.getYearlyEntitlementService().create(yearlyEntitlement);
@@ -245,15 +247,15 @@ public class YearlyEntitlementManagementBean implements Serializable {
 
 	public void search() {
 		try {
-			if ((getEmployeeName().trim().equals(""))
-					&& (getLeaveTypeName().trim().equals(""))) {
+			if ((getSearchEmployeeName().trim().equals(""))
+					&& (getSearchLeaveType().trim().equals(""))) {
 				this.yearlyEntitlementList = null;
 				this.yearlyEntitlementDataModel = null;
 			} else {
 
 				yearlyEntitlementList = this.getYearlyEntitlementService()
 						.findByEmployeeOrfindByLeaveTypeOrBoth(
-								getEmployeeName(), getLeaveTypeName());
+								this.getSearchEmployeeName(), this.getSearchLeaveType());
 
 				this.yearlyEntitlementDataModel = null;
 				// if(leaveEntitlementList != null){
@@ -364,6 +366,23 @@ public class YearlyEntitlementManagementBean implements Serializable {
 	public List<String> correspondingList(AjaxBehaviorEvent event) {
 
 		return correspondingList;
+	}
+
+	
+	public String getSearchEmployeeName() {
+		return searchEmployeeName;
+	}
+
+	public void setSearchEmployeeName(String searchEmployeeName) {
+		this.searchEmployeeName = searchEmployeeName;
+	}
+
+	public String getSearchLeaveType() {
+		return searchLeaveType;
+	}
+
+	public void setSearchLeaveType(String searchLeaveType) {
+		this.searchLeaveType = searchLeaveType;
 	}
 
 

@@ -104,40 +104,81 @@ public class LeaveTransactionServiceImpl implements LeaveTransactionService {
 
 
 	@Override
-	public LeaveType findByLeaveType(String name) {
+	public LeaveType findByLeaveType(String name,int employeeId) {
 		
-		LeaveType leaveType = leaveTypeRepository.findByName(name);
+		LeaveType leaveType = leaveTypeRepository.findByName(name,employeeId);
 		return leaveType;
 	}
 
 
-	@Override
-	public List<LeaveTransaction> findByEmployeeORfindByLeaveTypeORBoth(
-			String employeeName, String leaveType) {
-		
-		String name = "%"+ employeeName.trim()+"%";
-		String leaveName = "%"+ leaveType.trim()+"%";
-		
-		List<LeaveTransaction> leaveTransaction = null;
-		 if(!employeeName.trim().equals("") && (!leaveType.trim().equals(""))){
-			 leaveTransaction =	leaveTransactionRepository.findByEmployeeAndLeaveTypeLike(name,leaveName);
-		    	   	
-		    	
-		    }else if(!employeeName.trim().equals("")){
-		    	leaveTransaction = leaveTransactionRepository.findByEmployeeLike(name);
-		    }else if(leaveType.trim() != null || !leaveType.trim().equals(""))
-		    {
-		    	leaveTransaction = leaveTransactionRepository.findByLeaveTypeLike(leaveName);
-		    }
-			return leaveTransaction;
-		// leaveTransaction = leaveTransactionRepository.findByEmployeeOrLeaveTypeLike(employeename.trim(), leaveType.trim());
-		
-	}
 
 	@Override
 	public LeaveTransaction insertFromWorkflow(LeaveTransaction leaveTransaction) {
 		
 		return leaveTransactionRepository.save(leaveTransaction);
+	}
+
+
+	@Override
+	public List<LeaveTransaction> findByStatus(String status) {
+		String employeeStatus = "%"+status+"%";
+		List<LeaveTransaction> leaveTransaction = leaveTransactionRepository.findByStatusLike(employeeStatus);
+		return leaveTransaction;
+	}
+
+
+	@Override
+	public List<LeaveTransaction> findByEmployeeORfindByLeaveTypeORLeaveDatesORStatusORAll(
+			String employeeName, String leaveType, java.util.Date startDate, String status) {
+
+		String name = "%"+ employeeName.trim()+"%";
+		String leaveName = "%"+ leaveType.trim()+"%";
+		String leaveStatus = "%"+ status.trim() +"%";
+		java.sql.Date date = null ;
+		if(startDate != null){
+	     date = new java.sql.Date(startDate.getTime());
+		}
+		List<LeaveTransaction> leaveTransaction = null;
+		
+		 if(!employeeName.trim().equals("") && !leaveType.trim().equals("") && startDate != null && !status.trim().equals("")){
+			 leaveTransaction =	leaveTransactionRepository.findByEmployeeAndLeaveTypeAndLeaveDatesAndStatusLike(name,leaveName,date,leaveStatus);
+		    	   	
+		    	
+		    }else if(!employeeName.trim().equals("") && !leaveType.trim().equals("") && startDate != null){
+		    	leaveTransaction = leaveTransactionRepository.findByEmployeeAndLeaveTypeAndStartDateLike(name, leaveName, date);
+		    }
+		 else if(!employeeName.trim().equals("") && !leaveType.trim().equals("") && !leaveStatus.trim().equals("")){
+			 leaveTransaction = leaveTransactionRepository.findByEmployeeAndLeaveTypeAndStatusLike(name, leaveName,leaveStatus);
+		    }
+		 else if(!employeeName.trim().equals("") && !leaveType.trim().equals("")){
+		  
+		    	//leaveTransaction = leaveTransactionRepository.findByEmployeeLike(name,s);
+		    	leaveTransaction =	leaveTransactionRepository.findByEmployeeAndLeaveTypeLike(name, leaveName);
+		    	
+		    }else if(!employeeName.trim().equals("") && !status.trim().equals(""))
+		    {
+		    	leaveTransaction = leaveTransactionRepository.findByEmployeeAndStatusLike(name, leaveStatus);
+		    }else if(!leaveType.trim().equals("") && !status.trim().equals("")){
+		    	leaveTransaction = leaveTransactionRepository.findByLeaveTypeAndStatusLike(leaveName, leaveStatus);
+		    }else if(!employeeName.trim().equals("") && date != null){
+		    	leaveTransaction = leaveTransactionRepository.findByEmployeeNameAndStartDate(name, date);
+		    }else if(!leaveType.trim().equals("") && startDate != null){
+		    	leaveTransaction = leaveTransactionRepository.findByLeaveTypeAndStartDate(leaveName,date);
+		    }else if(startDate!= null && !status.trim().equals("")){
+		    	leaveTransaction = leaveTransactionRepository.findByStartDateTimeAndStatusLike(date, leaveStatus);
+		    }
+		    else if(!employeeName.trim().equals("")){
+		    	leaveTransaction = leaveTransactionRepository.findByEmployeeLike(name);
+		    }else if(!leaveType.trim().equals("")){
+		    	leaveTransaction = leaveTransactionRepository.findByLeaveTypeLike(leaveName);
+		    }else if(!status.trim().equals("")){
+		    	leaveTransaction = leaveTransactionRepository.findByStatusLike(leaveStatus);
+		    }else if(date != null){
+		    	leaveTransaction = leaveTransactionRepository.findByStartDateTime(date);
+		    }
+		 
+			return leaveTransaction;
+		
 	}
 
 	

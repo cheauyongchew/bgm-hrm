@@ -9,6 +9,9 @@
 <h:head>
 </h:head>
 
+<f:metadata>
+    	<f:event type="preRenderView" listener="#{authenticationBean.hasPageAccess('LeaveTransactionAdmin')}" />
+</f:metadata>
 
 <h:body>
 	<ui:composition template="/templates/mainlayout.xhtml">
@@ -23,13 +26,21 @@
 					<p:panelGrid id="SearchEmployee" columns="2" cellpadding="4">
 
 						<h:outputText value="Name" />
-						<h:inputText value="#{leaveTransactionMgmtBean.employeename}">
+						<h:inputText value="#{leaveTransactionMgmtBean.name}">
 						</h:inputText>
 
 						<h:outputText value="Leave Type" />
-						<h:inputText value="#{leaveTransactionMgmtBean.leaveType}">
+						<h:inputText value="#{leaveTransactionMgmtBean.searchLeaveType}">
 						</h:inputText>
-
+                    
+                     <h:outputText value="From :" />
+					<p:calendar value="#{leaveTransactionMgmtBean.date1}" pattern="dd/MM/yyyy HH:mm" id="start1" shownOn="button"/>
+					
+				
+               <h:outputText value="Status" />
+               <h:inputText value="#{leaveTransactionMgmtBean.status}" >
+               </h:inputText>
+               
 						<f:facet name="footer">
 							<p:commandButton value="Search"
 								update=":leaveTransactionTableForm:leaveTransactionTable"
@@ -112,19 +123,19 @@
 
 						<h:outputText value="EmployeeName :" />
 						<p:selectOneMenu
-							value="#{leaveTransactionMgmtBean.employeename}">
+							value="#{leaveTransactionMgmtBean.selectedLeaveTransaction.employee.name}">
 
 							<f:selectItem itemLabel="select LeaveType" itemValue="" />
 							<f:selectItems value="#{leaveTransactionMgmtBean.employeeList}"
 								var="leavetype" itemLabel="#{leaveType.name}"
 								itemValue="#{name}" />
 
-                           
+                        <p:ajax event="change" update="leaveTypesList" value="#{leaveTransactionMgmtBean.selectedChangeList}" /> 
 
 						</p:selectOneMenu>
 						<h:outputText  value="leaveType :" />
-						<p:selectOneMenu id="leaveTypes"
-							value="#{leaveTransactionMgmtBean.leaveType}">
+						<p:selectOneMenu id="leaveTypesList"
+							value="#{leaveTransactionMgmtBean.selectedLeaveTransaction.leaveType.name}">
 
 							<f:selectItem itemLabel="select One" itemValue="" />
 							<f:selectItems value="#{leaveTransactionMgmtBean.leaveTypeList}"
@@ -156,7 +167,7 @@
 
                         <h:outputText value="Reason :"></h:outputText>						
 					    <h:inputText
-							value="#{leaveTransactionMgmtBean.newLeaveTransaction.reason}">
+							value="#{leaveTransactionMgmtBean.selectedLeaveTransaction.reason}">
 							
 						</h:inputText>
 							
@@ -206,7 +217,7 @@
 							value="#{leaveTransactionMgmtBean.leaveType}">
 
 							<f:selectItem itemLabel="select LeaveType" itemValue="" />
-							<f:selectItems value="#{leaveTransactionMgmtBean.leaveTypeList}"
+							<f:selectItems value="#{leaveTransactionMgmtBean.leaveList}"
 								var="leavetype" itemLabel="#{leaveType.name}"
 								itemValue="#{name}" />
 						</p:selectOneMenu>

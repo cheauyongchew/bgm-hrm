@@ -22,14 +22,16 @@ public interface LeaveTransactionService {
 	
 	public Employee findByEmployee(String name);
 	
-	public LeaveType findByLeaveType(String name);
+	public LeaveType findByLeaveType(String name, int id);
 
-	public List<LeaveTransaction> findByEmployeeORfindByLeaveTypeORBoth(
-			String employeename, String leaveType);
+	public List<LeaveTransaction> findByEmployeeORfindByLeaveTypeORLeaveDatesORStatusORAll(
+			String employeename, String leaveType,java.util.Date startDate,String status);
 
 	public LeaveTransaction insertFromWorkflow(LeaveTransaction leaveTransaction);
 	
- 
-    
+    public List<LeaveTransaction> findByStatus(String status);
+
+   
 }
+
 

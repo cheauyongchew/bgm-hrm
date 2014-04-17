@@ -89,8 +89,8 @@ public class LeaveTypeServiceImpl implements LeaveTypeService {
 	}
 
 	@Override
-	public LeaveType findByLeaveType(String name) throws LeaveTypeNotFound {
-		LeaveType leaveTypeList =  leaveTypeRepository.findByName(name);
+	public LeaveType findByLeaveType(String name,int id) throws LeaveTypeNotFound {
+		LeaveType leaveTypeList =  leaveTypeRepository.findByName(name,id);
 		return leaveTypeList;
 	}
 
@@ -107,7 +107,7 @@ public class LeaveTypeServiceImpl implements LeaveTypeService {
 	}
 
 	@Override
-	public List<String> findByEmployeeTypes(String name) {
+	public List<String> findByEmployeeTypes() {
 		List<String> namesList = new LinkedList<String>();
 		 try{
 			  namesList = (List<String>)employeeTypeRepository.findByEmployeeNames();

@@ -10,13 +10,17 @@
 </h:head>
 
 
+<f:metadata>
+    	<f:event type="preRenderView" listener="#{authenticationBean.hasPageAccess('EmployeeLeaveHistory')}" />
+</f:metadata>
+
 <h:body>
 	<ui:composition template="/templates/mainlayout.xhtml">
 
-		<ui:define name="title"> Leave Transaction List for Admin</ui:define>
+		<ui:define name="title"> Leave Transaction List for Employee</ui:define>
 
 		<ui:define name="content">
-			<h1>Admin Leave Transaction List</h1>
+			<h1>Employee Leave Transaction List</h1>
 			<h:form id="leaveTransactionTableForm">
 
 				<p:panel header="Search" toggleable="true">

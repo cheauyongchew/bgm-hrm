@@ -25,14 +25,14 @@ public interface YearlyEntitlementRepository extends
 	public List<YearlyEntitlement> findByEmployeeIdAndLeaveTypeId( int employeeId,int leaveTypeId);
 	  
 	
-	@Query("select y from YearlyEntitlement y join y.employee e where e.name like :name and isDeleted =0")
+	@Query("select y from YearlyEntitlement y join y.employee e where e.name like :name")
 	public List<YearlyEntitlement> findByEmployeeLike(@Param("name") String name);
 
 	@Query("select y from YearlyEntitlement y join y.leaveType l where l.name like :name")
 	public List<YearlyEntitlement> findByLeaveTypeLike(
 			@Param("name") String name);
 
-	@Query("select y from YearlyEntitlement y join y.employee e join y.leaveType l where e.name like :employeeName and l.name like :leaveTypeName and isDeleted =0")
+	@Query("select ye from YearlyEntitlement ye join ye.employee ee join ye.leaveType lt where ee.name like :employeeName and lt.name like :leaveTypeName")
 	public List<YearlyEntitlement> findByEmployeeAndLeaveTypeLike(
 			@Param("employeeName") String employeeName,
 			@Param("leaveTypeName") String leaveTypeName);

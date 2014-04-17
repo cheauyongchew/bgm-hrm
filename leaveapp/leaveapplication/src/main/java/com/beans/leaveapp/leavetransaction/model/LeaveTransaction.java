@@ -34,10 +34,9 @@ public class LeaveTransaction {
 	private String reason;
 	private LeaveType leaveType;
 	private Employee employee;
-	private String name;
 	private List<LeaveApplicationComment> leaveApplicationComments;
 	private Long taskId;
-	private boolean isDeleted;
+	private boolean isDelete;
 	private String status;
 	
 	public LeaveTransaction(int id, Date applicationDate,
@@ -55,7 +54,7 @@ public class LeaveTransaction {
 		this.status = status;
 		this.leaveType = leaveType;
 		this.employee = employee;
-		this.isDeleted = isDeleted;
+		this.isDelete = isDeleted;
 	}
 	public LeaveTransaction() {
 		
@@ -126,10 +125,10 @@ public class LeaveTransaction {
 	@Column(name="isdeleted", columnDefinition="TINYINT(1)") 
 	@Type(type="org.hibernate.type.NumericBooleanType")
 	public boolean isDeleted() {
-		return isDeleted;
+		return isDelete;
 	}
 	public void setDeleted(boolean isDeleted) {
-		this.isDeleted = isDeleted;
+		this.isDelete = isDeleted;
 	}
 	
 
@@ -149,12 +148,6 @@ public class LeaveTransaction {
 	}
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
 	}
 	
 	@Column(name="taskId", nullable=true)

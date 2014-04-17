@@ -108,8 +108,8 @@ public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 	}
 
 	@Override
-	public LeaveType findByLeaveType(String name) {
-		LeaveType leaveType = leaveTypeRepository.findByName(name);
+	public LeaveType findByLeaveType(String name,int employeeTypeId) {
+		LeaveType leaveType = leaveTypeRepository.findByName(name,employeeTypeId);
 		return leaveType;
 	}
 
@@ -120,7 +120,7 @@ public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 		String name = "%" + employeeName.trim() + "%";
 		String leaveName = "%" + leaveType.trim() + "%";
 		List<YearlyEntitlement> yearlyEntitlementList = new LinkedList<YearlyEntitlement>();
-		if (!name.trim().equals("") && (!leaveName.trim().equals(""))) {
+		if (!employeeName.trim().equals("") && (!leaveType.trim().equals(""))) {
 			yearlyEntitlementList = yearlyEntitleRepository
 					.findByEmployeeAndLeaveTypeLike(name, leaveName);
 

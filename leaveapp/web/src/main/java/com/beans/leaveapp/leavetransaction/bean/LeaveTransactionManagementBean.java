@@ -2,6 +2,7 @@ package com.beans.leaveapp.leavetransaction.bean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.event.AjaxBehaviorEvent;
@@ -39,9 +40,24 @@ public class LeaveTransactionManagementBean implements Serializable {
 	private List<String> employeeList;
 	private List<String> leaveTypeList;
 	boolean isInsert = false;
-	private String name;
+	private String name = this.getName(), searchLeaveType = this
+			.getSearchLeaveType();
 	private AuditTrail auditTrail;
 	private Users actorUsers;
+	private String status;
+	private List<String> leaveList;
+	Date date1;
+
+	public Date getDate1() {
+		return date1;
+	}
+
+	public void setDate1(Date date1) {
+		this.date1 = date1;
+	}
+ 
+	
+	
 
 	public LeaveTransaction getSelectedLeaveTransaction() {
 		return selectedLeaveTransaction;
@@ -54,6 +70,14 @@ public class LeaveTransactionManagementBean implements Serializable {
 
 	public LeaveTransaction getNewLeaveTransaction() {
 		return newLeaveTransaction;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public void setNewLeaveTransaction(LeaveTransaction newLeaveTransaction) {
@@ -80,7 +104,8 @@ public class LeaveTransactionManagementBean implements Serializable {
 	public LeaveTransactionsDataModel getLeaveTransactionDataModel() {
 		if (leaveTransactionDataModel == null || isInsert == true) {
 
-			leaveTransactionDataModel = new LeaveTransactionsDataModel(this.getList());
+			leaveTransactionDataModel = new LeaveTransactionsDataModel(
+					this.getList());
 
 		}
 		return leaveTransactionDataModel;
@@ -121,18 +146,25 @@ public class LeaveTransactionManagementBean implements Serializable {
 		this.leaveTransactionlist = leaveTransactionlist;
 	}
 
+	
 	public void doSearchLeaveTransaction() {
 
+
 		try {
-			if ((getEmployeename().trim().equals(""))
-					&& (getLeaveType().trim().equals(""))) {
+			if ((getName().equals("")) && (getSearchLeaveType().equals(""))
+					&& (date1 == null)
+					&& getStatus().equals("")) {
 				this.leaveTransactionlist = null;
 				this.leaveTransactionDataModel = null;
 			} else {
-				leaveTransactionlist = this.getLeaveTransactionService()
-						.findByEmployeeORfindByLeaveTypeORBoth(
-								getEmployeename(), getLeaveType());
-				System.out.println(leaveTransactionlist.size());
+				
+				leaveTransactionlist = this
+						.getLeaveTransactionService()
+						.findByEmployeeORfindByLeaveTypeORLeaveDatesORStatusORAll(
+								getName(), getSearchLeaveType(), date1,
+								getStatus());
+
+				// System.out.println(leaveTransactionlist.size());
 				this.leaveTransactionDataModel = null;
 				if (leaveTransactionlist != null) {
 					// auditTrail.log(SystemAuditTrailActivity.ACCESSED,
@@ -141,6 +173,7 @@ public class LeaveTransactionManagementBean implements Serializable {
 					// actorUsers.getUsername()+" searching Entitlement of : "+getEmployeename());
 				}
 			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -149,9 +182,10 @@ public class LeaveTransactionManagementBean implements Serializable {
 	public void doUpdateLeaveTransaction() {
 
 		Employee employee = getLeaveTransactionService().findByEmployee(
-				employeename);
+				selectedLeaveTransaction.getEmployee().getName());
 		LeaveType leaveType = getLeaveTransactionService().findByLeaveType(
-				this.leaveType);
+				this.selectedLeaveTransaction.getLeaveType().getName(),
+				employee.getEmployeeType().getId());
 		selectedLeaveTransaction.setEmployee(employee);
 		selectedLeaveTransaction.setLeaveType(leaveType);
 		this.getLeaveTransactionService().update(selectedLeaveTransaction);
@@ -169,7 +203,7 @@ public class LeaveTransactionManagementBean implements Serializable {
 		Employee employee = this.getLeaveTransactionService().findByEmployee(
 				employeename);
 		LeaveType leaveType = getLeaveTransactionService().findByLeaveType(
-				this.leaveType);
+				this.leaveType, employee.getEmployeeType().getId());
 		newLeaveTransaction.setEmployee(employee);
 		newLeaveTransaction.setLeaveType(leaveType);
 		getLeaveTransactionService().create(newLeaveTransaction);
@@ -208,10 +242,14 @@ public class LeaveTransactionManagementBean implements Serializable {
 	public List<String> getLeaveTypeList() {
 
 		try {
-			if(employeename != null){
-			leaveTypeList = (List<String>) this.getLeaveTransactionService()
-					.findLeaveTypes(employeename.trim());
-			return leaveTypeList;
+
+			if (this.getSelectedLeaveTransaction().getEmployee() != null) {
+				System.out.println(this.selectedLeaveTransaction);
+				leaveTypeList = (List<String>) this
+						.getLeaveTransactionService().findLeaveTypes(
+								selectedLeaveTransaction.getEmployee()
+										.getName().trim());
+				return leaveTypeList;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -249,9 +287,38 @@ public class LeaveTransactionManagementBean implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-  
-	public void correspondingList(AjaxBehaviorEvent event){
-		
+
+	public void correspondingList(AjaxBehaviorEvent event) {
+	}
+
+	public void selectedChangeList(AjaxBehaviorEvent event) {
+	}
+
+	public String getSearchLeaveType() {
+		return searchLeaveType;
+	}
+
+	public void setSearchLeaveType(String searchLeaveType) {
+		this.searchLeaveType = searchLeaveType;
+	}
+
+	public List<String> getLeaveList() {
+		try {
+
+			if (this.employeename != null) {
+
+				leaveList = (List<String>) this.getLeaveTransactionService()
+						.findLeaveTypes(employeename.trim());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return leaveList;
+	}
+
+	public void setLeaveList(List<String> leaveList) {
+		this.leaveList = leaveList;
 	}
 
 }

@@ -160,12 +160,8 @@ public class LeaveTypeManagementBean implements Serializable{
 		}
 
 		public List<String> getEmployeeTypes() {
-			try{
-				if(this.getSelectedLeaveType().getName().trim().equals("")){
-					
-				employeeTypes =  this.getLeaveTypeService().findByEmployeeTypes(getSelectedLeaveType().getName());
-			    return employeeTypes;
-				}
+			try{	
+				employeeTypes =  this.getLeaveTypeService().findByEmployeeTypes();
 			}catch(Exception e){
 				e.printStackTrace();
 			}

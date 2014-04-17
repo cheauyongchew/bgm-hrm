@@ -14,7 +14,7 @@
 
 		<ui:define name="title">Beans Leave Application</ui:define>
 	<ui:define name="content">
-	<h1>Welcome!  <h:outputText value="#{authenticationBean.users.username}" /></h1>
+	<h1>Welcome!  <h:outputText value="#{authenticationBean.users.username}"  /></h1>
 	
 	<h:form id="employeeEntitlementForm" rendered="#{authenticationBean.hasAccess('ViewMyProfile')}">
 	
@@ -38,7 +38,6 @@
           </p:column>
         </p:dataTable>
          
-     
          
       </h:form>      
       <p:growl id="growl" showDetail="true" life="1000"/> 
