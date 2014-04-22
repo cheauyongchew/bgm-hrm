@@ -1,0 +1,51 @@
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:pe="http://primefaces.org/ui/extensions" >
+
+<h:head></h:head>
+
+<f:metadata>
+    	<f:event type="preRenderView" listener="#{authenticationBean.hasPageAccess('ApproveLeave')}" />
+</f:metadata>
+
+<h:body>
+<!-- [VG] -->
+	<ui:composition template="/templates/mainlayout.xhtml">
+		<ui:define name="title">Leave Approval</ui:define>
+		<ui:define name="content">
+        	<h1>Leave Approval</h1>
+			<h:form id="leaveApprovalForm">
+			<!-- Leaves go here -->
+			<p:dataTable id="approveLeaveTable" widgetVar="approveLeaveTable">
+				<p:column id="leaveTypeHEader">
+					<f:facet name="header"> Leave Type </f:facet>
+				</p:column>
+				
+				<p:column id="startDateHeader">
+					<f:facet name="header"> Start Date </f:facet>
+				</p:column>
+				
+				<p:column id="endDateHeader">
+					<f:facet name="header"> End Date </f:facet>
+				</p:column>
+				
+				<p:column id="noOfDaysHeader">
+					<f:facet name="header"> Number of Days </f:facet>
+				</p:column>
+				
+				<p:column id="reasonHeader">
+					<f:facet name="header"> Reason </f:facet>
+				</p:column>
+				
+			</p:dataTable>
+			
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+
+</html>
