@@ -16,6 +16,7 @@
 		<ui:define name="content">
         	<h1>Employee Grade Maintenance </h1>
 			<h:form id="employeeGradeTabelForm">
+			<p:messages autoUpdate="true" showDetail="true" />
         		<p:dataTable id="employeeGradeTabel" widgetVar="employeeGradeTabel" var="employeeGrade0" value="#{employeeGradeMgmtBean.employeeGradeDataModel}" rowKey="#{employeeGrade0.id}"
                  									 selection="#{employeeGradeMgmtBean.selectedEmployeeGrade}" selectionMode="single" paginator="true" rows="10" scrollable="true">
           		<p:ajax event="rowSelect" listener="#{employeeGradeMgmtBean.onRowSelect}" update=":employeeGradeDetailForm:display, :growl" oncomplete="PF('leaveTypeDialog').show()" />  
