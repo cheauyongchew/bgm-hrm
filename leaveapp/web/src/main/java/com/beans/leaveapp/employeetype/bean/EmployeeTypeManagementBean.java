@@ -8,7 +8,11 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
+import org.apache.log4j.Logger;
 import org.primefaces.event.SelectEvent;
+
+
+
 
 
 
@@ -20,19 +24,21 @@ import com.beans.common.audit.service.AuditTrail;
 import com.beans.common.audit.service.SystemAuditTrailActivity;
 import com.beans.common.audit.service.SystemAuditTrailLevel;
 import com.beans.common.security.users.model.Users;
+import com.beans.exceptions.BSLException;
 import com.beans.leaveapp.employeetype.model.EmployeeTypeDataModel;
 import com.beans.leaveapp.employeetype.model.EmployeeType;
 import com.beans.leaveapp.employeetype.service.EmployeeTypeNotFound;
 import com.beans.leaveapp.employeetype.service.EmployeeTypeService;
+import com.beans.leaveapp.web.bean.BaseMgmtBean;
 
 
-public class EmployeeTypeManagementBean implements Serializable{
+public class EmployeeTypeManagementBean extends BaseMgmtBean implements Serializable{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+	private Logger log = Logger.getLogger(this.getClass());
 	// EmployeeGradeRepository employeeGradeRepository;
 	EmployeeTypeService employeeTypeService;
 	private List<EmployeeType> employeeTypeList;
@@ -106,7 +112,7 @@ public class EmployeeTypeManagementBean implements Serializable{
 	}
 
 	public void doCreateEmployeeType() throws EmployeeTypeNotFound {
-		
+		try{
 		newEmployeeType.setDeleted(false);
 		newEmployeeType.setCreatedBy(getActorUsers().getUsername());
 		newEmployeeType.setCreationTime(new java.util.Date());
@@ -114,23 +120,28 @@ public class EmployeeTypeManagementBean implements Serializable{
 		setInsertDelete(true);
 		newEmployeeType = new EmployeeType();
 		auditTrail.log(SystemAuditTrailActivity.CREATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has created an employee type");
-		
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info",getExcptnMesProperty("info.emptype.create")));
+		}catch(BSLException e){
+			FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
+			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+	        FacesContext.getCurrentInstance().addMessage(null, msg); 
+		}
 	}
 	
-	public void doUpdateEmployeeType() throws EmployeeTypeNotFound {
+	public void doUpdateEmployeeType(){
 		try {
-			System.out.println("New name:" + selectedEmployeeType.getName());
-			System.out.println("ID: " + selectedEmployeeType.getId());
-			selectedEmployeeType.setLastModifiedBy(getActorUsers().getUsername());
-			getEmployeeTypeService().update(selectedEmployeeType);
-			auditTrail.log(SystemAuditTrailActivity.UPDATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has updated an employee type");
-			this.setInsertDelete(true);
-		// RequestContext.getCurrentInstance().
-		} catch(Exception e) {
-			FacesMessage msg = new FacesMessage("Error", "Employee Type With id: " + selectedEmployeeType.getId() + " not found!");  
-			  
-	        FacesContext.getCurrentInstance().addMessage(null, msg);  
-		}
+				log.info("New name:" + selectedEmployeeType.getName());
+				log.info("ID: " + selectedEmployeeType.getId());
+				selectedEmployeeType.setLastModifiedBy(getActorUsers().getUsername());
+				getEmployeeTypeService().update(selectedEmployeeType);
+				auditTrail.log(SystemAuditTrailActivity.UPDATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has updated an employee type");
+				this.setInsertDelete(true);
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info",getExcptnMesProperty("info.emptype.update")));
+			}catch(BSLException e){
+				FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
+				msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+		        FacesContext.getCurrentInstance().addMessage(null, msg); 
+			}
 	}
 	
 	public void onRowSelect(SelectEvent event) {  
@@ -141,18 +152,18 @@ public class EmployeeTypeManagementBean implements Serializable{
     }  
 	
 	
-	public void doDeleteEmployeeType() throws Exception, EmployeeTypeNotFound {
+	public void doDeleteEmployeeType(){
 		try {
 			getEmployeeTypeService().delete(selectedEmployeeType.getId());
 			auditTrail.log(SystemAuditTrailActivity.DELETED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has deleted an employee type");
-			
-		} catch(EmployeeTypeNotFound e) {
-			FacesMessage msg = new FacesMessage("Error", "Employee Type With id: " + selectedEmployeeType.getId() + " not found!");  
-			  
-	        FacesContext.getCurrentInstance().addMessage(null, msg);  
+			setInsertDelete(true);
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info",getExcptnMesProperty("info.emptype.delete")));
+		}catch(BSLException e){
+			FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
+			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+	        FacesContext.getCurrentInstance().addMessage(null, msg); 
 		}
 		
-		setInsertDelete(true);
 	}
 	
 	public void doResetFrom() throws EmployeeTypeNotFound {

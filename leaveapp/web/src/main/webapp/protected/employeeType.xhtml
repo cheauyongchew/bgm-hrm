@@ -16,6 +16,7 @@
 	<ui:define name="content">
         <h1>Employee Type Maintenance</h1>
 		<h:form id="employeeTypeTableForm">
+		<p:messages autoUpdate="true" showDetail="true"/>
          <p:dataTable id="employeeTypeTable" widgetVar="employeeTypeTable" var="employeeType0" value="#{employeeTypeMgmtBean.employeeTypeDataModel}" rowKey="#{employeeType0.id}"
                  selection="#{employeeTypeMgmtBean.selectedEmployeeType}" selectionMode="single" >
           <p:ajax event="rowSelect" listener="#{employeeTypeMgmtBean.onRowSelect}" update=":employeeTypeDetailForm:display, :growl" oncomplete="PF('employeeTypeDialog').show()" />  
