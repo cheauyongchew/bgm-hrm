@@ -2,7 +2,7 @@ html {
 	height: 100%;
 }
 
-body, div, td, .ui-commandlink.ui-widget {
+body, div, td, .ui-commandlink.ui-widget, .ui-messages-error, .ui-message-error{
     font-family: 'PT Sans', sans-serif;
     font-size: 14px;
     word-wrap: break-word;
@@ -103,7 +103,7 @@ img {
 }
 
 .ui-widget-content td  {
-	text-align: left;
+	text-align: right;
 }
 
 .ui-widget-header {
@@ -130,9 +130,13 @@ img {
     border: 1px solid gray;
     border-radius: 5px;
     font-family: 'PT Sans', sans-serif;
-    width: 139px;
+    width: 296px;
     padding: 1px 0.5em;
     margin: auto 3px;
+}
+
+#loginForm > .ui-widget input {
+	 width: 139px;
 }
 
 /* Setting for selectonemenu field in form */
@@ -141,7 +145,7 @@ img {
     font-family: 'PT Sans', sans-serif;
     text-align: left;
     text-transform: capitalize;
-    width: 155px !important;
+    width: 311px !important;
 }
 
 /* Setting for selectonemenu trigger */
@@ -174,3 +178,18 @@ img {
     width: auto !important;
 }
 
+input#loginButton {
+    padding: .3em 1em;
+    line-height: 1.4;
+    text-align: centre; 
+    background-color: #fafafa;
+}
+
+.ui-state-error {
+	border-color: black !important;
+	color: black !important;
+}
+
+.ui-messages-error, .ui-message-error {
+	text-align: left !important;
+}

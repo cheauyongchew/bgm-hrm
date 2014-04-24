@@ -31,9 +31,10 @@ h1 {
 img {
     background: white;
     border: none;
+    margin-top: 0.5em;
 }
 
-h3 {
+h3, .ui-messages-error, .ui-message-error {
     font-family: 'PT Sans', sans-serif;
 }
 
@@ -63,6 +64,8 @@ h3 {
    text-align: center;
    width: 100%; 
 }
+
+
 
 
 /* Setting for menubar */
@@ -209,7 +212,7 @@ table.ui-panelgrid.ui-widget > tbody > tr.ui-widget-content > td {
     border: 1px solid gray;
     border-radius: 5px;
     font-family: 'PT Sans', sans-serif;
-    width: 139px;
+    width: 150px;
     padding: 1px 0.5em;
     margin: auto 3px;
 }
@@ -220,7 +223,7 @@ table.ui-panelgrid.ui-widget > tbody > tr.ui-widget-content > td {
     font-family: 'PT Sans', sans-serif;
     text-align: left;
     text-transform: capitalize;
-    width: 139px !important;
+    width: 165px !important;
 }
 
 /* Setting for selectonemenu trigger */
@@ -354,7 +357,7 @@ a.ui-state-default.ui-state-active, a.ui-state-default.ui-state-highlight.ui-sta
     height: 100% !important;
 }
 
-/* Setting to centralize button in panelgrid */
+/* Setting for button in panelgrid */
 .ui-panelgrid-footer > tr.ui-widget-header > td, tr.ui-widget-content > td {
     text-align: right;
 }
@@ -405,5 +408,11 @@ tr.ui-widget-content > td {
     
 }
 
+.ui-state-error {
+    border-color: black !important;
+    color: black !important;
+}
 
-
+.ui-messages-error, .ui-message-error {
+    text-align: left !important;
+}
