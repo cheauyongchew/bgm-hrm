@@ -9,9 +9,9 @@ import com.beans.leaveapp.leavetype.model.LeaveType;
 
 public interface LeaveTypeService {
 	public LeaveType create(LeaveType leaveType);
-	public LeaveType delete(int id) throws LeaveTypeNotFound;
+	public LeaveType delete(int id);
 	public List<LeaveType> findAll();
-	public LeaveType update(LeaveType leaveType) throws LeaveTypeNotFound;
+	public LeaveType update(LeaveType leaveType);
 	public LeaveType findById(int id) throws LeaveTypeNotFound;
 	public LeaveType findByLeaveType(String name,int id) throws LeaveTypeNotFound;
 	public List<String> findByName();

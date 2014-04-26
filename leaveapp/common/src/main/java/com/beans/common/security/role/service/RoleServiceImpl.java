@@ -70,6 +70,7 @@ public class RoleServiceImpl implements RoleService{
 		accessRightsSet.addAll(role.getAccessRights());
 		roleToBeUpdated.setAccessRights(accessRightsSet);
 		roleRepository.save(roleToBeUpdated);
+		if(true)throw new RoleNotFound();
 		return roleToBeUpdated;
 	}
 

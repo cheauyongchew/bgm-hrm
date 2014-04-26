@@ -10,15 +10,17 @@ import javax.faces.context.FacesContext;
 import org.primefaces.event.SelectEvent;
 
 import com.beans.common.security.users.model.Users;
+import com.beans.exceptions.BSLException;
 import com.beans.leaveapp.employeetype.model.EmployeeType;
 import com.beans.leaveapp.leavetype.model.LeaveType;
 import com.beans.leaveapp.leavetype.model.LeaveTypeDataModel;
 import com.beans.leaveapp.leavetype.service.LeaveTypeNotFound;
 import com.beans.leaveapp.leavetype.service.LeaveTypeService;
+import com.beans.leaveapp.web.bean.BaseMgmtBean;
 
 
 
-public class LeaveTypeManagementBean implements Serializable{
+public class LeaveTypeManagementBean extends BaseMgmtBean implements Serializable{
 		
 	    private static final long serialVersionUID = 1L;
 		private  LeaveTypeService leaveTypeService=getLeaveTypeService();
@@ -90,13 +92,20 @@ public class LeaveTypeManagementBean implements Serializable{
 		}
 		
 		public void doCreateLeaveType() {
-			EmployeeType employeeType = getLeaveTypeService().findByEmployeeName(name);
-			newLeaveType.setEmployeeType(employeeType);
-			newLeaveType.setDeleted(false);
-			newLeaveType.setCreatedBy(getActorUsers().getUsername());
-			newLeaveType.setCreationTime(new java.util.Date());
-			getLeaveTypeService().create(newLeaveType);
-			setInsertDelete(true);
+			try{
+				setInsertDelete(true);
+				EmployeeType employeeType = getLeaveTypeService().findByEmployeeName(name);
+				newLeaveType.setEmployeeType(employeeType);
+				newLeaveType.setDeleted(false);
+				newLeaveType.setCreatedBy(getActorUsers().getUsername());
+				newLeaveType.setCreationTime(new java.util.Date());
+				getLeaveTypeService().create(newLeaveType);
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info",getExcptnMesProperty("info.leavetype.create")));
+			}catch(BSLException e){
+				FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
+				msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+		        FacesContext.getCurrentInstance().addMessage(null, msg); 
+			}
 		}
 		
 		public LeaveType getSelectedLeaveType() {
@@ -108,6 +117,7 @@ public class LeaveTypeManagementBean implements Serializable{
 			
 		public void doUpdateLeaveType() {
 			try {
+				this.setInsertDelete(true);
 				EmployeeType employeeType = getLeaveTypeService().findByEmployeeName(name);
 				selectedLeaveType.setEmployeeType(employeeType);
 				System.out.println("New name:" + selectedLeaveType.getName());
@@ -115,11 +125,12 @@ public class LeaveTypeManagementBean implements Serializable{
 				selectedLeaveType.setLastModifiedBy(getActorUsers().getUsername());
 				selectedLeaveType.setLastModifiedTime(new java.util.Date());
 				getLeaveTypeService().update(selectedLeaveType);
-				this.setInsertDelete(true);
-			} catch(LeaveTypeNotFound e) {
-				FacesMessage msg = new FacesMessage("Error", "Leave Type With id: " + selectedLeaveType.getId() + " not found!");  
-				  
-		        FacesContext.getCurrentInstance().addMessage(null, msg);  
+				
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info",getExcptnMesProperty("info.leavetype.update")));
+			}catch(BSLException e){
+				FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
+				msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+		        FacesContext.getCurrentInstance().addMessage(null, msg); 
 			}
 		}
 		
@@ -132,15 +143,15 @@ public class LeaveTypeManagementBean implements Serializable{
 		
 		public void doDeleteLeaveType() {
 			try {
+				setInsertDelete(true);
 				getLeaveTypeService().delete(selectedLeaveType.getId());
-				this.setInsertDelete(true);
-			} catch(LeaveTypeNotFound e) {
-				FacesMessage msg = new FacesMessage("Error", "Leave Type With id: " + selectedLeaveType.getId() + " not found!");  
-				  
-		        FacesContext.getCurrentInstance().addMessage(null, msg);  
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info",getExcptnMesProperty("info.leavetype.delete")));
+			}catch(BSLException e){
+				FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
+				msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+		        FacesContext.getCurrentInstance().addMessage(null, msg); 
 			}
 			
-			setInsertDelete(true);
 		}
 		
 		public void setInsertDelete(boolean insertDelete) {

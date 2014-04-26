@@ -14,6 +14,7 @@
 <ui:define name="content" >
         <h1>Leave Type Maintenance </h1>
 		<h:form id="leaveTypeTableForm">
+		<p:messages autoUpdate="true"  showDetail="true" />
         <p:dataTable id="leaveTypeTable" var="leaveType0" value="#{leaveTypeMgmtBean.leaveTypeDataModel}" widgetVar="leaveTypeSearch" rowKey="#{leaveType0.id}"
                  										  selection="#{leaveTypeMgmtBean.selectedLeaveType}" selectionMode="single" paginator="true" rows="10" scrollable="true" emptyMessage="No data found with given criteria" >
           <p:ajax event="rowSelect" listener="#{leaveTypeMgmtBean.onRowSelect}" update=":leaveTypeDetailForm:display, :growl" oncomplete="PF('leaveTypeDialog').show()" />  
@@ -62,7 +63,7 @@
 
 		<p:dialog header="Create New Leave Type" widgetVar="newLeaveTypeDialog" resizable="false" id="newLeaveTypeDlg" modal="true">
 			    <h:form id="newLeaveTypeForm">
-			    <p:messages autoUpdate="true"/>
+			    <p:messages autoUpdate="true" />
 					<p:panelGrid id="displayNewLeaveType" columns="2" cellpadding="4" style="margin:0 auto;">
 						<h:outputText value="Name :"></h:outputText>
 						<p:inputText value="#{leaveTypeMgmtBean.newLeaveType.name}" required="true" requiredMessage="Please Enter Name!" label="Name "> <f:validateLength minimum="6" maximum="15"/></p:inputText>
