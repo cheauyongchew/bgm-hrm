@@ -41,23 +41,17 @@ public class UserToAccessRightsServiceImpl implements UserToAccessRightsService{
 	@Override
 	public UserToAccessRights update(UserToAccessRights userToAccessRights)
 			throws UserToAccessRightsNotFound {
-		// TODO Auto-generated method stub
-		return null;
+		UserToAccessRights userAccessRightsToBeUpdated = new UserToAccessRights();
+		userAccessRightsToBeUpdated.setId(userToAccessRights.getId());
+		userAccessRightsToBeUpdated.setAccessRights(userToAccessRights.getAccessRights());
+		userAccessRightsToBeUpdated.setUsers(userToAccessRights.getUsers());
+		userAccessRightsToBeUpdated.setEnabled(userToAccessRights.isEnabled());
+		userAccessRightsToBeUpdated.setDeleted(userToAccessRights.isDeleted());
+		userToAccessRightsRepository.save(userAccessRightsToBeUpdated);
+		return userAccessRightsToBeUpdated;
 	}
 
-	@Override
-	public List<AssignedAccessRights> findAssignedAccessRights() {
-	    List<AssignedAccessRights> assignedAccessRightsList = new ArrayList<AssignedAccessRights>();	    
-	    List<UserToAccessRights> userToAccessRightsList = userToAccessRightsRepository.findByIsDeleted(0);
-	    for(UserToAccessRights userToAccessRights: userToAccessRightsList){
-	    	String accessRights = userToAccessRights.getAccessRights().getAccessRights();
-	    	Boolean enabled= userToAccessRights.isEnabled();
-	    	int id = userToAccessRights.getId();
-	    	
-	    	assignedAccessRightsList.add(new AssignedAccessRights(id,accessRights,enabled));
-	    }
-		return assignedAccessRightsList;
-	}
+	
 
 	@Override
 	public List<UserToAccessRights> findByUserId(int userId) {

@@ -6,25 +6,34 @@ import javax.faces.model.ListDataModel;
 
 import org.primefaces.model.SelectableDataModel;
 
-import com.beans.common.security.usertoaccessrights.model.AssignedAccessRights;
+import com.beans.common.security.users.model.Users;
 import com.beans.common.security.usertoaccessrights.model.UserToAccessRights;
 
 
-public class UserToAssignedAccessRightsDataModel extends ListDataModel<AssignedAccessRights> implements SelectableDataModel<UserToAccessRights>{
+public class UserToAssignedAccessRightsDataModel extends ListDataModel<UserToAccessRights> implements SelectableDataModel<UserToAccessRights>{
 
 	
 	UserToAssignedAccessRightsDataModel(){
 		
 	} 
 	
-	public UserToAssignedAccessRightsDataModel(List<AssignedAccessRights> data){
+	public UserToAssignedAccessRightsDataModel(List<UserToAccessRights> data){
 		
 		super(data);
 	}
 
-//	@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	@Override
-	public UserToAccessRights getRowData(String rowKey) {	
+	public UserToAccessRights getRowData(String rowKey) {
+		
+		  List<UserToAccessRights> userToAccessRightsList = (List<UserToAccessRights>)getWrappedData();
+		  Integer rowKeyInt = Integer.parseInt(rowKey);
+	      for(UserToAccessRights userToAccessRights : userToAccessRightsList) {
+	          if(userToAccessRights.getId() == rowKeyInt) {
+	              return userToAccessRights;
+	          }
+	      }
+		
 		return null;
 	}
 	

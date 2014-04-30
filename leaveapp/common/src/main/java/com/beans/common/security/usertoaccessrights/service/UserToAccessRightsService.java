@@ -11,7 +11,6 @@ public interface UserToAccessRightsService {
 	public UserToAccessRights delete(int id) throws UserToAccessRightsNotFound;
 	public List<UserToAccessRights> findAll();
 	public UserToAccessRights update(UserToAccessRights userToAccessRights) throws UserToAccessRightsNotFound;
-	public List<AssignedAccessRights> findAssignedAccessRights();
 	public List<UserToAccessRights> findByUserId(int userId);
 	public List<AccessRights> findAllAccessRights();
 }

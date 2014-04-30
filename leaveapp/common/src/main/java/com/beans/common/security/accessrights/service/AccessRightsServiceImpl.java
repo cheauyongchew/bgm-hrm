@@ -86,5 +86,11 @@ public class AccessRightsServiceImpl implements AccessRightsService{
 		return accessRightsRepository.findByAccessRightLike(accessRightSearchTerm);
 	}
 
+	@Override
+	public AccessRights findAccessRights(String accessRight) {
+		AccessRights accessRights = accessRightsRepository.findByAccessRight(accessRight);
+		return accessRights;
+	}
+
 }
 
