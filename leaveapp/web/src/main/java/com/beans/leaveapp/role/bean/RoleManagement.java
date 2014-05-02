@@ -1,4 +1,3 @@
-
 package com.beans.leaveapp.role.bean;
 
 import java.io.Serializable;
@@ -110,6 +109,7 @@ public class RoleManagement implements Serializable{
 			getRoleService().update(selectedRole);
 			
 			auditTrail.log(SystemAuditTrailActivity.UPDATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has updated Role " + selectedRole.getRole() + " with id " + selectedRole.getId());
+			
 			setInsertDelete(true);
 		} catch (RoleNotFound e) {
 			FacesMessage msg = new FacesMessage("Error", "Role With id: " + selectedRole.getId() + " not found!");  
@@ -191,4 +191,3 @@ public class RoleManagement implements Serializable{
 	
 
 }
-

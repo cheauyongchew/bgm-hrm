@@ -6,21 +6,24 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
+import org.apache.log4j.Logger;
 import org.primefaces.event.SelectEvent;
 
 import com.beans.common.security.users.model.Users;
+import com.beans.exceptions.BSLException;
 import com.beans.leaveapp.employeegrade.model.EmployeeGrade;
 import com.beans.leaveapp.employeegrade.model.EmployeeGradeDataModel;
 import com.beans.leaveapp.employeegrade.service.EmployeeGradeNotFound;
 import com.beans.leaveapp.employeegrade.service.EmployeeGradeService;
+import com.beans.leaveapp.web.bean.BaseMgmtBean;
 
-public class EmployeeGradeManagementBean implements Serializable {
+public class EmployeeGradeManagementBean extends BaseMgmtBean implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	private Logger log = Logger.getLogger(this.getClass());
 	// EmployeeGradeRepository employeeGradeRepository;
 	EmployeeGradeService employeeGradeService;
 	private List<EmployeeGrade> employeeGradeList;
@@ -107,33 +110,33 @@ public class EmployeeGradeManagementBean implements Serializable {
 	}
 
 	public void doCreateEmployeeGrade() throws EmployeeGradeNotFound {
-		newEmployeeGrade.setDeleted(false);
-
-		newEmployeeGrade.setCreatedBy(actorUsers.getUsername());
-		newEmployeeGrade.setCreationTime(new java.util.Date());
-
-		getEmployeeGradeService().create(newEmployeeGrade);
-		setInsertDelete(true);
+		try{
+			newEmployeeGrade.setDeleted(false);
+			newEmployeeGrade.setCreatedBy(actorUsers.getUsername());
+			newEmployeeGrade.setCreationTime(new java.util.Date());
+			getEmployeeGradeService().create(newEmployeeGrade);
+			setInsertDelete(true);
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info",getExcptnMesProperty("info.empgrade.create")));
+		}catch(BSLException e){
+			FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
+			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+	        FacesContext.getCurrentInstance().addMessage(null, msg); 
+		}
 	}
 
 	public void doUpdateEmployeeGrade() throws EmployeeGradeNotFound {
 		try {
-			System.out.println("New name:" + selectedEmployeeGrade.getName());
-			System.out.println("ID: " + selectedEmployeeGrade.getId());
-
-			getEmployeeGradeService().update(selectedEmployeeGrade);
-
-			System.out.println("Username in session : "
-					+ actorUsers.getUsername());
-			selectedEmployeeGrade.setLastModifiedBy(actorUsers.getUsername());
-			getEmployeeGradeService().update(selectedEmployeeGrade);
-			this.setInsertDelete(true);
-
-		} catch (Exception e) {
-			FacesMessage msg = new FacesMessage("Error", "Employee Grade With id: "
-					+ selectedEmployeeGrade.getId() + " not found!");
-
-			FacesContext.getCurrentInstance().addMessage(null, msg);
+				log.info("New name:" + selectedEmployeeGrade.getName());
+				log.info("ID: " + selectedEmployeeGrade.getId());
+				log.info("Username in session : "+ actorUsers.getUsername());
+				selectedEmployeeGrade.setLastModifiedBy(actorUsers.getUsername());
+				getEmployeeGradeService().update(selectedEmployeeGrade);
+				this.setInsertDelete(true);
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info",getExcptnMesProperty("info.empgrade.update")));
+			}catch(BSLException e){
+				FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
+				msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+		        FacesContext.getCurrentInstance().addMessage(null, msg); 
 		}
 	}
 
@@ -146,9 +149,15 @@ public class EmployeeGradeManagementBean implements Serializable {
 	}
 
 	public void doDeleteEmployeeGrade() throws Exception, EmployeeGradeNotFound {
+		try{
 		getEmployeeGradeService().delete(selectedEmployeeGrade.getId());
-
 		setInsertDelete(true);
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info",getExcptnMesProperty("info.empgrade.delete")));
+		}catch(BSLException e){
+			FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
+			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+	        FacesContext.getCurrentInstance().addMessage(null, msg); 
+		}
 	}
 
 	public String getSearchName() {

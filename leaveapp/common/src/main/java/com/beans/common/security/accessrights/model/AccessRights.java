@@ -1,4 +1,3 @@
-
 package com.beans.common.security.accessrights.model;
 import java.io.Serializable;
 import java.util.Date;

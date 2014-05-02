@@ -1,5 +1,6 @@
 package com.beans.leaveapp.employee.service;
 
+import java.util.Date;
 import java.util.HashMap;
 
 import org.springframework.context.ApplicationContext;
@@ -27,15 +28,19 @@ public class EmployeeRegistrationWorker {
 		employee.setPosition(registeredEmployee.getPosition());
 		employee.setWorkEmailAddress(registeredEmployee.getWorkEmailAddress());
 		employee.setJoinDate(registeredEmployee.getJoinDate());
+		employee.setCreatedBy(employee.getName());
+		employee.setCreationTime(new java.util.Date());
 		Users user = new Users();
 		user.setUsername(registeredEmployee.getUsername());
 		user.setPassword(registeredEmployee.getPassword());
 		user.setEnabled(true);
+		user.setCreatedBy(employee.getName());
+		user.setCreationTime(new java.util.Date());
 		
 		
 		employeeService.createEmployee(employee, registeredEmployee.getEmployeeGradeId(), registeredEmployee.getEmployeeTypeId(), registeredEmployee.getDepartmentId(), user, new HashMap<Integer, Address>());
 		
-sendWelcomeEmail(registeredEmployee);
+		sendWelcomeEmail(registeredEmployee);
 	}
 	
 	public static void sendRejectionEmail(RegisteredEmployee registeredEmployee) {

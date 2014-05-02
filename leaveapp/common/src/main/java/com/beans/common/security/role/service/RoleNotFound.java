@@ -1,7 +1,6 @@
 package com.beans.common.security.role.service;
 
 public class RoleNotFound extends Throwable{
-
 	
 	public RoleNotFound() {
 		super();
@@ -9,5 +8,6 @@ public class RoleNotFound extends Throwable{
 	
 	public RoleNotFound(String message) {
 		super(message);
-	}	
+	}
+	
 }

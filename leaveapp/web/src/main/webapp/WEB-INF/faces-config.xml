@@ -278,6 +278,10 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 			<property-name>employee</property-name>			
 			<value>#{authenticationBean.getEmployee()}</value>	
 		</managed-property> 
+		<managed-property>
+			<property-name>actorUsers</property-name>
+			<value>#{authenticationBean.getUsers()}</value>
+		</managed-property>
 	</managed-bean>	
 	<managed-bean>
 		<managed-bean-name>employeeTypeMgmtBean</managed-bean-name>
@@ -370,7 +374,7 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 			<property-name>employee</property-name>
 			<value>#{authenticationBean.getEmployee()}</value>
 		</managed-property>
-<managed-property>
+		<managed-property>
 			<property-name>yearlyEntitlementService</property-name>
 			<value>#{yearlyEntitlementService}</value>
 		</managed-property>
@@ -382,6 +386,7 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 			<property-name>leaveApplicationService</property-name>
 			<value>#{leaveApplicationService}</value>
 		</managed-property>
+		
 	</managed-bean>
 	
 	<managed-bean>
@@ -401,7 +406,7 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 			<value>#{authenticationBean.getUsers()}</value>
 		</managed-property>
 	</managed-bean>
-
+	
 	<managed-bean>
 	<managed-bean-name>yearlyEntitlementListBean</managed-bean-name>
 	<managed-bean-class>com.beans.leaveapp.yearlyentitlement.bean.YearlyEntitlementListBean</managed-bean-class>
@@ -416,3 +421,4 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 		</managed-property>
 	</managed-bean>
 </faces-config>
+

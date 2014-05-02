@@ -149,8 +149,8 @@ public class EmployeeLeaveFormBean implements Serializable{
 			LeaveTransaction leaveTransaction = new LeaveTransaction();
 			leaveTransaction.setApplicationDate(new Date());
 			leaveTransaction.setDeleted(false);
-			leaveTransaction.setEmployeeId(getEmployee());
-			leaveTransaction.setLeaveTypeId(getYearlyEntitlement().getLeaveType());
+			leaveTransaction.setEmployee(getEmployee());
+			leaveTransaction.setLeaveType(getYearlyEntitlement().getLeaveType());
 			leaveTransaction.setNumberOfDays(getNumberOfDays());
 			leaveTransaction.setNumberOfHours(getNumberOfDays());
 			leaveTransaction.setReason(getReason());

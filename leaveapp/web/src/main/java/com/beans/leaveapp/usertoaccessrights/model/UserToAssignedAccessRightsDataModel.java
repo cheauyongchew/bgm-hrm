@@ -17,7 +17,8 @@ public class UserToAssignedAccessRightsDataModel extends ListDataModel<UserToAcc
 		
 	} 
 	
-	public UserToAssignedAccessRightsDataModel(List<UserToAccessRights> data){
+public UserToAssignedAccessRightsDataModel(List<UserToAccessRights> data){
+
 		
 		super(data);
 	}
@@ -33,7 +34,7 @@ public class UserToAssignedAccessRightsDataModel extends ListDataModel<UserToAcc
 	              return userToAccessRights;
 	          }
 	      }
-		
+
 		return null;
 	}
 	

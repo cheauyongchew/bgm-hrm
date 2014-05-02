@@ -7,9 +7,9 @@ import com.beans.leaveapp.employeetype.model.EmployeeType;
 
 public interface EmployeeTypeService {
 	public EmployeeType create(EmployeeType employeeType);
-	public EmployeeType delete(int id) throws EmployeeTypeNotFound;
+	public EmployeeType delete(int id);
 	
 	public List<EmployeeType> findAll();
-	public EmployeeType update(EmployeeType employeeType) throws EmployeeTypeNotFound;
+	public EmployeeType update(EmployeeType employeeType);
 	public EmployeeType findById(int id) throws EmployeeTypeNotFound;
 }

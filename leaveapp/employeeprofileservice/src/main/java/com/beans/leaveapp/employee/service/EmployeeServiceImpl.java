@@ -16,6 +16,7 @@ import com.beans.common.audit.service.AuditTrail;
 import com.beans.common.audit.service.SystemAuditTrailActivity;
 import com.beans.common.audit.service.SystemAuditTrailLevel;
 import com.beans.common.security.users.model.Users;
+import com.beans.common.security.users.service.UsersNotFound;
 import com.beans.common.security.users.service.UsersService;
 import com.beans.leaveapp.address.model.Address;
 import com.beans.leaveapp.address.service.AddressNotFound;
@@ -113,6 +114,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 		employeeToBeUpdated.setResignationDate(employee.getResignationDate());
 		employeeToBeUpdated.setDeleted(employee.isDeleted());
 		employeeToBeUpdated.setResigned(employee.isResigned());
+		employeeToBeUpdated.setLastModifiedBy(employee.getLastModifiedBy());
+		employeeToBeUpdated.setLastModifiedTime(employee.getLastModifiedTime());
 		return employeeRepository.save(employeeToBeUpdated);
 	}
 
@@ -140,7 +143,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 			employee.setDepartment(department);
 			employee.setDeleted(false);
 			employee.setResigned(false);			
-			
+			employee.setCreatedBy(employee.getCreatedBy());
+			employee.setCreationTime(employee.getCreationTime());
 			
 			Employee newEmployee = create(employee);
 			
@@ -156,6 +160,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 			}
 			
 			if(users != null) {
+				users.setCreatedBy(employee.getCreatedBy());
+				users.setCreationTime(employee.getCreationTime());
 				Users newUsers = usersService.registerUser(users);
 				newEmployee.setUsers(newUsers);
 				employeeRepository.save(newEmployee);
@@ -191,6 +197,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 			employee.setDepartment(department);
 			employee.setDeleted(false);
 			employee.setResigned(false);
+			employee.setLastModifiedBy(employee.getLastModifiedBy());
+			employee.setLastModifiedTime(new java.util.Date());
 			
 			
 			Employee newEmployee = update(employee);
@@ -201,6 +209,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 					Address currentAddress = addressIterator.next();
 					currentAddress.setId(0);
 					currentAddress.setEmployee(newEmployee);
+					currentAddress.setCreatedBy(employee.getLastModifiedBy());
+					currentAddress.setCreationTime(new java.util.Date());
 					addressService.create(currentAddress);
 				}
 				
@@ -215,7 +225,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 					}
 				}
 			}
-			
+			if(users!=null) {
+				users.setLastModifiedBy(employee.getLastModifiedBy());
+				users.setLastModifiedTime(new java.util.Date());
+				usersService.update(users);
+				
+			}
 			
 			
 		} catch(EmployeeGradeNotFound e) {
@@ -233,7 +248,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 		} catch(AddressNotFound e) {
 			System.out.println("Address not found.");
 			e.printStackTrace();
-		}
+		}catch(UsersNotFound e) {
+			System.out.println("Employee Grade not found: " + employeeGradeId);
+			e.printStackTrace();
+		} 
+		
 		return null;
 	}
 	

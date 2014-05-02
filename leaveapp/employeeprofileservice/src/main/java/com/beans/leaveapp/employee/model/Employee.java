@@ -1,5 +1,5 @@
-
 package com.beans.leaveapp.employee.model;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -55,6 +55,10 @@ public class Employee implements Serializable {
 	private Date resignationDate;
 	private boolean isDeleted;
 	private boolean isResigned;
+	private String createdBy;
+	private java.util.Date creationTime;
+	private String lastModifiedBy;
+	private java.util.Date lastModifiedTime;
 	
 	@Id
 	@GeneratedValue
@@ -242,7 +246,38 @@ public class Employee implements Serializable {
 	public void setResigned(boolean isResigned) {
 		this.isResigned = isResigned;
 	}
+	public void setCreationTime(java.util.Date creationTime) {
+		this.creationTime = creationTime;
+	}
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+	public void setLastModifiedTime(java.util.Date lastModifiedTime) {
+		this.lastModifiedTime = lastModifiedTime;
+	}
+	public void setLastModifiedBy(String lastModifiedBy) {
+		this.lastModifiedBy = lastModifiedBy;
+	}
+			
+	@Column(name="creationTime",nullable=true)
+	@Temporal(TemporalType.TIMESTAMP)
+	public java.util.Date getCreationTime() {
+		return creationTime;
+	}
+	@Column(name="createdBy",nullable=true)
+	public String getCreatedBy() {
+		return createdBy;
+	}
+	@Column(name="lastModifiedTime",nullable=true)
+	@Temporal(TemporalType.TIMESTAMP)
+	public java.util.Date getLastModifiedTime() {
+		return lastModifiedTime;
+	}
+	@Column(name="lastModifiedBy",nullable=true)
+	public String getLastModifiedBy() {
+		return lastModifiedBy;
+	}
+
 	
 	
 }
-

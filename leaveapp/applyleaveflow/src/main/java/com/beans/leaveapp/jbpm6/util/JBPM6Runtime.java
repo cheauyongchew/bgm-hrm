@@ -148,7 +148,6 @@ public class JBPM6Runtime {
 		return processInstanceId;
 	}
 	
-
 	public long startProcessWithInitialParametersAndFireBusinessRules(String processName, Map<String, Object> parameterMap) {
 		
 		RuntimeEngine runtimeEngine = manager.getRuntimeEngine(ProcessInstanceIdContext.get());	

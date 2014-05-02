@@ -218,11 +218,14 @@ public class EmployeeProfileManagementBean implements Serializable{
 		setPage("details");	
 		newEmployee.setDeleted(false);
 		newEmployee.setResigned(false);
+		newEmployee.setCreatedBy(actorUsers.getUsername());
+		newEmployee.setCreationTime(new java.util.Date());
 		users.setEnabled(true);
 		
 		getEmployeeService().createEmployee(newEmployee, selectedEmployeeGrade, selectedEmployeeType, selectedDepartment, users, newAddressMap);
 		
 		auditTrail.log(SystemAuditTrailActivity.CREATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has created employee " + newEmployee.getName());
+		this.setInsertDelete(true);
 	}
 	
 	public Employee getSelectedEmployee() {
@@ -238,6 +241,8 @@ public class EmployeeProfileManagementBean implements Serializable{
 				users = new Users();
 			} else {
 				users = this.selectedEmployee.getUsers();
+				//users.setLastModifiedBy(actorUsers.getUsername());
+				//users.setLastModifiedTime(new java.util.Date());
 			}
 			setEmployeeName(this.selectedEmployee.getName());
 		}
@@ -260,11 +265,13 @@ public class EmployeeProfileManagementBean implements Serializable{
 	
 	
 	public void doUpdateEmployee() {
+		selectedEmployee.setLastModifiedBy(actorUsers.getUsername());
 		getEmployeeService().updateEmployee(selectedEmployee, selectedEmployeeGrade, selectedEmployeeType, selectedDepartment, users, existingAddressList, newAddressMap);
 		newAddressMap = new HashMap<Integer, Address>();
 		existingAddressList = null;
 		
 		auditTrail.log(SystemAuditTrailActivity.UPDATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has updated employee " + selectedEmployee.getName() + " with id " + selectedEmployee.getId());
+		this.setInsertDelete(true);
 	}
 	
 	public void onRowSelect(SelectEvent event) {  
@@ -365,6 +372,8 @@ public class EmployeeProfileManagementBean implements Serializable{
 		selectedAddress.setAddressType(selectedAddressType);
 		
 		resetAddressOperation();
+		selectedAddress.setLastModifiedBy(actorUsers.getUsername());
+		selectedAddress.setLastModifiedTime(new java.util.Date());
 	}
 	
 	public void deleteAddressToEmployee() {
@@ -426,4 +435,3 @@ public class EmployeeProfileManagementBean implements Serializable{
 		this.auditTrail = auditTrail;
 	}
 } 
-

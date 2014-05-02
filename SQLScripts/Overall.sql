@@ -54,6 +54,10 @@ CREATE TABLE IF NOT EXISTS Users (
   username VARCHAR(45) NOT NULL,
   password VARCHAR(100) NOT NULL,
   enabled TINYINT(1) NOT NULL,
+  createdBy VARCHAR(70),
+  creationTime TIMESTAMP NULL,
+  lastModifiedBy VARCHAR(70),
+  lastModifiedTime TIMESTAMP NULL,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -130,6 +134,10 @@ CREATE TABLE IF NOT EXISTS Employee (
     resignationDate DATE,
     isDeleted TINYINT(1),
     isResigned TINYINT(1),
+    createdBy VARCHAR(70),
+    creationTime TIMESTAMP NULL,
+    lastModifiedBy VARCHAR(70),
+    lastModifiedTime TIMESTAMP NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (userId) 
   		REFERENCES Users(id),
@@ -152,6 +160,10 @@ CREATE TABLE IF NOT EXISTS Address (
     state VARCHAR(40),
     country VARCHAR(40),
     postcode VARCHAR(10),
+    createdBy VARCHAR(70),
+    creationTime TIMESTAMP NULL,
+    lastModifiedBy VARCHAR(70),
+    lastModifiedTime TIMESTAMP NULL,
     isDeleted TINYINT(1),
     PRIMARY KEY (id),
     FOREIGN KEY (employeeId)
@@ -167,6 +179,10 @@ CREATE TABLE IF NOT EXISTS YearlyEntitlement (
     leaveTypeId INT(10) NOT NULL,
     entitlement DOUBLE(4,2),
     leaveBalance DOUBLE(4,2),
+    createdBy VARCHAR(70),
+    creationTime TIMESTAMP NULL,
+    lastModifiedBy VARCHAR(70),
+    lastModifiedTime TIMESTAMP NULL,
     isDeleted TINYINT(1),
     PRIMARY KEY (id),
     FOREIGN KEY (leaveTypeId)
@@ -185,10 +201,16 @@ CREATE TABLE IF NOT EXISTS LeaveTransaction (
     numberOfHours DOUBLE(4,2),
     numberOfDays DOUBLE(4,2),
     reason VARCHAR(100),
+    status VARCHAR(100),
     leaveTypeId INT(10),
     employeeId INT(10),
     taskId BIGINT(20),
     isDeleted TINYINT(1),
+    createdBy VARCHAR(70),
+    creationTime TIMESTAMP NULL,
+    lastModifiedBy VARCHAR(70),
+    lastModifiedTime TIMESTAMP NULL,
+
     PRIMARY KEY (id),
     FOREIGN KEY (leaveTypeId)
     	REFERENCES LeaveType(id),
@@ -203,6 +225,10 @@ CREATE TABLE IF NOT EXISTS LeaveAttachment (
     description VARCHAR(50),
     fileLocation VARCHAR(150),
     isDeleted TINYINT(1),
+    createdBy VARCHAR(70),
+    creationTime TIMESTAMP NULL,
+    lastModifiedBy VARCHAR(70),
+    lastModifiedTime TIMESTAMP NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (leaveTransactionId)
     	REFERENCES LeaveTransaction(id)
@@ -286,12 +312,12 @@ INSERT INTO LeaveType(name, description, employeeTypeId, entitlement, isAccounta
 INSERT INTO LeaveType(name, description, employeeTypeId, entitlement, isAccountable, isDeleted,creationTime,createdBy) VALUES ('Maternity', 'Maternity leave', (SELECT id from EmployeeType WHERE name = 'PERM'), 60.0, 0, 0,CURRENT_TIMESTAMP,'admin');
 INSERT INTO LeaveType(name, description, employeeTypeId, entitlement, isAccountable, isDeleted,creationTime,createdBy) VALUES ('Paternity', 'Paternity leave', (SELECT id from EmployeeType WHERE name = 'PERM'), 3.0, 0, 0,CURRENT_TIMESTAMP,'admin');
 
-INSERT INTO Users(id, username, password, enabled) VALUES ('1', 'johndoe', '$2a$10$qzEqlpoVOYv4yT/pAqq7L.Y8PX.DLbtfWuPDvenJfcfhJd4I2wvZy', '1');
-INSERT INTO Users(id, username, password, enabled) VALUES ('2', 'jennifer', '$2a$10$qzEqlpoVOYv4yT/pAqq7L.Y8PX.DLbtfWuPDvenJfcfhJd4I2wvZy', '1');
-INSERT INTO Users(id, username, password, enabled) VALUES ('3', 'ruby', '$2a$10$qzEqlpoVOYv4yT/pAqq7L.Y8PX.DLbtfWuPDvenJfcfhJd4I2wvZy', '1');
-INSERT INTO Users(id, username, password, enabled) VALUES ('4', 'admin', '$2a$10$qzEqlpoVOYv4yT/pAqq7L.Y8PX.DLbtfWuPDvenJfcfhJd4I2wvZy', '1');
-INSERT INTO Users(id, username, password, enabled) VALUES ('5', 'larry', '$2a$10$qzEqlpoVOYv4yT/pAqq7L.Y8PX.DLbtfWuPDvenJfcfhJd4I2wvZy', '1');
-INSERT INTO Users(id, username, password, enabled) VALUES ('6', 'joe', '$2a$10$qzEqlpoVOYv4yT/pAqq7L.Y8PX.DLbtfWuPDvenJfcfhJd4I2wvZy', '1');
+INSERT INTO Users(id, username, password, enabled,creationTime,createdBy) VALUES ('1', 'johndoe', '$2a$10$qzEqlpoVOYv4yT/pAqq7L.Y8PX.DLbtfWuPDvenJfcfhJd4I2wvZy', '1',CURRENT_TIMESTAMP,'admin');
+INSERT INTO Users(id, username, password, enabled,creationTime,createdBy) VALUES ('2', 'jennifer', '$2a$10$qzEqlpoVOYv4yT/pAqq7L.Y8PX.DLbtfWuPDvenJfcfhJd4I2wvZy', '1',CURRENT_TIMESTAMP,'admin');
+INSERT INTO Users(id, username, password, enabled,creationTime,createdBy) VALUES ('3', 'ruby', '$2a$10$qzEqlpoVOYv4yT/pAqq7L.Y8PX.DLbtfWuPDvenJfcfhJd4I2wvZy', '1',CURRENT_TIMESTAMP,'admin');
+INSERT INTO Users(id, username, password, enabled,creationTime,createdBy) VALUES ('4', 'admin', '$2a$10$qzEqlpoVOYv4yT/pAqq7L.Y8PX.DLbtfWuPDvenJfcfhJd4I2wvZy', '1',CURRENT_TIMESTAMP,'admin');
+INSERT INTO Users(id, username, password, enabled,creationTime,createdBy) VALUES ('5', 'larry', '$2a$10$qzEqlpoVOYv4yT/pAqq7L.Y8PX.DLbtfWuPDvenJfcfhJd4I2wvZy', '1',CURRENT_TIMESTAMP,'admin');
+INSERT INTO Users(id, username, password, enabled,creationTime,createdBy) VALUES ('6', 'joe', '$2a$10$qzEqlpoVOYv4yT/pAqq7L.Y8PX.DLbtfWuPDvenJfcfhJd4I2wvZy', '1',CURRENT_TIMESTAMP,'admin');
 
 INSERT INTO Role(id, role, description,creationTime,createdBy, isDeleted) VALUES ('1', 'ROLE_USER', 'Normal User',CURRENT_TIMESTAMP,'admin', 0);
 INSERT INTO Role(id, role, description,creationTime,createdBy, isDeleted) VALUES ('2', 'ROLE_EMPLOYEE', 'Employee',CURRENT_TIMESTAMP,'admin', 0);
@@ -329,6 +355,8 @@ INSERT INTO AccessRights(id, accessRights, description,creationTime,createdBy, i
 INSERT INTO AccessRights(id, accessRights, description,creationTime,createdBy, isDeleted) VALUES ('6', 'DeleteEmployee', 'Access to Delete Employee',CURRENT_TIMESTAMP,'admin', 0);
 INSERT INTO AccessRights(id, accessRights, description,creationTime,createdBy, isDeleted) VALUES ('7', 'ApproveEmployeeRegistration', 'Access to Employee Registration Approval',CURRENT_TIMESTAMP,'admin', 0);
 INSERT INTO AccessRights(id, accessRights, description,creationTime,createdBy, isDeleted) VALUES ('8', 'ApplyLeave', 'Access to Leave Form',CURRENT_TIMESTAMP,'admin', 0);
+INSERT INTO AccessRights(id, accessRights, description,creationTime,createdBy, isDeleted) VALUES ('9', 'LeaveTransactions','Access to View LeaveTransactions',CURRENT_TIMESTAMP,'admin',0);
+INSERT INTO AccessRights(id, accessRights, description,creationTime,createdBy, isDeleted) VALUES ('10','EmployeeLeaves', 'Access to View EmployeeLeaves', CURRENT_TIMESTAMP,'admin',0);
 
 
 INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('2', '5');
@@ -342,15 +370,23 @@ INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('4', '6');
 INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('5', '4');
 INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('6', '7');
 INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('7', '8');
+INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('5', '9');
+INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('6', '9');
+INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('2', '10');
 
-INSERT INTO Employee(id, name, employeenumber, position, employeeGradeId, employeeTypeId, departmentId, userId, isDeleted, isResigned) values(1, 'John Doe', '1', 'Software Engineer', 1, 1, 1, 1, 0, 0);
-INSERT INTO Employee(id, name, employeenumber, position, employeeGradeId, employeeTypeId, departmentId, userId, isDeleted, isResigned) values(2, 'Jennifer', '2', 'HR Executive', 1, 1, 1, 2, 0, 0);
-INSERT INTO Employee(id, name, employeenumber, position, employeeGradeId, employeeTypeId, departmentId, userId, isDeleted, isResigned) values(3, 'Ruby', '3', 'HR Manager', 1, 1, 1, 3, 0, 0);
-INSERT INTO Employee(id, name, employeenumber, position, employeeGradeId, employeeTypeId, departmentId, userId, isDeleted, isResigned) values(4, 'Larry', '4', 'Team Lead', 1, 1, 1, 5, 0, 0);
-INSERT INTO Employee(id, name, employeenumber, position, employeeGradeId, employeeTypeId, departmentId, userId, isDeleted, isResigned) values(5, 'Joe', '5', 'Operation Director', 1, 1, 1, 6, 0, 0);
+INSERT INTO Employee(id, name, employeenumber, position, employeeGradeId, employeeTypeId, departmentId, userId, isDeleted, isResigned,creationTime,createdBy) values(1, 'John Doe', '1', 'Software Engineer', 1, 1, 1, 1, 0, 0,CURRENT_TIMESTAMP,'admin');
+INSERT INTO Employee(id, name, employeenumber, position, employeeGradeId, employeeTypeId, departmentId, userId, isDeleted, isResigned,creationTime,createdBy) values(2, 'Jennifer', '2', 'HR Executive', 1, 1, 1, 2, 0, 0,CURRENT_TIMESTAMP,'admin');
+INSERT INTO Employee(id, name, employeenumber, position, employeeGradeId, employeeTypeId, departmentId, userId, isDeleted, isResigned,creationTime,createdBy) values(3, 'Ruby', '3', 'HR Manager', 1, 1, 1, 3, 0, 0,CURRENT_TIMESTAMP,'admin');
+INSERT INTO Employee(id, name, employeenumber, position, employeeGradeId, employeeTypeId, departmentId, userId, isDeleted, isResigned,creationTime,createdBy) values(4, 'Larry', '4', 'Team Lead', 1, 1, 1, 5, 0, 0,CURRENT_TIMESTAMP,'admin');
+INSERT INTO Employee(id, name, employeenumber, position, employeeGradeId, employeeTypeId, departmentId, userId, isDeleted, isResigned,creationTime,createdBy) values(5, 'Joe', '5', 'Operation Director', 1, 1, 1, 6, 0, 0,CURRENT_TIMESTAMP,'admin');
 
 INSERT INTO UserToAccessRights(id, userId, accessRightsId, enabled, isDeleted) values('1', '1', '1', '1', 0);
 
+
 INSERT INTO YearlyEntitlement(id, employeeId, leaveTypeId, entitlement, leaveBalance, isDeleted) VALUES (1, 1, 1, 12, 12, 0);
 INSERT INTO YearlyEntitlement(id, employeeId, leaveTypeId, entitlement, leaveBalance, isDeleted) VALUES (2, 4, 1, 12, 12, 0);
+
+INSERT INTO LeaveTransaction(id, applicationDate, startDateTime, endDateTime, numberOfHours, numberOfDays, reason, leaveTypeId, employeeId, status, taskId,isDeleted) values(1,'2014-04-15',CURRENT_TIMESTAMP,'2014-04-17 16:18:55',3.0,3.0,'Health Problem',1,1,'Approved',1,0);
+INSERT INTO LeaveTransaction(id, applicationDate, startDateTime, endDateTime, numberOfHours, numberOfDays, reason, leaveTypeId, employeeId, status, taskId,isDeleted) values(2,'2014-04-16',CURRENT_TIMESTAMP,'2014-04-18 16:18:55',3.0,3.0,'Health Problem',2,2,'REJECTED',2,0);
+
 

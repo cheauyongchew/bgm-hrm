@@ -2,21 +2,18 @@ package com.beans.leaveapp.web.bean;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.HashSet;
 
-import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.beans.common.audit.service.AuditTrail;
 import com.beans.common.audit.service.SystemAuditTrailActivity;
@@ -51,7 +48,7 @@ public class AuthenticationBean implements Serializable{
 			
 			auditTrail.log(SystemAuditTrailActivity.LOGIN, SystemAuditTrailLevel.INFO, getUsers().getId(), getUsername(), getUsername() + " has successfully logged in to the system.");
 		} else {
-			auditTrail.log(SystemAuditTrailActivity.LOGIN, SystemAuditTrailLevel.ERROR, getUsers().getId(), getUsername(), getUsername() + " has failed to log in to the system.");
+			auditTrail.log(SystemAuditTrailActivity.LOGIN, SystemAuditTrailLevel.ERROR, 0, context.getRequestParameterMap().get("j_username"), context.getRequestParameterMap().get("j_username") + " has failed to log in to the system.");
 		}
 		FacesContext.getCurrentInstance().responseComplete();
 		

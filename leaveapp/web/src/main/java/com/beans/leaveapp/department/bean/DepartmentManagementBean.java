@@ -6,23 +6,26 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
+import org.apache.log4j.Logger;
 import org.primefaces.event.SelectEvent;
 
 import com.beans.common.audit.service.AuditTrail;
 import com.beans.common.audit.service.SystemAuditTrailActivity;
 import com.beans.common.audit.service.SystemAuditTrailLevel;
 import com.beans.common.security.users.model.Users;
-import com.beans.leaveapp.department.model.DepartmentDataModel;
+import com.beans.exceptions.BSLException;
 import com.beans.leaveapp.department.model.Department;
+import com.beans.leaveapp.department.model.DepartmentDataModel;
 import com.beans.leaveapp.department.service.DepartmentNotFound;
 import com.beans.leaveapp.department.service.DepartmentService;
+import com.beans.leaveapp.web.bean.BaseMgmtBean;
 
 
 
-public class DepartmentManagementBean implements Serializable{
+public class DepartmentManagementBean extends BaseMgmtBean implements Serializable{
 private static final long serialVersionUID = 1L;
 	
-	
+	private Logger log = Logger.getLogger(this.getClass());
 	DepartmentService departmentService;
 	private List<Department> departmentList;
 	private DepartmentDataModel departmentDataModel;
@@ -96,28 +99,35 @@ private static final long serialVersionUID = 1L;
 	}
 
 	public void doCreateDepartment() throws DepartmentNotFound {
-		newDepartment.setDeleted(false);
-		newDepartment.setCreatedBy(getActorUsers().getUsername());
-		getDepartmentService().create(newDepartment);
-		setInsertDelete(true);
-		newDepartment = new Department();
-		auditTrail.log(SystemAuditTrailActivity.CREATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has created a department");
-		
+
+		try{
+			newDepartment.setDeleted(false);
+			newDepartment.setCreatedBy(getActorUsers().getUsername());
+			getDepartmentService().create(newDepartment);
+			setInsertDelete(true);
+			newDepartment = new Department();
+			auditTrail.log(SystemAuditTrailActivity.CREATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has created a department");
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info",getExcptnMesProperty("info.department.create")));
+		}catch(BSLException e){
+			FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
+			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+	        FacesContext.getCurrentInstance().addMessage(null, msg); 
+		}
 	}
 	
-	public void doUpdateDepartment() throws DepartmentNotFound {
+	public void doUpdateDepartment() {
 		try {
-			System.out.println("New name:" + selectedDepartment.getName());
-			System.out.println("ID: " + selectedDepartment.getId());
+			log.info("New name:" + selectedDepartment.getName());
+			log.info("ID: " + selectedDepartment.getId());
 			selectedDepartment.setLastModifiedBy(getActorUsers().getUsername());
 			getDepartmentService().update(selectedDepartment);
 			auditTrail.log(SystemAuditTrailActivity.UPDATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has updated a department");
 			setInsertDelete(true);
-		// RequestContext.getCurrentInstance().
-		} catch(Exception e) {
-			FacesMessage msg = new FacesMessage("Error", "Department With id: " + selectedDepartment.getId() + " not found!");  
-			  
-	        FacesContext.getCurrentInstance().addMessage(null, msg);  
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info",getExcptnMesProperty("info.department.update")));
+		}catch(BSLException e){
+			FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
+			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+	        FacesContext.getCurrentInstance().addMessage(null, msg); 
 		}
 	}
 	
@@ -129,18 +139,18 @@ private static final long serialVersionUID = 1L;
     }  
 	
 	
-	public void doDeleteDepartment() throws Exception, DepartmentNotFound {
+	public void doDeleteDepartment(){
 		try {
 			getDepartmentService().delete(selectedDepartment.getId());
 			auditTrail.log(SystemAuditTrailActivity.DELETED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has deleted a department");
-			
-		} catch(DepartmentNotFound e) {
-			FacesMessage msg = new FacesMessage("Error", "Department With id: " + selectedDepartment.getId() + " not found!");  
-			  
-	        FacesContext.getCurrentInstance().addMessage(null, msg);  
+			setInsertDelete(true);
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info",getExcptnMesProperty("info.department.delete")));
+		}catch(BSLException e){
+			FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
+			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+	        FacesContext.getCurrentInstance().addMessage(null, msg); 
 		}
 		
-		setInsertDelete(true);
 	}
 	
 	public void doResetFrom() throws DepartmentNotFound {

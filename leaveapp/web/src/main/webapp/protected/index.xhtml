@@ -14,17 +14,17 @@
 
 		<ui:define name="title">Beans Leave Application</ui:define>
 	<ui:define name="content">
-	<h1>Welcome!</h1>
+<!-- 	<h1>Welcome!  <h:outputText value="#{authenticationBean.users.username}" style="text-transform: capitalize;" /></h1> -->
 	
 	<h:form id="employeeEntitlementForm" rendered="#{authenticationBean.hasAccess('ViewMyProfile')}">
 	
 	
-	 <p:dataTable id="employeeEntitlementTable" widgetVar="employeeEntitlement" var="employeeEntitlement0" value="#{yearlyEntitlementMgmtBean.employeeLeaveEntitlementDataModel}" rowKey="#{employeeEntitlement0.id}">
+	 <p:dataTable id="employeeEntitlementTable" widgetVar="employeeEntitlement" var="employeeEntitlement0" value="#{yearlyEntitlementMgmtBean.employeeYearlyEntitlementDataModel}" rowKey="#{employeeEntitlement0.id}">
    
                            
           <p:column id="descHeader">
             <f:facet name="header"> Leave Type </f:facet>
-            <h:outputText value="#{employeeEntitlement0.leaveTypeName}" />
+            <h:outputText value="#{employeeEntitlement0.leaveType.name}" />
           </p:column>
         
         <p:column id="entitlementHeader">
@@ -38,7 +38,6 @@
           </p:column>
         </p:dataTable>
          
-    
          
       </h:form>      
       <p:growl id="growl" showDetail="true" life="1000"/> 

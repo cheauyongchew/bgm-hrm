@@ -114,7 +114,10 @@ public class Role implements Serializable{
 	@Column(name="lastModifiedBy",nullable=true)
 	public String getLastModifiedBy() {
 		return lastModifiedBy;
-	}	
+	}
+
+	
+	
 	
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

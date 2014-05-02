@@ -1,4 +1,3 @@
-
 package com.beans.common.security.accessrights.service;
 
 import java.util.Date;
@@ -93,4 +92,5 @@ public class AccessRightsServiceImpl implements AccessRightsService{
 	}
 
 }
+
 

@@ -73,10 +73,10 @@ public class SystemAuditTrailRecordServiceImpl implements SystemAuditTrailRecord
 	}
 
 	@Override
-	public List<SystemAuditTrail> findSelectedDates(Date x, Date y) {
+	public List<SystemAuditTrail> findSelectedDates(Date date1, Date date2,String activity) {
 		
 		// final dates format yyyy-mm-dd
-		List<SystemAuditTrail> l = systemAuditTrailRecordRepository.findByDate(x, y);
+		List<SystemAuditTrail> l = systemAuditTrailRecordRepository.findByDate(activity,date1,date2);
 		System.out.println(l.size());
 		return l;
 		
@@ -88,3 +88,4 @@ public class SystemAuditTrailRecordServiceImpl implements SystemAuditTrailRecord
 		
 	}
 }
+

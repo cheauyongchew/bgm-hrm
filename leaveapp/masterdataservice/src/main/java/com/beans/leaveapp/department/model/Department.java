@@ -1,4 +1,5 @@
 package com.beans.leaveapp.department.model;
+
 import java.io.Serializable;
 
 import javax.persistence.Column;

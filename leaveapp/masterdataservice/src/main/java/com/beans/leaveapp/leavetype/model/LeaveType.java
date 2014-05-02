@@ -1,11 +1,7 @@
 package com.beans.leaveapp.leavetype.model;
 
-import java.io.Serializable;
-
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -14,8 +10,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Type;
 
 import com.beans.leaveapp.employeetype.model.EmployeeType;
@@ -23,11 +17,7 @@ import com.beans.leaveapp.employeetype.model.EmployeeType;
 
 @Entity
 @Table(name="LeaveType")
-public class LeaveType implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class LeaveType {
 	private int id;
 	private String name;
 	private String description;
@@ -38,8 +28,8 @@ public class LeaveType implements Serializable {
 	private java.util.Date creationTime;
 	private String lastModifiedBy;
 	private java.util.Date lastModifiedTime;
-	private EmployeeType employeeTypeId; 
-	
+	private EmployeeType employeeType; 
+
 	
 	
 	@Id
@@ -129,17 +119,13 @@ public class LeaveType implements Serializable {
 	
     @OneToOne
 	@JoinColumn(name="employeeTypeId")
-	public EmployeeType getEmployeeTypeId() {
-		return employeeTypeId;
+	public EmployeeType getEmployeeType() {
+		return employeeType;
 	}
-	public void setEmployeeTypeId(EmployeeType employeeTypeId) {
-		this.employeeTypeId = employeeTypeId;
+	public void setEmployeeType(EmployeeType employeeType) {
+		this.employeeType = employeeType;
 	}
 	
+		
+	}
 	
-	
-	
-	
-	
-	
-}

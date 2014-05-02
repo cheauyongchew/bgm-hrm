@@ -1,4 +1,5 @@
 package com.beans.common.security.role.service;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -69,6 +70,7 @@ public class RoleServiceImpl implements RoleService{
 		accessRightsSet.addAll(role.getAccessRights());
 		roleToBeUpdated.setAccessRights(accessRightsSet);
 		roleRepository.save(roleToBeUpdated);
+		if(true)throw new RoleNotFound();
 		return roleToBeUpdated;
 	}
 

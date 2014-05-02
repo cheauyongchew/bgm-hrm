@@ -1,4 +1,3 @@
-
 package com.beans.leaveapp.leavetype.service;
 
 import java.util.LinkedList;
@@ -6,9 +5,13 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import com.beans.exceptions.BSLException;
 import com.beans.leaveapp.employeetype.model.EmployeeType;
 import com.beans.leaveapp.employeetype.repository.EmployeeTypeRepository;
 import com.beans.leaveapp.leavetype.model.LeaveType;
@@ -19,28 +22,36 @@ public class LeaveTypeServiceImpl implements LeaveTypeService {
 
 	@Resource
 	private LeaveTypeRepository leaveTypeRepository;
-	
+	private Logger log = LoggerFactory.getLogger(this.getClass());
 	@Resource
 	private EmployeeTypeRepository employeeTypeRepository;
 	
 	@Override
 	@Transactional
 	public LeaveType create(LeaveType leaveType) {
+		try{
 		LeaveType leaveTypeToBeCreated = leaveType;
-		
 		return leaveTypeRepository.save(leaveTypeToBeCreated);
+		} catch (Exception e) {
+			log.error("Error while saving new Leave Type :"+leaveType.getName(), e);
+			throw new BSLException("err.leavetype.create", e);
+		}
 	}
 
 	@Override
-	@Transactional(rollbackFor=LeaveTypeNotFound.class)
-	public LeaveType delete(int id) throws LeaveTypeNotFound {
+	@Transactional(rollbackFor={BSLException.class})
+	public LeaveType delete(int id) {
+		try{
 		LeaveType leaveType = leaveTypeRepository.findOne(id);
-		
-		if(leaveType == null)
-			throw new LeaveTypeNotFound();
-		leaveType.setDeleted(true);
-		leaveTypeRepository.save(leaveType);
+		if(leaveType!=null){
+			leaveType.setDeleted(true);
+			leaveTypeRepository.save(leaveType);
+		}
 		return leaveType;
+		} catch (Exception e) {
+			log.error("Error while deleting existed Leave Type :"+id, e);
+			throw new BSLException("err.leavetype.delete", e);
+		}
 	}
 
 	@Override
@@ -57,26 +68,15 @@ public class LeaveTypeServiceImpl implements LeaveTypeService {
 	}
 
 	@Override
-	@Transactional(rollbackFor=LeaveTypeNotFound.class)
-	public LeaveType update(LeaveType leaveType) throws LeaveTypeNotFound {
-		//int id = employeeTypeRepository.findByName(leaveType.getEmployeeTypeId().getName()).getId();
-		//leaveType.setEmployeeTypeId(id);
+	@Transactional(rollbackFor=BSLException.class)
+	public LeaveType update(LeaveType leaveType) {
+		try{
 		LeaveType leaveTypeToBeUpdated = leaveTypeRepository.save(leaveType);
-		
-		/*if(leaveTypeToBeUpdated == null)
-			throw new LeaveTypeNotFound();
-		
-		leaveTypeToBeUpdated.setName(leaveType.getName());
-		leaveTypeToBeUpdated.setDescription(leaveType.getDescription());
-		leaveTypeToBeUpdated.setDeleted(leaveType.isDeleted());
-		if(leaveType != null){
-			EmployeeType employeeTypeObj = employeeTypeRepository.findByName(leaveType.getEmployeeTypeName());
-			int employeeTypeId = employeeTypeObj.getId();
-			leaveTypeToBeUpdated.setEmployeeTypeId(employeeTypeId);
-		}
-			leaveTypeRepository.save(leaveTypeToBeUpdated);
-		*/
 		return leaveTypeToBeUpdated;
+		} catch (Exception e) {
+			log.error("Error while saving new Leave Type :"+leaveType.getName(), e);
+			throw new BSLException("err.leavetype.update", e);
+		}
 	}
 
 	@Override
@@ -90,8 +90,8 @@ public class LeaveTypeServiceImpl implements LeaveTypeService {
 	}
 
 	@Override
-	public LeaveType findByLeaveType(String name) throws LeaveTypeNotFound {
-		LeaveType leaveTypeList =  leaveTypeRepository.findByName(name);
+	public LeaveType findByLeaveType(String name,int id) throws LeaveTypeNotFound {
+		LeaveType leaveTypeList =  leaveTypeRepository.findByName(name,id);
 		return leaveTypeList;
 	}
 
@@ -106,8 +106,20 @@ public class LeaveTypeServiceImpl implements LeaveTypeService {
 		EmployeeType employeeType =  employeeTypeRepository.findByName(name);
 		return employeeType;
 	}
+
+	@Override
+	public List<String> findByEmployeeTypes() {
+		List<String> namesList = new LinkedList<String>();
+		 try{
+			  namesList = (List<String>)employeeTypeRepository.findByEmployeeNames();
+	         return namesList;
+		 }catch(Exception e){
+			 e.printStackTrace();
+		 }
+			return namesList;
+		}
+	}
 	
 
 	
-}
 

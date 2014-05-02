@@ -28,4 +28,5 @@ public class LeaveTypeListBean implements Serializable{
 	public void setLeaveTypeService(LeaveTypeService leaveTypeService) {
 		this.leaveTypeService = leaveTypeService;
 	}
+	
 }

@@ -27,22 +27,10 @@
         <p:dataTable id="accessRightsTable" var="accessRights0" value="#{accessRightsMgmtBean.accessRightsDataModel}" widgetVar="accessRightsSearch" rowKey="#{accessRights0.id}"
                  							selection="#{accessRightsMgmtBean.selectedAccessRights}" paginator="true" rows="20" scrollable="true"  selectionMode="single" emptyMessage="No data found with given criteria" >
           <p:ajax event="rowSelect" listener="#{accessRightsMgmtBean.onRowSelect}" update=":accessRightsDetailForm:display, :growl" oncomplete="PF('accessRightsDialog').show()" />  
-          	<p:column id="accessRightHeader"  sortBy="accessRights" >
-	            <f:facet name="header"> Access Right</f:facet>
-            	<h:outputText value="#{accessRights0.accessRights}" />
-          	</p:column>  
-          	<p:column id="descHeader"  sortBy="description" >
-	            <f:facet name="header"> Description</f:facet>      
-            	<h:outputText value="#{accessRights0.description}" />
-          	</p:column>
-          	<p:column id="lastModifiedByHeader"  sortBy="lastModifiedTime" >
-	            <f:facet name="header"> Last Modified By</f:facet>
-	            	<h:outputText value="#{accessRights0.lastModifiedBy}" />
-	        </p:column>
-	        <p:column id="lastModifiedTimeHeader"  sortBy="lastModifiedTime" >
-	            <f:facet name="header"> Last Modified Time</f:facet>
-	            <h:outputText value="#{accessRights0.lastModifiedTime}" >  <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" /> </h:outputText>
-	        </p:column>
+          	<p:column id="accessRightHeader"  sortBy="accessRights" ><f:facet name="header"> Access Right</f:facet><h:outputText value="#{accessRights0.accessRights}" /></p:column>  
+          	<p:column id="descHeader"  sortBy="description" ><f:facet name="header"> Description</f:facet><h:outputText value="#{accessRights0.description}" /></p:column>
+          	<p:column id="lastModifiedByHeader"  sortBy="lastModifiedTime" > <f:facet name="header"> Last Modified By</f:facet><h:outputText value="#{accessRights0.lastModifiedBy}" /> </p:column>
+	        <p:column id="lastModifiedTimeHeader"  sortBy="lastModifiedTime" ><f:facet name="header"> Last Modified Time</f:facet><h:outputText value="#{accessRights0.lastModifiedTime}" >  <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" /> </h:outputText> </p:column>
        </p:dataTable>
        </h:form>
 	   <h:form id="commandButtonForm">
@@ -56,9 +44,9 @@
            <p:messages autoUpdate="true"/>
            <p:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
             <h:outputText value="Name :"></h:outputText>
-            <h:inputText value="#{accessRightsMgmtBean.selectedAccessRights.accessRights}" required="true" requiredMessage="Please Enter Name!"><f:validateLength minimum="6"/></h:inputText>
+            <h:inputText value="#{accessRightsMgmtBean.selectedAccessRights.accessRights}" required="true" requiredMessage="Please Enter Name!" label="Name "><f:validateLength minimum="6"/></h:inputText>
             <h:outputText value="Description"></h:outputText>
-            <h:inputText value="#{accessRightsMgmtBean.selectedAccessRights.description}" required="true" requiredMessage="please Enter Description"><f:validateLength minimum="6"/></h:inputText>
+            <h:inputText value="#{accessRightsMgmtBean.selectedAccessRights.description}" required="true" requiredMessage="please Enter Description" label="Description "><f:validateLength minimum="6"/></h:inputText>
                     <f:facet name="footer">
                             <p:commandButton value="Update" update=":accessRightsTableForm:accessRightsTable"  oncomplete="if(!args.validationFailed)  PF('accessRightsDialog').hide()" actionListener="#{accessRightsMgmtBean.doUpdateAccessRights}"/>
                             <p:commandButton value="Delete" onclick="PF('cd').show()" oncomplete="PF('accessRightsDialog').hide()"/>                        
@@ -72,9 +60,9 @@
          <p:messages autoUpdate="true"/>
            <p:panelGrid id="displayNewAccessRights" columns="2" cellpadding="4" style="margin:0 auto;">
             <h:outputText value="Name :"></h:outputText>
-            <p:inputText value="#{accessRightsMgmtBean.newAccessRights.accessRights}" required="true" requiredMessage="Please Enter Name!"><f:validateLength minimum="6"/></p:inputText>
+            <p:inputText value="#{accessRightsMgmtBean.newAccessRights.accessRights}" required="true" requiredMessage="Please Enter Name!" label="Name "><f:validateLength minimum="6"/></p:inputText>
             <h:outputText value="Description"></h:outputText>           
-			<p:inputText value="#{accessRightsMgmtBean.newAccessRights.description}" required="true" requiredMessage="please Enter Description"><f:validateLength minimum="6"/></p:inputText>
+			<p:inputText value="#{accessRightsMgmtBean.newAccessRights.description}" required="true" requiredMessage="please Enter Description" label="Description "><f:validateLength minimum="6"/></p:inputText>
             <f:facet name="footer">
                             <p:commandButton value="Submit" update=":accessRightsTableForm:accessRightsTable"  oncomplete="if(!args.validationFailed) PF('newAccessRightsDialog').hide()" actionListener="#{accessRightsMgmtBean.doCreateAccessRights}"/>
                             <p:commandButton type="reset" value="Reset"></p:commandButton>

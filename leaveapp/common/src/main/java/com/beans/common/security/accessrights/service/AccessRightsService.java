@@ -1,4 +1,3 @@
-
 package com.beans.common.security.accessrights.service;
 
 import java.util.List;

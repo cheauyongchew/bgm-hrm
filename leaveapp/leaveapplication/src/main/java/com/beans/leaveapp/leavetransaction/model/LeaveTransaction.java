@@ -1,6 +1,5 @@
 package com.beans.leaveapp.leavetransaction.model;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -24,13 +23,8 @@ import com.beans.leaveapp.leavetype.model.LeaveType;
 
 @Entity
 @Table(name="LeaveTransaction")
-public class LeaveTransaction implements Serializable{
+public class LeaveTransaction {
 
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private int id;
 	private Date applicationDate;
 	private Date  startDateTime;
@@ -38,17 +32,21 @@ public class LeaveTransaction implements Serializable{
 	private Double numberOfHours;
 	private Double numberOfDays;
 	private String reason;
-	private LeaveType leaveTypeId;
-	private Employee employeeId;
-	private String name;
+	private LeaveType leaveType;
+	private Employee employee;
 	private List<LeaveApplicationComment> leaveApplicationComments;
 	private Long taskId;
-	private boolean isDeleted;
+	private boolean isDelete;
+	private String createdBy;
+	private java.util.Date creationTime;
+	private String lastModifiedBy;
+	private java.util.Date lastModifiedTime;
+	private String status;
 	
 	public LeaveTransaction(int id, Date applicationDate,
 			Date startDateTime, Date endDateTime,
-			Double numberOfHours, Double numberOfDays, String reason,
-			LeaveType leaveTypeId, Employee employeeId, boolean isDeleted) {
+			Double numberOfHours, Double numberOfDays, String reason,String status,
+			LeaveType leaveType, Employee employee, boolean isDeleted) {
 		super();
 		this.id = id;
 		this.applicationDate = applicationDate;
@@ -57,10 +55,10 @@ public class LeaveTransaction implements Serializable{
 		this.numberOfHours = numberOfHours;
 		this.numberOfDays = numberOfDays;
 		this.reason = reason;
-		this.leaveTypeId = leaveTypeId;
-		this.employeeId = employeeId;
-	
-		this.isDeleted = isDeleted;
+		this.status = status;
+		this.leaveType = leaveType;
+		this.employee = employee;
+		this.isDelete = isDeleted;
 	}
 	public LeaveTransaction() {
 		
@@ -131,35 +129,29 @@ public class LeaveTransaction implements Serializable{
 	@Column(name="isdeleted", columnDefinition="TINYINT(1)") 
 	@Type(type="org.hibernate.type.NumericBooleanType")
 	public boolean isDeleted() {
-		return isDeleted;
+		return isDelete;
 	}
 	public void setDeleted(boolean isDeleted) {
-		this.isDeleted = isDeleted;
+		this.isDelete = isDeleted;
 	}
 	
 
 	@OneToOne
 	@JoinColumn(name="leaveTypeId",nullable=false)
-	public LeaveType getLeaveTypeId(){
-		return leaveTypeId;
+	public LeaveType getLeaveType(){
+		return leaveType;
 	}
-	public void setLeaveTypeId(LeaveType leaveTypeId) {
-		this.leaveTypeId = leaveTypeId;
+	public void setLeaveType(LeaveType leaveType) {
+		this.leaveType = leaveType;
 	}
 	
     @OneToOne
 	@JoinColumn(name="employeeId")
-	public Employee getEmployeeId() {
-		return employeeId;
+	public Employee getEmployee() {
+		return employee;
 	}
-	public void setEmployeeId(Employee employeeId) {
-		this.employeeId = employeeId;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
 	
 	@Column(name="taskId", nullable=true)
@@ -169,6 +161,38 @@ public class LeaveTransaction implements Serializable{
 	public void setTaskId(Long taskId) {
 		this.taskId = taskId;
 	}
+	public void setCreationTime(java.util.Date creationTime) {
+		this.creationTime = creationTime;
+	}
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+	public void setLastModifiedTime(java.util.Date lastModifiedTime) {
+		this.lastModifiedTime = lastModifiedTime;
+	}
+	public void setLastModifiedBy(String lastModifiedBy) {
+		this.lastModifiedBy = lastModifiedBy;
+	}
+			
+	@Column(name="creationTime",nullable=true)
+	@Temporal(TemporalType.TIMESTAMP)
+	public java.util.Date getCreationTime() {
+		return creationTime;
+	}
+	@Column(name="createdBy",nullable=true)
+	public String getCreatedBy() {
+		return createdBy;
+	}
+	@Column(name="lastModifiedTime",nullable=true)
+	@Temporal(TemporalType.TIMESTAMP)
+	public java.util.Date getLastModifiedTime() {
+		return lastModifiedTime;
+	}
+	@Column(name="lastModifiedBy",nullable=true)
+	public String getLastModifiedBy() {
+		return lastModifiedBy;
+	}
+
 	
 	@OneToMany(fetch=FetchType.EAGER, mappedBy="leaveTransaction")
 	public List<LeaveApplicationComment> getLeaveApplicationComments() {
@@ -178,4 +202,13 @@ public class LeaveTransaction implements Serializable{
 			List<LeaveApplicationComment> leaveApplicationComments) {
 		this.leaveApplicationComments = leaveApplicationComments;
 	}
+	
+	@Column(name="status",nullable=true)
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 }

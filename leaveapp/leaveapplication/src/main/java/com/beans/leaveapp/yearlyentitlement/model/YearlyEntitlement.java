@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Type;
 
@@ -27,6 +29,10 @@ public class YearlyEntitlement implements Serializable{
 	private double entitlement;
 	private double availableBalance;
 	private boolean isDeleted = false;
+	private String createdBy;
+	private java.util.Date creationTime;
+	private String lastModifiedBy;
+	private java.util.Date lastModifiedTime;
 	private Employee employee;
 	private LeaveType leaveType;
 
@@ -68,7 +74,39 @@ public class YearlyEntitlement implements Serializable{
 	public void setDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
+	public void setCreationTime(java.util.Date creationTime) {
+		this.creationTime = creationTime;
+	}
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+	public void setLastModifiedTime(java.util.Date lastModifiedTime) {
+		this.lastModifiedTime = lastModifiedTime;
+	}
+	public void setLastModifiedBy(String lastModifiedBy) {
+		this.lastModifiedBy = lastModifiedBy;
+	}
+			
+	@Column(name="creationTime",nullable=true)
+	@Temporal(TemporalType.TIMESTAMP)
+	public java.util.Date getCreationTime() {
+		return creationTime;
+	}
+	@Column(name="createdBy",nullable=true)
+	public String getCreatedBy() {
+		return createdBy;
+	}
+	@Column(name="lastModifiedTime",nullable=true)
+	@Temporal(TemporalType.TIMESTAMP)
+	public java.util.Date getLastModifiedTime() {
+		return lastModifiedTime;
+	}
+	@Column(name="lastModifiedBy",nullable=true)
+	public String getLastModifiedBy() {
+		return lastModifiedBy;
+	}
 
+	
 	@OneToOne
 	@JoinColumn(name = "employeeId")
 	public Employee getEmployee() {
@@ -90,3 +128,4 @@ public class YearlyEntitlement implements Serializable{
 	}
 
 }
+

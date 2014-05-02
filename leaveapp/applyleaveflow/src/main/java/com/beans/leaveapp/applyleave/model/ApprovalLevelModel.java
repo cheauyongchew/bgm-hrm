@@ -1,6 +1,5 @@
 package com.beans.leaveapp.applyleave.model;
 
-
 import java.io.Serializable;
 
 public class ApprovalLevelModel implements Serializable{
@@ -26,3 +25,4 @@ public class ApprovalLevelModel implements Serializable{
 	}
 	
 }
+

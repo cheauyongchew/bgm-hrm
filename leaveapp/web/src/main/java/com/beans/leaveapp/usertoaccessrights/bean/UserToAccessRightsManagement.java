@@ -9,6 +9,7 @@ import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.drools.core.spi.Enabled;
+
 import org.primefaces.event.SelectEvent;
 
 import com.beans.common.security.accessrights.model.AccessRights;
@@ -16,7 +17,6 @@ import com.beans.common.security.accessrights.service.AccessRightsService;
 import com.beans.common.security.users.model.Users;
 import com.beans.common.security.users.service.UsersNotFound;
 import com.beans.common.security.users.service.UsersService;
-import com.beans.common.security.usertoaccessrights.model.AssignedAccessRights;
 import com.beans.common.security.usertoaccessrights.model.UserToAccessRights;
 import com.beans.common.security.usertoaccessrights.service.UserToAccessRightsNotFound;
 import com.beans.common.security.usertoaccessrights.service.UserToAccessRightsService;
@@ -24,6 +24,7 @@ import com.beans.leaveapp.accessrights.model.AccessRightsDataModel;
 import com.beans.leaveapp.usertoaccessrights.model.UserToAccessRightsDataModel;
 import com.beans.leaveapp.usertoaccessrights.model.UserToAssignedAccessRightsDataModel;
 import com.beans.leaveapp.usertoaccessrights.model.UserToUnAssignedAccessRightsDataModel;
+
 
 public class UserToAccessRightsManagement implements Serializable{
 
@@ -78,7 +79,6 @@ public class UserToAccessRightsManagement implements Serializable{
 	
 	public List<Users> getUsersList() {
 			if(usersList == null || insertDelete == true){
-					
 					usersList = usersService.findAll();
 				}		
 		return usersList;
@@ -112,8 +112,8 @@ public class UserToAccessRightsManagement implements Serializable{
 	
 	public void assignedAccessRights(){
 		userId = getSelectedUsers().getId();		
-	}
-	
+	}	
+
 	public void assignAccessRightsToUser(){
 		this.setRenderAccessRights(true);
 	}
@@ -128,6 +128,7 @@ public class UserToAccessRightsManagement implements Serializable{
 			this.setId(selectedUsers.getId());
 			System.out.println(id);
 		}		
+
 	}	
 	
 	public boolean isInsertDelete() {
@@ -323,31 +324,7 @@ public class UserToAccessRightsManagement implements Serializable{
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
-	}
-	
-	
-	
+	}	
 
-/*	public String getX() {
-		this.setRenderAccessRights(renderAccessRights);
-		return x;
-	}
-
-	public void setX(String x) {
-		this.x = x;
-	}
-*/
-	
-
-	/*public int getUserId() {
-		return userId;
-	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}*/	
-	
-	
-	
 	
 }

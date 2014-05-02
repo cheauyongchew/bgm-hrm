@@ -24,8 +24,8 @@
 			
 			
 			<p:tabView id="myProfileTabView" activeIndex="0">
-			<p:messages autoUpdate="true" />
 			<p:tab id="MyProfileDetailTab" title="Basic Details">
+			<p:messages autoUpdate="true" />
 			<p:panelGrid id="MyProfileDetail" columns="2" cellpadding="4"
 				style="margin:0 auto;">
 				<f:facet name="header"><h3>Basic Details</h3></f:facet>
@@ -162,6 +162,7 @@
 			</p:tab>
 			
 			<p:tab id="MyProfileAddressTab" title="Addresses">
+			<p:messages autoUpdate="true"/>
 			<p:panelGrid id="MyProfileAddress" columns="1" cellpadding="4"
 				style="margin:0 auto;">
 				
@@ -190,6 +191,12 @@
 							          
 							          <p:column id="countryHeader" headerText="Country">
 							            <h:outputText value="#{address0.country}" />
+							          </p:column>
+							          <p:column id="lastModifiedByHeader" headerText="Last Modified By"> 
+	            						<h:outputText value="#{address0.lastModifiedBy}" />
+	         						  </p:column>
+							          <p:column id="lastModifiedHeader" headerText="Last Modified Time">
+							            <h:outputText value="#{address0.lastModifiedTime}" ><f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" /></h:outputText>
 							          </p:column>
 							        </p:dataTable>
 							        
@@ -270,7 +277,7 @@
 			<f:facet name="footer">
 					<p:commandButton value="Reset"
 						type="reset" />
-					<p:commandButton value="Update" actionListener="#{myProfileMgmtBean.doUpdateEmployee}" validateClient="true" oncomplete="PF('updatedcd').show();"/>
+					<p:commandButton value="Update" actionListener="#{myProfileMgmtBean.doUpdateEmployee}" validateClient="true" oncomplete="if(!args.validationFailed) PF('updatedcd').show();"/>
 			</f:facet>
 	</p:panelGrid>
 

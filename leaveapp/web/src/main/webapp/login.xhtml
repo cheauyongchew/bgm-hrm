@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core"
@@ -22,24 +23,25 @@
             
     <div id="loginContainer">
         <h:form id="loginForm" prependId="false">
-            <p:growl id="growl" showDetail="true" sticky="true" />  
+            <p:growl id="growl" showDetail="true" sticky="true" display="text" />  
             <p:panelGrid id="panel" columns="2"> 
                 <f:facet name="header">
                     Login
                 </f:facet> 
                 
-                <h:outputLabel for="j_username" value="Username: " styleClass="flabel"/>  
-                <p:focus for="j_username"> <h:inputText id="j_username" required="true" requiredMessage="Please enter username"/> </p:focus>
+                <h:outputLabel for="j_username" value="Username"/>  
+                <p:focus for="j_username"> <h:inputText id="j_username" required="true" requiredMessage="Username Required"/> </p:focus>
                                
-                <h:outputLabel for="j_password" value="Password: " styleClass="flabel"/>  
-                <h:inputSecret id="j_password" required="true" requiredMessage="Please enter password" />
+                <h:outputLabel for="j_password" value="Password"/>  
+                <h:inputSecret id="j_password" required="true" requiredMessage="Password Required" />
           
                 <f:facet name="footer">
                     <h:commandButton id="loginButton" value="Login" action="#{authenticationBean.doLogin}" />
                 </f:facet>              
             </p:panelGrid>
             <br/>
-            Don't have an account? <p:commandLink immediate="true" ajax="false" action="/register.xhtml">Sign Up Now!</p:commandLink>              
+            Don't have an account? <br/>
+            <p:commandLink immediate="true" ajax="false" action="/register.xhtml">Sign Up Now!</p:commandLink>              
         </h:form>   
     </div>
     <div id="footer">

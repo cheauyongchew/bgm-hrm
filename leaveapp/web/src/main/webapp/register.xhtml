@@ -23,46 +23,46 @@
     </div>
             
     <div id="registerContainer">
-        <h:form id="registerForm" prependId="false"> 
+        <h:form id="registerForm" prependId="false">  
             <p:panelGrid id="panel" columns="3"> 
                 <f:facet name="header">
                     Employee Registration
-                </f:facet> 
-                <h:outputText value="Full Name*" />
+                </f:facet>
+                <h:outputText value="* Full Name" />
 				<p:focus for="fullname">	<h:inputText id="fullname"
-						value="#{employeeRegistrationMgmtBean.fullname}" required="true" requiredMessage="Please enter Full Name" />
+						value="#{employeeRegistrationMgmtBean.fullname}" required="true" requiredMessage="Full Name Required" />
                 </p:focus>
-                <p:message for="fullname"></p:message> 
-                <h:outputText value="Username*" />
+                <p:message for="fullname" display="text"></p:message> 
+                <h:outputText value="* Username" />
 					<h:inputText id="username"
-						value="#{employeeRegistrationMgmtBean.username}" required="true" requiredMessage="Please enter Username" /> 
-				<p:message for="username"></p:message>
-				<h:outputText value="Password*" />
-				<p:password id="pwd1" value="#{employeeRegistrationMgmtBean.password}" match="pwd2" required="true" requiredMessage="Please enter Password"/>
-				<p:message for="pwd1"></p:message>
-				<h:outputText value="Confirmed Password*" />
-				<p:password id="pwd2" value="#{employeeRegistrationMgmtBean.password}" required="true" requiredMessage="Plese confirm Password"/>
-				<p:message for="pwd2"></p:message>                  
+						value="#{employeeRegistrationMgmtBean.username}" required="true" requiredMessage="Username Required" /> 
+				<p:message for="username" display="text"></p:message>
+				<h:outputText value="* Password" />
+				<p:password id="pwd1" value="#{employeeRegistrationMgmtBean.password}" match="pwd2" required="true" requiredMessage="Password Required"/>
+				<p:message for="pwd1" display="text"></p:message>
+				<h:outputText value="* Confirm Password" />
+				<p:password id="pwd2" value="#{employeeRegistrationMgmtBean.password}" required="true" requiredMessage="Confirm Password Required"/>
+				<p:message for="pwd2" display="text"></p:message>                  
                 
-					<h:outputText value="Gender*" />
-					<p:selectOneMenu id="gender" required="true" requiredMessage="Please select your Gender"
+					<h:outputText value="* Gender" />
+					<p:selectOneMenu id="gender" required="true" requiredMessage="Gender Required"
 						value="#{employeeRegistrationMgmtBean.gender}"
 						effect="fade">
 						<f:selectItem itemLabel="Select one" itemValue=""/>
 						<f:selectItem itemLabel="Male" itemValue="M" />
 						<f:selectItem itemLabel="Female" itemValue="F" />
 					</p:selectOneMenu>
-					<p:message for="gender"></p:message>
-					<h:outputText value="Email Address(Personal)*" />
+					<p:message for="gender" display="text"></p:message>
+					<h:outputText value="* Email Address (Personal)" />
 					<h:inputText id="personalEmailAddress"
 						value="#{employeeRegistrationMgmtBean.personalEmailAddress}" validatorMessage="Invalid Email Format">
 						
 						<f:validateRegex
 							pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
 					</h:inputText>
-					<p:message for="personalEmailAddress"></p:message>
+					<p:message for="personalEmailAddress" display="text"></p:message>
 					
-					<h:outputText value="Phone Number(Personal)" />
+					<h:outputText value="Phone Number (Personal)" />
 					<h:inputText id="personalPhoneNumber"
 						value="#{employeeRegistrationMgmtBean.personalPhoneNumber}" />
 					<h:outputText value=""/>
@@ -75,8 +75,8 @@
 					<h:inputText id="passportNumber"
 						value="#{employeeRegistrationMgmtBean.passportNumber}" />
 					<h:outputText value=""/>
-          			<h:outputText value="Captcha*"/><p:captcha id="captcha" label="Captcha" theme="white"/>
-          			<p:message for="captcha"></p:message>
+          			<h:outputText value="* Captcha"/><p:captcha id="captcha" label="Captcha" theme="white"/>
+          			<p:message for="captcha" display="text"></p:message>
                 <f:facet name="footer">
                     <p:commandButton id="backButton" value="Back" ajax="false" immediate="true"  action="/login.jsf" />
                     <p:commandButton id="registerButton" value="Register" ajax="false" validateClient="true"  action="#{employeeRegistrationMgmtBean.doRegister}" />

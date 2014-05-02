@@ -1,4 +1,3 @@
-
 package com.beans.leaveapp.employeetype.repository;
 
 import java.util.List;
@@ -15,4 +14,7 @@ public interface EmployeeTypeRepository extends CrudRepository<EmployeeType, Int
 	
 	@Query("select e from EmployeeType e where name = ? and isDeleted = 0")
     EmployeeType findByName(String name);
+	
+	@Query("select e.name from EmployeeType e where isDeleted = 0")
+	List<String> findByEmployeeNames();
 }
