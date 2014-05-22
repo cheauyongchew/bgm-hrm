@@ -2,9 +2,14 @@ package com.beans.leaveapp.applyleave.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+
+import org.kie.api.task.model.Task;
+import org.kie.api.task.model.TaskSummary;
 
 import com.beans.common.security.role.model.Role;
 import com.beans.common.security.role.service.RoleNotFound;
@@ -60,6 +65,7 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
 		leaveTransaction.setTaskId(currentTaskId);
 		
 		getLeaveTransactionService().insertFromWorkflow(leaveTransaction);
+		
 	}
 	
 	
@@ -138,4 +144,115 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
 		}
 		return false;
 	}
+	
+	@Override
+	public List<LeaveTransaction> getPendingLeaveRequestsList(String username) {
+		List<LeaveTransaction> leaveRequestList = new ArrayList<LeaveTransaction>();
+		List<TaskSummary> taskList = applyLeaveRuntime.getTaskAssignedForUser(username);
+		Iterator<TaskSummary> taskIterator = taskList.iterator();
+		while(taskIterator.hasNext()) {
+			TaskSummary currentTaskSummary = taskIterator.next();
+			Task currentTask = applyLeaveRuntime.getTaskById(currentTaskSummary.getId());
+			Map<String, Object> contentMap = applyLeaveRuntime.getContentForTask(currentTask);
+			LeaveTransaction leaveRequestByEmployee = mapTaskSummaryToLeaveApprovalRequest(currentTaskSummary, contentMap);
+			leaveRequestList.add(leaveRequestByEmployee);
+		}
+		return leaveRequestList;
+	}
+
+	private LeaveTransaction mapTaskSummaryToLeaveApprovalRequest(TaskSummary taskSummary, Map<String, Object> contentMap) {
+		LeaveTransaction leaveRequest = new LeaveTransaction();
+		leaveRequest.setTaskId(taskSummary.getId());
+		if(contentMap!=null){
+			/*Employee leaveAppliedEmployee =(Employee) contentMap.get("employee");
+			System.out.println(leaveAppliedEmployee.getName());*/
+			LeaveTransaction leaveTransactionFromWorkFlow = 	(LeaveTransaction) contentMap.get("leaveTransaction");
+			if(leaveTransactionFromWorkFlow!=null){
+			leaveRequest.setApplicationDate(leaveTransactionFromWorkFlow.getApplicationDate());
+			leaveRequest.setStartDateTime(leaveTransactionFromWorkFlow.getStartDateTime());
+			leaveRequest.setEndDateTime(leaveTransactionFromWorkFlow.getEndDateTime());
+			leaveRequest.setLeaveType(leaveTransactionFromWorkFlow.getLeaveType());
+			leaveRequest.setNumberOfDays(leaveTransactionFromWorkFlow.getNumberOfDays());
+			leaveRequest.setReason(leaveTransactionFromWorkFlow.getReason());
+			leaveRequest.setEmployee(leaveTransactionFromWorkFlow.getEmployee());
+			leaveTransactionFromWorkFlow.getEmployee().getName();
+			}
+		}
+		return leaveRequest;
+	}
+	
+	@Override
+	public void approveLeaveOfEmployee(LeaveTransaction leaveTransaction, String actorId,Set<Role> actorRoles) {
+		try{
+		HashMap<String, Object> parameterMap = getContentMapFromSelectedLeaveRequest(leaveTransaction);
+		
+		// Getting actor roles and checking who is approving the current leave request and setting map properties accordingly
+		if(parameterMap!=null && "ROLE_EMPLOYEE".equalsIgnoreCase((String)parameterMap.get("role")))
+		{
+			Set<String> roleSet = new HashSet<String>();
+			for (Role role : actorRoles) {
+				roleSet.add(role.getRole());
+			}
+			if(roleSet.contains("ROLE_TEAMLEAD"))
+				parameterMap.put("isTeamLeadApproved", new Boolean(true));
+			if(roleSet.contains("ROLE_OPERDIR"))
+				parameterMap.put("isOperDirApproved", new Boolean(true));
+			
+		}else
+		{
+			parameterMap.put("isOperDirApproved", new Boolean(true));
+		}
+		
+		long taskId = leaveTransaction.getTaskId();
+		applyLeaveRuntime.submitTask(actorId, taskId, parameterMap);
+		}catch(RoleNotFound e){
+			e.printStackTrace();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+	}
+
+	private HashMap<String,Object> getContentMapFromSelectedLeaveRequest(LeaveTransaction leaveTransaction) throws RoleNotFound
+	{
+		Set<Role> userRoles = leaveTransaction.getEmployee().getUsers().getUserRoles();
+		
+		if(!isEmployee(userRoles)) {
+			throw new RoleNotFound("You are not an employee.");
+		}
+		Role assignedRoleInLeaveFlow = getEmployeeOrTeamLead(userRoles);
+		ApprovalLevelModel approvalLevelModel = new ApprovalLevelModel();
+		approvalLevelModel.setRole(assignedRoleInLeaveFlow.getRole());
+		
+		List<LeaveApplicationComment> leaveApplicationCommentList = new ArrayList<LeaveApplicationComment>();
+		HashMap<String, Object> parameterMap = new HashMap<String, Object>();
+		parameterMap.put("approvalLevelModel", approvalLevelModel);
+		parameterMap.put("employee", leaveTransaction.getEmployee());
+		parameterMap.put("leaveTransaction", leaveTransaction);
+		parameterMap.put("isOperDirApproved", new Boolean(false));
+		parameterMap.put("role", assignedRoleInLeaveFlow.getRole());
+		parameterMap.put("leaveApplicationCommentList", leaveApplicationCommentList);
+		return parameterMap;
+	}
+	@Override
+	public void rejectLeaveOfEmployee(LeaveTransaction leaveTransaction, String actorId) {
+		try{
+		HashMap<String, Object> resultMap = getContentMapFromSelectedLeaveRequest(leaveTransaction);
+		if(resultMap!=null && "ROLE_EMPLOYEE".equalsIgnoreCase((String)resultMap.get("role")))
+			resultMap.put("isTeamLeadApproved", new Boolean(false));
+		else 
+			resultMap.put("isOperDirApproved", new Boolean(false));
+			
+		long taskId = leaveTransaction.getTaskId();
+		applyLeaveRuntime.submitTask(actorId, taskId, resultMap);
+		}catch(RoleNotFound e){
+			e.printStackTrace();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+	}
+	}
+
+
 }

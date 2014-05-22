@@ -1,5 +1,7 @@
 package com.beans.leaveapp.leavetype.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +19,11 @@ import com.beans.leaveapp.employeetype.model.EmployeeType;
 
 @Entity
 @Table(name="LeaveType")
-public class LeaveType {
+public class LeaveType implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7299057613766651751L;
 	private int id;
 	private String name;
 	private String description;

@@ -36,4 +36,6 @@ public interface YearlyEntitlementService {
 	
 	public YearlyEntitlement findOne(int yearlyEntitlementId) throws YearlyEntitlementNotFound;
 	
+	void updateLeaveBalanceAfterApproval(int employeeId,int leaveTypeId,double numberOfDaysApproved);
+	
 }

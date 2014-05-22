@@ -8,9 +8,9 @@
             <ssl>true</ssl>
             <auth>true</auth>
             <sender>
-            	<username>pradeepchinta432@gmail.com</username>
-            	<address>pradeepchinta432@gmail.com</address>
-        		<password>pradeep12.</password>
+            	<username>jenkinsbean@gmail.com</username>
+            	<address>jenkinsbean@gmail.com</address>
+        		<password>1700819819</password>
         	</sender>    	
         </smtp>
     </mail>
