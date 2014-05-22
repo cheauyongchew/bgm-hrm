@@ -4,12 +4,14 @@ import java.util.Date;
 import java.util.HashMap;
 
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.beans.common.security.users.model.Users;
 import com.beans.leaveapp.address.model.Address;
 import com.beans.leaveapp.employee.model.Employee;
 import com.beans.leaveapp.employee.model.RegisteredEmployee;
 import com.beans.leaveapp.jbpm6.util.ApplicationContextProvider;
+import com.beans.leaveapp.registeredemployeeemail.service.RegisteredEmployeeEmailService;
 
 public class EmployeeRegistrationWorker {
 	public static void registerEmployee(RegisteredEmployee registeredEmployee) {
@@ -45,9 +47,18 @@ public class EmployeeRegistrationWorker {
 	
 	public static void sendRejectionEmail(RegisteredEmployee registeredEmployee) {
 		
+		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:/META-INF/spring-welcomeemail.xml");
+		RegisteredEmployeeEmailService registeredEmployeeEmailService = (RegisteredEmployeeEmailService) applicationContext.getBean("registeredEmployeeEmailService");
+		
+		registeredEmployeeEmailService.sendRejectedEmail(registeredEmployee);
 	}
 
 	public static void sendWelcomeEmail(RegisteredEmployee registeredEmployee) {
+		
+		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:/META-INF/spring-welcomeemail.xml");
+		RegisteredEmployeeEmailService registeredEmployeeEmailService = (RegisteredEmployeeEmailService) applicationContext.getBean("registeredEmployeeEmailService");
+		
+		registeredEmployeeEmailService.sendWelcomeEmail(registeredEmployee);
 		
 	}
 	
