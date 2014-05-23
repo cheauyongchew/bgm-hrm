@@ -40,11 +40,12 @@
 				  <p:menuitem value="Employee" url="/protected/leavetransactionemployee.jsf" rendered="#{authenticationBean.hasAccess('EmployeeLeaveHistory')}"/>
 			</p:submenu>
 			<p:menuitem value="System Audit Trail" url="/protected/systemAuditTrail.jsf" rendered="#{authenticationBean.hasAccess('SystemAuditTrail')}"/>
-			
+			<p:menuitem value="Leave Approval" url="/protected/applyleave/approveleavetasklist.jsf" />
 			<p:menuitem value="My Profile" url="/protected/employeeprofile/myprofile.jsf" rendered="#{authenticationBean.hasAccess('ViewMyProfile')}"/>
 			<p:submenu label="Employee" rendered="#{authenticationBean.hasAccess('ViewEmployees') or authenticationBean.hasAccess('ApproveEmployeeRegistration')}">
 				<p:menuitem value="Employee List" url="/protected/employeeprofile/employeeprofilemgmt.jsf" rendered="#{authenticationBean.hasAccess('ViewEmployees')}"/>
 				<p:menuitem value="Registration Approval" url="/protected/employeeregistration/employeeregistrationtasklist.jsf" rendered="#{authenticationBean.hasAccess('ApproveEmployeeRegistration')}"/>
+				<p:menuitem value="Leave Approval" url="/protected/applyleave/approveleavetasklist.jsf" />
 			</p:submenu>
 			
 			
