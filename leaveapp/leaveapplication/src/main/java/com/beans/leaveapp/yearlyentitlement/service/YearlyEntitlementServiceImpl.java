@@ -184,7 +184,7 @@ public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 	public void updateLeaveBalanceAfterApproval(int employeeId,int leaveTypeId,double numberOfDaysLeaveApproved) {
 		System.out.println("Input parameters values in updateLeaveBalanceAfterApproval() employeeId: "+employeeId+" leaveTypeId :"+leaveTypeId);
 		YearlyEntitlement yearlyEntitlement =	(YearlyEntitlement) yearlyEntitleRepository.findByEmployeeAndLeaveTypeId(employeeId, leaveTypeId);
-		yearlyEntitlement.setAvailableBalance(yearlyEntitlement.getEntitlement()-numberOfDaysLeaveApproved);
+		yearlyEntitlement.setAvailableBalance(yearlyEntitlement.getAvailableBalance()-numberOfDaysLeaveApproved);
 		yearlyEntitleRepository.save(yearlyEntitlement);
 		System.out.println("After updating, no'of leaves left is :"+yearlyEntitlement.getAvailableBalance());
 	}

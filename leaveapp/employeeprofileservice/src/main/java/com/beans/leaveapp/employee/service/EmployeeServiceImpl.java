@@ -340,5 +340,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return employeeObj;
 	}
 
-
+	@Override
+	public List<Employee> findAllEmployeesByRole(String role) {
+		return employeeRepository.getAllUsersWithRole(role);
+	}
 }

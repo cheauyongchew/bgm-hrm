@@ -357,6 +357,7 @@ INSERT INTO AccessRights(id, accessRights, description,creationTime,createdBy, i
 INSERT INTO AccessRights(id, accessRights, description,creationTime,createdBy, isDeleted) VALUES ('8', 'ApplyLeave', 'Access to Leave Form',CURRENT_TIMESTAMP,'admin', 0);
 INSERT INTO AccessRights(id, accessRights, description,creationTime,createdBy, isDeleted) VALUES ('9', 'LeaveTransactions','Access to View LeaveTransactions',CURRENT_TIMESTAMP,'admin',0);
 INSERT INTO AccessRights(id, accessRights, description,creationTime,createdBy, isDeleted) VALUES ('10','EmployeeLeaves', 'Access to View EmployeeLeaves', CURRENT_TIMESTAMP,'admin',0);
+INSERT INTO AccessRights(id, accessRights, description,creationTime,createdBy, isDeleted) VALUES ('11','ApproveLeave', 'Access to Approve  or Reject Leave', CURRENT_TIMESTAMP,'admin',0);
 
 
 INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('2', '5');
@@ -373,6 +374,8 @@ INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('7', '8');
 INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('5', '9');
 INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('6', '9');
 INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('2', '10');
+INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('7', '11');
+INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('7', '11');
 
 INSERT INTO Employee(id, name, employeenumber, position, employeeGradeId, employeeTypeId, departmentId, userId, isDeleted, isResigned,creationTime,createdBy) values(1, 'John Doe', '1', 'Software Engineer', 1, 1, 1, 1, 0, 0,CURRENT_TIMESTAMP,'admin');
 INSERT INTO Employee(id, name, employeenumber, position, employeeGradeId, employeeTypeId, departmentId, userId, isDeleted, isResigned,creationTime,createdBy) values(2, 'Jennifer', '2', 'HR Executive', 1, 1, 1, 2, 0, 0,CURRENT_TIMESTAMP,'admin');

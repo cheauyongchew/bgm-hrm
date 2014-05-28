@@ -38,6 +38,9 @@ public class LeaveType implements Serializable{
 
 	
 	
+	public LeaveType() {
+		super();
+	}
 	@Id
 	@GeneratedValue
 	@Column(name="id", nullable=false, unique=true)

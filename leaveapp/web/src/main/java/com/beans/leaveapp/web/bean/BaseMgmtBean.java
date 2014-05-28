@@ -25,7 +25,7 @@ public class BaseMgmtBean implements Serializable{
 		if(appExceptionMsgBundle != null && appExceptionMsgBundle.containsKey(key)){
 			return appExceptionMsgBundle.getString(key).intern();
 		} else{
-			return "Error in processing your request";
+			return "Error in processing your request, please try after sometime!!!";
 		}
     }
 	

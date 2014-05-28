@@ -8,11 +8,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
 import org.kie.api.task.model.Task;
 import org.kie.api.task.model.TaskSummary;
 
 import com.beans.common.security.role.model.Role;
 import com.beans.common.security.role.service.RoleNotFound;
+import com.beans.exceptions.BSLException;
 import com.beans.leaveapp.applyleave.model.ApprovalLevelModel;
 import com.beans.leaveapp.employee.model.Employee;
 import com.beans.leaveapp.jbpm6.util.JBPM6Runtime;
@@ -23,6 +25,7 @@ import com.beans.leaveapp.yearlyentitlement.model.YearlyEntitlement;
 
 public class LeaveApplicationServiceImpl implements LeaveApplicationService {
 
+	private Logger log = Logger.getLogger(this.getClass());
 	private static final String PROCESS_NAME = "com.beans.leaveapp.bpmn.applyleave";
 	private JBPM6Runtime applyLeaveRuntime;
 	private LeaveTransactionService leaveTransactionService;
@@ -50,6 +53,7 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
 		parameterMap.put("isOperDirApproved", new Boolean(false));
 		parameterMap.put("role", assignedRoleInLeaveFlow.getRole());
 		parameterMap.put("leaveApplicationCommentList", leaveApplicationCommentList);
+		parameterMap.put("teamLeadName", null);
 		
 		long processInstanceId = applyLeaveRuntime.startProcessWithInitialParametersAndFireBusinessRules(PROCESS_NAME, parameterMap);
 		
@@ -193,23 +197,32 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
 			for (Role role : actorRoles) {
 				roleSet.add(role.getRole());
 			}
-			if(roleSet.contains("ROLE_TEAMLEAD"))
+			if(roleSet.contains("ROLE_TEAMLEAD")){
 				parameterMap.put("isTeamLeadApproved", new Boolean(true));
-			if(roleSet.contains("ROLE_OPERDIR"))
+				parameterMap.put("teamLeadName", actorId);
+			}
+			if(roleSet.contains("ROLE_OPERDIR")){
 				parameterMap.put("isOperDirApproved", new Boolean(true));
+				parameterMap.put("oprDirName", actorId);
+			}
 			
 		}else
 		{
 			parameterMap.put("isOperDirApproved", new Boolean(true));
+			parameterMap.put("oprDirName", actorId);
 		}
 		
 		long taskId = leaveTransaction.getTaskId();
 		applyLeaveRuntime.submitTask(actorId, taskId, parameterMap);
 		}catch(RoleNotFound e){
-			e.printStackTrace();
-			
+			log.error("Role Not Found in service ", e);
+			throw new BSLException("err.leave.approve.roleNotFound");
+		}catch(BSLException e){
+		log.error("Error while approving leave in service ", e);
+		throw new BSLException(e.getMessage());
 		}catch(Exception e){
-			e.printStackTrace();
+			log.error("Error while approving leave in service ", e);
+			throw new BSLException("err.leave.approve");
 		}
 		
 	}
@@ -236,22 +249,35 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
 		return parameterMap;
 	}
 	@Override
-	public void rejectLeaveOfEmployee(LeaveTransaction leaveTransaction, String actorId) {
+	public void rejectLeaveOfEmployee(LeaveTransaction leaveTransaction, String actorId, Set<Role> userRoles) {
 		try{
 		HashMap<String, Object> resultMap = getContentMapFromSelectedLeaveRequest(leaveTransaction);
-		if(resultMap!=null && "ROLE_EMPLOYEE".equalsIgnoreCase((String)resultMap.get("role")))
+		Set<String> roleSet = new HashSet<String>();
+		for (Role role : userRoles) {
+			roleSet.add(role.getRole());
+		}
+		if(roleSet.contains("ROLE_TEAMLEAD")){
 			resultMap.put("isTeamLeadApproved", new Boolean(false));
-		else 
+			resultMap.put("teamLeadName", actorId);
+		}
+		else {
 			resultMap.put("isOperDirApproved", new Boolean(false));
+			resultMap.put("oprDirName", actorId);
+		}
 			
 		long taskId = leaveTransaction.getTaskId();
 		applyLeaveRuntime.submitTask(actorId, taskId, resultMap);
+		
 		}catch(RoleNotFound e){
-			e.printStackTrace();
-			
+			log.error("Role Not Found in service ", e);
+			throw new BSLException("err.leave.reject.roleNotFound");
+		}catch(BSLException e){
+		log.error("Error while rejecting leave in service ", e);
+		throw new BSLException(e.getMessage());
 		}catch(Exception e){
-			e.printStackTrace();
-	}
+			log.error("Error while rejecting leave in service ", e);
+			throw new BSLException("err.leave.reject");
+		}
 	}
 
 

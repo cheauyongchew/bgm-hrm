@@ -7,20 +7,24 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 
+import org.springframework.context.ApplicationContextException;
+
 import com.beans.common.audit.service.AuditTrail;
 import com.beans.common.audit.service.SystemAuditTrailActivity;
 import com.beans.common.audit.service.SystemAuditTrailLevel;
 import com.beans.common.security.role.service.RoleNotFound;
 import com.beans.common.security.users.model.Users;
+import com.beans.exceptions.BSLException;
 import com.beans.leaveapp.applyleave.service.LeaveApplicationException;
 import com.beans.leaveapp.applyleave.service.LeaveApplicationService;
 import com.beans.leaveapp.employee.model.Employee;
 import com.beans.leaveapp.leavetransaction.model.LeaveTransaction;
+import com.beans.leaveapp.web.bean.BaseMgmtBean;
 import com.beans.leaveapp.yearlyentitlement.model.YearlyEntitlement;
 import com.beans.leaveapp.yearlyentitlement.service.YearlyEntitlementNotFound;
 import com.beans.leaveapp.yearlyentitlement.service.YearlyEntitlementService;
 
-public class EmployeeLeaveFormBean implements Serializable{
+public class EmployeeLeaveFormBean extends BaseMgmtBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private int selectedYearlyEntitlement = 0;
 	private String leaveType;
@@ -138,7 +142,7 @@ public class EmployeeLeaveFormBean implements Serializable{
 		this.auditTrail = auditTrail;
 	}
 	
-	public void applyLeave() {
+	public void applyLeave() throws LeaveApplicationException  {
 		
 		if(startDate.after(endDate)) {
 			FacesMessage msg = new FacesMessage("Error", "Start Date must be before End Date.");  
@@ -175,12 +179,17 @@ public class EmployeeLeaveFormBean implements Serializable{
 				FacesMessage msg = new FacesMessage("Error", e.getMessage());  
 				  
 		        FacesContext.getCurrentInstance().addMessage(null, msg);  
-			} catch (LeaveApplicationException e) {
+			} catch (BSLException e) {
 				e.printStackTrace();
 				auditTrail.log(SystemAuditTrailActivity.CREATED, SystemAuditTrailLevel.ERROR, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has failed to apply annual leave for " + getNumberOfDays() + " day(s).");
-				FacesMessage msg = new FacesMessage("Error", e.getMessage());  
+				FacesMessage msg = new FacesMessage("Error", getExcptnMesProperty(e.getMessage()));  
 				  
 		        FacesContext.getCurrentInstance().addMessage(null, msg);  
+			} catch (Exception e) {
+				e.printStackTrace();
+				auditTrail.log(SystemAuditTrailActivity.CREATED, SystemAuditTrailLevel.ERROR, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has failed to apply annual leave for " + getNumberOfDays() + " day(s).");
+				FacesMessage msg = new FacesMessage("Error", getExcptnMesProperty(e.getMessage()));  
+				FacesContext.getCurrentInstance().addMessage(null, msg);  
 			}
 			
 			
