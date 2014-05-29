@@ -23,7 +23,7 @@
    
     <jpa:repositories base-package="com.beans"></jpa:repositories>
     
-	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="false" mode="proxy" />
+	<tx:annotation-driven/>
 	
 	<!-- Model and Service declarations -->
 	
