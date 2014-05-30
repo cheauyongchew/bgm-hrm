@@ -8,7 +8,10 @@
 
 
 	<import resource="spring-ds.xml"/>
-
+	
+    <bean id="employeeRepositoryImpl" class="com.beans.leaveapp.employee.service.EmployeeRepositoryImpl">
+    	<property name="dataSource" ref="dataSource"></property>
+    </bean>
     
 	
 	<bean id="leaveType" class="com.beans.leaveapp.leavetype.model.LeaveType" />

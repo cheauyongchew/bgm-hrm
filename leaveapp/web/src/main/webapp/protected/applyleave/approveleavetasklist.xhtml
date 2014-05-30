@@ -19,6 +19,7 @@
  <ui:define name="content">
     <h1>Leave Approval Request(s)</h1>
 	<h:form id="leaveApprovalForm">
+	<p:messages showDetail="true" autoUpdate="true"></p:messages>
 	<p:dataTable id="approveLeaveTable" widgetVar="approveLeaveTable" var="approveLeave0" value="#{leaveApprovalBean.leaveApprovalDataModel}"
 										selection="#{leaveApprovalBean.selectedLeaveRequest}" selectionMode="single" rowKey="#{approveLeave0.taskId}">
          <p:ajax event="rowSelect" listener="#{leaveApprovalBean.onRowSelect}" update=":leaveRequestDialogForm:display" oncomplete="PF('leaveRequestDialogVar').show()" />
@@ -58,7 +59,7 @@
              </h:form>
       </p:dialog>
       
-      <p:dialog header="Reject Registration" severity="alert" widgetVar="rejectRegistrationVar">	
+      <p:dialog header="Reject Leave Request" severity="alert" widgetVar="rejectRegistrationVar">	
 			<h:form>
 			<p:messages autoUpdate="true" />
 			<p:panelGrid id="RejectReason" columns="2" cellpadding="4" style="margin:0 auto;">

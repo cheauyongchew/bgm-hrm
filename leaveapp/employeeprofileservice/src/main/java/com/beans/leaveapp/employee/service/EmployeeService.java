@@ -23,6 +23,7 @@ public interface EmployeeService {
 	public List<Employee> findEmployeeByNameOrEmployeeNumberOrBoth(String name, String employeeNumber);
 	public Employee findByEmployee(String employeeName);
 	
+	List<Employee> findAllEmployeesByRole(String role);
 }
 
 

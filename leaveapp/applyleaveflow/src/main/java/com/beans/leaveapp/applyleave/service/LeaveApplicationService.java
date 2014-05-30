@@ -13,5 +13,5 @@ public interface LeaveApplicationService {
 	public void submitLeave(Employee employee, YearlyEntitlement yearlyEntitlement, LeaveTransaction leaveTransaction) throws RoleNotFound, LeaveApplicationException;
 	public List<LeaveTransaction> getPendingLeaveRequestsList(String username);
 	public void approveLeaveOfEmployee(LeaveTransaction leaveTransaction, String actorId,Set<Role> actorRoles);
-	public void rejectLeaveOfEmployee(LeaveTransaction leaveTransaction, String actorId);
+	public void rejectLeaveOfEmployee(LeaveTransaction leaveTransaction, String actorId,Set<Role> userRoles);
 }
