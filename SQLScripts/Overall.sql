@@ -376,12 +376,13 @@ INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('6', '9');
 INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('2', '10');
 INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('7', '11');
 INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('7', '11');
+INSERT INTO RoleToAccessRights(roleId, accessRightsId) VALUES ('8', '11');
 
-INSERT INTO Employee(id, name, employeenumber, position, employeeGradeId, employeeTypeId, departmentId, userId, isDeleted, isResigned,creationTime,createdBy) values(1, 'John Doe', '1', 'Software Engineer', 1, 1, 1, 1, 0, 0,CURRENT_TIMESTAMP,'admin');
-INSERT INTO Employee(id, name, employeenumber, position, employeeGradeId, employeeTypeId, departmentId, userId, isDeleted, isResigned,creationTime,createdBy) values(2, 'Jennifer', '2', 'HR Executive', 1, 1, 1, 2, 0, 0,CURRENT_TIMESTAMP,'admin');
-INSERT INTO Employee(id, name, employeenumber, position, employeeGradeId, employeeTypeId, departmentId, userId, isDeleted, isResigned,creationTime,createdBy) values(3, 'Ruby', '3', 'HR Manager', 1, 1, 1, 3, 0, 0,CURRENT_TIMESTAMP,'admin');
-INSERT INTO Employee(id, name, employeenumber, position, employeeGradeId, employeeTypeId, departmentId, userId, isDeleted, isResigned,creationTime,createdBy) values(4, 'Larry', '4', 'Team Lead', 1, 1, 1, 5, 0, 0,CURRENT_TIMESTAMP,'admin');
-INSERT INTO Employee(id, name, employeenumber, position, employeeGradeId, employeeTypeId, departmentId, userId, isDeleted, isResigned,creationTime,createdBy) values(5, 'Joe', '5', 'Operation Director', 1, 1, 1, 6, 0, 0,CURRENT_TIMESTAMP,'admin');
+INSERT INTO Employee(id, name, employeenumber, position, employeeGradeId, employeeTypeId, departmentId, userId, isDeleted, isResigned,creationTime,createdBy,workEmailAddress) values(1, 'John Doe', '1', 'Software Engineer', 1, 1, 1, 1, 0, 0,CURRENT_TIMESTAMP,'admin','lakshmin.ravuri@beans.com.my');
+INSERT INTO Employee(id, name, employeenumber, position, employeeGradeId, employeeTypeId, departmentId, userId, isDeleted, isResigned,creationTime,createdBy,workEmailAddress) values(2, 'Jennifer', '2', 'HR Executive', 1, 1, 1, 2, 0, 0,CURRENT_TIMESTAMP,'admin','lakshmin.ravuri@beans.com.my');
+INSERT INTO Employee(id, name, employeenumber, position, employeeGradeId, employeeTypeId, departmentId, userId, isDeleted, isResigned,creationTime,createdBy,workEmailAddress) values(3, 'Ruby', '3', 'HR Manager', 1, 1, 1, 3, 0, 0,CURRENT_TIMESTAMP,'admin','lakshmin.ravuri@beans.com.my');
+INSERT INTO Employee(id, name, employeenumber, position, employeeGradeId, employeeTypeId, departmentId, userId, isDeleted, isResigned,creationTime,createdBy,workEmailAddress) values(4, 'Larry', '4', 'Team Lead', 1, 1, 1, 5, 0, 0,CURRENT_TIMESTAMP,'admin','lakshmin.ravuri@beans.com.my');
+INSERT INTO Employee(id, name, employeenumber, position, employeeGradeId, employeeTypeId, departmentId, userId, isDeleted, isResigned,creationTime,createdBy,workEmailAddress) values(5, 'Joe', '5', 'Operation Director', 1, 1, 1, 6, 0, 0,CURRENT_TIMESTAMP,'admin','lakshmin.ravuri@beans.com.my');
 
 INSERT INTO UserToAccessRights(id, userId, accessRightsId, enabled, isDeleted) values('1', '1', '1', '1', 0);
 
