@@ -1,6 +1,7 @@
 package com.beans.leaveapp.leavetransaction.model;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -103,6 +104,23 @@ public class LeaveTransaction implements Serializable{
 	public Date getEndDateTime() {
 		return endDateTime;
 	}
+	
+	public String fetchStartTimeStr(){
+		if(startDateTime!=null){
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+			return sdf.format(startDateTime); 
+		}
+		return startDateTime.toString();
+	}
+	public String fetchEndTimeStr(){
+		if(endDateTime!=null){
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+			return sdf.format(endDateTime); 
+		}
+		return endDateTime.toString();
+	}
+	
+	
 	public void setEndDateTime(Date endDateTime) {
 		this.endDateTime = endDateTime;
 	}

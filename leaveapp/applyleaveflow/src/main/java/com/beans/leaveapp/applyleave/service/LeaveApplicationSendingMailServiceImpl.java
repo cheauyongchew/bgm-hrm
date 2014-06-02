@@ -47,8 +47,8 @@ public class LeaveApplicationSendingMailServiceImpl {
 		// replacing the employee details in HTML
 		htmlEmailTemplate = htmlEmailTemplate.replace("##employeeName##",leaveTransaction.getEmployee().getName());
 		htmlEmailTemplate = htmlEmailTemplate.replace("##leaveType##",leaveTransaction.getLeaveType().getDescription());
-		htmlEmailTemplate = htmlEmailTemplate.replace("##startDate##",leaveTransaction.getStartDateTime().toString());
-		htmlEmailTemplate = htmlEmailTemplate.replace("##endDate##",leaveTransaction.getEndDateTime().toString());
+		htmlEmailTemplate = htmlEmailTemplate.replace("##startDate##",leaveTransaction.fetchStartTimeStr());
+		htmlEmailTemplate = htmlEmailTemplate.replace("##endDate##",leaveTransaction.fetchEndTimeStr());
 		htmlEmailTemplate = htmlEmailTemplate.replace("##numberOfDays##",leaveTransaction.getNumberOfDays().toString());
 		htmlEmailTemplate = htmlEmailTemplate.replace("##reason##",leaveTransaction.getReason());
 		if(status==1){
@@ -56,17 +56,17 @@ public class LeaveApplicationSendingMailServiceImpl {
 			// set email subject
 			email.setSubject("Reg : Leave Application acknowledgment");
 		}
-		else if(("ROLE_EMPLOYEE".equalsIgnoreCase(role) && isTeamLeadApproved==true && isOperDirApproved==true) || ("ROLE_TEAMLEAD".equalsIgnoreCase(role) && isOperDirApproved==true)){
+		else if(("ROLE_EMPLOYEE".equalsIgnoreCase(role) && isTeamLeadApproved==true && isOperDirApproved==true) || (!"ROLE_EMPLOYEE".equalsIgnoreCase(role) && isOperDirApproved==true)){
 			if("ROLE_EMPLOYEE".equalsIgnoreCase(role))
-				htmlEmailTemplate = htmlEmailTemplate.replace("##mainMessage##","Hi <b>"+leaveTransaction.getEmployee().getName()+"</b>,  <br/> Congratulations!!! Your leave has been approved by Team Lead <b>"+teamLeadName+"</b> and Operational Director <b>"+oprDirName+"</b>. Following are the leave deatils you have applied for");
+				htmlEmailTemplate = htmlEmailTemplate.replace("##mainMessage##","Hi <b>"+leaveTransaction.getEmployee().getName()+"</b>,  <br/> Congratulations!!! Your leave has been approved by Team Lead <b>"+teamLeadName+"</b> and Director <b>"+oprDirName+"</b>. Following are the leave deatils you have applied for");
 			else
-				htmlEmailTemplate = htmlEmailTemplate.replace("##mainMessage##","Hi <br>"+leaveTransaction.getEmployee().getName()+"</b>,  <br/> Congratulations!!! Your leave has been approved by Operational Director <b>"+oprDirName+"</b>. Following are the leave deatils you have applied for");
+				htmlEmailTemplate = htmlEmailTemplate.replace("##mainMessage##","Hi <br>"+leaveTransaction.getEmployee().getName()+"</b>,  <br/> Congratulations!!! Your leave has been approved by Director <b>"+oprDirName+"</b>. Following are the leave deatils you have applied for");
 			// set email subject
 			email.setSubject("Reg : Your Leave request has been approved");
 		}
 		else{
-			if(isTeamLeadApproved || (!isTeamLeadApproved && !isOperDirApproved && "ROLE_TEAMLEAD".equalsIgnoreCase(role))){
-				htmlEmailTemplate = htmlEmailTemplate.replace("##mainMessage##","Hi <b>"+leaveTransaction.getEmployee().getName()+"</b>, <br/> Sorry!!! Your leave has been rejected by Operational Director <b>"+oprDirName+"</b>. Following are the leave deatils you have applied for");
+			if(status==4){
+				htmlEmailTemplate = htmlEmailTemplate.replace("##mainMessage##","Hi <b>"+leaveTransaction.getEmployee().getName()+"</b>, <br/> Sorry!!! Your leave has been rejected by Director <b>"+oprDirName+"</b>. Following are the leave deatils you have applied for");
 				// set email subject
 				email.setSubject("Reg : Your Leave request has been rejected "+oprDirName);
 			}
@@ -78,6 +78,7 @@ public class LeaveApplicationSendingMailServiceImpl {
 		}
 		// add reciepiant email address
 		try {
+			if(leaveTransaction.getEmployee().getWorkEmailAddress()!=null && !leaveTransaction.getEmployee().getWorkEmailAddress().equals(""))
 			email.addTo(leaveTransaction.getEmployee().getWorkEmailAddress(), leaveTransaction.getEmployee().getName());
 		} catch (EmailException e) {
 			e.printStackTrace();
@@ -90,12 +91,9 @@ public class LeaveApplicationSendingMailServiceImpl {
 		}
 
 		// send the email
-		try {
 			EmailSender.sendEmail(email);
 			System.out.println("Email has been sent successfully to Leave Applicant");
-		} catch (EmailException e) {
-			e.printStackTrace();
-		}
+		
 		}catch(Exception e){
 			e.printStackTrace();
 			throw new BSLException("err.leave.emailSendFailToApplicant");
@@ -131,8 +129,8 @@ public void sendEmailNotificationToLeaveApprover(LeaveTransaction leaveTransacti
 		
 		htmlEmailTemplate = htmlEmailTemplate.replace("##employeeName##",leaveTransaction.getEmployee().getName());
 		htmlEmailTemplate = htmlEmailTemplate.replace("##leaveType##",leaveTransaction.getLeaveType().getDescription());
-		htmlEmailTemplate = htmlEmailTemplate.replace("##startDate##",leaveTransaction.getStartDateTime().toString());
-		htmlEmailTemplate = htmlEmailTemplate.replace("##endDate##",leaveTransaction.getEndDateTime().toString());
+		htmlEmailTemplate = htmlEmailTemplate.replace("##startDate##",leaveTransaction.fetchStartTimeStr());
+		htmlEmailTemplate = htmlEmailTemplate.replace("##endDate##",leaveTransaction.fetchEndTimeStr());
 		htmlEmailTemplate = htmlEmailTemplate.replace("##numberOfDays##",leaveTransaction.getNumberOfDays().toString());
 		htmlEmailTemplate = htmlEmailTemplate.replace("##reason##",leaveTransaction.getReason());
 		
@@ -220,8 +218,8 @@ public void sendEmailNotificationToHR(LeaveTransaction leaveTransaction,String r
 	// replacing the employee details in HTML
 	htmlEmailTemplate = htmlEmailTemplate.replace("##employeeName##",leaveTransaction.getEmployee().getName());
 	htmlEmailTemplate = htmlEmailTemplate.replace("##leaveType##",leaveTransaction.getLeaveType().getDescription());
-	htmlEmailTemplate = htmlEmailTemplate.replace("##startDate##",leaveTransaction.getStartDateTime().toString());
-	htmlEmailTemplate = htmlEmailTemplate.replace("##endDate##",leaveTransaction.getEndDateTime().toString());
+	htmlEmailTemplate = htmlEmailTemplate.replace("##startDate##",leaveTransaction.fetchStartTimeStr());
+	htmlEmailTemplate = htmlEmailTemplate.replace("##endDate##",leaveTransaction.fetchEndTimeStr());
 	htmlEmailTemplate = htmlEmailTemplate.replace("##numberOfDays##",leaveTransaction.getNumberOfDays().toString());
 	htmlEmailTemplate = htmlEmailTemplate.replace("##reason##",leaveTransaction.getReason());
 	

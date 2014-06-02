@@ -177,18 +177,19 @@ public class EmployeeLeaveFormBean extends BaseMgmtBean implements Serializable{
 				e.printStackTrace();
 				auditTrail.log(SystemAuditTrailActivity.CREATED, SystemAuditTrailLevel.ERROR, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has failed to apply annual leave for " + getNumberOfDays() + " day(s).");
 				FacesMessage msg = new FacesMessage("Error", e.getMessage());  
-				  
+				msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 		        FacesContext.getCurrentInstance().addMessage(null, msg);  
 			} catch (BSLException e) {
 				e.printStackTrace();
 				auditTrail.log(SystemAuditTrailActivity.CREATED, SystemAuditTrailLevel.ERROR, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has failed to apply annual leave for " + getNumberOfDays() + " day(s).");
 				FacesMessage msg = new FacesMessage("Error", getExcptnMesProperty(e.getMessage()));  
-				  
+				msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 		        FacesContext.getCurrentInstance().addMessage(null, msg);  
 			} catch (Exception e) {
 				e.printStackTrace();
 				auditTrail.log(SystemAuditTrailActivity.CREATED, SystemAuditTrailLevel.ERROR, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has failed to apply annual leave for " + getNumberOfDays() + " day(s).");
-				FacesMessage msg = new FacesMessage("Error", getExcptnMesProperty(e.getMessage()));  
+				FacesMessage msg = new FacesMessage("Error", getExcptnMesProperty(e.getMessage())); 
+				msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 				FacesContext.getCurrentInstance().addMessage(null, msg);  
 			}
 			

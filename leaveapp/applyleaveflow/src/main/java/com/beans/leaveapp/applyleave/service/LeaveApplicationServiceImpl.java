@@ -133,7 +133,15 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
 			return 5;
 		} else if(roleName.equals("ROLE_TEAMLEAD")) {
 			return 10;
-		} else {
+		}else if(roleName.equals("ROLE_JRHR")) {
+			return 10;
+		}else if(roleName.equals("ROLE_SRHR")) {
+			return 15;
+		}
+		else if(roleName.equals("ROLE_HR")) {
+			return 20;
+		}
+		else {
 			return -1;
 		}
 	}
@@ -215,6 +223,7 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
 		long taskId = leaveTransaction.getTaskId();
 		applyLeaveRuntime.submitTask(actorId, taskId, parameterMap);
 		}catch(RoleNotFound e){
+			
 			log.error("Role Not Found in service ", e);
 			throw new BSLException("err.leave.approve.roleNotFound");
 		}catch(BSLException e){
