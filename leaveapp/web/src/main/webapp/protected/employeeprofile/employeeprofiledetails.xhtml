@@ -18,16 +18,16 @@
 				<f:facet name="header"><h3>Basic Details</h3></f:facet>
 				<p:panelGrid id="NewEmployeeDetailLeft" columns="2" cellpadding="4"
 					style="margin:0 auto;">
-					<h:outputText value="Name" />
+					<h:outputText value="Name"  class="req" />
 					<h:inputText value="#{employeeProfileMgmtBean.newEmployee.name}"
 						required="true" requiredMessage="Please Enter Name"/>
 
-					<h:outputText value="Employee Number" />
+					<h:outputText value="Employee Number"  class="req" />
 					<h:inputText
 						value="#{employeeProfileMgmtBean.newEmployee.employeeNumber}"
 						required="true" requiredMessage="Please Enter Employee Number" />
 
-					<h:outputText value="Position" />
+					<h:outputText value="Position"  class="req"/>
 					<h:inputText
 						value="#{employeeProfileMgmtBean.newEmployee.position}"
 						required="true" requiredMessage="Please Enter Position" />
@@ -82,7 +82,7 @@
 					style="margin:0 auto;">
 
 
-					<h:outputText value="Grade" />
+					<h:outputText value="Grade"  class="req"/>
 					<p:selectOneMenu
 						value="#{employeeProfileMgmtBean.selectedEmployeeGrade}"
 						effect="fade" required="true"
@@ -93,7 +93,7 @@
 							itemValue="#{employeeGrade0.id}" />
 					</p:selectOneMenu>
 
-					<h:outputText value="Employee Type" />
+					<h:outputText value="Employee Type"  class="req"/>
 					<p:selectOneMenu
 						value="#{employeeProfileMgmtBean.selectedEmployeeType}"
 						effect="fade" required="true"
@@ -104,7 +104,7 @@
 							itemValue="#{employeeType0.id}" />
 					</p:selectOneMenu>
 
-					<h:outputText value="Department" />
+					<h:outputText value="Department"  class="req"/>
 					<p:selectOneMenu
 						value="#{employeeProfileMgmtBean.selectedDepartment}"
 						effect="fade" required="true"
@@ -205,7 +205,7 @@
 										<f:selectItem itemLabel="Other" itemValue="Other" />
 									</p:selectOneMenu>
 												   		
-							   		<h:outputText value="Line 1" />
+							   		<h:outputText value="Line 1"  class="req" />
 									<h:inputText
 										value="#{employeeProfileMgmtBean.selectedAddress.line1}" required="true" requiredMessage="Please enter Line 1"/>
 										
@@ -228,7 +228,7 @@
 									<h:inputText
 										value="#{employeeProfileMgmtBean.selectedAddress.state}"/>
 										
-									<h:outputText value="Country" />
+									<h:outputText value="Country"  class="req"/>
 									<h:inputText
 										value="#{employeeProfileMgmtBean.selectedAddress.country}" required="true" requiredMessage="Please enter Country"/>
 										
