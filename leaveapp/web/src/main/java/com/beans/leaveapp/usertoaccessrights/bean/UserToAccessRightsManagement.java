@@ -25,8 +25,7 @@ import com.beans.leaveapp.usertoaccessrights.model.UserToAccessRightsDataModel;
 import com.beans.leaveapp.usertoaccessrights.model.UserToAssignedAccessRightsDataModel;
 import com.beans.leaveapp.usertoaccessrights.model.UserToUnAssignedAccessRightsDataModel;
 
-
-public class UserToAccessRightsManagement implements Serializable{
+public class UserToAccessRightsManagement implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private UsersService usersService;
@@ -37,18 +36,18 @@ public class UserToAccessRightsManagement implements Serializable{
 	private Users selectedUsers = new Users();
 	private boolean insertDelete = false;
 	private List<Users> searchUsers;
-	private List<AccessRights> accessRightsList = new LinkedList<AccessRights>();	
+	private List<AccessRights> accessRightsList = new LinkedList<AccessRights>();
 	private UserToAssignedAccessRightsDataModel userToAssignedAccessRightsDataModel;
-	private UserToAccessRights selectedUserToAccessRights = new UserToAccessRights();	
+	private UserToAccessRights selectedUserToAccessRights = new UserToAccessRights();
 	private int userId;
 	private List<UserToAccessRights> userToAccessRightsList = new LinkedList<UserToAccessRights>();
 	private AccessRightsDataModel accessRightsDataModel;
-    private boolean renderAccessRights = false;
-    private AccessRights selectedAccessRights = new AccessRights();
-    private boolean enabled;
-    
+	private boolean renderAccessRights = false;
+	private AccessRights selectedAccessRights = new AccessRights();
+	private boolean enabled;
+
 	private int id;
-	
+
 	public int getId() {
 		return id;
 	}
@@ -58,123 +57,108 @@ public class UserToAccessRightsManagement implements Serializable{
 	}
 
 	private String searchUsername = "";
-	
+
 	public UsersService getUsersService() {
 		return usersService;
 	}
-	
+
 	public void setUsersService(UsersService usersService) {
 		this.usersService = usersService;
 	}
-	
-	
+
 	public AccessRightsService getAccessRightsService() {
 		return accessRightsService;
 	}
-	
+
 	public void setAccessRightsService(AccessRightsService accessRightsService) {
 		this.accessRightsService = accessRightsService;
 	}
-	
-	
+
 	public List<Users> getUsersList() {
-			if(usersList == null || insertDelete == true){
-					usersList = usersService.findAll();
-				}		
+		if (usersList == null || insertDelete == true) {
+			usersList = usersService.findAll();
+		}
 		return usersList;
 	}
-	
+
 	public void setUsersList(List<Users> usersList) {
 		this.usersList = usersList;
 	}
-	
-	
+
 	public UserToAccessRightsDataModel getUserToAccessRightsDataModel() {
-		if(userToAccessRightsDataModel == null || insertDelete == true)
-			userToAccessRightsDataModel = new UserToAccessRightsDataModel(getUsersList());		
+		if (userToAccessRightsDataModel == null || insertDelete == true)
+			userToAccessRightsDataModel = new UserToAccessRightsDataModel(getUsersList());
 		return userToAccessRightsDataModel;
 	}
-	
+
 	public void setUserToAccessRightsDataModel(
 			UserToAccessRightsDataModel userToAccessRightsDataModel) {
 		this.userToAccessRightsDataModel = userToAccessRightsDataModel;
 	}
-	
-	
+
 	public Users getSelectedUsers() {
 		return selectedUsers;
 	}
-	
-	public void setSelectedUsers(Users selectedUsers) {				
+
+	public void setSelectedUsers(Users selectedUsers) {
 		this.selectedUsers = selectedUsers;
 	}
-	
-	
-	public void assignedAccessRights(){
-		userId = getSelectedUsers().getId();		
-	}	
 
-	public void assignAccessRightsToUser(){
+	public void assignedAccessRights() {
+		userId = getSelectedUsers().getId();
+	}
+
+	public void assignAccessRightsToUser() {
 		this.setRenderAccessRights(true);
 	}
-	
-	public void onRowSelect(SelectEvent event){
+
+	public void onRowSelect(SelectEvent event) {
 		this.selectedUsers = ((Users) event.getObject());
-		if(selectedUsers != null){
+		if (selectedUsers != null) {
 			List<UserToAccessRights> userToAccessRightsList1 = new ArrayList<UserToAccessRights>();
 			userToAccessRightsList1 = this.getUserToAccessRightsService().findByUserId(selectedUsers.getId());
 			this.setUserToAccessRightsList(userToAccessRightsList1);
 			this.userToAssignedAccessRightsDataModel = null;
 			this.setId(selectedUsers.getId());
 			System.out.println(id);
-		}		
+		}
 
-	}	
-	
+	}
+
 	public boolean isInsertDelete() {
 		return insertDelete;
 	}
-	
+
 	public void setInsertDelete(boolean insertDelete) {
 		this.insertDelete = insertDelete;
 	}
-	
-	
+
 	public List<Users> getSearchUsers() {
 		return searchUsers;
 	}
-	
+
 	public void setSearchUsers(List<Users> searchUsers) {
 		this.searchUsers = searchUsers;
 	}
-	
+
 	public String getSearchUsername() {
 		return searchUsername;
 	}
+
 	public void setSearchUsername(String searchUsername) {
 		this.searchUsername = searchUsername;
 	}
-	
-	public void searchUser(){		
-		if(getSearchUsername() == null || getSearchUsername().trim().equals("")){
-			this.usersList = null;
-			this.userToAccessRightsDataModel = null;			
-		}else {
-			this.usersList = usersService.findUsersByUsername(getSearchUsername());
-			this.userToAccessRightsDataModel = null;
-		}		
-	}
 
-	public UserToAssignedAccessRightsDataModel getUserToAssignedAccessRightsDataModel() throws Exception {	
-		if(userToAssignedAccessRightsDataModel == null || insertDelete == true){
-					
+	public UserToAssignedAccessRightsDataModel getUserToAssignedAccessRightsDataModel()
+			throws Exception {
+		if (userToAssignedAccessRightsDataModel == null || insertDelete == true) {
+
 			userToAssignedAccessRightsDataModel = new UserToAssignedAccessRightsDataModel(this.userToAccessRightsList);
-		}		
+		}
 		return userToAssignedAccessRightsDataModel;
 	}
 
-	public void setUserToAssignedAccessRightsDataModel(
-			UserToAssignedAccessRightsDataModel userToAssignedAccessRightsDataModel) {
+	public void setUserToAssignedAccessRightsDataModel(UserToAssignedAccessRightsDataModel userToAssignedAccessRightsDataModel) {
 		this.userToAssignedAccessRightsDataModel = userToAssignedAccessRightsDataModel;
 	}
 
@@ -186,99 +170,113 @@ public class UserToAccessRightsManagement implements Serializable{
 			UserToAccessRightsService userToAccessRightsService) {
 		this.userToAccessRightsService = userToAccessRightsService;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<AccessRights> getAccessRightsList() {
-		List<AccessRights> accessRightsListArray = null;
-	try {				
-		
-			List<AccessRights> list;
-			list = userToAccessRightsService.findAllAccessRights();
+		List<AccessRights> unAssignedaccessRightsList = null;
+		try {
+
+			List<AccessRights> accessRightsExistinglist;
+			accessRightsExistinglist = userToAccessRightsService.findAllAccessRights();
 			List<String> assigned = new LinkedList<String>();
 			List<String> unAssigned = new LinkedList<String>();
-			
-        if(userToAccessRightsList.size() >0){
-			for(UserToAccessRights u :userToAccessRightsList){
-				String s = u.getAccessRights().getAccessRights();
-				assigned.add(s);
+
+			if (userToAccessRightsList.size() > 0) {
+				for (UserToAccessRights userToAccessRights : userToAccessRightsList) {
+					String assignedAccessRightString = userToAccessRights.getAccessRights().getAccessRights();
+					assigned.add(assignedAccessRightString);
+				}
 			}
-}
-			if(list.size() >0 ){				
-			
-			for(AccessRights a : list){
-				String s1 = a.getAccessRights();
-				unAssigned.add(s1);
-			}
-		
-			List<String> finalList = new LinkedList<String>();
-			 finalList = (List<String>) CollectionUtils.disjunction(assigned, unAssigned);
-			
-			for(String s2 : finalList){
-				for(AccessRights a:list){
-					if(s2.trim().equalsIgnoreCase(a.getAccessRights().trim())){
-						int i = 0;
-						System.out.println(++i + "times");
-						accessRightsList.add(new AccessRights(a.getId(), a.getAccessRights(), a.getDescription(), a.getCreatedBy(), a.getCreationTime(), a.getLastModifiedBy(), a.getLastModifiedTime(), a.isDeleted()));
-						Set<AccessRights> a1 = new HashSet<AccessRights>(accessRightsList);
-							accessRightsListArray = new ArrayList<AccessRights>(a1);						
-						
-						System.out.println(accessRightsListArray.size());
+			if (accessRightsExistinglist.size() > 0) {
+
+				for (AccessRights accessRights : accessRightsExistinglist) {
+					String unAssignedAcccessRightString = accessRights.getAccessRights();
+					unAssigned.add(unAssignedAcccessRightString);
+				}
+
+				List<String> finalList = new LinkedList<String>();
+				finalList = (List<String>) CollectionUtils.disjunction(assigned, unAssigned);
+
+				for (String finalString : finalList) {
+					for (AccessRights accessRights : accessRightsExistinglist) {
+						if (finalString.trim().equalsIgnoreCase(accessRights.getAccessRights().trim())) {														
+							accessRightsList.add(new AccessRights(accessRights.getId(), accessRights.getAccessRights(),accessRights.getDescription(), accessRights.getCreatedBy(), accessRights.getCreationTime(), accessRights.getLastModifiedBy(), accessRights.getLastModifiedTime(),accessRights.isDeleted()));
+							Set<AccessRights> unAssignedAccessRightsSet = new HashSet<AccessRights>(accessRightsList);
+							unAssignedaccessRightsList = new ArrayList<AccessRights>(unAssignedAccessRightsSet);
+						}
 					}
-				}				 
-			 }
+				}
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		
-		
-	} catch (Exception e) {
-		e.printStackTrace();
-	}	
-	this.setRenderAccessRights(true);	
-	return accessRightsListArray;
-}
+		setRenderAccessRights(true);
+		return unAssignedaccessRightsList;
+	}
 
 	public void setAccessRightsList(List<AccessRights> accessRightsList) {
 		this.accessRightsList = accessRightsList;
 	}
-	
-	public AccessRightsDataModel getAccessRightsDataModel() {		
-		if(accessRightsDataModel == null || insertDelete == true){
+
+	public AccessRightsDataModel getAccessRightsDataModel() {
+		if (accessRightsDataModel == null || insertDelete == true) {
 			accessRightsDataModel = new AccessRightsDataModel(getAccessRightsList());
-		}		
+		}
 		return accessRightsDataModel;
 	}
 
-	public void setAccessRightsDataModel(AccessRightsDataModel accessRightsDataModel) {
+	public void setAccessRightsDataModel(
+			AccessRightsDataModel accessRightsDataModel) {
 		this.accessRightsDataModel = accessRightsDataModel;
 	}
 
-	public void addAccessRights(){
-		UserToAccessRights u = new UserToAccessRights();
-		u.setAccessRights(selectedAccessRights);
-		u.setUsers(selectedUsers);
-		u.setDeleted(false);		
-		userToAccessRightsList.add(u);
+	public void addAccessRights() {
+		UserToAccessRights userToAccessRights = new UserToAccessRights();
+		userToAccessRights.setAccessRights(selectedAccessRights);
+		userToAccessRights.setUsers(selectedUsers);
+		userToAccessRights.setDeleted(false);
+		userToAccessRightsList.add(userToAccessRights);
 		userToAssignedAccessRightsDataModel = null;
 		accessRightsList.remove(selectedAccessRights);
 		accessRightsDataModel = null;
-		
-		System.out.println(accessRightsList.size());
-		this.setRenderAccessRights(false);
-		this.getAccessRightsDataModel();           
-		System.out.println(userToAccessRightsList.size());
-           } 
-	
-	
-	public void onUnAssignedAccessRightsSelect(SelectEvent event){
-		
-		selectedAccessRights = (AccessRights)event.getObject();
-		
+		this.getAccessRightsDataModel();
+		setRenderAccessRights(false);
+	}
+
+	public void myListener(){		
 	}
 	
-	public void saveUserToAccessRights(){
-		try {			
-			for(UserToAccessRights userToAccessRights1: userToAccessRightsList){			
+	public void deleteAssignedAccessRights(){
+	selectedUserToAccessRights.setDeleted(true);
+	userToAccessRightsList.remove(selectedUserToAccessRights);
+	}
+	
+	public void onAssignedAccessRightsSelect(SelectEvent event){
+		
+		selectedUserToAccessRights = (UserToAccessRights) event.getObject();
+	}
+	
+	
+	public void onUnAssignedAccessRightsSelect(SelectEvent event) {
+
+		selectedAccessRights = (AccessRights) event.getObject();
+
+	}	
+
+	public void saveUserToAccessRights() {
+		try {
+			if(selectedUserToAccessRights.getAccessRights() == null){				
+				for (UserToAccessRights userToAccessRights1 : userToAccessRightsList) {
+					getUserToAccessRightsService().update(userToAccessRights1);
+				}
+			} else 
+			{	
+				getUserToAccessRightsService().delete(selectedUserToAccessRights.getId());
+				for (UserToAccessRights userToAccessRights1 : userToAccessRightsList) {
 				getUserToAccessRightsService().update(userToAccessRights1);
 			}
+			}	
 		} catch (UserToAccessRightsNotFound e) {
 			e.printStackTrace();
 		}
@@ -288,17 +286,18 @@ public class UserToAccessRightsManagement implements Serializable{
 		return selectedUserToAccessRights;
 	}
 
-	public void setSelectedUserToAccessRights(UserToAccessRights selectedUserToAccessRights) {
+	public void setSelectedUserToAccessRights(
+			UserToAccessRights selectedUserToAccessRights) {
 		this.selectedUserToAccessRights = selectedUserToAccessRights;
 	}
 
 	public List<UserToAccessRights> getUserToAccessRightsList() {
-		
-		
+
 		return userToAccessRightsList;
 	}
 
-	public void setUserToAccessRightsList(List<UserToAccessRights> userToAccessRightsList) {
+	public void setUserToAccessRightsList(
+			List<UserToAccessRights> userToAccessRightsList) {
 		this.userToAccessRightsList = userToAccessRightsList;
 	}
 
@@ -324,7 +323,16 @@ public class UserToAccessRightsManagement implements Serializable{
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
-	}	
+	}
 
-	
+	public void searchUser() {
+		if (getSearchUsername() == null || getSearchUsername().trim().equals("")) {
+			this.usersList = null;
+			this.userToAccessRightsDataModel = null;
+		} else {
+			this.usersList = usersService.findUsersByUsername(getSearchUsername());
+			this.userToAccessRightsDataModel = null;
+		}
+	}
+
 }

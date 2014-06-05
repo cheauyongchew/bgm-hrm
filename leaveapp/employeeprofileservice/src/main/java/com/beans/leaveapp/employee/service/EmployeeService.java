@@ -22,6 +22,8 @@ public interface EmployeeService {
 	
 	public List<Employee> findEmployeeByNameOrEmployeeNumberOrBoth(String name, String employeeNumber);
 	public Employee findByEmployee(String employeeName);
+	public List<Employee> findByEmployeeTypePermAndCont();
+	public List<Employee> findByEmployeeTypePerm();
 	
 }
 

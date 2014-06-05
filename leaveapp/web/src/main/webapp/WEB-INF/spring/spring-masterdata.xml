@@ -14,7 +14,7 @@
 	<bean id="leaveType" class="com.beans.leaveapp.leavetype.model.LeaveType" />
 
 	<bean id="leaveTypeService" class="com.beans.leaveapp.leavetype.service.LeaveTypeServiceImpl" >
-	</bean>
+	</bean>	
 	
 	  <bean id="employeeGrade" class="com.beans.leaveapp.employeegrade.model.EmployeeGrade" /> 
 	

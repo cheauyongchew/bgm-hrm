@@ -36,4 +36,7 @@ public interface YearlyEntitlementService {
 	
 	public YearlyEntitlement findOne(int yearlyEntitlementId) throws YearlyEntitlementNotFound;
 	
+	public YearlyEntitlement findByEmployeeIdPermAndCont(int employeeId);
+	
+	public YearlyEntitlement findByEmployeeIdPerm(int employeeId);
 }

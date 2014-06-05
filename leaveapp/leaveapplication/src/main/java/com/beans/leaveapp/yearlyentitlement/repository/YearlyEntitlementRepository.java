@@ -36,5 +36,10 @@ public interface YearlyEntitlementRepository extends
 	public List<YearlyEntitlement> findByEmployeeAndLeaveTypeLike(
 			@Param("employeeName") String employeeName,
 			@Param("leaveTypeName") String leaveTypeName);
-
+	
+	@Query("select y from YearlyEntitlement y where y.employee.id =? and isDeleted = 0 ")
+	public YearlyEntitlement findByEmployeeIdPermAndCont(int employeeId);
+	
+	@Query("select y from YearlyEntitlement y where y.employee.id = ? and isDeleted = 0")
+	public YearlyEntitlement findByEmployeeIdPerm(int employeeId);
 }

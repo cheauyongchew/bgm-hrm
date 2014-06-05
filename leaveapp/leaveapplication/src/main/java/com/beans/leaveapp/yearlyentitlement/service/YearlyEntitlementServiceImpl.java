@@ -179,6 +179,18 @@ public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 		}
 		return yearlyEntitlement;
 	}
+
+	@Override
+	public YearlyEntitlement findByEmployeeIdPermAndCont(int employeeId) {
+		 YearlyEntitlement yearlyEntitlementPermAndCont = yearlyEntitleRepository.findByEmployeeIdPermAndCont(employeeId);
+		return yearlyEntitlementPermAndCont;
+	}
+
+	@Override
+	public YearlyEntitlement findByEmployeeIdPerm(int employeeId) {
+		YearlyEntitlement yearlyEntitlementPerm = yearlyEntitleRepository.findByEmployeeIdPerm(employeeId);
+		return yearlyEntitlementPerm;
+	}
 	
 
 }

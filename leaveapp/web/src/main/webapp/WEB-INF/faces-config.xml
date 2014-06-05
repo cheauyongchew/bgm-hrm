@@ -420,5 +420,32 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 			<value>#{authenticationBean.getEmployee()}</value>
 		</managed-property>
 	</managed-bean>
+	<managed-bean>
+	<managed-bean-name>monthlyAddedLeaveBean</managed-bean-name>
+	<managed-bean-class>com.beans.leaveapp.batch.service.MonthlyAddedLeave</managed-bean-class>
+	<managed-bean-scope>view</managed-bean-scope>
+	<managed-property>
+			<property-name>employeeService</property-name>
+			<value>#{employeeService}</value>
+	</managed-property>
+	<managed-property>
+			<property-name>yearlyEntitlementService</property-name>
+			<value>#{yearlyEntitlementService}</value>
+	</managed-property>
+	</managed-bean>
+	<managed-bean>
+	<managed-bean-name>yearlyAddedLeaveBean</managed-bean-name>
+	<managed-bean-class>com.beans.leaveapp.batch.service.YearlyAddedLeave</managed-bean-class>
+	<managed-bean-scope>view</managed-bean-scope>
+	<managed-property>
+			<property-name>employeeService</property-name>
+			<value>#{employeeService}</value>
+	</managed-property>
+	<managed-property>
+			<property-name>yearlyEntitlementService</property-name>
+			<value>#{yearlyEntitlementService}</value>
+	</managed-property>
+	</managed-bean>
+	
 </faces-config>
 
