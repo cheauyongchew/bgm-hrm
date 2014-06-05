@@ -29,6 +29,8 @@ import org.kie.internal.runtime.manager.context.EmptyContext;
 import org.kie.internal.runtime.manager.context.ProcessInstanceIdContext;
 import org.springframework.transaction.support.AbstractPlatformTransactionManager;
 
+import com.beans.exceptions.BSLException;
+
 
 public class JBPM6Runtime {
 	private RuntimeManager manager;
@@ -160,12 +162,20 @@ public class JBPM6Runtime {
 	}
 	
 	public void submitTask(String username, long taskId, HashMap<String, Object> parameterMap) {
+		TaskService taskService=null;
+		try{
 		RuntimeEngine runtimeEngine = manager.getRuntimeEngine(ProcessInstanceIdContext.get());
 		
-		TaskService taskService = runtimeEngine.getTaskService();
+		taskService = runtimeEngine.getTaskService();
 		
 		taskService.start(taskId, username);
 		taskService.complete(taskId, username, parameterMap);
+		}catch(Exception e){
+			if(taskService!=null){
+				taskService.exit(taskId, username);
+				throw new BSLException("error.leaveapp.terminate");
+			}
+		}
 		
 	}
 	

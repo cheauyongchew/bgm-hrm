@@ -270,7 +270,7 @@
   			<artifactId>quartz</artifactId>
   			<version>1.8.6</version>
   		</dependency> 
-  		<!-- QuartzJobBean in spring-context-support.jar -->
+  		<!-- QuartzJobBean in spring-context-support -->
   		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>

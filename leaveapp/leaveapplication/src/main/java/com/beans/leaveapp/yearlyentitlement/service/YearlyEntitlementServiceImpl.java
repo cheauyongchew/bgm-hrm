@@ -4,6 +4,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
+
+import org.springframework.transaction.annotation.Transactional;
 
 import com.beans.common.audit.service.AuditTrail;
 import com.beans.leaveapp.employee.model.Employee;
@@ -190,6 +194,15 @@ public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 	public YearlyEntitlement findByEmployeeIdPerm(int employeeId) {
 		YearlyEntitlement yearlyEntitlementPerm = yearlyEntitleRepository.findByEmployeeIdPerm(employeeId);
 		return yearlyEntitlementPerm;
+	}	
+
+	@Transactional
+	public void updateLeaveBalanceAfterApproval(int employeeId,int leaveTypeId,double numberOfDaysLeaveApproved) {
+		System.out.println("Input parameters values in updateLeaveBalanceAfterApproval() employeeId: "+employeeId+" leaveTypeId :"+leaveTypeId);
+		YearlyEntitlement yearlyEntitlement =	(YearlyEntitlement) yearlyEntitleRepository.findByEmployeeAndLeaveTypeId(employeeId, leaveTypeId);
+		yearlyEntitlement.setAvailableBalance(yearlyEntitlement.getAvailableBalance()-numberOfDaysLeaveApproved);
+		yearlyEntitleRepository.save(yearlyEntitlement);
+		System.out.println("After updating, no'of leaves left is :"+yearlyEntitlement.getAvailableBalance());
 	}
 	
 

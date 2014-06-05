@@ -16,11 +16,11 @@
 			<p:panelGrid id="EmployeeDetail" columns="2" cellpadding="4" style="margin:0 auto;">
 				<f:facet name="header"><h3>Basic Details</h3></f:facet>
 				<p:panelGrid id="EmployeeDetailLeft" columns="2" cellpadding="4" style="margin:0 auto;">
-					<h:outputText value="Name" />
+					<h:outputText value="Name"  class="req" />
 					<h:inputText value="#{employeeProfileMgmtBean.selectedEmployee.name}" required="true" requiredMessage="Please Enter Name" disabled="#{authenticationBean.hasAccess('EditEmployee') == false}"/>
-					<h:outputText value="Employee Number" />
+					<h:outputText value="Employee Number"  class="req"/>
 					<h:inputText value="#{employeeProfileMgmtBean.selectedEmployee.employeeNumber}" required="true" requiredMessage="Please Enter Employee Number" disabled="#{authenticationBean.hasAccess('EditEmployee') == false}" />
-					<h:outputText value="Position" />
+					<h:outputText value="Position"  class="req"/>
 					<h:inputText value="#{employeeProfileMgmtBean.selectedEmployee.position}" required="true" requiredMessage="Please Enter Position" disabled="#{authenticationBean.hasAccess('EditEmployee') == false}" />
 					<h:outputText value="IC Number" />
 					<h:inputText value="#{employeeProfileMgmtBean.selectedEmployee.idNumber}" disabled="#{authenticationBean.hasAccess('EditEmployee') == false}" />
@@ -54,12 +54,12 @@
 					<h:inputText value="#{employeeProfileMgmtBean.selectedEmployee.nationality}" disabled="#{authenticationBean.hasAccess('EditEmployee') == false}" />
 				</p:panelGrid>
 				<p:panelGrid id="EmployeeDetailRight" columns="2" cellpadding="4" style="margin:0 auto;">
-					<h:outputText value="Grade" />
+					<h:outputText value="Grade"  class="req" />
 					<p:selectOneMenu value="#{employeeProfileMgmtBean.selectedEmployeeGrade}" effect="fade" required="true" requiredMessage="Please select Grade" disabled="#{authenticationBean.hasAccess('EditEmployee') == false}">
 						<f:selectItem itemLabel="Select One" itemValue="" />
 						<f:selectItems value="#{employeeGradeListBean.employeeGradeList}" var="employeeGrade0" itemLabel="#{employeeGrade0.description}" itemValue="#{employeeGrade0.id}" />
 					</p:selectOneMenu>
-					<h:outputText value="Employee Type" />
+					<h:outputText value="Employee Type"  class="req" />
 					<p:selectOneMenu value="#{employeeProfileMgmtBean.selectedEmployeeType}" effect="fade" required="true" requiredMessage="Please select Employee Type" disabled="#{authenticationBean.hasAccess('EditEmployee') == false}">
 						<f:selectItem itemLabel="Select One" itemValue="" />
 						<f:selectItems value="#{employeeTypeListBean.employeeTypeList}" var="employeeType0" itemLabel="#{employeeType0.description}" itemValue="#{employeeType0.id}" />
@@ -119,7 +119,7 @@
 										<f:selectItem itemLabel="Work" itemValue="Work" />
 										<f:selectItem itemLabel="Other" itemValue="Other" />
 								</p:selectOneMenu>
-							   	<h:outputText value="Line 1" />
+							   	<h:outputText value="Line 1"  class="req" />
 								<h:inputText value="#{employeeProfileMgmtBean.selectedAddress.line1}" required="true" requiredMessage="Please enter Line 1" disabled="#{authenticationBean.hasAccess('EditEmployee') == false}"/>
 								<h:outputText value="Line 2" />
 								<h:inputText value="#{employeeProfileMgmtBean.selectedAddress.line2}" disabled="#{authenticationBean.hasAccess('EditEmployee') == false}"/>
@@ -131,7 +131,7 @@
 								<h:inputText value="#{employeeProfileMgmtBean.selectedAddress.city}" disabled="#{authenticationBean.hasAccess('EditEmployee') == false}"/>
 								<h:outputText value="State" />
 								<h:inputText value="#{employeeProfileMgmtBean.selectedAddress.state}" disabled="#{authenticationBean.hasAccess('EditEmployee') == false}"/>
-								<h:outputText value="Country" />
+								<h:outputText value="Country"  class="req" />
 								<h:inputText value="#{employeeProfileMgmtBean.selectedAddress.country}" required="true" requiredMessage="Please enter Country" disabled="#{authenticationBean.hasAccess('EditEmployee') == false}"/>
 								<f:facet name="footer">
 									<p:commandButton value="Cancel" update=":employeeForm:employeeUpdateTabView:EmployeeAddress" actionListener="#{employeeProfileMgmtBean.setAddressOperation(false, 'Create')}" process="@form" immediate="true"/>

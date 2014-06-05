@@ -58,28 +58,28 @@
  					<f:facet name="header"><h3>Employee HRM Registration Approval</h3></f:facet>
 				<p:panelGrid id="EmployeeReqDetailLeft" columns="2" cellpadding="4"
 					style="margin:0 auto;">
-					<h:outputText value="Name*" />
+					<h:outputText value="Name" class="req" />
 					<h:inputText value="#{employeeRegistrationApprovalMgmtBean.selectedRegisteredEmployee.fullname}"
 						required="true" requiredMessage="Please enter Name"/>
 
-					<h:outputText value="Employee Number*" />
+					<h:outputText value="Employee Number" class="req" />
 					<h:inputText
 						value="#{employeeRegistrationApprovalMgmtBean.selectedRegisteredEmployee.employeeNumber}"
 						required="true" requiredMessage="Please enter Employee Number" />
 
-					<h:outputText value="Position*" />
+					<h:outputText value="Position" class="req" />
 					<h:inputText
 						value="#{employeeRegistrationApprovalMgmtBean.selectedRegisteredEmployee.position}"
 						required="true" requiredMessage="Please enter Position" />
 
 					
 
-					<h:outputText value="Email Address(Work)*" />
+					<h:outputText value="Email Address(Work)" class="req" />
 					<h:inputText
 						value="#{employeeRegistrationApprovalMgmtBean.selectedRegisteredEmployee.workEmailAddress}" required="true" requiredMessage="Please enter Email Address(Work)"  />
 
 
-					<h:outputText value="Email Address(Personal)" />
+					<h:outputText value="Email Address(Personal)" class="req" />
 					<h:inputText
 						value="#{employeeRegistrationApprovalMgmtBean.selectedRegisteredEmployee.personalEmailAddress}" required="true" requiredMessage="Please enter Email Address(Personal)"/>
 
@@ -91,7 +91,7 @@
 					<h:inputText
 						value="#{employeeRegistrationApprovalMgmtBean.selectedRegisteredEmployee.personalPhoneNumber}" />
 					
-					<h:outputText value="Join Date" />
+					<h:outputText value="Join Date" class="req" />
 					<p:calendar pattern="dd/MM/yyyy"
 						value="#{employeeRegistrationApprovalMgmtBean.selectedRegisteredEmployee.joinDate}"
 						id="newEmployeeJoinDateCal" required="true" requiredMessage="Please enter Join Date"/>
@@ -109,7 +109,7 @@
 					<h:inputText
 						value="#{employeeRegistrationApprovalMgmtBean.selectedRegisteredEmployee.passportNumber}" />
 						
-					<h:outputText value="Gender" />
+					<h:outputText value="Gender" class="req"/>
 					<p:selectOneMenu
 						value="#{employeeRegistrationApprovalMgmtBean.selectedRegisteredEmployee.gender}"
 						effect="fade" required="true" requiredMessage="Please select Gender">
@@ -118,7 +118,7 @@
 						<f:selectItem itemLabel="Female" itemValue="F" />
 					</p:selectOneMenu>
 
-					<h:outputText value="Grade*" />
+					<h:outputText value="Grade" class="req" />
 					<p:selectOneMenu
 						value="#{employeeRegistrationApprovalMgmtBean.selectedEmployeeGrade}"
 						effect="fade" required="true"
@@ -129,7 +129,7 @@
 							itemValue="#{employeeGrade0.id}" />
 					</p:selectOneMenu>
 
-					<h:outputText value="Employee Type*" />
+					<h:outputText value="Employee Type" class="req" />
 					<p:selectOneMenu
 						value="#{employeeRegistrationApprovalMgmtBean.selectedEmployeeType}"
 						effect="fade" required="true"
@@ -140,7 +140,7 @@
 							itemValue="#{employeeType0.id}" />
 					</p:selectOneMenu>
 
-					<h:outputText value="Department*" />
+					<h:outputText value="Department" class="req" />
 					<p:selectOneMenu
 						value="#{employeeRegistrationApprovalMgmtBean.selectedDepartment}"
 						effect="fade" required="true"
@@ -171,8 +171,8 @@
 			<h:form>
 			<p:messages autoUpdate="true" />
 			<p:panelGrid id="RejectReason" columns="2" cellpadding="4" style="margin:0 auto;">
-			<h:outputText value="Reason*" />
-					<p:inputTextarea id="reason" rows="5" cols="20" counter="counter" maxlength="100"
+			<h:outputText value="Reason" class="req" />
+					<p:inputTextarea id="reason" rows="5" cols="24" counter="counter" maxlength="100"
     					counterTemplate="{0} characters remaining." autoResize="false" value="#{employeeRegistrationApprovalMgmtBean.selectedRegisteredEmployee.reason}" required="true" requiredMessage="Please enter Reason"/> 
 					<h:outputText value="" />
 					<h:outputText id="counter" /> 
@@ -193,6 +193,4 @@
 	
 </ui:composition>
 </h:body>
-
-
 </html>

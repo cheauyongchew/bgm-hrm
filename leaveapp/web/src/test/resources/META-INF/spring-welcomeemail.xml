@@ -8,7 +8,7 @@
 
  
 	
-	<bean id="welcomeEmailService" class="com.beans.leaveapp.welcomeemail.service.WelcomeEmailServiceImpl" >
+	<bean id="registeredEmployeeEmailService" class="com.beans.leaveapp.registeredemployeeemail.service.RegisteredEmployeeEmailServiceImpl" >
 
 		
 	 </bean>

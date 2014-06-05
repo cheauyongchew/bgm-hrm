@@ -257,18 +257,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 	
 	@Override
-	public List<Employee> findByEmployeeTypePermAndCont() {
-		List<Employee> permAndContemployeeList = employeeRepository.findByEmployeeTypePermAndCont();
-		return permAndContemployeeList;
-	}
-	
-	@Override
-	public List<Employee> findByEmployeeTypePerm() {
-		List<Employee> permEmployeeList = employeeRepository.findByEmployeeTypePerm();
-		return permEmployeeList;
-	}
-	
-	@Override
 	public Employee findByUsername(String username) throws EmployeeNotFound {
 		Employee employee = employeeRepository.findByUsername(username);
 		
@@ -348,5 +336,22 @@ public class EmployeeServiceImpl implements EmployeeService {
 		Employee employeeObj = employeeRepository.findByName(employeeName);
 		return employeeObj;
 	}	
+
+	@Override
+	public List<Employee> findAllEmployeesByRole(String role) {
+		return employeeRepository.getAllUsersWithRole(role);
+	}
+	
+	@Override
+	public List<Employee> findByEmployeeTypePermAndCont() {
+		List<Employee> permAndContEmployeeList = employeeRepository.findByEmployeeTypePermAndCont();
+		return permAndContEmployeeList;
+	}
+	
+	@Override
+	public List<Employee> findByEmployeeTypePerm() {
+		List<Employee> permEmployeeList = employeeRepository.findByEmployeeTypePerm();
+		return permEmployeeList;
+	}
 
 }

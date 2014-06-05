@@ -31,17 +31,17 @@
 				<f:facet name="header"><h3>Basic Details</h3></f:facet>
 				<p:panelGrid id="MyProfileDetailLeft" columns="2" cellpadding="4"
 					style="margin:0 auto;">
-					<h:outputText value="Name" />
+					<h:outputText value="Name"  class="req" />
 					<h:inputText value="#{myProfileMgmtBean.employee.name}"
 						required="true" requiredMessage="Please Enter Name" >
 					</h:inputText>
 
-					<h:outputText value="Employee Number" />
+					<h:outputText value="Employee Number"  class="req" />
 					<h:inputText
 						value="#{myProfileMgmtBean.employee.employeeNumber}"
 						required="true" requiredMessage="Please Enter Employee Number" />
 
-					<h:outputText value="Position" />
+					<h:outputText value="Position"  class="req" />
 					<h:inputText
 						value="#{myProfileMgmtBean.employee.position}"
 						required="true" requiredMessage="Please Enter Position" />
@@ -96,7 +96,7 @@
 					style="margin:0 auto;">
 
 
-					<h:outputText value="Grade" />
+					<h:outputText value="Grade"  class="req" />
 					<p:selectOneMenu
 						value="#{myProfileMgmtBean.selectedEmployeeGrade}"
 						effect="fade" required="true"
@@ -107,7 +107,7 @@
 							itemValue="#{employeeGrade0.id}" />
 					</p:selectOneMenu>
 
-					<h:outputText value="Employee Type" />
+					<h:outputText value="Employee Type"  class="req" />
 					<p:selectOneMenu
 						value="#{myProfileMgmtBean.selectedEmployeeType}"
 						effect="fade" required="true"
@@ -118,7 +118,7 @@
 							itemValue="#{employeeType0.id}" />
 					</p:selectOneMenu>
 
-					<h:outputText value="Department" />
+					<h:outputText value="Department"  class="req" />
 					<p:selectOneMenu
 						value="#{myProfileMgmtBean.selectedDepartment}"
 						effect="fade" required="true"
@@ -219,7 +219,7 @@
 										<f:selectItem itemLabel="Other" itemValue="Other" />
 									</p:selectOneMenu>
 												   		
-							   		<h:outputText value="Line 1" />
+							   		<h:outputText value="Line 1"  class="req" />
 									<h:inputText
 										value="#{myProfileMgmtBean.selectedAddress.line1}" required="true" requiredMessage="Please enter Line 1"/>
 										
@@ -242,7 +242,7 @@
 									<h:inputText
 										value="#{myProfileMgmtBean.selectedAddress.state}"/>
 										
-									<h:outputText value="Country" />
+									<h:outputText value="Country"  class="req"/>
 									<h:inputText
 										value="#{myProfileMgmtBean.selectedAddress.country}" required="true" requiredMessage="Please enter Country"/>
 										

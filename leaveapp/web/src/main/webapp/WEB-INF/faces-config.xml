@@ -420,6 +420,7 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 			<value>#{authenticationBean.getEmployee()}</value>
 		</managed-property>
 	</managed-bean>
+	
 	<managed-bean>
 	<managed-bean-name>monthlyAddedLeaveBean</managed-bean-name>
 	<managed-bean-class>com.beans.leaveapp.batch.service.MonthlyAddedLeave</managed-bean-class>
@@ -433,6 +434,7 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 			<value>#{yearlyEntitlementService}</value>
 	</managed-property>
 	</managed-bean>
+	
 	<managed-bean>
 	<managed-bean-name>yearlyAddedLeaveBean</managed-bean-name>
 	<managed-bean-class>com.beans.leaveapp.batch.service.YearlyAddedLeave</managed-bean-class>
@@ -447,5 +449,23 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 	</managed-property>
 	</managed-bean>
 	
+	
+	<managed-bean>
+		<managed-bean-name>leaveApprovalBean</managed-bean-name>
+		<managed-bean-class>com.beans.leaveapp.applyleave.bean.LeaveApprovalMgmtBean</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+		<managed-property>
+			<property-name>leaveApplicationService</property-name>
+			<value>#{leaveApplicationService}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>auditTrail</property-name>
+			<value>#{auditTrail}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>actorUsers</property-name>
+			<value>#{authenticationBean.getUsers()}</value>
+		</managed-property>
+	</managed-bean>
 </faces-config>
 

@@ -109,6 +109,12 @@
       <artifactId>jbpm-runtime-manager</artifactId>
       <version>${jbpm.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.jbpm</groupId>
+      <artifactId>jbpm-kie-services</artifactId>
+      <version>${jbpm.version}</version>
+      <scope>provided</scope>
+    </dependency>
     <!-- can compile, but cannot deploy without these seam dependencies -->
     <dependency>
       <groupId>org.jboss.seam.persistence</groupId>

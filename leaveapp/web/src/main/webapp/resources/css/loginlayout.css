@@ -24,6 +24,7 @@ h1 {
 img {
     background: white;
     margin-top: 2em;
+    /* box-shadow: 4px 4px 8px rgba(0,0,0,.25); */
 }
 
 #wrapper {
@@ -192,4 +193,20 @@ input#loginButton {
 
 .ui-messages-error, .ui-message-error {
 	text-align: left !important;
+}
+
+.req:before {
+	content: "* ";
+	color: orangered;
+}
+
+a:link { 
+	color: #f88d00;
+	text-decoration: none; 
+    font-weight: bold;
+}
+ 
+a:hover { 
+    color: #396c84; 
+    text-decoration: underline;
 }

@@ -1,4 +1,3 @@
-
 package com.beans.leaveapp.employee.service;
 
 import java.util.HashMap;
@@ -24,7 +23,11 @@ public interface EmployeeService {
 	public Employee findByEmployee(String employeeName);
 	public List<Employee> findByEmployeeTypePermAndCont();
 	public List<Employee> findByEmployeeTypePerm();
+
+	List<Employee> findAllEmployeesByRole(String role);
+	
 	
 }
+
 
 
