@@ -40,6 +40,8 @@ public interface YearlyEntitlementService {
 	public YearlyEntitlement findByEmployeeIdPermAndCont(int employeeId);
 	
 	public YearlyEntitlement findByEmployeeIdPerm(int employeeId);
+	
+	public List<YearlyEntitlement> findByEmployeeIdPermForRemainingLeaves(int employeeId);
 
 	void updateLeaveBalanceAfterApproval(int employeeId,int leaveTypeId,double numberOfDaysApproved);
 

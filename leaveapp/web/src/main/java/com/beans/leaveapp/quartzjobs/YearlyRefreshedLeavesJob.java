@@ -4,19 +4,24 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
-import com.beans.leaveapp.batch.service.YearlyAddedLeave;
+import com.beans.leaveapp.batch.service.YearlyRefreshedLeaves;
 
-public class YearlyAddedLeaveJob extends QuartzJobBean {
-	
+public class YearlyRefreshedLeavesJob extends QuartzJobBean {
+
 	@Override
 	protected void executeInternal(JobExecutionContext arg0)
-			throws JobExecutionException{
-
-		YearlyAddedLeave yearlyAddedLeave = new YearlyAddedLeave();
+			throws JobExecutionException {
+		
+		YearlyRefreshedLeaves yearlyRefreshedLeaves = new YearlyRefreshedLeaves();
+		
 		try {
-			yearlyAddedLeave.YearlyAddedLeaves();
+			yearlyRefreshedLeaves.YearlyrefreshedLeaves();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+	}
+
+	
+	
 }
-}	

@@ -30,12 +30,7 @@ public class YearlyAddedLeave implements Serializable{
 		int currentDateYear;
 		int joinDateday;
 		int joinDateMonth;
-		int joinDateYear;
-		int joinDateYear1;
-		int joinDateYear2;
-		int joinDateYear3;
-		int joinDateYear4;
-		
+		int joinDateYear;		
 		
 		Date currentDate = new Date();		
 		Calendar cal = Calendar.getInstance();
@@ -49,45 +44,24 @@ public class YearlyAddedLeave implements Serializable{
 			
 			Date joinDate;
 			joinDate = employee.getJoinDate();
+			if(joinDate != null){
 			cal.setTime(joinDate);
 			joinDateday = cal.get(Calendar.DAY_OF_MONTH);
 			joinDateMonth = cal.get(Calendar.MONTH);
-			joinDateYear = cal.get(Calendar.YEAR);
-			
-			joinDateYear1 = joinDateYear+1;
-			joinDateYear2 = joinDateYear1+1;
-			joinDateYear3 = joinDateYear2+1;
-			joinDateYear4 = joinDateYear3+1;
+			joinDateYear = cal.get(Calendar.YEAR);			
 			
 			YearlyEntitlement yearlyEntitleMent = yearlyEntitlementService.findByEmployeeIdPerm(employee.getId());
 			
 			if(yearlyEntitleMent != null){
 			if(yearlyEntitleMent.getEntitlement() < 16){
-				if(currentDateDay == joinDateday && currentDateMonth == joinDateMonth && currentDateYear == joinDateYear1){
+				if(currentDateDay == joinDateday && currentDateMonth == joinDateMonth && currentDateYear != joinDateYear){
 					double entitlement =yearlyEntitleMent.getEntitlement();
 					double addedEntitlement = entitlement+1.00;
 					System.out.println(addedEntitlement);
 					yearlyEntitleMent.setEntitlement(addedEntitlement);
 					yearlyEntitlementService.update(yearlyEntitleMent);
-				}else if(currentDateDay == joinDateday && currentDateMonth == joinDateMonth && currentDateYear == joinDateYear2){
-					double entitlement =yearlyEntitleMent.getEntitlement();
-					double addedEntitlement = entitlement+1.00;
-					System.out.println(addedEntitlement);
-					yearlyEntitleMent.setEntitlement(addedEntitlement);
-					yearlyEntitlementService.update(yearlyEntitleMent);
-				}else if(currentDateDay == joinDateday && currentDateMonth == joinDateMonth && currentDateYear == joinDateYear3){
-					double entitlement =yearlyEntitleMent.getEntitlement();
-					double addedEntitlement = entitlement+1.00;
-					System.out.println(addedEntitlement);
-					yearlyEntitleMent.setEntitlement(addedEntitlement);
-					yearlyEntitlementService.update(yearlyEntitleMent);
-				}else if(currentDateDay == joinDateday && currentDateMonth == joinDateMonth && currentDateYear == joinDateYear4){
-					double entitlement =yearlyEntitleMent.getEntitlement();
-					double addedEntitlement = entitlement+1.00;
-					System.out.println(addedEntitlement);
-					yearlyEntitleMent.setEntitlement(addedEntitlement);
-					yearlyEntitlementService.update(yearlyEntitleMent);
-				} else if(joinDateday == 29 && joinDateMonth == 1){
+				}
+				else if((joinDateday == 29 && joinDateMonth == 1)  && (currentDateDay == 1 && currentDateMonth == 2) && (currentDateYear != joinDateYear)){
 					double entitlement =yearlyEntitleMent.getEntitlement();
 					double addedEntitlement = entitlement+1.00;
 					System.out.println(addedEntitlement);
@@ -95,6 +69,7 @@ public class YearlyAddedLeave implements Serializable{
 					yearlyEntitlementService.update(yearlyEntitleMent);
 				}				
 			}			
+		}
 		}
 		}	
 	}

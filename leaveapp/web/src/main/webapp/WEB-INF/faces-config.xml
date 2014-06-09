@@ -449,6 +449,19 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 	</managed-property>
 	</managed-bean>
 	
+	<managed-bean>
+	<managed-bean-name>yearlyRefreshedLeavesBean</managed-bean-name>
+	<managed-bean-class>com.beans.leaveapp.batch.service.YearlyRefreshedLeaves</managed-bean-class>
+	<managed-bean-scope>view</managed-bean-scope>
+	<managed-property>
+			<property-name>employeeService</property-name>
+			<value>#{employeeService}</value>
+	</managed-property>
+	<managed-property>
+			<property-name>yearlyEntitlementService</property-name>
+			<value>#{yearlyEntitlementService}</value>	
+	</managed-property>
+	</managed-bean>
 	
 	<managed-bean>
 		<managed-bean-name>leaveApprovalBean</managed-bean-name>
