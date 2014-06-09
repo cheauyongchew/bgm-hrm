@@ -28,10 +28,18 @@ h1 {
     text-align: left;
 }
 
+#welcome {
+	position:absolute; 
+	right:10px; 
+	top: 50px; 
+	color: #f88d00;
+}
+
 img {
     background: white;
     border: none;
     margin-top: 0.5em;
+    /* box-shadow: 4px 4px 8px rgba(0,0,0,.25); */
 }
 
 h3, .ui-messages-error, .ui-message-error {
@@ -81,6 +89,7 @@ h3, .ui-messages-error, .ui-message-error {
     font-family: 'PT Sans', sans-serif;
     font-weight: bold;
     margin: auto 1em;
+    margin-left: 1em !important;
 }
      
 /* Setting for hovering state on menu item */
@@ -327,11 +336,15 @@ a.ui-state-default.ui-state-active, a.ui-state-default.ui-state-highlight.ui-sta
 }
 
 /* Setting for panel and datatable  */
-.ui-panel, .ui-datatable {
+.ui-panel, .ui-datatable, .box {
     background: #faf5e5;
     border: 1px solid #f1e4ba;
     border-radius: 10px;
     margin: 10px 5px;
+}
+
+.box.ui-panelgrid {
+	border-collapse: inherit;
 }
 
 /* Setting for paginator */
@@ -415,4 +428,18 @@ tr.ui-widget-content > td {
 
 .ui-messages-error, .ui-message-error {
     text-align: left !important;
+}
+
+.ui-confirm-dialog {
+	text-align: center;
+	margin: auto 0px;
+}
+
+.ui-icon-alert { 
+	display: none !important; 
+}
+
+.req:before {
+    content: "* ";
+    color: orangered;
 }
