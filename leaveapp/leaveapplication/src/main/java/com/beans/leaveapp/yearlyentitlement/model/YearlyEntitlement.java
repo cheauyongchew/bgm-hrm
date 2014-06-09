@@ -27,7 +27,8 @@ public class YearlyEntitlement implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private int id;;
 	private double entitlement;
-	private double availableBalance;
+	private double currentLeaveBalance;
+	private double yearlyLeaveBalance;
 	private boolean isDeleted = false;
 	private String createdBy;
 	private java.util.Date creationTime;
@@ -56,15 +57,23 @@ public class YearlyEntitlement implements Serializable{
 		this.entitlement = entitlement;
 	}
 
-	@Column(name = "leaveBalance", nullable = false)
-	public double getAvailableBalance() {
-		return availableBalance;
+	@Column(name = "currentLeaveBalance", nullable = false)
+	public double getCurrentLeaveBalance() {
+		return currentLeaveBalance;
 	}
 
-	public void setAvailableBalance(double availableBalance) {
-		this.availableBalance = availableBalance;
+	public void setcurrentLeaveBalance(double currentLeaveBalance) {
+		this.currentLeaveBalance = currentLeaveBalance;
 	}
 
+	@Column(name = "yearlyLeaveBalance", nullable = false)
+	public double getYearlyLeaveBalance() {
+		return yearlyLeaveBalance;
+	}
+
+	public void setYearlyLeaveBalance(double yearlyLeaveBalance) {
+		this.yearlyLeaveBalance = yearlyLeaveBalance;
+	}
 	@Column(name = "isdeleted", columnDefinition = "TINYINT(1)")
 	@Type(type = "org.hibernate.type.NumericBooleanType")
 	public boolean isDeleted() {

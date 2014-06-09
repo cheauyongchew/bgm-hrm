@@ -134,12 +134,15 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
 		} else if(roleName.equals("ROLE_TEAMLEAD")) {
 			return 10;
 		}else if(roleName.equals("ROLE_JRHR")) {
-			return 10;
-		}else if(roleName.equals("ROLE_SRHR")) {
 			return 15;
+		}else if(roleName.equals("ROLE_SRHR")) {
+			return 20;
 		}
 		else if(roleName.equals("ROLE_HR")) {
-			return 20;
+			return 25;
+		}
+		else if(roleName.equals("ROLE_PM")) {
+			return 30;
 		}
 		else {
 			return -1;

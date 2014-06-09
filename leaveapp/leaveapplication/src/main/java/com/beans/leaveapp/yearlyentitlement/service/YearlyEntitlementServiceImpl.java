@@ -55,7 +55,7 @@ public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 
 		if (yearlyEntitlementToBeUpdated != null) {
 
-			yearlyEntitlementToBeUpdated.setAvailableBalance(selectedYearlyEntitlement.getAvailableBalance());
+			yearlyEntitlementToBeUpdated.setYearlyLeaveBalance(selectedYearlyEntitlement.getYearlyLeaveBalance());
 			yearlyEntitlementToBeUpdated.setEntitlement(selectedYearlyEntitlement.getEntitlement());
 			yearlyEntitlementToBeUpdated.setLastModifiedBy(selectedYearlyEntitlement.getLastModifiedBy());
 			yearlyEntitlementToBeUpdated.setLastModifiedTime(selectedYearlyEntitlement.getLastModifiedTime());
@@ -202,14 +202,18 @@ public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 		return yearlyEntitlementList;
 	}
 
+	@Override
 	@Transactional
 	public void updateLeaveBalanceAfterApproval(int employeeId,int leaveTypeId,double numberOfDaysLeaveApproved) {
 		System.out.println("Input parameters values in updateLeaveBalanceAfterApproval() employeeId: "+employeeId+" leaveTypeId :"+leaveTypeId);
 		YearlyEntitlement yearlyEntitlement =	(YearlyEntitlement) yearlyEntitleRepository.findByEmployeeAndLeaveTypeId(employeeId, leaveTypeId);
-		yearlyEntitlement.setAvailableBalance(yearlyEntitlement.getAvailableBalance()-numberOfDaysLeaveApproved);
+		yearlyEntitlement.setcurrentLeaveBalance(yearlyEntitlement.getCurrentLeaveBalance()-numberOfDaysLeaveApproved);
+		yearlyEntitlement.setYearlyLeaveBalance(yearlyEntitlement.getYearlyLeaveBalance()-numberOfDaysLeaveApproved);
 		yearlyEntitleRepository.save(yearlyEntitlement);
-		System.out.println("After updating, no'of leaves left is :"+yearlyEntitlement.getAvailableBalance());
+		System.out.println("After updating, no'of leaves left is :"+yearlyEntitlement.getCurrentLeaveBalance());
 	}
+	
+
 	
 
 }

@@ -7,7 +7,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 
-import org.springframework.context.ApplicationContextException;
+import org.apache.commons.lang.StringUtils;
+import org.primefaces.context.RequestContext;
 
 import com.beans.common.audit.service.AuditTrail;
 import com.beans.common.audit.service.SystemAuditTrailActivity;
@@ -53,6 +54,8 @@ public class EmployeeLeaveFormBean extends BaseMgmtBean implements Serializable{
 		if(getYearlyEntitlement() != null) {
 			setLeaveType(getYearlyEntitlement().getLeaveType().getName());
 		}
+		RequestContext.getCurrentInstance().addCallbackParam("currentBalance", yearlyEntitlement.getCurrentLeaveBalance());
+		RequestContext.getCurrentInstance().addCallbackParam("leaveType", leaveType);
 	}
 	
 	public String getLeaveType() {
@@ -144,9 +147,36 @@ public class EmployeeLeaveFormBean extends BaseMgmtBean implements Serializable{
 	
 	public void applyLeave() throws LeaveApplicationException  {
 		
+		if(numberOfDays<0.5){
+			FacesMessage msg = new FacesMessage(getExcptnMesProperty("error.applyleave.numberofdays"), "Leave error message");  
+			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+	        FacesContext.getCurrentInstance().addMessage(null, msg);  
+	        return ;
+		}
+		// validating applied leaves is in the range of current balance - applied leaves > = -3
+		if("Annual".equalsIgnoreCase(leaveType)&& StringUtils.isNotBlank(leaveType) && StringUtils.isNotEmpty(leaveType)){
+			
+				
+			if(!(yearlyEntitlement.getCurrentLeaveBalance()-numberOfDays >= -3)){
+				FacesMessage msg = new FacesMessage(getExcptnMesProperty("error.sick.validation"), "Leave error message");  
+				msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+		        FacesContext.getCurrentInstance().addMessage(null, msg);  
+		        return ;
+			}
+		} else if(!"Unpaid".equalsIgnoreCase(leaveType)&& StringUtils.isNotBlank(leaveType) && StringUtils.isNotEmpty(leaveType))
+		{
+			if(numberOfDays > yearlyEntitlement.getYearlyLeaveBalance()){
+				FacesMessage msg = new FacesMessage(getExcptnMesProperty("error.sick.validation"), "Leave error message");  
+				msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+		        FacesContext.getCurrentInstance().addMessage(null, msg);  
+		        return ;
+			}
+			
+		}
+		
 		if(startDate.after(endDate)) {
-			FacesMessage msg = new FacesMessage("Error", "Start Date must be before End Date.");  
-			  
+			FacesMessage msg = new FacesMessage(getExcptnMesProperty("error.applyleave.datesRange"), "Leave error message.");
+			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 	        FacesContext.getCurrentInstance().addMessage(null, msg);  
 		} else {
 			
@@ -156,10 +186,12 @@ public class EmployeeLeaveFormBean extends BaseMgmtBean implements Serializable{
 			leaveTransaction.setEmployee(getEmployee());
 			leaveTransaction.setLeaveType(getYearlyEntitlement().getLeaveType());
 			leaveTransaction.setNumberOfDays(getNumberOfDays());
-			leaveTransaction.setNumberOfHours(getNumberOfDays());
+		    leaveTransaction.setNumberOfHours(getNumberOfDays()*9);
 			leaveTransaction.setReason(getReason());
 			leaveTransaction.setStartDateTime(getStartDate());
 			leaveTransaction.setEndDateTime(getEndDate());
+			leaveTransaction.setCreatedBy(getActorUsers().getUsername());
+			leaveTransaction.setCreationTime(new Date());
 			try {
 				leaveApplicationService.submitLeave(getEmployee(), getYearlyEntitlement(), leaveTransaction);
 				
@@ -169,26 +201,26 @@ public class EmployeeLeaveFormBean extends BaseMgmtBean implements Serializable{
 				setEndDate(null);
 				setReason("");
 				auditTrail.log(SystemAuditTrailActivity.CREATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has successfully applied annual leave for " + getNumberOfDays() + " day(s).");
-				FacesMessage msg = new FacesMessage("Info", "Leave Applied. You will be notified if it is approved.");  
+				FacesMessage msg = new FacesMessage(getExcptnMesProperty("info.applyleave"), "Leave applied");  
 				  
 		        FacesContext.getCurrentInstance().addMessage(null, msg); 
 				
 			} catch (RoleNotFound e) {
 				e.printStackTrace();
 				auditTrail.log(SystemAuditTrailActivity.CREATED, SystemAuditTrailLevel.ERROR, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has failed to apply annual leave for " + getNumberOfDays() + " day(s).");
-				FacesMessage msg = new FacesMessage("Error", e.getMessage());  
+				FacesMessage msg = new FacesMessage("Error :"+getExcptnMesProperty(e.getMessage()), e.getMessage());  
 				msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 		        FacesContext.getCurrentInstance().addMessage(null, msg);  
 			} catch (BSLException e) {
 				e.printStackTrace();
 				auditTrail.log(SystemAuditTrailActivity.CREATED, SystemAuditTrailLevel.ERROR, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has failed to apply annual leave for " + getNumberOfDays() + " day(s).");
-				FacesMessage msg = new FacesMessage("Error", getExcptnMesProperty(e.getMessage()));  
+				FacesMessage msg = new FacesMessage("Error :"+getExcptnMesProperty(e.getMessage()), getExcptnMesProperty(e.getMessage()));  
 				msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 		        FacesContext.getCurrentInstance().addMessage(null, msg);  
 			} catch (Exception e) {
 				e.printStackTrace();
 				auditTrail.log(SystemAuditTrailActivity.CREATED, SystemAuditTrailLevel.ERROR, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has failed to apply annual leave for " + getNumberOfDays() + " day(s).");
-				FacesMessage msg = new FacesMessage("Error", getExcptnMesProperty(e.getMessage())); 
+				FacesMessage msg = new FacesMessage("Error :"+getExcptnMesProperty(e.getMessage()), getExcptnMesProperty(e.getMessage())); 
 				msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 				FacesContext.getCurrentInstance().addMessage(null, msg);  
 			}
