@@ -1,7 +1,9 @@
 package com.beans.leaveapp.applyleave.bean;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -12,6 +14,7 @@ import org.primefaces.event.SelectEvent;
 import com.beans.common.audit.service.AuditTrail;
 import com.beans.common.audit.service.SystemAuditTrailActivity;
 import com.beans.common.audit.service.SystemAuditTrailLevel;
+import com.beans.common.security.role.model.Role;
 import com.beans.common.security.users.model.Users;
 import com.beans.exceptions.BSLException;
 import com.beans.leaveapp.applyleave.model.LeaveApprovalDataModel;
@@ -110,10 +113,17 @@ public class LeaveApprovalMgmtBean extends BaseMgmtBean implements Serializable{
 			//auditTrail.log(SystemAuditTrailActivity.APPROVED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has approved a employee registration of " + selectedRegisteredEmployee.getFullname());
 			leaveApplicationService.approveLeaveOfEmployee(selectedLeaveRequest, getActorUsers().getUsername(),getActorUsers().getUserRoles());
 		    setInsertDeleted(true);
-			
-		    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info",getExcptnMesProperty("info.leave.approve")));
+		    
+		    Set<String> roleSet = new HashSet<String>();
+			for (Role role : getActorUsers().getUserRoles()) {
+				roleSet.add(role.getRole());
+			}
+			if(roleSet.contains("ROLE_TEAMLEAD"))
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info : "+getExcptnMesProperty("info.leave.approve.teamLead"),"Leave Approved"));
+			else
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info : "+getExcptnMesProperty("info.leave.approve.dir"),"Leave Approved"));
 		}catch(BSLException e){
-			FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
+			FacesMessage msg = new FacesMessage("Error : "+getExcptnMesProperty(e.getMessage()),"Leave approve error");  
 			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 	        FacesContext.getCurrentInstance().addMessage(null, msg); 
 		}catch(Exception e) {
@@ -136,9 +146,9 @@ public class LeaveApprovalMgmtBean extends BaseMgmtBean implements Serializable{
 				
 			}
 			setInsertDeleted(true);
-		    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info",getExcptnMesProperty("info.leave.reject")));
+		    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info : "+getExcptnMesProperty("info.leave.reject"),"Leave Rejected"));
 			}catch(BSLException e){
-				FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
+				FacesMessage msg = new FacesMessage("Error : "+getExcptnMesProperty(e.getMessage()),"Leave Reject Error");  
 				msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 		        FacesContext.getCurrentInstance().addMessage(null, msg); 
 			}catch(Exception e) {

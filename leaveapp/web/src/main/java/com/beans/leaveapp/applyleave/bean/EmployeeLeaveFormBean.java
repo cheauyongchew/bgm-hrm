@@ -36,6 +36,7 @@ public class EmployeeLeaveFormBean extends BaseMgmtBean implements Serializable{
 	private Date endDate;
 	private String reason;
 	private Double numberOfDays;
+	private Double yearlyBalance;
 	private YearlyEntitlementService yearlyEntitlementService;
 	private LeaveApplicationService leaveApplicationService;
 	private AuditTrail auditTrail;
@@ -53,11 +54,21 @@ public class EmployeeLeaveFormBean extends BaseMgmtBean implements Serializable{
 		
 		if(getYearlyEntitlement() != null) {
 			setLeaveType(getYearlyEntitlement().getLeaveType().getName());
+			setYearlyBalance(getYearlyEntitlement().getYearlyLeaveBalance());
 		}
 		RequestContext.getCurrentInstance().addCallbackParam("currentBalance", yearlyEntitlement.getCurrentLeaveBalance());
 		RequestContext.getCurrentInstance().addCallbackParam("leaveType", leaveType);
 	}
 	
+	
+	
+	
+	public Double getYearlyBalance() {
+		return yearlyBalance;
+	}
+	public void setYearlyBalance(Double yearlyBalance) {
+		this.yearlyBalance = yearlyBalance;
+	}
 	public String getLeaveType() {
 		return leaveType;
 	}
@@ -186,7 +197,7 @@ public class EmployeeLeaveFormBean extends BaseMgmtBean implements Serializable{
 			leaveTransaction.setEmployee(getEmployee());
 			leaveTransaction.setLeaveType(getYearlyEntitlement().getLeaveType());
 			leaveTransaction.setNumberOfDays(getNumberOfDays());
-		    leaveTransaction.setNumberOfHours(getNumberOfDays()*9);
+		    leaveTransaction.setYearlyLeaveBalance(getYearlyEntitlement().getYearlyLeaveBalance());
 			leaveTransaction.setReason(getReason());
 			leaveTransaction.setStartDateTime(getStartDate());
 			leaveTransaction.setEndDateTime(getEndDate());

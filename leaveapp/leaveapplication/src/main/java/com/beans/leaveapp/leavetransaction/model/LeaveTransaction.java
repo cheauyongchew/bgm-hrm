@@ -35,7 +35,7 @@ public class LeaveTransaction implements Serializable{
 	private Date applicationDate;
 	private Date  startDateTime;
 	private Date  endDateTime;
-	private Double numberOfHours;
+	private Double yearlyLeaveBalance;
 	private Double numberOfDays;
 	private String reason;
 	private LeaveType leaveType;
@@ -51,14 +51,14 @@ public class LeaveTransaction implements Serializable{
 	
 	public LeaveTransaction(int id, Date applicationDate,
 			Date startDateTime, Date endDateTime,
-			Double numberOfHours, Double numberOfDays, String reason,String status,
+			Double yearlyLeaveBalance, Double numberOfDays, String reason,String status,
 			LeaveType leaveType, Employee employee, boolean isDeleted) {
 		super();
 		this.id = id;
 		this.applicationDate = applicationDate;
 		this.startDateTime = startDateTime;
 		this.endDateTime = endDateTime;
-		this.numberOfHours = numberOfHours;
+		this.yearlyLeaveBalance = yearlyLeaveBalance;
 		this.numberOfDays = numberOfDays;
 		this.reason = reason;
 		this.status = status;
@@ -126,17 +126,19 @@ public class LeaveTransaction implements Serializable{
 	}
 	
 	@Column(name="numberOfHours",nullable=true)
-	public Double getNumberOfHours() {
-		return numberOfHours;
+	public Double getYearlyLeaveBalance() {
+		return yearlyLeaveBalance;
 	}
-	public void setNumberOfHours(Double numberOfHours) {
-		this.numberOfHours = numberOfHours;
+	public void setYearlyLeaveBalance(Double yearlyLeaveBalance) {
+		this.yearlyLeaveBalance = yearlyLeaveBalance;
 	}
+	
 	
 	@Column(name="numberOfDays",nullable=true)
 	public Double getNumberOfDays() {
 		return numberOfDays;
 	}
+	
 	public void setNumberOfDays(Double numberOfDays) {
 		this.numberOfDays = numberOfDays;
 	}

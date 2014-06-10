@@ -171,10 +171,11 @@ public class JBPM6Runtime {
 		taskService.start(taskId, username);
 		taskService.complete(taskId, username, parameterMap);
 		}catch(Exception e){
-			if(taskService!=null){
+			e.printStackTrace();
+			/*if(taskService!=null){
 				taskService.exit(taskId, username);
 				throw new BSLException("error.leaveapp.terminate");
-			}
+			}*/
 		}
 		
 	}
