@@ -44,5 +44,7 @@ public interface YearlyEntitlementService {
 	public List<YearlyEntitlement> findByEmployeeIdForRemainingLeaves(int employeeId);
 
 	void updateLeaveBalanceAfterApproval(int employeeId,int leaveTypeId,double numberOfDaysApproved);
+	
+	YearlyEntitlement findYearlyEntitlementById(int employeeId, int leaveTypeId);
 
 }

@@ -51,6 +51,11 @@ public class LeaveApplicationSendingMailServiceImpl {
 		htmlEmailTemplate = htmlEmailTemplate.replace("##endDate##",leaveTransaction.fetchEndTimeStr());
 		htmlEmailTemplate = htmlEmailTemplate.replace("##numberOfDays##",leaveTransaction.getNumberOfDays().toString());
 		htmlEmailTemplate = htmlEmailTemplate.replace("##reason##",leaveTransaction.getReason());
+		if(!"Unpaid".equalsIgnoreCase(leaveTransaction.getLeaveType().getName()))
+				htmlEmailTemplate = htmlEmailTemplate.replace("##yearlyBalance##",leaveTransaction.getYearlyLeaveBalance().toString());
+		else 
+			htmlEmailTemplate = htmlEmailTemplate.replace("##yearlyBalance##","N/A for Unpaid Leave");
+		
 		if(status==1){
 			htmlEmailTemplate = htmlEmailTemplate.replace("##mainMessage##","Hi <b>"+leaveTransaction.getEmployee().getName()+"</b>,  <br/> Details for your leave application are as shown below:");
 			// set email subject
@@ -133,6 +138,11 @@ public void sendEmailNotificationToLeaveApprover(LeaveTransaction leaveTransacti
 		htmlEmailTemplate = htmlEmailTemplate.replace("##endDate##",leaveTransaction.fetchEndTimeStr());
 		htmlEmailTemplate = htmlEmailTemplate.replace("##numberOfDays##",leaveTransaction.getNumberOfDays().toString());
 		htmlEmailTemplate = htmlEmailTemplate.replace("##reason##",leaveTransaction.getReason());
+		htmlEmailTemplate = htmlEmailTemplate.replace("##yearlyBalance##",leaveTransaction.getYearlyLeaveBalance().toString());
+		if(!"Unpaid".equalsIgnoreCase(leaveTransaction.getLeaveType().getName()))
+			htmlEmailTemplate = htmlEmailTemplate.replace("##yearlyBalance##",leaveTransaction.getYearlyLeaveBalance().toString());
+		else 
+			htmlEmailTemplate = htmlEmailTemplate.replace("##yearlyBalance##","N/A for Unpaid Leave");
 		
 		if(status==1){
 			htmlEmailTemplate = htmlEmailTemplate.replace("##mainMessage##","Hi ,<br/><b>"+leaveTransaction.getEmployee().getName()+"</b> has applied for a leave and is pending for your approval.<br/> Details for leave application are as shown below");
@@ -222,23 +232,28 @@ public void sendEmailNotificationToHR(LeaveTransaction leaveTransaction,String r
 	htmlEmailTemplate = htmlEmailTemplate.replace("##endDate##",leaveTransaction.fetchEndTimeStr());
 	htmlEmailTemplate = htmlEmailTemplate.replace("##numberOfDays##",leaveTransaction.getNumberOfDays().toString());
 	htmlEmailTemplate = htmlEmailTemplate.replace("##reason##",leaveTransaction.getReason());
+	htmlEmailTemplate = htmlEmailTemplate.replace("##yearlyBalance##",leaveTransaction.getYearlyLeaveBalance().toString());
+	if(!"Unpaid".equalsIgnoreCase(leaveTransaction.getLeaveType().getName()))
+		htmlEmailTemplate = htmlEmailTemplate.replace("##yearlyBalance##",leaveTransaction.getYearlyLeaveBalance().toString());
+	else 
+		htmlEmailTemplate = htmlEmailTemplate.replace("##yearlyBalance##","N/A for Unpaid Leave");
 	
 	
 	if(status==3){
-		htmlEmailTemplate = htmlEmailTemplate.replace("##mainMessage##","<br/> <b>"+leaveTransaction.getEmployee().getName()+"</b> has applied for a leave and is rejected by <b>"+teamLeadName+"</b>.\n Details for leave application are as shown below");
+		htmlEmailTemplate = htmlEmailTemplate.replace("##mainMessage##","<br/> <b>"+leaveTransaction.getEmployee().getName()+"</b> has applied for a leave and is rejected by Team Lead <b>"+teamLeadName+"</b>.\n Details for leave application are as shown below");
 		// set email subject
 		email.setSubject("Reg : Leave request has been rejected by Team Lead "+teamLeadName);
 	}
 	else {
 		if(isOperDirApproved){
-		htmlEmailTemplate = htmlEmailTemplate.replace("##mainMessage##","<br/><b>"+leaveTransaction.getEmployee().getName()+"</b> has applied for a leave and is finally approved by <b>"+oprDirName+"</b>.<br/> Details for leave application are as shown below");
+		htmlEmailTemplate = htmlEmailTemplate.replace("##mainMessage##","<br/><b>"+leaveTransaction.getEmployee().getName()+"</b> has applied for a leave approve by Team Lead "+teamLeadName+" and is finally approved by <b>"+oprDirName+"</b>.<br/> Details for leave application are as shown below");
 		// set email subject
-		email.setSubject("Reg : Leave request has been approved by "+oprDirName);
+		email.setSubject("Reg : Leave request has been approved by "+teamLeadName+" and "+oprDirName);
 	}
 	else{
-		htmlEmailTemplate = htmlEmailTemplate.replace("##mainMessage##","<br/><b>"+leaveTransaction.getEmployee().getName()+"</b> has applied for a leave and is rejected by <b>"+oprDirName+"</b>.<br/> Details for leave application are as shown below");
+		htmlEmailTemplate = htmlEmailTemplate.replace("##mainMessage##","<br/><b>"+leaveTransaction.getEmployee().getName()+"</b> has applied for a leave and is rejected by Operational Director <b>"+oprDirName+"</b>.<br/> Details for leave application are as shown below");
 		// set email subject
-		email.setSubject("Reg : Leave request has been rejected by "+oprDirName);
+		email.setSubject("Reg : Leave request has been rejected by Opearational Director "+oprDirName);
 	}
 	}
 	// Get all users with role ROLE_TEAMLEAD

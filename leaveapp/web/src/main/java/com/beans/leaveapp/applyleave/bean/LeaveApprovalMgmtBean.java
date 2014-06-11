@@ -1,25 +1,29 @@
 package com.beans.leaveapp.applyleave.bean;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 import org.apache.log4j.Logger;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
 import com.beans.common.audit.service.AuditTrail;
 import com.beans.common.audit.service.SystemAuditTrailActivity;
 import com.beans.common.audit.service.SystemAuditTrailLevel;
+import com.beans.common.security.role.model.Role;
 import com.beans.common.security.users.model.Users;
 import com.beans.exceptions.BSLException;
 import com.beans.leaveapp.applyleave.model.LeaveApprovalDataModel;
 import com.beans.leaveapp.applyleave.service.LeaveApplicationService;
-import com.beans.leaveapp.employee.model.RegisteredEmployee;
-import com.beans.leaveapp.employeeregistration.model.RegisteredEmployeeDataModel;
 import com.beans.leaveapp.leavetransaction.model.LeaveTransaction;
 import com.beans.leaveapp.web.bean.BaseMgmtBean;
+import com.beans.leaveapp.yearlyentitlement.model.YearlyEntitlement;
+import com.beans.leaveapp.yearlyentitlement.service.YearlyEntitlementService;
 
 public class LeaveApprovalMgmtBean extends BaseMgmtBean implements Serializable{
 
@@ -35,6 +39,8 @@ public class LeaveApprovalMgmtBean extends BaseMgmtBean implements Serializable{
 	private LeaveApplicationService leaveApplicationService;
 	private LeaveApprovalDataModel LeaveApprovalDataModel;
 	private LeaveTransaction selectedLeaveRequest;
+	private YearlyEntitlementService yearlyEntitlementService;
+	private Double currentLeaveBalance;
 	
 	
 	public LeaveApprovalDataModel getLeaveApprovalDataModel() {
@@ -88,6 +94,24 @@ public class LeaveApprovalMgmtBean extends BaseMgmtBean implements Serializable{
 	public void setSelectedLeaveRequest(LeaveTransaction selectedLeaveRequest) {
 		this.selectedLeaveRequest = selectedLeaveRequest;
 	}
+	
+	public YearlyEntitlementService getYearlyEntitlementService() {
+		return yearlyEntitlementService;
+	}
+
+	public void setYearlyEntitlementService(
+			YearlyEntitlementService yearlyEntitlementService) {
+		this.yearlyEntitlementService = yearlyEntitlementService;
+	}
+
+	
+	public Double getCurrentLeaveBalance() {
+		return currentLeaveBalance;
+	}
+
+	public void setCurrentLeaveBalance(Double currentLeaveBalance) {
+		this.currentLeaveBalance = currentLeaveBalance;
+	}
 
 	public List<LeaveTransaction> getLeaveRequestApprovalList() {
 		if(leaveRequestList == null || insertDeleted == true) {
@@ -110,10 +134,17 @@ public class LeaveApprovalMgmtBean extends BaseMgmtBean implements Serializable{
 			//auditTrail.log(SystemAuditTrailActivity.APPROVED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has approved a employee registration of " + selectedRegisteredEmployee.getFullname());
 			leaveApplicationService.approveLeaveOfEmployee(selectedLeaveRequest, getActorUsers().getUsername(),getActorUsers().getUserRoles());
 		    setInsertDeleted(true);
-			
-		    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info",getExcptnMesProperty("info.leave.approve")));
+		    
+		    Set<String> roleSet = new HashSet<String>();
+			for (Role role : getActorUsers().getUserRoles()) {
+				roleSet.add(role.getRole());
+			}
+			if(roleSet.contains("ROLE_TEAMLEAD"))
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info : "+getExcptnMesProperty("info.leave.approve.teamLead"),"Leave Approved"));
+			else
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info : "+getExcptnMesProperty("info.leave.approve.dir"),"Leave Approved"));
 		}catch(BSLException e){
-			FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
+			FacesMessage msg = new FacesMessage("Error : "+getExcptnMesProperty(e.getMessage()),"Leave approve error");  
 			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 	        FacesContext.getCurrentInstance().addMessage(null, msg); 
 		}catch(Exception e) {
@@ -136,9 +167,9 @@ public class LeaveApprovalMgmtBean extends BaseMgmtBean implements Serializable{
 				
 			}
 			setInsertDeleted(true);
-		    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info",getExcptnMesProperty("info.leave.reject")));
+		    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info : "+getExcptnMesProperty("info.leave.reject"),"Leave Rejected"));
 			}catch(BSLException e){
-				FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
+				FacesMessage msg = new FacesMessage("Error : "+getExcptnMesProperty(e.getMessage()),"Leave Reject Error");  
 				msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 		        FacesContext.getCurrentInstance().addMessage(null, msg); 
 			}catch(Exception e) {
@@ -147,6 +178,10 @@ public class LeaveApprovalMgmtBean extends BaseMgmtBean implements Serializable{
 		}
 	
 	public void onRowSelect(SelectEvent event) {  
-		setSelectedLeaveRequest((LeaveTransaction) event.getObject()); 
+		LeaveTransaction leaveTransaction = (LeaveTransaction) event.getObject();
+		setSelectedLeaveRequest(leaveTransaction); 
+		YearlyEntitlement entitlement = yearlyEntitlementService.findYearlyEntitlementById(leaveTransaction.getEmployee().getId(), leaveTransaction.getLeaveType().getId());
+		currentLeaveBalance = entitlement.getCurrentLeaveBalance();
+		RequestContext.getCurrentInstance().addCallbackParam("leaveType", leaveTransaction.getLeaveType().getName());
     }
 }

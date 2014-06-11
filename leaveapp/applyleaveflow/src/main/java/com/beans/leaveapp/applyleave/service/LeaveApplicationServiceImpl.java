@@ -190,6 +190,7 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
 			leaveRequest.setNumberOfDays(leaveTransactionFromWorkFlow.getNumberOfDays());
 			leaveRequest.setReason(leaveTransactionFromWorkFlow.getReason());
 			leaveRequest.setEmployee(leaveTransactionFromWorkFlow.getEmployee());
+			leaveRequest.setYearlyLeaveBalance(leaveTransactionFromWorkFlow.getYearlyLeaveBalance());
 			leaveTransactionFromWorkFlow.getEmployee().getName();
 			}
 		}

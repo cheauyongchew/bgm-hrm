@@ -212,6 +212,12 @@ public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 		yearlyEntitleRepository.save(yearlyEntitlement);
 		System.out.println("After updating, no'of leaves left is :"+yearlyEntitlement.getCurrentLeaveBalance());
 	}
+
+	@Override
+	public YearlyEntitlement findYearlyEntitlementById(int employeeId, int leaveTypeId) {
+		
+		return yearlyEntitleRepository.findByEmployeeAndLeaveTypeId(employeeId, leaveTypeId);
+	}
 	
 
 	
