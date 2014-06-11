@@ -197,7 +197,7 @@ public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 	}	
 	
 	@Override
-	public List<YearlyEntitlement> findByEmployeeIdPermForRemainingLeaves(int employeeId) {
+	public List<YearlyEntitlement> findByEmployeeIdForRemainingLeaves(int employeeId) {
 		List<YearlyEntitlement> yearlyEntitlementList = yearlyEntitleRepository.findByEmployeeIdPermForRemainingLeaves(employeeId);
 		return yearlyEntitlementList;
 	}

@@ -24,10 +24,9 @@ public class MonthlyAddedLeave implements Serializable{
 		for(Employee employee:employeeList){
 			YearlyEntitlement yearlyEntitlement = yearlyEntitlementService.findByEmployeeIdPermAndCont(employee.getId());
 			if(yearlyEntitlement != null){
-			double entitlement =yearlyEntitlement.getEntitlement();
-			double addedEntitlement = entitlement+1.00;
-			System.out.println(addedEntitlement);
-			yearlyEntitlement.setEntitlement(addedEntitlement);
+			double currentLeaveBalance =yearlyEntitlement.getCurrentLeaveBalance();
+			double currentLeaveBalaceWithAddedLeave = currentLeaveBalance+1.00;			
+			yearlyEntitlement.setcurrentLeaveBalance(currentLeaveBalaceWithAddedLeave);
 			yearlyEntitlementService.update(yearlyEntitlement);
 		}	
 		}	

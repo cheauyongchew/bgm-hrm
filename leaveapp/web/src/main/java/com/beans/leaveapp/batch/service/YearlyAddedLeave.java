@@ -59,6 +59,10 @@ public class YearlyAddedLeave implements Serializable{
 					double addedEntitlement = entitlement+1.00;
 					System.out.println(addedEntitlement);
 					yearlyEntitleMent.setEntitlement(addedEntitlement);
+					double addToCurrentBalance = addedEntitlement - 12.0;
+					double currentBalance = yearlyEntitleMent.getCurrentLeaveBalance();
+					double addedCurrentBalance = currentBalance + addToCurrentBalance;
+					yearlyEntitleMent.setcurrentLeaveBalance(addedCurrentBalance);
 					yearlyEntitlementService.update(yearlyEntitleMent);
 				}
 				else if((joinDateday == 29 && joinDateMonth == 1)  && (currentDateDay == 1 && currentDateMonth == 2) && (currentDateYear != joinDateYear)){
@@ -66,8 +70,29 @@ public class YearlyAddedLeave implements Serializable{
 					double addedEntitlement = entitlement+1.00;
 					System.out.println(addedEntitlement);
 					yearlyEntitleMent.setEntitlement(addedEntitlement);
+					double addToCurrentBalance = addedEntitlement - 12.0;
+					double currentBalance = yearlyEntitleMent.getCurrentLeaveBalance();
+					double addedCurrentBalance = currentBalance + addToCurrentBalance;
+					yearlyEntitleMent.setcurrentLeaveBalance(addedCurrentBalance);
 					yearlyEntitlementService.update(yearlyEntitleMent);
 				}				
+			}else if(yearlyEntitleMent.getEntitlement() == 16){
+				if(currentDateDay == joinDateday && currentDateMonth == joinDateMonth && currentDateYear != joinDateYear){
+					double entitlement =yearlyEntitleMent.getEntitlement();
+					double addToCurrentBalance = entitlement - 12.0;
+					double currentBalance = yearlyEntitleMent.getCurrentLeaveBalance();
+					double addedCurrentBalance = currentBalance + addToCurrentBalance;
+					yearlyEntitleMent.setcurrentLeaveBalance(addedCurrentBalance);
+					yearlyEntitlementService.update(yearlyEntitleMent);
+				}
+				else if((joinDateday == 29 && joinDateMonth == 1)  && (currentDateDay == 1 && currentDateMonth == 2) && (currentDateYear != joinDateYear)){
+					double entitlement =yearlyEntitleMent.getEntitlement();					
+					double addToCurrentBalance = entitlement - 12.0;
+					double currentBalance = yearlyEntitleMent.getCurrentLeaveBalance();
+					double addedCurrentBalance = currentBalance + addToCurrentBalance;
+					yearlyEntitleMent.setcurrentLeaveBalance(addedCurrentBalance);
+					yearlyEntitlementService.update(yearlyEntitleMent);
+				}
 			}			
 		}
 		}
