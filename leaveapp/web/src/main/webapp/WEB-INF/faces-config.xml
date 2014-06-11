@@ -437,5 +437,9 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 			<property-name>actorUsers</property-name>
 			<value>#{authenticationBean.getUsers()}</value>
 		</managed-property>
+		<managed-property>
+			<property-name>yearlyEntitlementService</property-name>
+			<value>#{yearlyEntitlementService}</value>
+		</managed-property>
 	</managed-bean>
 </faces-config>

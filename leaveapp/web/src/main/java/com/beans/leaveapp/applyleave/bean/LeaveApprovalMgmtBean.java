@@ -9,6 +9,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 import org.apache.log4j.Logger;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
 import com.beans.common.audit.service.AuditTrail;
@@ -19,10 +20,10 @@ import com.beans.common.security.users.model.Users;
 import com.beans.exceptions.BSLException;
 import com.beans.leaveapp.applyleave.model.LeaveApprovalDataModel;
 import com.beans.leaveapp.applyleave.service.LeaveApplicationService;
-import com.beans.leaveapp.employee.model.RegisteredEmployee;
-import com.beans.leaveapp.employeeregistration.model.RegisteredEmployeeDataModel;
 import com.beans.leaveapp.leavetransaction.model.LeaveTransaction;
 import com.beans.leaveapp.web.bean.BaseMgmtBean;
+import com.beans.leaveapp.yearlyentitlement.model.YearlyEntitlement;
+import com.beans.leaveapp.yearlyentitlement.service.YearlyEntitlementService;
 
 public class LeaveApprovalMgmtBean extends BaseMgmtBean implements Serializable{
 
@@ -38,6 +39,8 @@ public class LeaveApprovalMgmtBean extends BaseMgmtBean implements Serializable{
 	private LeaveApplicationService leaveApplicationService;
 	private LeaveApprovalDataModel LeaveApprovalDataModel;
 	private LeaveTransaction selectedLeaveRequest;
+	private YearlyEntitlementService yearlyEntitlementService;
+	private Double currentLeaveBalance;
 	
 	
 	public LeaveApprovalDataModel getLeaveApprovalDataModel() {
@@ -90,6 +93,24 @@ public class LeaveApprovalMgmtBean extends BaseMgmtBean implements Serializable{
 
 	public void setSelectedLeaveRequest(LeaveTransaction selectedLeaveRequest) {
 		this.selectedLeaveRequest = selectedLeaveRequest;
+	}
+	
+	public YearlyEntitlementService getYearlyEntitlementService() {
+		return yearlyEntitlementService;
+	}
+
+	public void setYearlyEntitlementService(
+			YearlyEntitlementService yearlyEntitlementService) {
+		this.yearlyEntitlementService = yearlyEntitlementService;
+	}
+
+	
+	public Double getCurrentLeaveBalance() {
+		return currentLeaveBalance;
+	}
+
+	public void setCurrentLeaveBalance(Double currentLeaveBalance) {
+		this.currentLeaveBalance = currentLeaveBalance;
 	}
 
 	public List<LeaveTransaction> getLeaveRequestApprovalList() {
@@ -157,6 +178,10 @@ public class LeaveApprovalMgmtBean extends BaseMgmtBean implements Serializable{
 		}
 	
 	public void onRowSelect(SelectEvent event) {  
-		setSelectedLeaveRequest((LeaveTransaction) event.getObject()); 
+		LeaveTransaction leaveTransaction = (LeaveTransaction) event.getObject();
+		setSelectedLeaveRequest(leaveTransaction); 
+		YearlyEntitlement entitlement = yearlyEntitlementService.findYearlyEntitlementById(leaveTransaction.getEmployee().getId(), leaveTransaction.getLeaveType().getId());
+		currentLeaveBalance = entitlement.getCurrentLeaveBalance();
+		RequestContext.getCurrentInstance().addCallbackParam("leaveType", leaveTransaction.getLeaveType().getName());
     }
 }
