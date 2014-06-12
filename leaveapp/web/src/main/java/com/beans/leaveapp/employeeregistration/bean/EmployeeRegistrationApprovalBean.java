@@ -12,9 +12,13 @@ import com.beans.common.audit.service.AuditTrail;
 import com.beans.common.audit.service.SystemAuditTrailActivity;
 import com.beans.common.audit.service.SystemAuditTrailLevel;
 import com.beans.common.security.users.model.Users;
+import com.beans.leaveapp.employee.model.Employee;
 import com.beans.leaveapp.employee.model.RegisteredEmployee;
+import com.beans.leaveapp.employee.service.EmployeeNotFound;
 import com.beans.leaveapp.employee.service.EmployeeRegistrationService;
+import com.beans.leaveapp.employee.service.EmployeeService;
 import com.beans.leaveapp.employeeregistration.model.RegisteredEmployeeDataModel;
+import com.beans.leaveapp.yearlyentitlement.service.YearlyEntitlementService;
 
 public class EmployeeRegistrationApprovalBean implements Serializable{
 private static final long serialVersionUID = 1L;
@@ -27,12 +31,27 @@ private static final long serialVersionUID = 1L;
 	private boolean insertDeleted = false;
 	private Users actorUsers;
 	private AuditTrail auditTrail;
-	
+	private YearlyEntitlementService yearlyEntitlementService;
+	private EmployeeService employeeService;
 	private int selectedEmployeeGrade;
 	private int selectedDepartment;
 	private int selectedEmployeeType;
 	
+	
 
+	public EmployeeService getEmployeeService() {
+		return employeeService;
+	}
+	public void setEmployeeService(EmployeeService employeeService) {
+		this.employeeService = employeeService;
+	}
+	public YearlyEntitlementService getYearlyEntitlementService() {
+		return yearlyEntitlementService;
+	}
+	public void setYearlyEntitlementService(
+			YearlyEntitlementService yearlyEntitlementService) {
+		this.yearlyEntitlementService = yearlyEntitlementService;
+	}
 	public EmployeeRegistrationService getEmployeeRegistrationService() {
 		return employeeRegistrationService;
 	}
@@ -88,7 +107,7 @@ private static final long serialVersionUID = 1L;
 	}
 	
 	
-	public void doApproveEmployeeRegistration() {
+	public void doApproveEmployeeRegistration() throws EmployeeNotFound {
 		try {
 			selectedRegisteredEmployee.setDepartmentId(selectedDepartment);
 			selectedRegisteredEmployee.setEmployeeGradeId(selectedEmployeeGrade);
@@ -96,6 +115,9 @@ private static final long serialVersionUID = 1L;
 			
 			employeeRegistrationService.approveRegistration(selectedRegisteredEmployee, getActorUsers().getUsername());
 			
+			Employee employee =  employeeService.findByUsername(selectedRegisteredEmployee.getUsername());
+			
+			yearlyEntitlementService.addAllEntitlementsToNewEmployee(employee);
 			
 			auditTrail.log(SystemAuditTrailActivity.APPROVED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has approved a employee registration of " + selectedRegisteredEmployee.getFullname());
 			setInsertDelete(true);

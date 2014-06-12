@@ -1,11 +1,10 @@
 package com.beans.leaveapp.yearlyentitlement.service;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +15,7 @@ import com.beans.leaveapp.leavetype.model.LeaveType;
 import com.beans.leaveapp.leavetype.repository.LeaveTypeRepository;
 import com.beans.leaveapp.yearlyentitlement.model.YearlyEntitlement;
 import com.beans.leaveapp.yearlyentitlement.repository.YearlyEntitlementRepository;
+import com.beans.util.enums.Leave;
 
 public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 
@@ -200,6 +200,100 @@ public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 		
 		return yearlyEntitleRepository.findByEmployeeAndLeaveTypeId(employeeId, leaveTypeId);
 	}
-	
 
+	@SuppressWarnings("deprecation")
+	@Override
+	public void addAllEntitlementsToNewEmployee(Employee newlyRegisteredEmployee) {
+		// Add full entitlement for all kinds of leaves except Annual and Unpaid leaves
+		
+		LeaveType leaveTypeBean = null;
+		YearlyEntitlement  leaveEntitlement = null;
+		
+		if("PERM".equalsIgnoreCase(newlyRegisteredEmployee.getEmployeeType().getName())){
+		for(Leave leaveType : Leave.values()){
+			
+			if(!(leaveType.equalsName(Leave.ANNUAL.toString()) || leaveType.equalsName(Leave.UNPAID.toString()))){
+			if( (newlyRegisteredEmployee.getGender().equals("M")&& leaveType.equalsName(Leave.MATERNITY.toString())) || (newlyRegisteredEmployee.getGender().equals("F")&& leaveType.equalsName(Leave.PATERNITY.toString())))
+				continue;
+			leaveTypeBean = leaveTypeRepository.getLeaveTypeByName(leaveType.toString(),newlyRegisteredEmployee.getEmployeeType().getId());
+			if(leaveTypeBean!=null){
+			leaveEntitlement = new YearlyEntitlement();
+			leaveEntitlement.setCreatedBy(leaveTypeBean.getCreatedBy());
+			leaveEntitlement.setCreationTime(new Date());
+			leaveEntitlement.setcurrentLeaveBalance(leaveTypeBean.getEntitlement());
+			leaveEntitlement.setYearlyLeaveBalance(leaveTypeBean.getEntitlement());
+			leaveEntitlement.setEntitlement(leaveTypeBean.getEntitlement());
+			leaveEntitlement.setEmployee(newlyRegisteredEmployee);
+			leaveEntitlement.setDeleted(false);
+			leaveEntitlement.setLeaveType(leaveTypeBean);
+			yearlyEntitleRepository.save(leaveEntitlement);
+			}
+		}
+			if(leaveType.equalsName(Leave.ANNUAL.toString())){
+				leaveTypeBean = leaveTypeRepository.getLeaveTypeByName(leaveType.toString(),newlyRegisteredEmployee.getEmployeeType().getId());
+				if(leaveTypeBean!=null){
+				leaveEntitlement = new YearlyEntitlement();
+				int joinedDate = newlyRegisteredEmployee.getJoinDate().getDate();
+				int joinedMonth = newlyRegisteredEmployee.getJoinDate().getMonth();
+				if(joinedDate>15){
+					leaveEntitlement.setcurrentLeaveBalance(-1);
+					leaveEntitlement.setEntitlement(12-(joinedMonth+1));
+					leaveEntitlement.setYearlyLeaveBalance(12-(joinedMonth+1));
+				}
+				else{
+					leaveEntitlement.setcurrentLeaveBalance(0);
+					leaveEntitlement.setEntitlement(12-joinedMonth);
+					leaveEntitlement.setYearlyLeaveBalance(12-joinedMonth);
+				}
+					leaveEntitlement.setCreatedBy(leaveTypeBean.getCreatedBy());
+					leaveEntitlement.setCreationTime(new Date());
+					leaveEntitlement.setDeleted(false);
+					leaveEntitlement.setEmployee(newlyRegisteredEmployee);
+					leaveEntitlement.setLeaveType(leaveTypeBean);
+					yearlyEntitleRepository.save(leaveEntitlement);
+				}
+			}
+			}	
+		}
+		else if("CONT".equalsIgnoreCase(newlyRegisteredEmployee.getEmployeeType().getName())){
+			leaveTypeBean = leaveTypeRepository.getLeaveTypeByName(Leave.ANNUAL.toString(),newlyRegisteredEmployee.getEmployeeType().getId());
+			if(leaveTypeBean!=null){
+			leaveEntitlement = new YearlyEntitlement();
+			int joinedDate = newlyRegisteredEmployee.getJoinDate().getDate();
+			int joinedMonth = newlyRegisteredEmployee.getJoinDate().getMonth();
+			if(joinedDate>15){
+				leaveEntitlement.setcurrentLeaveBalance(-1);
+				leaveEntitlement.setEntitlement(12-(joinedMonth+1));
+				leaveEntitlement.setYearlyLeaveBalance(12-(joinedMonth+1));
+			}
+			else{
+				leaveEntitlement.setcurrentLeaveBalance(0);
+				leaveEntitlement.setEntitlement(12-joinedMonth);
+				leaveEntitlement.setYearlyLeaveBalance(12-joinedMonth);
+			}
+				leaveEntitlement.setCreatedBy(leaveTypeBean.getCreatedBy());
+				leaveEntitlement.setCreationTime(new Date());
+				leaveEntitlement.setDeleted(false);
+				leaveEntitlement.setEmployee(newlyRegisteredEmployee);
+				leaveEntitlement.setLeaveType(leaveTypeBean);
+				yearlyEntitleRepository.save(leaveEntitlement);
+			}
+		
+		}
+		
+		leaveTypeBean = leaveTypeRepository.getLeaveTypeByName(Leave.UNPAID.toString(),newlyRegisteredEmployee.getEmployeeType().getId());
+		if(leaveTypeBean!=null){
+		leaveEntitlement = new YearlyEntitlement();
+		leaveEntitlement.setCreatedBy(leaveTypeBean.getCreatedBy());
+		leaveEntitlement.setCreationTime(new Date());
+		leaveEntitlement.setcurrentLeaveBalance(leaveTypeBean.getEntitlement());
+		leaveEntitlement.setYearlyLeaveBalance(leaveTypeBean.getEntitlement());
+		leaveEntitlement.setEntitlement(leaveTypeBean.getEntitlement());
+		leaveEntitlement.setEmployee(newlyRegisteredEmployee);
+		leaveEntitlement.setDeleted(false);
+		leaveEntitlement.setLeaveType(leaveTypeBean);
+		yearlyEntitleRepository.save(leaveEntitlement);
+		
+		}
+	}
 }

@@ -25,4 +25,7 @@ public interface LeaveTypeRepository extends CrudRepository<LeaveType, Integer>{
 	 
 	 @Query("select l.name from LeaveType l join l.employeeType e where e.id = ?")
 	 List<String> findByLeaveTypes(int id);
+	 
+	 @Query("select l from LeaveType l where name = :name and employeeType.id = :id and isDeleted = 0")
+	 LeaveType getLeaveTypeByName(@Param("name")String name,@Param("id")int id);
 }

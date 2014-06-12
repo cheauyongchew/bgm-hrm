@@ -40,4 +40,5 @@ public interface YearlyEntitlementService {
 	
 	YearlyEntitlement findYearlyEntitlementById(int employeeId, int leaveTypeId);
 	
+	void addAllEntitlementsToNewEmployee(Employee newlyRegisteredEmployee);
 }
