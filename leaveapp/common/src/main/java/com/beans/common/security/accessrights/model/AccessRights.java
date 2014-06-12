@@ -1,7 +1,6 @@
-
 package com.beans.common.security.accessrights.model;
-
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,8 +16,8 @@ import com.beans.common.security.role.model.Role;
 
 @Entity
 @Table(name="AccessRights")
-public class AccessRights implements Serializable{
- 
+public class AccessRights implements Serializable{	
+
 	/**
 	 * 
 	 */
@@ -30,9 +29,27 @@ public class AccessRights implements Serializable{
 	private java.util.Date creationTime;
 	private String lastModifiedBy;
 	private java.util.Date lastModifiedTime;
-	
 	private boolean isDeleted = false;   
 	   
+
+    public AccessRights(int id, String accessRights, String description,
+			String createdBy, Date creationTime, String lastModifiedBy,
+			Date lastModifiedTime, boolean isDeleted) {
+		super();
+		this.id = id;
+		this.accessRights = accessRights;
+		this.description = description;
+		this.createdBy = createdBy;
+		this.creationTime = creationTime;
+		this.lastModifiedBy = lastModifiedBy;
+		this.lastModifiedTime = lastModifiedTime;
+		this.isDeleted = isDeleted;
+	}
+
+	public AccessRights(){
+    	
+    }
+	
 	@Id
 	@GeneratedValue
 	@Column(name="id", nullable=false, unique=true)

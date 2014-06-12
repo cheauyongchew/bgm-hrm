@@ -44,4 +44,10 @@ public interface EmployeeRepository extends CrudRepository<Employee, Integer>,Em
 	@Query("select e.employeeType.id from Employee e where e.name = ? and isDeleted = 0")
 	Integer findByEmployeeTypeId(String name);
 	
+	@Query("select e from Employee e where e.employeeType.id IN (2,3) and isDeleted = 0")
+	List<Employee> findByEmployeeTypePermAndCont();
+	
+	@Query("select e from Employee e where e.employeeType.id = 3 and isDeleted = 0")
+	List<Employee> findByEmployeeTypePerm();
+	
 }

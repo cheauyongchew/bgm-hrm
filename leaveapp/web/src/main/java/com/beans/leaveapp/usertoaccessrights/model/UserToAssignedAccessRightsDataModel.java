@@ -7,42 +7,42 @@ import javax.faces.model.ListDataModel;
 import org.primefaces.model.SelectableDataModel;
 
 import com.beans.common.security.users.model.Users;
-import com.beans.common.security.usertoaccessrights.model.AssignedAccessRights;
 import com.beans.common.security.usertoaccessrights.model.UserToAccessRights;
 
-public class UserToAssignedAccessRightsDataModel extends ListDataModel<AssignedAccessRights> implements SelectableDataModel<AssignedAccessRights>{
+
+public class UserToAssignedAccessRightsDataModel extends ListDataModel<UserToAccessRights> implements SelectableDataModel<UserToAccessRights>{
 
 	
 	UserToAssignedAccessRightsDataModel(){
 		
 	} 
 	
-	public UserToAssignedAccessRightsDataModel(List<AssignedAccessRights> data){
+public UserToAssignedAccessRightsDataModel(List<UserToAccessRights> data){
+
 		
 		super(data);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public AssignedAccessRights getRowData(String rowKey) {
-		List<AssignedAccessRights> assignedAccessRightsList = (List<AssignedAccessRights>)getWrappedData();
+	public UserToAccessRights getRowData(String rowKey) {
+		
+		  List<UserToAccessRights> userToAccessRightsList = (List<UserToAccessRights>)getWrappedData();
 		  Integer rowKeyInt = Integer.parseInt(rowKey);
-	      for(AssignedAccessRights assignedAccessRights : assignedAccessRightsList) {
-	          if(assignedAccessRights.getId() == rowKeyInt) {
-	              return assignedAccessRights;
+	      for(UserToAccessRights userToAccessRights : userToAccessRightsList) {
+	          if(userToAccessRights.getId() == rowKeyInt) {
+	              return userToAccessRights;
 	          }
 	      }
+
 		return null;
 	}
 	
 	@Override
-	public Object getRowKey(AssignedAccessRights assignedAccessRights) {
+	public Object getRowKey(UserToAccessRights userToAccessRights) {
 		
-		return assignedAccessRights.getId();
-	}
-
-	
-	
+		return userToAccessRights.getId();
+	}	
 
 
 }

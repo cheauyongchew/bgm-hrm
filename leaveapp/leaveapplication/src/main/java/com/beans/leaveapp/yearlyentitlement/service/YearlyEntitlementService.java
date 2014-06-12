@@ -36,6 +36,13 @@ public interface YearlyEntitlementService {
 	
 	public YearlyEntitlement findOne(int yearlyEntitlementId) throws YearlyEntitlementNotFound;
 	
+
+	public YearlyEntitlement findByEmployeeIdPermAndCont(int employeeId);
+	
+	public YearlyEntitlement findByEmployeeIdPerm(int employeeId);
+	
+	public List<YearlyEntitlement> findByEmployeeIdForRemainingLeaves(int employeeId);
+
 	void updateLeaveBalanceAfterApproval(int employeeId,int leaveTypeId,double numberOfDaysApproved);
 	
 	YearlyEntitlement findYearlyEntitlementById(int employeeId, int leaveTypeId);

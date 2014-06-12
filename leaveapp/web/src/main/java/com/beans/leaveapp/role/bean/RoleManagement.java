@@ -1,4 +1,3 @@
-
 package com.beans.leaveapp.role.bean;
 
 import java.io.Serializable;
@@ -192,4 +191,3 @@ public class RoleManagement implements Serializable{
 	
 
 }
-

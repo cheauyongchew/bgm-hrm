@@ -138,10 +138,3 @@ public class LeaveType implements Serializable{
 		
 	}
 	
-	
-	
-	
-	
-	
-	
-

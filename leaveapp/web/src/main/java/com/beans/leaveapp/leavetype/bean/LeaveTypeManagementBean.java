@@ -1,4 +1,3 @@
-
 package com.beans.leaveapp.leavetype.bean;
 
 import java.io.Serializable;

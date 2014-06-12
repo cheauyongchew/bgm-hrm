@@ -1,4 +1,3 @@
-
 package com.beans.leaveapp.department.bean;
 
 import java.io.Serializable;
@@ -100,6 +99,7 @@ private static final long serialVersionUID = 1L;
 	}
 
 	public void doCreateDepartment() throws DepartmentNotFound {
+
 		try{
 			newDepartment.setDeleted(false);
 			newDepartment.setCreatedBy(getActorUsers().getUsername());

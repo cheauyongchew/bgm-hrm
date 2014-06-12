@@ -185,6 +185,24 @@ public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 	}
 
 	@Override
+	public YearlyEntitlement findByEmployeeIdPermAndCont(int employeeId) {
+		 YearlyEntitlement yearlyEntitlementPermAndCont = yearlyEntitleRepository.findByEmployeeIdPermAndCont(employeeId);
+		return yearlyEntitlementPermAndCont;
+	}
+
+	@Override
+	public YearlyEntitlement findByEmployeeIdPerm(int employeeId) {
+		YearlyEntitlement yearlyEntitlementPerm = yearlyEntitleRepository.findByEmployeeIdPerm(employeeId);
+		return yearlyEntitlementPerm;
+	}	
+	
+	@Override
+	public List<YearlyEntitlement> findByEmployeeIdForRemainingLeaves(int employeeId) {
+		List<YearlyEntitlement> yearlyEntitlementList = yearlyEntitleRepository.findByEmployeeIdPermForRemainingLeaves(employeeId);
+		return yearlyEntitlementList;
+	}
+
+	@Override
 	@Transactional
 	public void updateLeaveBalanceAfterApproval(int employeeId,int leaveTypeId,double numberOfDaysLeaveApproved) {
 		System.out.println("Input parameters values in updateLeaveBalanceAfterApproval() employeeId: "+employeeId+" leaveTypeId :"+leaveTypeId);

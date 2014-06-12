@@ -257,6 +257,34 @@
 			<version>${jbpm.version}</version>
 		</dependency>
 
+		<!-- Common Collection Jar -->
+		 <dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.2.1</version>
+		</dependency> 
+
+		<!-- Quartz Jar -->		
+  		<dependency>
+  			<groupId>org.quartz-scheduler</groupId>	
+  			<artifactId>quartz</artifactId>
+  			<version>1.8.6</version>
+  		</dependency> 
+  		<!-- QuartzJobBean in spring-context-support -->
+  		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>3.1.2.RELEASE</version>
+		</dependency>
+ 
+		<!-- Spring + Quartz need transaction -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>3.1.2.RELEASE</version>
+		</dependency>
+  		
+
 
 	</dependencies>
 	<build>
@@ -268,7 +296,7 @@
 				<version>7.5.Final</version>
 				<configuration>
 					<hostname>${hostname}</hostname>
-					<port>${port}</port>   
+					<port>${port}</port>
 					<username>${username}</username>
 					<password>${password}</password>
 
