@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.beans.common.audit.service.AuditTrail;
+import com.beans.exceptions.BSLException;
 import com.beans.leaveapp.employee.model.Employee;
 import com.beans.leaveapp.employee.repository.EmployeeRepository;
 import com.beans.leaveapp.leavetype.model.LeaveType;
@@ -224,6 +225,7 @@ public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 	public void addAllEntitlementsToNewEmployee(Employee newlyRegisteredEmployee) {
 		// Add full entitlement for all kinds of leaves except Annual and Unpaid leaves
 		
+		try{
 		LeaveType leaveTypeBean = null;
 		YearlyEntitlement  leaveEntitlement = null;
 		
@@ -312,6 +314,11 @@ public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 		leaveEntitlement.setLeaveType(leaveTypeBean);
 		yearlyEntitleRepository.save(leaveEntitlement);
 		
+		}
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new BSLException("err.newEmployeejoin.creditEntitlement");
+			
 		}
 	}
 }

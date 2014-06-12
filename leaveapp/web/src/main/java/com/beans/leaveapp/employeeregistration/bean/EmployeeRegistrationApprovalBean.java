@@ -12,15 +12,17 @@ import com.beans.common.audit.service.AuditTrail;
 import com.beans.common.audit.service.SystemAuditTrailActivity;
 import com.beans.common.audit.service.SystemAuditTrailLevel;
 import com.beans.common.security.users.model.Users;
+import com.beans.exceptions.BSLException;
 import com.beans.leaveapp.employee.model.Employee;
 import com.beans.leaveapp.employee.model.RegisteredEmployee;
 import com.beans.leaveapp.employee.service.EmployeeNotFound;
 import com.beans.leaveapp.employee.service.EmployeeRegistrationService;
 import com.beans.leaveapp.employee.service.EmployeeService;
 import com.beans.leaveapp.employeeregistration.model.RegisteredEmployeeDataModel;
+import com.beans.leaveapp.web.bean.BaseMgmtBean;
 import com.beans.leaveapp.yearlyentitlement.service.YearlyEntitlementService;
 
-public class EmployeeRegistrationApprovalBean implements Serializable{
+public class EmployeeRegistrationApprovalBean extends BaseMgmtBean implements Serializable{
 private static final long serialVersionUID = 1L;
 	
 	
@@ -124,7 +126,11 @@ private static final long serialVersionUID = 1L;
 			setSelectedDepartment(0);
 			setSelectedEmployeeGrade(0);
 			setSelectedEmployeeType(0);
-		
+		}catch(BSLException e){
+			FacesMessage msg = new FacesMessage("Error : "+getExcptnMesProperty(e.getMessage()),"Approve Error");  
+			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+	        FacesContext.getCurrentInstance().addMessage(null, msg); 
+			
 		} catch(Exception e) {
 			e.printStackTrace(); 
 		}
