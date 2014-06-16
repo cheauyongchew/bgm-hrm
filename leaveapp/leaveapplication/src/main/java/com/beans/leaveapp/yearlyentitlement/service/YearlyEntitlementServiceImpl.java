@@ -147,7 +147,7 @@ public class YearlyEntitlementServiceImpl implements YearlyEntitlementService {
 		try {
 
 			if (employeeId > 0) {
-				listOfYearlyEntitlement = yearlyEntitleRepository.findByEmployeeId(employeeId);
+				listOfYearlyEntitlement = yearlyEntitleRepository.findByEmployeeIdNotIncludeUnpaid(employeeId);
 				return listOfYearlyEntitlement;
 			}
 		} catch (Exception e) {

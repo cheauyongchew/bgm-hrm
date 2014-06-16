@@ -68,4 +68,4 @@ public interface LeaveTransactionRepository extends CrudRepository<LeaveTransact
    @Query("select l from LeaveTransaction l where startDateTime =? and isDeleted =0")
    List<LeaveTransaction> findByStartDateTime(Date startDateTime);
    
-   }
+      }

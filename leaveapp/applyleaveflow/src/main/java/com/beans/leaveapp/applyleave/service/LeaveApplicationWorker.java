@@ -6,6 +6,7 @@ import org.springframework.context.ApplicationContext;
 import com.beans.exceptions.BSLException;
 import com.beans.leaveapp.jbpm6.util.ApplicationContextProvider;
 import com.beans.leaveapp.leavetransaction.model.LeaveTransaction;
+import com.beans.leaveapp.leavetransaction.service.LeaveTransactionService;
 import com.beans.leaveapp.yearlyentitlement.service.YearlyEntitlementService;
 
 public class LeaveApplicationWorker {
@@ -50,8 +51,19 @@ public class LeaveApplicationWorker {
 			ApplicationContext applicationContext = ApplicationContextProvider.getApplicationContext();
 			YearlyEntitlementService yearlyEntitlementService = (YearlyEntitlementService) applicationContext.getBean("yearlyEntitlementService");
 			yearlyEntitlementService.updateLeaveBalanceAfterApproval(leaveTransaction.getEmployee().getId(), leaveTransaction.getLeaveType().getId(), leaveTransaction.getNumberOfDays());
-		
 		}
 	}
+	
+	public static void updateLeaveApplicationStatus(LeaveTransaction leaveTransaction,Integer leaveTransactionId, Boolean isTeamLeadApproved, Boolean isOperDirApproved, int status){
+		
+		ApplicationContext applicationContext = ApplicationContextProvider.getApplicationContext();
+		LeaveTransactionService leaveTransactionService = (LeaveTransactionService) applicationContext.getBean("leaveTransactionService");
+		if((!isTeamLeadApproved && status==3) || !isOperDirApproved)
+			leaveTransaction.setStatus("R");
+		else
+			leaveTransaction.setStatus("A");
+		leaveTransactionService.updateLeaveApplicationStatus(leaveTransaction,leaveTransactionId);
+	}
+	
 
 }
