@@ -16,6 +16,9 @@ public interface YearlyEntitlementRepository extends
 
 	@Query("select y from YearlyEntitlement y where  employeeId =? and isDeleted = 0")
 	public List<YearlyEntitlement> findByEmployeeId(int employeeId);
+	
+	@Query("select y from YearlyEntitlement y where  employeeId =? and leaveType.name != 'Unpaid'")
+	public List<YearlyEntitlement> findByEmployeeIdNotIncludeUnpaid(int employeeId);
 
 	@Query("select y from  YearlyEntitlement y where leaveTypeId =? and isDeleted = 0")
 	public List<YearlyEntitlement> findByLeaveTypeIdLike(int leaveTypeId);

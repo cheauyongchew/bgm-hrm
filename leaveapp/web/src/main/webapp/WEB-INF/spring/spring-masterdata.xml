@@ -51,8 +51,9 @@
 	</bean>	 
 	
 	<bean id="leaveTransaction" class="com.beans.leaveapp.leavetransaction.model.LeaveTransaction"/>
-	<bean id="leaveTransactionService" class="com.beans.leaveapp.leavetransaction.service.LeaveTransactionServiceImpl">
-</bean>
+	<bean id="leaveTransactionService" class="com.beans.leaveapp.leavetransaction.service.LeaveTransactionServiceImpl"/>
+	
+	<bean id="sendLeaveReportService" class="com.beans.leaveapp.monthlyreport.SendMonthlyLeaveReportServiceImpl"/>
 
 </beans>
 
