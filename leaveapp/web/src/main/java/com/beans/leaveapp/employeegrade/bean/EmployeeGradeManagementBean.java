@@ -116,6 +116,7 @@ public class EmployeeGradeManagementBean extends BaseMgmtBean implements Seriali
 			newEmployeeGrade.setCreationTime(new java.util.Date());
 			getEmployeeGradeService().create(newEmployeeGrade);
 			setInsertDelete(true);
+			newEmployeeGrade = new EmployeeGrade();
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info",getExcptnMesProperty("info.empgrade.create")));
 		}catch(BSLException e){
 			FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  

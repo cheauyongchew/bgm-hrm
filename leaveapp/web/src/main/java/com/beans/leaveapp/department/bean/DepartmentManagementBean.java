@@ -1,6 +1,7 @@
 package com.beans.leaveapp.department.bean;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -103,6 +104,7 @@ private static final long serialVersionUID = 1L;
 		try{
 			newDepartment.setDeleted(false);
 			newDepartment.setCreatedBy(getActorUsers().getUsername());
+			newDepartment.setCreationTime(new java.util.Date());
 			getDepartmentService().create(newDepartment);
 			setInsertDelete(true);
 			newDepartment = new Department();

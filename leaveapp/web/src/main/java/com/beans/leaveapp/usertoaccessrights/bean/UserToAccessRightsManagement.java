@@ -9,7 +9,6 @@ import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.drools.core.spi.Enabled;
-
 import org.primefaces.event.SelectEvent;
 
 import com.beans.common.security.accessrights.model.AccessRights;
@@ -21,6 +20,7 @@ import com.beans.common.security.usertoaccessrights.model.UserToAccessRights;
 import com.beans.common.security.usertoaccessrights.service.UserToAccessRightsNotFound;
 import com.beans.common.security.usertoaccessrights.service.UserToAccessRightsService;
 import com.beans.leaveapp.accessrights.model.AccessRightsDataModel;
+import com.beans.leaveapp.refresh.Refresh;
 import com.beans.leaveapp.usertoaccessrights.model.UserToAccessRightsDataModel;
 import com.beans.leaveapp.usertoaccessrights.model.UserToAssignedAccessRightsDataModel;
 import com.beans.leaveapp.usertoaccessrights.model.UserToUnAssignedAccessRightsDataModel;
@@ -45,7 +45,8 @@ public class UserToAccessRightsManagement implements Serializable {
 	private boolean renderAccessRights = false;
 	private AccessRights selectedAccessRights = new AccessRights();
 	private boolean enabled;
-
+    private Refresh refresh = new Refresh();
+    List<UserToAccessRights> removedUserToAccessRightsList = new ArrayList<UserToAccessRights>();
 	private int id;
 
 	public int getId() {
@@ -101,7 +102,15 @@ public class UserToAccessRightsManagement implements Serializable {
 	}
 
 	public void setSelectedUsers(Users selectedUsers) {
+		
 		this.selectedUsers = selectedUsers;
+		if (selectedUsers != null) {
+			List<UserToAccessRights> userToAccessRightsList1 = new ArrayList<UserToAccessRights>();
+			userToAccessRightsList1 = this.getUserToAccessRightsService().findByUserId(selectedUsers.getId());
+			this.setUserToAccessRightsList(userToAccessRightsList1);
+			this.userToAssignedAccessRightsDataModel = null;			
+			this.setId(selectedUsers.getId());		
+		}
 	}
 
 	public void assignedAccessRights() {
@@ -112,19 +121,21 @@ public class UserToAccessRightsManagement implements Serializable {
 		this.setRenderAccessRights(true);
 	}
 
-	public void onRowSelect(SelectEvent event) {
+	/*public void onRowSelect(SelectEvent event) {
 		this.selectedUsers = ((Users) event.getObject());
 		if (selectedUsers != null) {
 			List<UserToAccessRights> userToAccessRightsList1 = new ArrayList<UserToAccessRights>();
 			userToAccessRightsList1 = this.getUserToAccessRightsService().findByUserId(selectedUsers.getId());
 			this.setUserToAccessRightsList(userToAccessRightsList1);
-			this.userToAssignedAccessRightsDataModel = null;
-			this.setId(selectedUsers.getId());
-			System.out.println(id);
+			this.userToAssignedAccessRightsDataModel = null;			
+			this.setId(selectedUsers.getId());		
 		}
-
+	}*/
+	
+	public void onRowSelect(SelectEvent event){		
+		setSelectedUsers((Users) event.getObject());
 	}
-
+	
 	public boolean isInsertDelete() {
 		return insertDelete;
 	}
@@ -171,6 +182,8 @@ public class UserToAccessRightsManagement implements Serializable {
 		this.userToAccessRightsService = userToAccessRightsService;
 	}
 
+	
+	
 	@SuppressWarnings("unchecked")
 	public List<AccessRights> getAccessRightsList() {
 		List<AccessRights> unAssignedaccessRightsList = null;
@@ -196,16 +209,19 @@ public class UserToAccessRightsManagement implements Serializable {
 
 				List<String> finalList = new LinkedList<String>();
 				finalList = (List<String>) CollectionUtils.disjunction(assigned, unAssigned);
-
+				System.out.println(" Access Rights : "+accessRightsList.size());
+				List<AccessRights> accessList = new ArrayList<AccessRights>();
 				for (String finalString : finalList) {
 					for (AccessRights accessRights : accessRightsExistinglist) {
 						if (finalString.trim().equalsIgnoreCase(accessRights.getAccessRights().trim())) {														
-							accessRightsList.add(new AccessRights(accessRights.getId(), accessRights.getAccessRights(),accessRights.getDescription(), accessRights.getCreatedBy(), accessRights.getCreationTime(), accessRights.getLastModifiedBy(), accessRights.getLastModifiedTime(),accessRights.isDeleted()));
-							Set<AccessRights> unAssignedAccessRightsSet = new HashSet<AccessRights>(accessRightsList);
-							unAssignedaccessRightsList = new ArrayList<AccessRights>(unAssignedAccessRightsSet);
+							accessList.add(new AccessRights(accessRights.getId(), accessRights.getAccessRights(),accessRights.getDescription(), accessRights.getCreatedBy(), accessRights.getCreationTime(), accessRights.getLastModifiedBy(), accessRights.getLastModifiedTime(),accessRights.isDeleted()));
 						}
 					}
 				}
+				Set<AccessRights> unAssignedAccessRightsSet = new HashSet<AccessRights>(accessList);
+				unAssignedaccessRightsList = new ArrayList<AccessRights>(unAssignedAccessRightsSet);
+				
+				
 			}
 
 		} catch (Exception e) {
@@ -223,6 +239,9 @@ public class UserToAccessRightsManagement implements Serializable {
 		if (accessRightsDataModel == null || insertDelete == true) {
 			accessRightsDataModel = new AccessRightsDataModel(getAccessRightsList());
 		}
+		/*else if(userToAccessRightsList != null){
+			accessRightsDataModel = new AccessRightsDataModel(getAccessRightsList());
+		}*/
 		return accessRightsDataModel;
 	}
 
@@ -235,13 +254,14 @@ public class UserToAccessRightsManagement implements Serializable {
 		UserToAccessRights userToAccessRights = new UserToAccessRights();
 		userToAccessRights.setAccessRights(selectedAccessRights);
 		userToAccessRights.setUsers(selectedUsers);
-		userToAccessRights.setDeleted(false);
+		userToAccessRights.setDeleted(false);		
 		userToAccessRightsList.add(userToAccessRights);
-		userToAssignedAccessRightsDataModel = null;
+		System.out.println(userToAccessRightsList.size());
+		this.userToAssignedAccessRightsDataModel = null;
+		System.out.println(accessRightsList.size());
 		accessRightsList.remove(selectedAccessRights);
-		accessRightsDataModel = null;
-		this.getAccessRightsDataModel();
-		setRenderAccessRights(false);
+		System.out.println(accessRightsList.size());		
+		this.accessRightsDataModel = null;		
 	}
 
 	public void myListener(){		
@@ -249,7 +269,10 @@ public class UserToAccessRightsManagement implements Serializable {
 	
 	public void deleteAssignedAccessRights(){
 	selectedUserToAccessRights.setDeleted(true);
+	
+	
 	userToAccessRightsList.remove(selectedUserToAccessRights);
+	removedUserToAccessRightsList.add(selectedUserToAccessRights);	
 	}
 	
 	public void onAssignedAccessRightsSelect(SelectEvent event){
@@ -261,18 +284,20 @@ public class UserToAccessRightsManagement implements Serializable {
 	public void onUnAssignedAccessRightsSelect(SelectEvent event) {
 
 		selectedAccessRights = (AccessRights) event.getObject();
-
+		setRenderAccessRights(false);
 	}	
 
 	public void saveUserToAccessRights() {
 		try {
-			if(selectedUserToAccessRights.getAccessRights() == null){				
+			if(removedUserToAccessRightsList.size() == 0){				
 				for (UserToAccessRights userToAccessRights1 : userToAccessRightsList) {
 					getUserToAccessRightsService().update(userToAccessRights1);
 				}
 			} else 
 			{	
-				getUserToAccessRightsService().delete(selectedUserToAccessRights.getId());
+				for(UserToAccessRights removedUserToAccessRights : removedUserToAccessRightsList){
+					getUserToAccessRightsService().delete(removedUserToAccessRights.getId());
+				}
 				for (UserToAccessRights userToAccessRights1 : userToAccessRightsList) {
 				getUserToAccessRightsService().update(userToAccessRights1);
 			}
@@ -281,6 +306,12 @@ public class UserToAccessRightsManagement implements Serializable {
 			e.printStackTrace();
 		}
 	}
+	
+	public void cancelAccessRightsDialog(){
+		setRenderAccessRights(false);
+	//	refresh.refreshPage();
+	}
+	
 	
 	public UserToAccessRights getSelectedUserToAccessRights() {
 		return selectedUserToAccessRights;

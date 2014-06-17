@@ -7,12 +7,14 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.beans.common.security.accessrights.model.AccessRights;
 import com.beans.common.security.role.model.Role;
 import com.beans.common.security.role.repository.RoleRepository;
+import com.beans.exceptions.BSLException;
 
 @Service
 public class RoleServiceImpl implements RoleService{
@@ -22,25 +24,39 @@ public class RoleServiceImpl implements RoleService{
 	@Resource
 	private RoleRepository roleRepository;
 	
+
+	private Logger log = Logger.getLogger(this.getClass());
 	
 	@Override
-	@Transactional
+	@Transactional(rollbackFor ={Exception.class,BSLException.class})
 	public Role create(Role role) {
-		Role roleToBeCreated = role;		
+	 try{	
+		Role roleToBeCreated = role;
+		log.info("New Role is saving into database with Name :"+roleToBeCreated.getRole());
 		return roleRepository.save(roleToBeCreated);
+	}catch (Exception e) {
+		log.error("Error while saving new Role :"+role.getRole(), e);
+		throw new BSLException("err.role.create", e);
 	}
+}
 
 	@Override
-	@Transactional
-	public Role delete(int id) throws RoleNotFound {
+	@Transactional(rollbackFor=RoleNotFound.class)
+	public Role delete(int id){
+	try{
 		Role role = roleRepository.findOne(id);
 		
-		if(role == null)
-			throw new RoleNotFound();
+		if(role != null){			
 		role.setDeleted(true);
 		roleRepository.save(role);
+	}	
 		return role;
+	}catch(Exception e) {
+		log.error("Error while deleting new Role :"+id, e);
+		throw new BSLException("err.role.delete", e);
 	}
+}	
+	
 
 	@Override
 	public List<Role> findAll() {
@@ -55,12 +71,11 @@ public class RoleServiceImpl implements RoleService{
 	}
 
 	@Override
-	@Transactional
-	public Role update(Role role) throws RoleNotFound {
-		Role roleToBeUpdated = roleRepository.findOne(role.getId());
-		
-		if(roleToBeUpdated == null)
-			throw new RoleNotFound();
+	@Transactional(rollbackFor={Exception.class,BSLException.class})
+	public Role update(Role role){
+	 try{	
+		Role roleToBeUpdated = roleRepository.findOne(role.getId());		
+		if(roleToBeUpdated != null){			
 		roleToBeUpdated.setId(role.getId());
 		roleToBeUpdated.setRole(role.getRole());
 		roleToBeUpdated.setDescription(role.getDescription());
@@ -69,11 +84,16 @@ public class RoleServiceImpl implements RoleService{
 		Set<AccessRights> accessRightsSet = new HashSet<AccessRights>();
 		accessRightsSet.addAll(role.getAccessRights());
 		roleToBeUpdated.setAccessRights(accessRightsSet);
-		roleRepository.save(roleToBeUpdated);
-		if(true)throw new RoleNotFound();
+		roleRepository.save(roleToBeUpdated);		
+		}	
 		return roleToBeUpdated;
+	}catch (Exception e) {
+		log.error("Error while updating Role :"+role.getRole(), e);
+		throw new BSLException("err.role.update", e);
 	}
+}
 
+	
 	@Override
 	public Role findByRole(String role) throws RoleNotFound {
 		Role foundRole = roleRepository.findByRole(role);

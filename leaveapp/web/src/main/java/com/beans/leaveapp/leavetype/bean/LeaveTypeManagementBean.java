@@ -99,6 +99,7 @@ public class LeaveTypeManagementBean extends BaseMgmtBean implements Serializabl
 				newLeaveType.setCreatedBy(getActorUsers().getUsername());
 				newLeaveType.setCreationTime(new java.util.Date());
 				getLeaveTypeService().create(newLeaveType);
+				newLeaveType = new LeaveType();
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info",getExcptnMesProperty("info.leavetype.create")));
 			}catch(BSLException e){
 				FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  

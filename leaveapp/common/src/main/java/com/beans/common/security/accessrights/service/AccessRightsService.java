@@ -9,9 +9,9 @@ public interface AccessRightsService {
 
 	
 	public AccessRights create(AccessRights accessRights);
-	public AccessRights delete(int id) throws AccessRightsNotFound;
+	public AccessRights delete(int id);
 	public List<AccessRights> findAll();
-	public AccessRights update(AccessRights accessRights) throws AccessRightsNotFound;
+	public AccessRights update(AccessRights accessRights);
 	public AccessRights findById(int id) throws AccessRightsNotFound;	
 	public Set<AccessRights> findAllInSet();
 	public List<AccessRights> findAccessRightsByAccessRight(String accessRight);
