@@ -23,9 +23,11 @@ import com.beans.common.security.role.model.Role;
 import com.beans.common.security.role.service.RoleNotFound;
 import com.beans.common.security.role.service.RoleService;
 import com.beans.common.security.users.model.Users;
+import com.beans.exceptions.BSLException;
 import com.beans.leaveapp.role.model.RoleDataModel;
+import com.beans.leaveapp.web.bean.BaseMgmtBean;
 
-public class RoleToAccessRightsManagement implements Serializable{
+public class RoleToAccessRightsManagement extends BaseMgmtBean implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	private RoleService roleService;
@@ -120,8 +122,9 @@ public class RoleToAccessRightsManagement implements Serializable{
 			getRoleService().update(selectedRole);
 			
 			auditTrail.log(SystemAuditTrailActivity.UPDATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has Assigned Access Rights for " +selectedRole.getRole());
-		} catch (RoleNotFound e) {
-			FacesMessage msg = new FacesMessage("Error" , "Role With roleId" + selectedRole.getId() + "not found");
+		} catch (BSLException e){
+			FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
+			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 			 FacesContext.getCurrentInstance().addMessage(null, msg); 
 		}		
 		

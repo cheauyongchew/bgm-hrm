@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.security.auth.Refreshable;
 
 import org.primefaces.event.SelectEvent;
 
@@ -15,9 +16,12 @@ import com.beans.common.security.role.model.Role;
 import com.beans.common.security.role.service.RoleNotFound;
 import com.beans.common.security.role.service.RoleService;
 import com.beans.common.security.users.model.Users;
+import com.beans.exceptions.BSLException;
+import com.beans.leaveapp.refresh.Refresh;
 import com.beans.leaveapp.role.model.RoleDataModel;
+import com.beans.leaveapp.web.bean.BaseMgmtBean;
 
-public class RoleManagement implements Serializable{
+public class RoleManagement extends BaseMgmtBean implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -33,7 +37,7 @@ public class RoleManagement implements Serializable{
 	
 	private Users actorUsers;
 	private AuditTrail auditTrail;
-	
+	Refresh refresh = new Refresh();
 	
 	
 	public RoleService getRoleService() {
@@ -79,17 +83,26 @@ public class RoleManagement implements Serializable{
 	}
 	
 	
-	public void doCreateRole() {
+	public void doCreateRole() throws RoleNotFound {		
+	 try{	
 		newRole.setDeleted(false);
-		newRole.setCreatedBy(actorUsers.getUsername());
+		newRole.setCreatedBy(getActorUsers().getUsername());
 		newRole.setCreationTime(new java.util.Date());
 		getRoleService().create(newRole);
 		setInsertDelete(true);	
-		
+		newRole = new Role();
 		auditTrail.log(SystemAuditTrailActivity.CREATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has Created Role " + newRole.getRole());
-		
-		System.out.println("Actor Id: " +getActorUsers().getId());
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info",getExcptnMesProperty("info.role.create")));		
+		refresh.refreshPage();
+	 }catch(BSLException e){
+		FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
+		msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+        FacesContext.getCurrentInstance().addMessage(null, msg); 
 	}
+}
+	
+	
+	
 	
 	public Role getSelectedRole() {
 		return selectedRole;
@@ -100,7 +113,7 @@ public class RoleManagement implements Serializable{
 	}
 	
 	
-	public void doUpdateRole() {
+	public void doUpdateRole() throws RoleNotFound {
 		try {
 			System.out.println("New Role:" + selectedRole.getRole());
 			System.out.println("Id:" + selectedRole.getId());
@@ -108,11 +121,12 @@ public class RoleManagement implements Serializable{
 			selectedRole.setLastModifiedBy(actorUsers.getUsername());
 			getRoleService().update(selectedRole);
 			
-			auditTrail.log(SystemAuditTrailActivity.UPDATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has updated Role " + selectedRole.getRole() + " with id " + selectedRole.getId());
-			
+			auditTrail.log(SystemAuditTrailActivity.UPDATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has updated Role " + selectedRole.getRole());
 			setInsertDelete(true);
-		} catch (RoleNotFound e) {
-			FacesMessage msg = new FacesMessage("Error", "Role With id: " + selectedRole.getId() + " not found!");  
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info",getExcptnMesProperty("info.role.update")));
+		} catch (BSLException e){
+			FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
+			msg.setSeverity(FacesMessage.SEVERITY_ERROR);  
 			FacesContext.getCurrentInstance().addMessage(null, msg);  
 		}		
 	}
@@ -124,16 +138,18 @@ public class RoleManagement implements Serializable{
 	        FacesContext.getCurrentInstance().addMessage(null, msg); 	
 	}
 	
-	public void doDeleteRole(){
+	public void doDeleteRole() throws RoleNotFound {
 		try {
 			getRoleService().delete(selectedRole.getId());
 			
 			auditTrail.log(SystemAuditTrailActivity.DELETED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has Deleted Role " + selectedRole.getRole() + " with id " + selectedRole.getId());	
-		} catch (RoleNotFound e) {
-			FacesMessage msg = new FacesMessage("Error", "Role With id: " + selectedRole.getId() + " not found!");  
+			setInsertDelete(true);
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info",getExcptnMesProperty("info.role.delete")));
+		} catch (BSLException e) {
+			FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
+			msg.setSeverity(FacesMessage.SEVERITY_ERROR); 
 			FacesContext.getCurrentInstance().addMessage(null, msg);  
-		}	
-		setInsertDelete(true);
+		}			
 	}
 	
 	public List<Role> getSearchRole() {
