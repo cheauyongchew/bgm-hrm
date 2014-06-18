@@ -14,9 +14,7 @@ public class EmployeeTypeListBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	public List<EmployeeType> getEmployeeTypeList() {
-		if(employeeTypeList == null) {
-			employeeTypeList = employeeTypeService.findAll();
-		}
+		employeeTypeList = employeeTypeService.findAll();
 		return employeeTypeList;
 	}
 	public void setEmployeeTypeList(List<EmployeeType> employeeTypeList) {

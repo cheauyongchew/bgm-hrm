@@ -15,6 +15,7 @@ import com.beans.leaveapp.leavetype.model.LeaveType;
 import com.beans.leaveapp.leavetype.model.LeaveTypeDataModel;
 import com.beans.leaveapp.leavetype.service.LeaveTypeNotFound;
 import com.beans.leaveapp.leavetype.service.LeaveTypeService;
+import com.beans.leaveapp.refresh.Refresh;
 import com.beans.leaveapp.web.bean.BaseMgmtBean;
 
 
@@ -101,9 +102,10 @@ public class LeaveTypeManagementBean extends BaseMgmtBean implements Serializabl
 				getLeaveTypeService().create(newLeaveType);
 				newLeaveType = new LeaveType();
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info",getExcptnMesProperty("info.leavetype.create")));
+				new Refresh().refreshPage();
 			}catch(BSLException e){
 				FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
-				msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+				msg.setSeverity(FacesMessage.SEVERITY_INFO);
 		        FacesContext.getCurrentInstance().addMessage(null, msg); 
 			}
 		}
@@ -127,9 +129,10 @@ public class LeaveTypeManagementBean extends BaseMgmtBean implements Serializabl
 				getLeaveTypeService().update(selectedLeaveType);
 				
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info",getExcptnMesProperty("info.leavetype.update")));
+				new Refresh().refreshPage();
 			}catch(BSLException e){
 				FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
-				msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+				msg.setSeverity(FacesMessage.SEVERITY_INFO);
 		        FacesContext.getCurrentInstance().addMessage(null, msg); 
 			}
 		}
@@ -148,8 +151,9 @@ public class LeaveTypeManagementBean extends BaseMgmtBean implements Serializabl
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info",getExcptnMesProperty("info.leavetype.delete")));
 			}catch(BSLException e){
 				FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
-				msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+				msg.setSeverity(FacesMessage.SEVERITY_INFO);
 		        FacesContext.getCurrentInstance().addMessage(null, msg); 
+		        new Refresh().refreshPage();
 			}
 			
 		}
