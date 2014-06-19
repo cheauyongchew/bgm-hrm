@@ -35,7 +35,7 @@
        </p:dataTable>
        </h:form>
 	   <h:form id="commandButtonForm">
-	       <p:commandButton value="New Access Rights" update=":newAccessRightsForm" oncomplete="PF('newAccessRightsDialog').show()" icon="ui-icon-star" title="Creates New Access Right"/>
+	       <p:commandButton value="New Access Rights" update=":newAccessRightsForm" oncomplete="PF('newAccessRightsDialog').show()" actionListener="#{accessRightsMgmtBean.resetFormFields()}" icon="ui-icon-star" title="Creates New Access Right"/>
 	   </h:form>      
        <p:growl id="growl" showDetail="true" life="1000"/> 
   </ui:define>  

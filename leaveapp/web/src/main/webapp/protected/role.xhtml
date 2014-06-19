@@ -35,7 +35,7 @@
         </p:dataTable>
       </h:form>
       <h:form id="commandButtonForm">
-        <p:commandButton value="New Role" update=":newRoleForm" actionListener="#{roleMgmtBean.refreshPage}" oncomplete="PF('newRoleDialog').show()" icon="ui-icon-star" title="Creates new Role"/>
+        <p:commandButton value="New Role" update=":newRoleForm" actionListener="#{roleMgmtBean.resetFormFields()}" oncomplete="PF('newRoleDialog').show()" icon="ui-icon-star" title="Creates new Role"/>
       </h:form>      
       <p:growl id="growl" showDetail="true" life="1000"/> 
   </ui:define>  
