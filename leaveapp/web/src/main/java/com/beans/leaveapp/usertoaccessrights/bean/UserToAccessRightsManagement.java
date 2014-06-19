@@ -47,6 +47,9 @@ public class UserToAccessRightsManagement implements Serializable {
 	private boolean enabled;
     private Refresh refresh = new Refresh();
     List<UserToAccessRights> removedUserToAccessRightsList = new ArrayList<UserToAccessRights>();
+    List<UserToAccessRights> finalAccessList = new ArrayList<UserToAccessRights>();
+    
+    
 	private int id;
 
 	public int getId() {
@@ -261,23 +264,23 @@ public class UserToAccessRightsManagement implements Serializable {
 		System.out.println(accessRightsList.size());
 		accessRightsList.remove(selectedAccessRights);
 		System.out.println(accessRightsList.size());		
-		this.accessRightsDataModel = null;		
+		this.accessRightsDataModel = null;
+	
 	}
 
 	public void myListener(){		
 	}
 	
-	public void deleteAssignedAccessRights(){
-	selectedUserToAccessRights.setDeleted(true);
-	
-	
-	userToAccessRightsList.remove(selectedUserToAccessRights);
-	removedUserToAccessRightsList.add(selectedUserToAccessRights);	
+	public void deleteAssignedAccessRights(){		
+		selectedUserToAccessRights.setDeleted(true);	
+		userToAccessRightsList.remove(selectedUserToAccessRights);
+		removedUserToAccessRightsList.add(selectedUserToAccessRights);		
 	}
 	
 	public void onAssignedAccessRightsSelect(SelectEvent event){
 		
-		selectedUserToAccessRights = (UserToAccessRights) event.getObject();
+		setSelectedUserToAccessRights((UserToAccessRights) event.getObject());
+	//	selectedUserToAccessRights = (UserToAccessRights) event.getObject();
 	}
 	
 	
@@ -287,29 +290,33 @@ public class UserToAccessRightsManagement implements Serializable {
 		setRenderAccessRights(false);
 	}	
 
+	@SuppressWarnings("unchecked")
 	public void saveUserToAccessRights() {
+		
+		finalAccessList = (List<UserToAccessRights>) CollectionUtils.union(userToAccessRightsList, removedUserToAccessRightsList);
+		
 		try {
-			if(removedUserToAccessRightsList.size() == 0){				
+			if (removedUserToAccessRightsList.size() == 0) {
 				for (UserToAccessRights userToAccessRights1 : userToAccessRightsList) {
-					getUserToAccessRightsService().update(userToAccessRights1);
+					getUserToAccessRightsService().create(userToAccessRights1);
 				}
-			} else 
-			{	
-				for(UserToAccessRights removedUserToAccessRights : removedUserToAccessRightsList){
-					getUserToAccessRightsService().delete(removedUserToAccessRights.getId());
+			} else {
+				for (UserToAccessRights userToAccessRights1 : finalAccessList) {
+					if (userToAccessRights1.isDeleted() == true) {
+						getUserToAccessRightsService().update(userToAccessRights1);
+					} else {
+						getUserToAccessRightsService().create(userToAccessRights1);
+					}
 				}
-				for (UserToAccessRights userToAccessRights1 : userToAccessRightsList) {
-				getUserToAccessRightsService().update(userToAccessRights1);
 			}
-			}	
+				
 		} catch (UserToAccessRightsNotFound e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public void cancelAccessRightsDialog(){
-		setRenderAccessRights(false);
-	//	refresh.refreshPage();
+	public void cancelAccessRightsDialog(){		
+		refresh.refreshPage();
 	}
 	
 	

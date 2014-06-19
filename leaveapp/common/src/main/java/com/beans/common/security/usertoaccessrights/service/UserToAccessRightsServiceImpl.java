@@ -24,13 +24,12 @@ public class UserToAccessRightsServiceImpl implements UserToAccessRightsService{
 
 
 	@Override
-	public UserToAccessRights delete(int id) throws UserToAccessRightsNotFound {
+	public UserToAccessRights delete(int id) {
 		UserToAccessRights userToAccessRights = userToAccessRightsRepository.findOne(id);
-		
-		if(userToAccessRights == null)
-			throw new UserToAccessRightsNotFound();
+		if(userToAccessRights != null){
 		userToAccessRights.setDeleted(true);
-		userToAccessRightsRepository.save(userToAccessRights);		
+		userToAccessRightsRepository.save(userToAccessRights);			
+		}
 		return userToAccessRights;
 	}
 
@@ -41,16 +40,18 @@ public class UserToAccessRightsServiceImpl implements UserToAccessRightsService{
 	}
 
 	@Override
-	public UserToAccessRights update(UserToAccessRights userToAccessRights)
-			throws UserToAccessRightsNotFound {
+	public UserToAccessRights update(UserToAccessRights userToAccessRights)	{
 
-		UserToAccessRights userAccessRightsToBeUpdated = new UserToAccessRights();
+	//	UserToAccessRights userAccessRightsToBeUpdated = new UserToAccessRights();
+		UserToAccessRights userAccessRightsToBeUpdated = userToAccessRightsRepository.findOne(userToAccessRights.getId());
+		if(userAccessRightsToBeUpdated != null){
 		userAccessRightsToBeUpdated.setId(userToAccessRights.getId());
 		userAccessRightsToBeUpdated.setAccessRights(userToAccessRights.getAccessRights());
 		userAccessRightsToBeUpdated.setUsers(userToAccessRights.getUsers());
 		userAccessRightsToBeUpdated.setEnabled(userToAccessRights.isEnabled());
 		userAccessRightsToBeUpdated.setDeleted(userToAccessRights.isDeleted());
 		userToAccessRightsRepository.save(userAccessRightsToBeUpdated);
+		}
 		return userAccessRightsToBeUpdated;
 	}
 
@@ -80,6 +81,20 @@ public class UserToAccessRightsServiceImpl implements UserToAccessRightsService{
 	public List<AccessRights> findAllAccessRights() {
 		List<AccessRights> accessRightsList = accessRightsRepository.findByIsDeleted(0);
 		return accessRightsList;
+	}
+
+	@Override
+	public UserToAccessRights create(UserToAccessRights userToAccessRights) {
+		
+		UserToAccessRights userToAccessRightsToBeCreated = userToAccessRights;
+		 
+		 userToAccessRightsToBeCreated.setId(userToAccessRights.getId());
+		 userToAccessRightsToBeCreated.setAccessRights(userToAccessRights.getAccessRights());
+		 userToAccessRightsToBeCreated.setUsers(userToAccessRights.getUsers());
+		 userToAccessRightsToBeCreated.setEnabled(userToAccessRights.isEnabled());
+		 userToAccessRights.setDeleted(userToAccessRights.isDeleted());
+		 userToAccessRightsRepository.save(userToAccessRightsToBeCreated);
+		return userToAccessRightsToBeCreated;
 	}		
 
 	}	

@@ -14,7 +14,7 @@
 	<ui:define name="content">
         <h1>Roles</h1>
 		<h:form id="roleTableForm">
-		<p:messages autoUpdate="true" showDetail="true"/>
+		<p:messages autoUpdate="true" severity="info" globalOnly="true" showDetail="true"/>
 		 <p:panel header="Search" toggleable="true">
 			<p:panelGrid id="SearchRole" columns="2" cellpadding="4">
 				<h:outputText value="Role" />
@@ -35,7 +35,7 @@
         </p:dataTable>
       </h:form>
       <h:form id="commandButtonForm">
-        <p:commandButton value="New Role" update=":newRoleForm" oncomplete="PF('newRoleDialog').show()" icon="ui-icon-star" title="Creates new Role"/>
+        <p:commandButton value="New Role" update=":newRoleForm" actionListener="#{roleMgmtBean.refreshPage}" oncomplete="PF('newRoleDialog').show()" icon="ui-icon-star" title="Creates new Role"/>
       </h:form>      
       <p:growl id="growl" showDetail="true" life="1000"/> 
   </ui:define>  

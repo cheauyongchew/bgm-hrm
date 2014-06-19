@@ -88,7 +88,7 @@
 			   	</h:form>			   		      			 			     			
 			     </h:form>
 			     <f:facet name="footer">
-			     <p:commandButton value="Cancel" oncomplete="PF('assignedAccessRightsDialog').hide()"/>
+			     <p:commandButton value="Cancel" actionListener="#{userToAccessRightsMgmtBean.cancelAccessRightsDialog}" oncomplete="PF('assignedAccessRightsDialog').hide()"/>
 			     <p:commandButton value="Submit" actionListener="#{userToAccessRightsMgmtBean.saveUserToAccessRights}" update=":userToAccessRightsTableForm:usersTable"  oncomplete="PF('assignedAccessRightsDialog').hide()" />  
 			    </f:facet> 
           </p:dialog>

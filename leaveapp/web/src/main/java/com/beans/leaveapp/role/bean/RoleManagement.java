@@ -152,6 +152,13 @@ public class RoleManagement extends BaseMgmtBean implements Serializable{
 		}			
 	}
 	
+	public void refreshPage(){
+		
+		refresh.refreshPage();
+		
+	}
+	
+	
 	public List<Role> getSearchRole() {
 		return searchRole;
 	}
