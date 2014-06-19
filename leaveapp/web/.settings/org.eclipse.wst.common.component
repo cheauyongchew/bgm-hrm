@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project-modules id="moduleCoreId" project-version="1.5.0">
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
     <wb-module deploy-name="web">
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
@@ -12,9 +11,6 @@
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="employeeprofileservice-1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/employeeprofileservice/employeeprofileservice">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="leaveapplication-1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/leaveapplication/leaveapplication">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="applyleaveflow-1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/applyleaveflow/applyleaveflow">
