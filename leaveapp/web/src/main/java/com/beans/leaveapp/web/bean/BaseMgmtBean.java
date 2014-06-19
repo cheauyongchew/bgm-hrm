@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import com.beans.leaveapp.refresh.Refresh;
+
 public class BaseMgmtBean implements Serializable{
 
 	/**
@@ -28,6 +30,10 @@ public class BaseMgmtBean implements Serializable{
 			return "Error in processing your request, please try after sometime!!!";
 		}
     }
+	
+	public void resetFormFields(){
+		new Refresh().refreshPage();
+	}
 	
 	
 }

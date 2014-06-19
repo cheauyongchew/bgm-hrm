@@ -20,6 +20,7 @@ import org.primefaces.event.SelectEvent;
 
 
 
+
 import com.beans.common.audit.service.AuditTrail;
 import com.beans.common.audit.service.SystemAuditTrailActivity;
 import com.beans.common.audit.service.SystemAuditTrailLevel;
@@ -29,6 +30,7 @@ import com.beans.leaveapp.employeetype.model.EmployeeTypeDataModel;
 import com.beans.leaveapp.employeetype.model.EmployeeType;
 import com.beans.leaveapp.employeetype.service.EmployeeTypeNotFound;
 import com.beans.leaveapp.employeetype.service.EmployeeTypeService;
+import com.beans.leaveapp.refresh.Refresh;
 import com.beans.leaveapp.web.bean.BaseMgmtBean;
 
 
@@ -121,9 +123,10 @@ public class EmployeeTypeManagementBean extends BaseMgmtBean implements Serializ
 		newEmployeeType = new EmployeeType();
 		auditTrail.log(SystemAuditTrailActivity.CREATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has created an employee type");
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info",getExcptnMesProperty("info.emptype.create")));
+		new Refresh().refreshPage();
 		}catch(BSLException e){
 			FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
-			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+			msg.setSeverity(FacesMessage.SEVERITY_INFO);
 	        FacesContext.getCurrentInstance().addMessage(null, msg); 
 		}
 	}
@@ -134,12 +137,14 @@ public class EmployeeTypeManagementBean extends BaseMgmtBean implements Serializ
 				log.info("ID: " + selectedEmployeeType.getId());
 				selectedEmployeeType.setLastModifiedBy(getActorUsers().getUsername());
 				getEmployeeTypeService().update(selectedEmployeeType);
+				
 				auditTrail.log(SystemAuditTrailActivity.UPDATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has updated an employee type");
 				this.setInsertDelete(true);
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info",getExcptnMesProperty("info.emptype.update")));
+				new Refresh().refreshPage();
 			}catch(BSLException e){
 				FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
-				msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+				msg.setSeverity(FacesMessage.SEVERITY_INFO);
 		        FacesContext.getCurrentInstance().addMessage(null, msg); 
 			}
 	}
@@ -158,9 +163,10 @@ public class EmployeeTypeManagementBean extends BaseMgmtBean implements Serializ
 			auditTrail.log(SystemAuditTrailActivity.DELETED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has deleted an employee type");
 			setInsertDelete(true);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info",getExcptnMesProperty("info.emptype.delete")));
+			new Refresh().refreshPage();
 		}catch(BSLException e){
 			FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
-			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+			msg.setSeverity(FacesMessage.SEVERITY_INFO);
 	        FacesContext.getCurrentInstance().addMessage(null, msg); 
 		}
 		

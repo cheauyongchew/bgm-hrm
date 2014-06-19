@@ -14,11 +14,8 @@ public class EmployeeGradeListBean implements Serializable{
 	
 	
 	public List<EmployeeGrade> getEmployeeGradeList() throws Throwable {
-		if(employeeGradeList == null) {
 			
-			employeeGradeList = employeeGradeService.findAll();
-			
-		}
+		employeeGradeList = employeeGradeService.findAll();
 		return employeeGradeList;
 	}
 	public void setEmployeeGradeList(List<EmployeeGrade> employeeGradeList) {

@@ -32,7 +32,7 @@ public class EmployeeRepositoryImpl extends JdbcDaoSupport implements EmployeeRe
 
 	@Override
 	public List<Employee> findAllEmployeesForSendingMonthlyLeaveReport() {
-		return getJdbcTemplate().query("SELECT * FROM beans.Employee where employeeTypeId in (select id from beans.EmployeeType where name in ('CONT','PERM')) and  userId not in(select userId from beans.UserToRole where userRoleId in (select id from beans.Role where role in('ROLE_OPERDIR','ROLE_ADMIN')))",new RowMapper<Employee>(){
+		return getJdbcTemplate().query("SELECT * FROM beans.Employee where employeeTypeId in (select id from beans.EmployeeType) and  userId not in(select userId from beans.UserToRole where userRoleId in (select id from beans.Role where role in('ROLE_OPERDIR','ROLE_ADMIN')))",new RowMapper<Employee>(){
 
 			@Override
 			public Employee mapRow(ResultSet rs, int rowNum) throws SQLException {
