@@ -9,9 +9,9 @@ public interface RoleService {
 	
 	
 	public Role create(Role role);
-	public Role delete(int id) throws RoleNotFound;
+	public Role delete(int id);
 	public List<Role> findAll();
-	public Role update(Role role) throws RoleNotFound;
+	public Role update(Role role);
 	public Role findById(int id) throws RoleNotFound;
 	public Role findByRole(String role) throws RoleNotFound;
 	public List<Role> findRoleByRoleName(String role);

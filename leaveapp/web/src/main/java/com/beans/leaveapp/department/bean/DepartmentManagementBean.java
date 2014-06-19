@@ -1,6 +1,7 @@
 package com.beans.leaveapp.department.bean;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -18,6 +19,7 @@ import com.beans.leaveapp.department.model.Department;
 import com.beans.leaveapp.department.model.DepartmentDataModel;
 import com.beans.leaveapp.department.service.DepartmentNotFound;
 import com.beans.leaveapp.department.service.DepartmentService;
+import com.beans.leaveapp.refresh.Refresh;
 import com.beans.leaveapp.web.bean.BaseMgmtBean;
 
 
@@ -103,14 +105,16 @@ private static final long serialVersionUID = 1L;
 		try{
 			newDepartment.setDeleted(false);
 			newDepartment.setCreatedBy(getActorUsers().getUsername());
+			newDepartment.setCreationTime(new java.util.Date());
 			getDepartmentService().create(newDepartment);
 			setInsertDelete(true);
 			newDepartment = new Department();
 			auditTrail.log(SystemAuditTrailActivity.CREATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has created a department");
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info",getExcptnMesProperty("info.department.create")));
+			new Refresh().refreshPage();
 		}catch(BSLException e){
 			FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
-			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+			msg.setSeverity(FacesMessage.SEVERITY_INFO);
 	        FacesContext.getCurrentInstance().addMessage(null, msg); 
 		}
 	}
@@ -124,9 +128,10 @@ private static final long serialVersionUID = 1L;
 			auditTrail.log(SystemAuditTrailActivity.UPDATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has updated a department");
 			setInsertDelete(true);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info",getExcptnMesProperty("info.department.update")));
+			new Refresh().refreshPage();
 		}catch(BSLException e){
 			FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
-			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+			msg.setSeverity(FacesMessage.SEVERITY_INFO);
 	        FacesContext.getCurrentInstance().addMessage(null, msg); 
 		}
 	}
@@ -145,9 +150,10 @@ private static final long serialVersionUID = 1L;
 			auditTrail.log(SystemAuditTrailActivity.DELETED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has deleted a department");
 			setInsertDelete(true);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info",getExcptnMesProperty("info.department.delete")));
+			new Refresh().refreshPage();
 		}catch(BSLException e){
 			FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
-			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+			msg.setSeverity(FacesMessage.SEVERITY_INFO);
 	        FacesContext.getCurrentInstance().addMessage(null, msg); 
 		}
 		

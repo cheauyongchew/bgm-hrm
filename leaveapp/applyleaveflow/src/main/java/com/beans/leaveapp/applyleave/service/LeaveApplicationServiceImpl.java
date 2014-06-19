@@ -54,7 +54,7 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
 		parameterMap.put("role", assignedRoleInLeaveFlow.getRole());
 		parameterMap.put("leaveApplicationCommentList", leaveApplicationCommentList);
 		parameterMap.put("teamLeadName", null);
-		
+		parameterMap.put("leaveTransactionId", new Integer(0));
 		long processInstanceId = applyLeaveRuntime.startProcessWithInitialParametersAndFireBusinessRules(PROCESS_NAME, parameterMap);
 		
 		List<Long> taskIdList = applyLeaveRuntime.getTaskIdsByProcessInstanceId(processInstanceId);
@@ -64,11 +64,13 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
 		
 		Long currentTaskId = taskIdList.get(0);
 		
-		applyLeaveRuntime.submitTask(employee.getUsers().getUsername(), currentTaskId, parameterMap);
-		
 		leaveTransaction.setTaskId(currentTaskId);
 		
-		getLeaveTransactionService().insertFromWorkflow(leaveTransaction);
+		LeaveTransaction leaveTransactionPersist = getLeaveTransactionService().insertFromWorkflow(leaveTransaction);
+		
+		parameterMap.put("leaveTransactionId", leaveTransactionPersist.getId());
+		
+		applyLeaveRuntime.submitTask(employee.getUsers().getUsername(), currentTaskId, parameterMap);
 		
 	}
 	

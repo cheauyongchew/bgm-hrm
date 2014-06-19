@@ -198,7 +198,7 @@ CREATE TABLE IF NOT EXISTS LeaveTransaction (
     applicationDate DATE,
     startDateTime TIMESTAMP,
     endDateTime TIMESTAMP,
-    numberOfHours DOUBLE(4,2),
+    yearlyLeaveBalance DOUBLE(4,2),
     numberOfDays DOUBLE(4,2),
     reason VARCHAR(100),
     status VARCHAR(100),
@@ -390,7 +390,7 @@ INSERT INTO UserToAccessRights(id, userId, accessRightsId, enabled, isDeleted) v
 INSERT INTO YearlyEntitlement(id, employeeId, leaveTypeId, entitlement, leaveBalance, isDeleted) VALUES (1, 1, 1, 12, 12, 0);
 INSERT INTO YearlyEntitlement(id, employeeId, leaveTypeId, entitlement, leaveBalance, isDeleted) VALUES (2, 4, 1, 12, 12, 0);
 
-INSERT INTO LeaveTransaction(id, applicationDate, startDateTime, endDateTime, numberOfHours, numberOfDays, reason, leaveTypeId, employeeId, status, taskId,isDeleted) values(1,'2014-04-15',CURRENT_TIMESTAMP,'2014-04-17 16:18:55',3.0,3.0,'Health Problem',1,1,'Approved',1,0);
-INSERT INTO LeaveTransaction(id, applicationDate, startDateTime, endDateTime, numberOfHours, numberOfDays, reason, leaveTypeId, employeeId, status, taskId,isDeleted) values(2,'2014-04-16',CURRENT_TIMESTAMP,'2014-04-18 16:18:55',3.0,3.0,'Health Problem',2,2,'REJECTED',2,0);
+INSERT INTO LeaveTransaction(id, applicationDate, startDateTime, endDateTime, yearlyLeaveBalance, numberOfDays, reason, leaveTypeId, employeeId, status, taskId,isDeleted) values(1,'2014-04-15',CURRENT_TIMESTAMP,'2014-04-17 16:18:55',3.0,3.0,'Health Problem',1,1,'Approved',1,0);
+INSERT INTO LeaveTransaction(id, applicationDate, startDateTime, endDateTime, yearlyLeaveBalance, numberOfDays, reason, leaveTypeId, employeeId, status, taskId,isDeleted) values(2,'2014-04-16',CURRENT_TIMESTAMP,'2014-04-18 16:18:55',3.0,3.0,'Health Problem',2,2,'REJECTED',2,0);
 
 

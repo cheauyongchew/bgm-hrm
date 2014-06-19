@@ -15,9 +15,12 @@ import com.beans.common.security.accessrights.model.AccessRights;
 import com.beans.common.security.accessrights.service.AccessRightsNotFound;
 import com.beans.common.security.accessrights.service.AccessRightsService;
 import com.beans.common.security.users.model.Users;
+import com.beans.exceptions.BSLException;
 import com.beans.leaveapp.accessrights.model.AccessRightsDataModel;
+import com.beans.leaveapp.refresh.Refresh;
+import com.beans.leaveapp.web.bean.BaseMgmtBean;
 
-public class AccessRightsManagement implements Serializable {
+public class AccessRightsManagement extends BaseMgmtBean implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -33,6 +36,7 @@ public class AccessRightsManagement implements Serializable {
 	
 	private Users actorUsers;
 	private AuditTrail auditTrail;
+	Refresh refresh = new Refresh();
 	
 	
 	public AccessRightsService getAccessRightsService() {
@@ -80,14 +84,23 @@ public class AccessRightsManagement implements Serializable {
 		this.newAccessRights = newAccessRights;
 	}
 	
-	public void doCreateAccessRights(){
+	public void doCreateAccessRights() throws AccessRightsNotFound {
+	try{
 		newAccessRights.setDeleted(false);
+		newAccessRights.setCreatedBy(getActorUsers().getUsername());
+		newAccessRights.setCreationTime(new java.util.Date());
 		getAccessRightsService().create(newAccessRights);
 		setInsertDelete(true);	
-		
+		newAccessRights = new AccessRights();
 		auditTrail.log(SystemAuditTrailActivity.CREATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has Created Access Right " + newAccessRights.getAccessRights());	
-		
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info",getExcptnMesProperty("info.accessRights.create")));
+		refresh.refreshPage();
+	}catch(BSLException e){
+		FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
+		msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+        FacesContext.getCurrentInstance().addMessage(null, msg); 
 	}
+}
 	
 	
 	public AccessRights getSelectedAccessRights() {
@@ -99,7 +112,7 @@ public class AccessRightsManagement implements Serializable {
 	}
 	
 	
-	public void doUpdateAccessRights() {
+	public void doUpdateAccessRights() throws AccessRightsNotFound {
 		try {
 			System.out.println("New UserAccess:" + selectedAccessRights.getAccessRights());
 			System.out.println("Id:" + selectedAccessRights.getId());
@@ -109,9 +122,11 @@ public class AccessRightsManagement implements Serializable {
 		
 			auditTrail.log(SystemAuditTrailActivity.UPDATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has Updated Access Right " + selectedAccessRights.getAccessRights() + " with id " + selectedAccessRights.getId());
 			setInsertDelete(true);
-		} catch (AccessRightsNotFound e) {
-			FacesMessage msg = new FacesMessage("Error", "UserAccess with Id: " + selectedAccessRights.getId() + "is not found");
-			FacesContext.getCurrentInstance().addMessage(null, msg);
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info",getExcptnMesProperty("info.accessRights.update")));
+		} catch (BSLException e){
+			FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
+			msg.setSeverity(FacesMessage.SEVERITY_ERROR);  
+			FacesContext.getCurrentInstance().addMessage(null, msg);  
 		}		
 	}
 	
@@ -123,18 +138,18 @@ public class AccessRightsManagement implements Serializable {
 	}
 	
 	
-	public void doDeleteAccessRights(){
+	public void doDeleteAccessRights() throws AccessRightsNotFound {
 		try {
 			getAccessRightsService().delete(selectedAccessRights.getId());
 			
-			auditTrail.log(SystemAuditTrailActivity.CREATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has Deleted Access Right " + selectedAccessRights.getAccessRights() + " with id " + selectedAccessRights.getId());
-	
-			System.out.println("actor id: " +getActorUsers().getId());
+			auditTrail.log(SystemAuditTrailActivity.CREATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has Deleted Access Right " + selectedAccessRights.getAccessRights());
 			setInsertDelete(true);
-		} catch (AccessRightsNotFound e) {
-			FacesMessage msg = new FacesMessage("Error", "UserAccess with Id: " + selectedAccessRights.getId() + "is not found");
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-		}		
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info",getExcptnMesProperty("info.accessRights.delete")));
+		}catch (BSLException e) {
+			FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
+			msg.setSeverity(FacesMessage.SEVERITY_ERROR); 
+			FacesContext.getCurrentInstance().addMessage(null, msg);  
+		}			
 	}
 	
 	public boolean isInsertDelete() {

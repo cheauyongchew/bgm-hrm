@@ -81,7 +81,6 @@ public class LeaveTransaction implements Serializable{
 	}
 	
 	@Column(name="applicationDate",nullable=false)
-	@Temporal(TemporalType.TIMESTAMP)
 	public Date getApplicationDate() {
 		return applicationDate;
 	}
@@ -125,7 +124,7 @@ public class LeaveTransaction implements Serializable{
 		this.endDateTime = endDateTime;
 	}
 	
-	@Column(name="numberOfHours",nullable=true)
+	@Column(name="yearlyLeaveBalance",nullable=true)
 	public Double getYearlyLeaveBalance() {
 		return yearlyLeaveBalance;
 	}

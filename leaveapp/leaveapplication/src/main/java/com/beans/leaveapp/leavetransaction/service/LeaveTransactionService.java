@@ -30,6 +30,8 @@ public interface LeaveTransactionService {
 	public LeaveTransaction insertFromWorkflow(LeaveTransaction leaveTransaction);
 	
     public List<LeaveTransaction> findByStatus(String status);
+    
+    void updateLeaveApplicationStatus(LeaveTransaction leaveTransaction,Integer leaveTransactionId);
 
    
 }

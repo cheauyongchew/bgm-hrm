@@ -14,6 +14,7 @@
 	<ui:define name="content">
         <h1>Access Rights</h1>
 		<h:form id="accessRightsTableForm">
+		<p:messages autoUpdate="true" showDetail="true"/>
 			 <p:panel header="Search" toggleable="true">
 					<p:panelGrid id="SearchAccessRight" columns="2" cellpadding="4">
 						<h:outputText value="Access Right" />
@@ -34,7 +35,7 @@
        </p:dataTable>
        </h:form>
 	   <h:form id="commandButtonForm">
-	       <p:commandButton value="New Access Rights" oncomplete="PF('newAccessRightsDialog').show()" icon="ui-icon-star" title="Creates New Access Right"/>
+	       <p:commandButton value="New Access Rights" update=":newAccessRightsForm" oncomplete="PF('newAccessRightsDialog').show()" icon="ui-icon-star" title="Creates New Access Right"/>
 	   </h:form>      
        <p:growl id="growl" showDetail="true" life="1000"/> 
   </ui:define>  
@@ -44,11 +45,11 @@
            <p:messages autoUpdate="true"/>
            <p:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
             <h:outputText value="Name :"></h:outputText>
-            <h:inputText value="#{accessRightsMgmtBean.selectedAccessRights.accessRights}" required="true" requiredMessage="Please Enter Name!" label="Name "><f:validateLength minimum="6"/></h:inputText>
+            <h:inputText value="#{accessRightsMgmtBean.selectedAccessRights.accessRights}" required="true" requiredMessage="Please Enter Name!" label="Name "><f:validateLength minimum="4"/></h:inputText>
             <h:outputText value="Description"></h:outputText>
-            <h:inputText value="#{accessRightsMgmtBean.selectedAccessRights.description}" required="true" requiredMessage="please Enter Description" label="Description "><f:validateLength minimum="6"/></h:inputText>
+            <h:inputText value="#{accessRightsMgmtBean.selectedAccessRights.description}" required="true" requiredMessage="please Enter Description" label="Description "><f:validateLength minimum="4"/></h:inputText>
                     <f:facet name="footer">
-                            <p:commandButton value="Update" update=":accessRightsTableForm:accessRightsTable"  oncomplete="if(!args.validationFailed)  PF('accessRightsDialog').hide()" actionListener="#{accessRightsMgmtBean.doUpdateAccessRights}"/>
+                            <p:commandButton value="Update" update=":accessRightsTableForm:accessRightsTable"  oncomplete="if(!args.validationFailed)  PF('accessRightsDialog').hide()" validateClient="true" actionListener="#{accessRightsMgmtBean.doUpdateAccessRights}"/>
                             <p:commandButton value="Delete" onclick="PF('cd').show()" oncomplete="PF('accessRightsDialog').hide()"/>                        
                             
                     </f:facet>
@@ -60,11 +61,11 @@
          <p:messages autoUpdate="true"/>
            <p:panelGrid id="displayNewAccessRights" columns="2" cellpadding="4" style="margin:0 auto;">
             <h:outputText value="Name :"></h:outputText>
-            <p:inputText value="#{accessRightsMgmtBean.newAccessRights.accessRights}" required="true" requiredMessage="Please Enter Name!" label="Name "><f:validateLength minimum="6"/></p:inputText>
+            <p:inputText value="#{accessRightsMgmtBean.newAccessRights.accessRights}" required="true" requiredMessage="Please Enter Name!" label="Name "><f:validateLength minimum="4"/></p:inputText>
             <h:outputText value="Description"></h:outputText>           
-			<p:inputText value="#{accessRightsMgmtBean.newAccessRights.description}" required="true" requiredMessage="please Enter Description" label="Description "><f:validateLength minimum="6"/></p:inputText>
+			<p:inputText value="#{accessRightsMgmtBean.newAccessRights.description}" required="true" requiredMessage="please Enter Description" label="Description "><f:validateLength minimum="4"/></p:inputText>
             <f:facet name="footer">
-                            <p:commandButton value="Submit" update=":accessRightsTableForm:accessRightsTable"  oncomplete="if(!args.validationFailed) PF('newAccessRightsDialog').hide()" actionListener="#{accessRightsMgmtBean.doCreateAccessRights}"/>
+                            <p:commandButton value="Submit" update=":accessRightsTableForm:accessRightsTable"  oncomplete="if(!args.validationFailed) PF('newAccessRightsDialog').hide()" validateClient="true" actionListener="#{accessRightsMgmtBean.doCreateAccessRights}"/>
                             <p:commandButton type="reset" value="Reset"></p:commandButton>
                     </f:facet>
          </p:panelGrid>

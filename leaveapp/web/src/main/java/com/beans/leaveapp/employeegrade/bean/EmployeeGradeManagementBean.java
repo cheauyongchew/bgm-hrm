@@ -15,6 +15,7 @@ import com.beans.leaveapp.employeegrade.model.EmployeeGrade;
 import com.beans.leaveapp.employeegrade.model.EmployeeGradeDataModel;
 import com.beans.leaveapp.employeegrade.service.EmployeeGradeNotFound;
 import com.beans.leaveapp.employeegrade.service.EmployeeGradeService;
+import com.beans.leaveapp.refresh.Refresh;
 import com.beans.leaveapp.web.bean.BaseMgmtBean;
 
 public class EmployeeGradeManagementBean extends BaseMgmtBean implements Serializable {
@@ -116,10 +117,12 @@ public class EmployeeGradeManagementBean extends BaseMgmtBean implements Seriali
 			newEmployeeGrade.setCreationTime(new java.util.Date());
 			getEmployeeGradeService().create(newEmployeeGrade);
 			setInsertDelete(true);
+			newEmployeeGrade = new EmployeeGrade();
+			new Refresh().refreshPage();
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info",getExcptnMesProperty("info.empgrade.create")));
 		}catch(BSLException e){
 			FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
-			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+			msg.setSeverity(FacesMessage.SEVERITY_INFO);
 	        FacesContext.getCurrentInstance().addMessage(null, msg); 
 		}
 	}
@@ -132,10 +135,11 @@ public class EmployeeGradeManagementBean extends BaseMgmtBean implements Seriali
 				selectedEmployeeGrade.setLastModifiedBy(actorUsers.getUsername());
 				getEmployeeGradeService().update(selectedEmployeeGrade);
 				this.setInsertDelete(true);
+				new Refresh().refreshPage();
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info",getExcptnMesProperty("info.empgrade.update")));
 			}catch(BSLException e){
 				FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
-				msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+				msg.setSeverity(FacesMessage.SEVERITY_INFO);
 		        FacesContext.getCurrentInstance().addMessage(null, msg); 
 		}
 	}
@@ -152,10 +156,11 @@ public class EmployeeGradeManagementBean extends BaseMgmtBean implements Seriali
 		try{
 		getEmployeeGradeService().delete(selectedEmployeeGrade.getId());
 		setInsertDelete(true);
+		new Refresh().refreshPage();
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info",getExcptnMesProperty("info.empgrade.delete")));
 		}catch(BSLException e){
 			FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
-			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+			msg.setSeverity(FacesMessage.SEVERITY_INFO);
 	        FacesContext.getCurrentInstance().addMessage(null, msg); 
 		}
 	}
@@ -167,5 +172,6 @@ public class EmployeeGradeManagementBean extends BaseMgmtBean implements Seriali
 	public void setSearchName(String searchName) {
 		this.searchName = searchName;
 	}
+	
 
 }

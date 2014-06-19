@@ -12,9 +12,7 @@ public class DepartmentListBean implements Serializable {
 	private DepartmentService departmentService;
 	
 	public List<Department> getDepartmentList() {
-		if(departmentList == null) {
-			departmentList = departmentService.findAll();
-		}
+		departmentList = departmentService.findAll();
 		return departmentList;
 	}
 	public void setDepartmentList(List<Department> departmentList) {
