@@ -36,8 +36,7 @@ public class RoleManagement extends BaseMgmtBean implements Serializable{
 	private String searchRoleName = "";
 	
 	private Users actorUsers;
-	private AuditTrail auditTrail;
-	Refresh refresh = new Refresh();
+	private AuditTrail auditTrail;	
 	
 	
 	public RoleService getRoleService() {
@@ -93,7 +92,7 @@ public class RoleManagement extends BaseMgmtBean implements Serializable{
 		newRole = new Role();
 		auditTrail.log(SystemAuditTrailActivity.CREATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has Created Role " + newRole.getRole());
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info",getExcptnMesProperty("info.role.create")));		
-		refresh.refreshPage();
+		new Refresh().refreshPage();
 	 }catch(BSLException e){
 		FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
 		msg.setSeverity(FacesMessage.SEVERITY_ERROR);
@@ -145,17 +144,12 @@ public class RoleManagement extends BaseMgmtBean implements Serializable{
 			auditTrail.log(SystemAuditTrailActivity.DELETED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has Deleted Role " + selectedRole.getRole() + " with id " + selectedRole.getId());	
 			setInsertDelete(true);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info",getExcptnMesProperty("info.role.delete")));
+			new Refresh().refreshPage();
 		} catch (BSLException e) {
 			FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
 			msg.setSeverity(FacesMessage.SEVERITY_ERROR); 
 			FacesContext.getCurrentInstance().addMessage(null, msg);  
 		}			
-	}
-	
-	public void refreshPage(){
-		
-		refresh.refreshPage();
-		
 	}
 	
 	

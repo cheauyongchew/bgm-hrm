@@ -35,9 +35,7 @@ public class AccessRightsManagement extends BaseMgmtBean implements Serializable
 	private String searchAccessRight = "";
 	
 	private Users actorUsers;
-	private AuditTrail auditTrail;
-	Refresh refresh = new Refresh();
-	
+	private AuditTrail auditTrail;	
 	
 	public AccessRightsService getAccessRightsService() {
 		return accessRightsService;
@@ -94,7 +92,7 @@ public class AccessRightsManagement extends BaseMgmtBean implements Serializable
 		newAccessRights = new AccessRights();
 		auditTrail.log(SystemAuditTrailActivity.CREATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has Created Access Right " + newAccessRights.getAccessRights());	
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info",getExcptnMesProperty("info.accessRights.create")));
-		refresh.refreshPage();
+		new Refresh().refreshPage();
 	}catch(BSLException e){
 		FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
 		msg.setSeverity(FacesMessage.SEVERITY_ERROR);
@@ -145,6 +143,7 @@ public class AccessRightsManagement extends BaseMgmtBean implements Serializable
 			auditTrail.log(SystemAuditTrailActivity.CREATED, SystemAuditTrailLevel.INFO, getActorUsers().getId(), getActorUsers().getUsername(), getActorUsers().getUsername() + " has Deleted Access Right " + selectedAccessRights.getAccessRights());
 			setInsertDelete(true);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Info",getExcptnMesProperty("info.accessRights.delete")));
+			new Refresh().refreshPage();
 		}catch (BSLException e) {
 			FacesMessage msg = new FacesMessage("Error",getExcptnMesProperty(e.getMessage()));  
 			msg.setSeverity(FacesMessage.SEVERITY_ERROR); 
