@@ -25,11 +25,11 @@ public class RegisteredEmployeeEmailServiceImpl implements
 		String emailAddress = RegisteredEmployee.getPersonalEmailAddress();
 		String empName = RegisteredEmployee.getFullname();
 		String empUserName = RegisteredEmployee.getUsername();
+		String empPassword = RegisteredEmployee.getPassword();
 		String empPosition = RegisteredEmployee.getPosition();
 		String empWorkEmail = RegisteredEmployee.getWorkEmailAddress();
 		String empWorkPhone = RegisteredEmployee.getWorkPhoneNumber();
-		String registrationDate = RegisteredEmployee.getRegistrationDate()
-				.toString();
+		String registrationDate = RegisteredEmployee.getRegistrationDate().toString();
 
 		InputStream inputStream = getClass().getClassLoader()
 				.getResourceAsStream("emailtemplate/WelcomeEmail.html");
@@ -56,6 +56,8 @@ public class RegisteredEmployeeEmailServiceImpl implements
 				registrationDate.toString());
 		htmlEmailTemplate = htmlEmailTemplate.replace("##employeeName##",
 				empName.toString());
+		htmlEmailTemplate = htmlEmailTemplate.replace("##employeePassword##",
+				empPassword.toString());
 		htmlEmailTemplate = htmlEmailTemplate.replace("##employeeUserName##",
 				empUserName.toString());
 		htmlEmailTemplate = htmlEmailTemplate.replace("##employeePosition##",
@@ -77,7 +79,7 @@ public class RegisteredEmployeeEmailServiceImpl implements
 		}
 
 		// set email subject
-		email.setSubject("Welcome to Beans Group");
+		email.setSubject("Welcome to Beans Group !");
 
 		// set the html message
 		try {
@@ -156,7 +158,7 @@ public class RegisteredEmployeeEmailServiceImpl implements
 		}
 
 		// set email subject
-		email.setSubject("Welcome to Beans Group");
+		email.setSubject("Beans HRM Registration Rejected");
 
 		// set the html message
 		try {

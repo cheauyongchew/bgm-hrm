@@ -36,6 +36,7 @@ public class WelcomeEmailServiceTest {
 		RegisteredEmployee registeredEmployee = new RegisteredEmployee();
 		registeredEmployee.setRegistrationDate(date);
 		registeredEmployee.setFullname("Yeoh Seng Keat");
+		registeredEmployee.setPassword("test1");
 		registeredEmployee.setPosition("Junior Programmer");
 		registeredEmployee.setPersonalEmailAddress("kira_yamato5645@hotmail.com");
 		registeredEmployee.setWorkPhoneNumber("039056263");
